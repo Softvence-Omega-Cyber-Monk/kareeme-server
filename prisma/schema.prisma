@@ -26,24 +26,24 @@ model Client {
 }
 
 model SuperAdmin {
-  superAdminId              String   @id @default(uuid())
-  fullName                  String
-  email                     String   @unique
-  password                  String
-  role                      String   @default("SUPER_ADMIN")
-  createdAt                 DateTime @default(now())
-  updatedAt                 DateTime @updatedAt
+  superAdminId            String   @id @default(uuid())
+  fullName                String
+  email                   String   @unique
+  password                String
+  role                    String   @default("SUPER_ADMIN")
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
 }
 
 model Admin {
-  adminId                  String   @id @default(uuid())
-  fullName                 String
-  email                    String   @unique
-  password                 String
-  role                     String   @default("ADMIN")
-  givenAccess              String []
-  createdAt                DateTime @default(now())
-  updatedAt                DateTime @updatedAt
+  adminId                 String   @id @default(uuid())
+  fullName                String
+  email                   String   @unique
+  password                String
+  role                    String   @default("ADMIN")
+  givenAccess             String []
+  createdAt               DateTime @default(now())
+  updatedAt               DateTime @updatedAt
 }
 
 model Distributor {
