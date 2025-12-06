@@ -1,6 +1,5 @@
 generator client {
-  provider = "prisma-client"
-  output   = "../generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
@@ -64,4 +63,10 @@ model Accountant {
   role                    String   @default("ACCOUNTANT")
   createdAt               DateTime @default(now())
   updatedAt               DateTime @updatedAt
+}
+
+enum ReleaseType {
+  Single
+  Album
+  EP
 }
