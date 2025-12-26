@@ -50,7 +50,7 @@ services:
         sleep 5;
         npx prisma migrate deploy;
         echo '🚀 Starting app...';
-        npm run start
+        npm run start:prod
       "
     volumes:
       - files-data:/app/uploads
