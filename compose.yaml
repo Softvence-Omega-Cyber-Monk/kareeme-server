@@ -1,27 +1,4 @@
 services:
-  caddy:
-    profiles: ['prod']
-    image: caddy
-    container_name: ${PACKAGE_NAME}_caddy
-    restart: always
-    ports:
-      - '80:80'
-      - '443:443'
-    volumes:
-      - ./Caddyfile:/etc/caddy/Caddyfile
-      - /var/www/html:/var/www/html
-      - caddy_data:/data
-      - caddy_config:/config
-    depends_on:
-      api:
-        condition: service_healthy
-    healthcheck:
-      test: ['CMD-SHELL', 'caddy validate --config /etc/caddy/Caddyfile']
-      interval: 30s
-      timeout: 5s
-      retries: 3
-
-
   api:
     profiles: ['prod']
     platform: linux/amd64
