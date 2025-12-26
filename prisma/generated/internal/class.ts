@@ -12,13 +12,13 @@
  */
 
 import * as runtime from "@prisma/client/runtime/client"
-import type * as Prisma from "./prismaNamespace.js"
+import type * as Prisma from "./prismaNamespace"
 
 
 const config: runtime.GetPrismaClientConfig = {
   "previewFeatures": [],
-  "clientVersion": "7.1.0",
-  "engineVersion": "ab635e6b9d606fa5c8fb8b1a7f909c3c3c1c98ba",
+  "clientVersion": "7.2.0",
+  "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
   "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Client {\n  clientId                     String   @id @default(uuid())\n  fullName                     String\n  email                        String   @unique\n  password                     String\n  phoneNumber                  String?\n  profileImageUrl              String?\n  isNewReleaseAlertsOn         Boolean  @default(true)\n  isEarningAlertsOn            Boolean  @default(true)\n  isPlatformUpdatesOn          Boolean  @default(true)\n  role                         String   @default(\"CLIENT\")\n  defaultDistributionPlatforms String[]\n  defaultGenres                String[]\n  distributionTerritorys       String[]\n  createdAt                    DateTime @default(now())\n  updatedAt                    DateTime @updatedAt\n}\n\nmodel SuperAdmin {\n  superAdminId String   @id @default(uuid())\n  fullName     String\n  email        String   @unique\n  password     String\n  role         String   @default(\"SUPER_ADMIN\")\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\nmodel Admin {\n  adminId     String   @id @default(uuid())\n  fullName    String\n  email       String   @unique\n  password    String\n  role        String   @default(\"ADMIN\")\n  givenAccess String[]\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Distributor {\n  distributorId String   @id @default(uuid())\n  name          String\n  email         String   @unique\n  password      String\n  role          String   @default(\"DISTRIBUTOR\")\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel Accountant {\n  accountantId String   @id @default(uuid())\n  fullName     String\n  email        String   @unique\n  password     String\n  role         String   @default(\"ACCOUNTANT\")\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\nenum ReleaseType {\n  Single\n  Album\n  EP\n}\n",
   "runtimeDataModel": {
@@ -37,10 +37,10 @@ async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Modul
 }
 
 config.compilerWasm = {
-  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.mjs"),
+  getRuntime: async () => await import("@prisma/client/runtime/query_compiler_bg.postgresql.js"),
 
   getQueryCompilerWasmModule: async () => {
-    const { wasm } = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.mjs")
+    const { wasm } = await import("@prisma/client/runtime/query_compiler_bg.postgresql.wasm-base64.js")
     return await decodeBase64AsWasm(wasm)
   }
 }

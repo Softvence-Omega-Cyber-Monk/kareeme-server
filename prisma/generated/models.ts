@@ -8,9 +8,9 @@
  *
  * 🟢 You can import this file directly.
  */
-export type * from './models/Client.js'
-export type * from './models/SuperAdmin.js'
-export type * from './models/Admin.js'
-export type * from './models/Distributor.js'
-export type * from './models/Accountant.js'
-export type * from './commonInputTypes.js'
+export type * from './models/Client'
+export type * from './models/SuperAdmin'
+export type * from './models/Admin'
+export type * from './models/Distributor'
+export type * from './models/Accountant'
+export type * from './commonInputTypes'
