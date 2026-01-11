@@ -3,3 +3,15 @@ enum ReleaseType {
   Album
   EP
 }
+
+enum DistributionPlatform {
+  All
+  YouTubeMusic
+  Spotify
+  AppleMusic
+  SoundCloud
+  Tidal
+  Audiomack
+  Deezer
+  iHeartRadio
+}

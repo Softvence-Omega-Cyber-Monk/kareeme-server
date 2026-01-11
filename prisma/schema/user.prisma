@@ -2,23 +2,17 @@ model User {
   id String @id @default(uuid())
 
   // Identity
-  name     String @default("Unnamed User")
-  email    String @unique
+  name     String  @default("Unnamed User")
+  email    String  @unique
   password String // hashed password
   phone    String? @unique
 
   // Settings
-  role       UserRole   @default(USER)
-  status     UserStatus @default(ACTIVE)
-  isVerified Boolean    @default(false)
+  role   UserRole   @default(CLIENT)
+  status UserStatus @default(ACTIVE)
 
-  // // From Clients 
-  // defaultDistributionPlatforms String[]
-  // defaultGenres                String[]
-  // distributionTerritories      String[]
-
-  // // From Admin
-  // givenAccess String[] @default([])
+  isVerified   Boolean @default(false)
+  isTFAEnabled Boolean @default(false)
 
   // Activity
   lastLoginAt  DateTime?
@@ -30,12 +24,15 @@ model User {
   profilePicture    FileInstance? @relation(fields: [profilePictureId], references: [id], onDelete: SetNull)
 
   // Notifications Relations
-  notifications UserNotification[]
+  notifications        UserNotification[]
   notificationSettings NotificationSettings[]
-  
+
   // Auth Relations
   otps          UserOtp[]
   refreshTokens RefreshToken[]
+
+  // Settings Relations
+  clientSettings ClientSettings[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @default(now()) @updatedAt
@@ -44,12 +41,16 @@ model User {
 }
 
 enum UserRole {
+  // System
   SUPER_ADMIN
+
+  // Added by Super Admin (Each can be multiple)
   ADMIN
-  USER
-  CLIENT
   DISTRIBUTOR
   ACCOUNTANT
+
+  // Clients
+  CLIENT
 }
 
 enum UserStatus {
