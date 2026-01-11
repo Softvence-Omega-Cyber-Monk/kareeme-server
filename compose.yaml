@@ -59,6 +59,50 @@ services:
       timeout: 5s
       retries: 5
 
+  redis-master:
+    profiles: ['dev', 'prod']
+    image: redis
+    container_name: ${PACKAGE_NAME}_redis-master
+    command:
+      [
+        'redis-server',
+        '--appendonly',
+        'yes',
+        '--bind',
+        '0.0.0.0',
+        '--protected-mode',
+        'no',
+      ]
+    ports:
+      - '22376:6379'
+    healthcheck:
+      test: ['CMD', 'redis-cli', 'ping']
+      interval: 5s
+      timeout: 3s
+      retries: 5
+    restart: always
+
+  redis-replica:
+    profiles: ['prod']
+    image: redis
+    container_name: ${PACKAGE_NAME}_redis-replica
+    command:
+      [
+        'redis-server',
+        '--replicaof',
+        'redis-master',
+        '6379',
+        '--bind',
+        '0.0.0.0',
+        '--protected-mode',
+        'no',
+      ]
+    ports:
+      - '22377:6379'
+    depends_on:
+      - redis-master
+    restart: always
+
 volumes:
   db_data:
   files-data:

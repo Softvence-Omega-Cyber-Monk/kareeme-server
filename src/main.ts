@@ -1,71 +1,60 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import 'reflect-metadata';
+
 import { ValidationPipe } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
+import { NestFactory } from '@nestjs/core';
+import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
+import * as bodyParser from 'body-parser';
+import { AppModule } from './app.module';
+import { ENVEnum } from './common/enum/env.enum';
+import { AllExceptionsFilter } from './core/filter/http-exception.filter';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, { rawBody: true });
+  const configService = app.get(ConfigService);
 
-  // Enable CORS with specific configuration
+  // * enable cors
   app.enableCors({
-    origin: true,
+    origin: [
+      'http://localhost:3000',
+      'http://localhost:3001',
+      'http://localhost:3002',
+      'http://localhost:5173',
+      'http://localhost:5174',
+    ],
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: 'Content-Type, Accept, Authorization',
   });
 
-  // Enable global validation pipe
-  app.useGlobalPipes(
-    new ValidationPipe({
-      whitelist: true,
-      forbidNonWhitelisted: true,
-      transform: true,
-    })
-  );
+  // * add global pipes
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
 
-  // Swagger configuration
+  // * add global filters
+  app.useGlobalFilters(new AllExceptionsFilter());
+
+  // * Swagger config with Bearer Auth
   const config = new DocumentBuilder()
-    .setTitle('oneisone API')
-    .setDescription('The oneisone API description - Complete authentication and music distribution platform')
+    .setTitle('Backend API')
+    .setDescription('The API description')
     .setVersion('1.0')
-    .addTag('Authentication', 'Client authentication endpoints')
-    .addTag('oneisone')
-    .addBearerAuth(
-      {
-        type: 'http',
-        scheme: 'bearer',
-        bearerFormat: 'JWT',
-        name: 'JWT',
-        description: 'Enter JWT token',
-        in: 'header',
-      },
-      'JWT-auth',
-    )
+    .addBearerAuth()
     .build();
 
   const document = SwaggerModule.createDocument(app, config);
-  
-  SwaggerModule.setup('api', app, document, {
+  SwaggerModule.setup('docs', app, document, {
     swaggerOptions: {
       persistAuthorization: true,
-      tagsSorter: 'alpha',
-      operationsSorter: 'alpha',
     },
-    customSiteTitle: 'oneisone API Docs',
-    customfavIcon: 'https://nestjs.com/img/logo-small.svg',
-    customCss: '.swagger-ui .topbar { display: none }',
   });
 
-  const port = process.env.PORT ?? 3000;
+  // * add body parser
+  app.use(
+    '/path-to-stripe-webhook',
+    bodyParser.raw({ type: 'application/json' }),
+  );
+
+  // * set port
+  const port = parseInt(configService.get<string>(ENVEnum.PORT) ?? '3000', 10);
   await app.listen(port);
-  
-  console.log(`
-  ╔════════════════════════════════════════════════════════╗
-  ║                                                        ║
-  ║   🚀 Server is running on: http://localhost:${port}     ║
-  ║   📚 Swagger Docs: http://localhost:${port}/api         ║
-  ║                                                        ║
-  ╚════════════════════════════════════════════════════════╝
-  `);
 }
 bootstrap();

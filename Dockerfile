@@ -1,6 +1,9 @@
 # ====== BUILD STAGE ======
 FROM node:24-slim AS builder
 
+# Enable corepack and activate pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
+
 # Set working directory
 WORKDIR /app
 
@@ -8,21 +11,27 @@ WORKDIR /app
 RUN apt update && apt install -y openssl
 
 # Copy package, lock file & prisma folder
-COPY package*.json  ./
+COPY package.json pnpm-lock.yaml .npmrc ./
 COPY prisma.config.ts ./
 COPY prisma ./prisma
 
+# Allow pnpm to build packages
+RUN pnpm config set allowed-builds '*' -g
+
 # Install dependencies
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
 # Copy rest of the project files
 COPY . .
 
 # Build the app (NestJS -> dist/)
-RUN npm run build
+RUN pnpm build
 
 # ====== PRODUCTION STAGE ======
 FROM node:24-slim AS production
+
+# Enable corepack and activate pnpm
+RUN corepack enable && corepack prepare pnpm@latest --activate
 
 # Set working directory
 WORKDIR /app
@@ -32,16 +41,16 @@ RUN apt update && apt install -y openssl curl
 
 # Copy necessary files from builder stage
 COPY --from=builder /app/package.json ./package.json
-COPY --from=builder /app/package-lock.json ./package-lock.json
+COPY --from=builder /app/pnpm-lock.yaml ./pnpm-lock.yaml
 COPY --from=builder /app/dist ./dist
 COPY --from=builder /app/prisma.config.ts ./
 COPY --from=builder /app/prisma ./prisma
 
 # Install dependencies
-RUN npm install
+RUN pnpm install --frozen-lockfile
 
 # Expose the port
 EXPOSE 3000
 
 # Run the app
-CMD ["npm", "start:prod"]
+CMD ["pnpm", "start"]
