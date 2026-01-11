@@ -40,6 +40,7 @@ export class AuthLoginService {
       await this.authMailService.sendVerificationCodeEmail(
         user.email,
         otp.toString(),
+        'TFA_LOGIN',
         {
           subject: 'Two-Factor Authentication Code',
           message: 'Please enter this code to complete your login.',

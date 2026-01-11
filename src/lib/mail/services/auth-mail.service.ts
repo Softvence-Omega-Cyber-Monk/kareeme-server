@@ -1,4 +1,6 @@
+import { ENVEnum } from '@/common/enum/env.enum';
 import { Injectable } from '@nestjs/common';
+import { ConfigService } from '@nestjs/config';
 import * as he from 'he';
 import * as nodemailer from 'nodemailer';
 import { MailService } from '../mail.service';
@@ -12,7 +14,10 @@ interface EmailOptions {
 
 @Injectable()
 export class AuthMailService {
-  constructor(private readonly mailService: MailService) {}
+  constructor(
+    private readonly mailService: MailService,
+    private readonly configService: ConfigService,
+  ) {}
 
   private async sendEmail(
     to: string,
@@ -30,8 +35,17 @@ export class AuthMailService {
   async sendVerificationCodeEmail(
     to: string,
     code: string,
+    type: string,
     options: EmailOptions = {},
   ): Promise<nodemailer.SentMessageInfo> {
+    const link = `${this.configService.getOrThrow(
+      ENVEnum.FRONTEND_URL,
+    )}/verify?otp=${encodeURIComponent(code)}&email=${encodeURIComponent(
+      to,
+    )}&type=${encodeURIComponent(type)}`;
+
+    const safeLink = this.sanitize(link);
+
     const message = this.sanitize(options.message || 'Verify your account');
     const safeCode = this.sanitize(code);
     const subject = options.subject || 'Verification Code';
@@ -43,18 +57,28 @@ export class AuthMailService {
         title: '🔑 Verify Your Account',
         message,
         code: safeCode,
+        link: safeLink,
         footer:
           'If you didn’t request this code, you can safely ignore this email.',
       }),
-      `${message}\nYour verification code: ${code}`,
+      `${message}\nYour verification code: ${code}\nVerify here: ${link}`,
     );
   }
 
   async sendResetPasswordCodeEmail(
     to: string,
     code: string,
+    type: string,
     options: EmailOptions = {},
   ): Promise<nodemailer.SentMessageInfo> {
+    const link = `${this.configService.getOrThrow(
+      ENVEnum.FRONTEND_URL,
+    )}/verify?otp=${encodeURIComponent(code)}&email=${encodeURIComponent(
+      to,
+    )}&type=${encodeURIComponent(type)}`;
+
+    const safeLink = this.sanitize(link);
+
     const message = this.sanitize(options.message || 'Password Reset Request');
     const safeCode = this.sanitize(code);
     const subject = options.subject || 'Password Reset Code';
@@ -66,10 +90,11 @@ export class AuthMailService {
         title: '🔒 Password Reset Request',
         message,
         code: safeCode,
+        link: safeLink,
         footer:
           'If you didn’t request a password reset, you can safely ignore this email.',
       }),
-      `${message}\nYour password reset code: ${code}\n\nIf you did not request this, please ignore this email.`,
+      `${message}\nYour password reset code: ${code}\nLink: ${link}\n\nIf you did not request this, please ignore this email.`,
     );
   }
 
@@ -93,8 +118,17 @@ export class AuthMailService {
   async sendTFACodeEmail(
     to: string,
     code: string,
+    type: string,
     options: EmailOptions = {},
   ): Promise<nodemailer.SentMessageInfo> {
+    const link = `${this.configService.getOrThrow(
+      ENVEnum.FRONTEND_URL,
+    )}/verify?otp=${encodeURIComponent(code)}&email=${encodeURIComponent(
+      to,
+    )}&type=${encodeURIComponent(type)}`;
+
+    const safeLink = this.sanitize(link);
+
     const message = this.sanitize(
       options.message || 'Enable Two-Factor Authentication',
     );
@@ -108,10 +142,11 @@ export class AuthMailService {
         title: '🔐 Enable Two-Factor Authentication',
         message,
         code: safeCode,
+        link: safeLink,
         footer:
           "If you didn't request to enable TFA, please contact support immediately.",
       }),
-      `${message}\nYour TFA enablement code: ${code}`,
+      `${message}\nYour TFA enablement code: ${code}\nVerify here: ${link}`,
     );
   }
 }

@@ -2,11 +2,13 @@ export const otpTemplate = ({
   title,
   message,
   code,
+  link,
   footer,
 }: {
   title: string;
   message: string;
   code: string;
+  link: string;
   footer: string;
 }) => `
 <div style="font-family: Arial, sans-serif; background-color: #f4f4f7; padding: 30px;">
@@ -28,6 +30,14 @@ export const otpTemplate = ({
       <p style="font-size: 24px; font-weight: bold; color: #111; background-color: #f7f7f7; display: inline-block; padding: 12px 20px; border-radius: 6px; letter-spacing: 3px; border: 1px solid #ddd;">
         ${code}
       </p>
+    </div>
+
+    <!-- Link -->
+    <div style="text-align: center; margin-bottom: 25px;">
+      <a href="${link}" style="display: inline-block; background-color: #4CAF50; color: white; padding: 12px 24px; text-decoration: none; border-radius: 5px; font-weight: bold; font-size: 16px;">
+        Verify Now
+      </a>
+      <p style="font-size: 12px; color: #999; margin-top: 10px;">Or copy and paste this link: <br> <a href="${link}" style="color: #007bff;">${link}</a></p>
     </div>
 
     <!-- Footer -->

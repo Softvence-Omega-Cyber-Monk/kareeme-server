@@ -70,7 +70,11 @@ export class AuthPasswordService {
     const otp = await this.utils.generateOTPAndSave(user.id, OtpType.RESET);
 
     // Send OTP email
-    await this.mailService.sendResetPasswordCodeEmail(email, otp.toString());
+    await this.mailService.sendResetPasswordCodeEmail(
+      email,
+      otp.toString(),
+      OtpType.RESET,
+    );
 
     return successResponse(null, 'Password reset OTP sent');
   }

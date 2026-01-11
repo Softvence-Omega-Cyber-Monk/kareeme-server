@@ -46,6 +46,7 @@ export class AuthOtpService {
         await this.authMailService.sendVerificationCodeEmail(
           email,
           otp.toString(),
+          OtpType.VERIFICATION,
           {
             subject: 'Your OTP Code',
             message: `Here is your OTP code. It will expire in 5 minutes.`,
@@ -55,20 +56,27 @@ export class AuthOtpService {
         await this.authMailService.sendResetPasswordCodeEmail(
           email,
           otp.toString(),
+          OtpType.RESET,
           {
             subject: 'Your OTP Code',
             message: `Here is your OTP code. It will expire in 5 minutes.`,
           },
         );
       } else if (type === OtpType.TFA_ENABLE) {
-        await this.authMailService.sendTFACodeEmail(email, otp.toString(), {
-          subject: 'Enable Two-Factor Authentication',
-          message: `Here is your code to enable Two-Factor Authentication. It will expire in 5 minutes.`,
-        });
+        await this.authMailService.sendTFACodeEmail(
+          email,
+          otp.toString(),
+          OtpType.TFA_ENABLE,
+          {
+            subject: 'Enable Two-Factor Authentication',
+            message: `Here is your code to enable Two-Factor Authentication. It will expire in 5 minutes.`,
+          },
+        );
       } else if (type === OtpType.TFA_LOGIN) {
         await this.authMailService.sendVerificationCodeEmail(
           email,
           otp.toString(),
+          OtpType.TFA_LOGIN,
           {
             subject: 'Two-Factor Authentication Code',
             message: `Please enter this code to complete your login. It will expire in 5 minutes.`,
