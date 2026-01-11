@@ -7,6 +7,7 @@ import { PrismaService } from '@/lib/prisma/prisma.service';
 import { AuthUtilsService } from '@/lib/utils/services/auth-utils.service';
 import { Injectable } from '@nestjs/common';
 import { OtpType, Prisma } from '@prisma';
+import { Request } from 'express';
 import { ResendOtpDto, VerifyOTPDto } from '../dto/otp.dto';
 
 @Injectable()
@@ -81,6 +82,7 @@ export class AuthOtpService {
   async verifyOTP(
     dto: VerifyOTPDto,
     type: OtpType = OtpType.VERIFICATION,
+    req?: Request,
   ): Promise<TResponse<any>> {
     const { email, otp } = dto;
 
@@ -106,6 +108,11 @@ export class AuthOtpService {
     const isCorrectOtp = await this.utils.compare(otp, userOtp.code);
     if (!isCorrectOtp) throw new AppError(400, 'Invalid OTP');
 
+    // Capture device info if request is provided
+    const deviceId = req
+      ? await this.utils.handleDeviceTracking(user.id, req)
+      : undefined;
+
     // 3. OTP verified -> delete OTP
     await this.prisma.client.userOtp.deleteMany({
       where: { userId: user.id, type },
@@ -127,11 +134,14 @@ export class AuthOtpService {
     });
 
     // 5. Generate token
-    const token = await this.utils.generateTokenPairAndSave({
-      sub: updatedUser.id,
-      email: updatedUser.email,
-      role: updatedUser.role,
-    });
+    const token = await this.utils.generateTokenPairAndSave(
+      {
+        sub: updatedUser.id,
+        email: updatedUser.email,
+        role: updatedUser.role,
+      },
+      deviceId,
+    );
 
     return successResponse(
       {

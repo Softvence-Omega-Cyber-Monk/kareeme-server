@@ -9,6 +9,7 @@ import { OtpType, User } from '@prisma';
 import * as bcrypt from 'bcrypt';
 import { plainToInstance } from 'class-transformer';
 import { randomBytes, randomInt } from 'crypto';
+import { UAParser } from 'ua-parser-js';
 
 @Injectable()
 export class AuthUtilsService {
@@ -39,7 +40,71 @@ export class AuthUtilsService {
     return token;
   }
 
-  async generateTokenPairAndSave(payload: JWTPayload): Promise<TokenPair> {
+  parseUserAgent(userAgent: string) {
+    const parser = new UAParser(userAgent);
+    const result = parser.getResult();
+
+    return {
+      browser: result.browser.name,
+      os: result.os.name,
+      deviceType: result.device.type || 'desktop',
+      userAgent,
+    };
+  }
+
+  async handleDeviceTracking(
+    userId: string,
+    reqOrUserAgent?: string | any,
+    ip?: string,
+  ) {
+    let userAgentString: string | undefined;
+    let finalIp: string | undefined = ip;
+
+    if (typeof reqOrUserAgent === 'object' && reqOrUserAgent !== null) {
+      // It's a Request object
+      userAgentString = reqOrUserAgent.headers['user-agent'];
+      const ipRaw =
+        reqOrUserAgent.ip || reqOrUserAgent.headers['x-forwarded-for'];
+      finalIp =
+        typeof ipRaw === 'string'
+          ? ipRaw
+          : Array.isArray(ipRaw)
+            ? ipRaw[0]
+            : undefined;
+    } else {
+      userAgentString = reqOrUserAgent;
+    }
+
+    if (!userAgentString) return undefined;
+
+    const deviceInfo = this.parseUserAgent(userAgentString);
+
+    const device = await this.prisma.client.loginDevice.upsert({
+      where: {
+        userId_userAgent: {
+          userId,
+          userAgent: userAgentString,
+        },
+      },
+      create: {
+        userId,
+        ipAddress: finalIp,
+        ...deviceInfo,
+      },
+      update: {
+        ipAddress: finalIp,
+        lastLoginAt: new Date(),
+        isActive: true,
+      },
+    });
+
+    return device.id;
+  }
+
+  async generateTokenPairAndSave(
+    payload: JWTPayload,
+    deviceId?: string,
+  ): Promise<TokenPair> {
     const accessToken = this.generateToken(payload);
 
     const refreshToken = randomBytes(
@@ -54,6 +119,7 @@ export class AuthUtilsService {
       data: {
         token: refreshToken,
         userId: payload.sub,
+        deviceId,
         expiresAt: refreshTokenExpiresAt,
       },
     });

@@ -29,6 +29,14 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       throw new UnauthorizedException('User not found');
     }
 
+    if (user.status !== 'ACTIVE') {
+      throw new UnauthorizedException('User is inactive');
+    }
+
+    if (!user.lastLoginAt) {
+      throw new UnauthorizedException('User is not logged in');
+    }
+
     // Update lastActiveAt on each request
     await this.prisma.client.user.update({
       where: { id: payload.sub },

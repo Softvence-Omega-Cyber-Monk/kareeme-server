@@ -26,6 +26,12 @@ export class AuthLogoutService {
     // Delete the provided refresh token (logout)
     await this.utils.revokeAllRefreshTokensForUser(userId);
 
+    // Remove lastLoginAt to force re-verification on next login
+    await this.prisma.client.user.update({
+      where: { id: userId },
+      data: { lastLoginAt: null },
+    });
+
     return successResponse(null, 'Logout successful');
   }
 
@@ -60,11 +66,14 @@ export class AuthLogoutService {
     await this.utils.revokeRefreshToken(dto.refreshToken);
 
     // Generate new access + refresh tokens
-    const tokenPair = await this.utils.generateTokenPairAndSave({
-      sub: user.id,
-      email: user.email,
-      role: user.role,
-    });
+    const tokenPair = await this.utils.generateTokenPairAndSave(
+      {
+        sub: user.id,
+        email: user.email,
+        role: user.role,
+      },
+      tokenRecord.deviceId ?? undefined,
+    );
 
     return successResponse(tokenPair, 'Token refreshed successfully');
   }

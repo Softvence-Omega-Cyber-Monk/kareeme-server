@@ -25,6 +25,7 @@ model LoginDevice {
   // Refresh Tokens associated with this device
   refreshTokens RefreshToken[]
 
+  @@unique([userId, userAgent])
   @@index([userId])
   @@map("login_devices")
 }

@@ -5,6 +5,7 @@ import { AuthMailService } from '@/lib/mail/services/auth-mail.service';
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import { AuthUtilsService } from '@/lib/utils/services/auth-utils.service';
 import { Injectable } from '@nestjs/common';
+import { Request } from 'express';
 import { LoginDto } from '../dto/login.dto';
 
 @Injectable()
@@ -16,7 +17,7 @@ export class AuthLoginService {
   ) {}
 
   @HandleError('Login failed', 'User')
-  async login(dto: LoginDto): Promise<TResponse<any>> {
+  async login(dto: LoginDto, req: Request): Promise<TResponse<any>> {
     const { email, password } = dto;
 
     const user = await this.prisma.client.user.findUniqueOrThrow({
@@ -27,6 +28,9 @@ export class AuthLoginService {
     if (!isPasswordCorrect) {
       throw new AppError(400, 'Invalid password');
     }
+
+    // Capture device info
+    const deviceId = await this.utils.handleDeviceTracking(user.id, req);
 
     // Two scenarios:
     // 1. If TFA is enabled, send OTP for verification
@@ -54,11 +58,14 @@ export class AuthLoginService {
     });
 
     // 3. Generate token
-    const token = await this.utils.generateTokenPairAndSave({
-      email,
-      role: updatedUser.role,
-      sub: updatedUser.id,
-    });
+    const token = await this.utils.generateTokenPairAndSave(
+      {
+        email,
+        role: updatedUser.role,
+        sub: updatedUser.id,
+      },
+      deviceId,
+    );
 
     return successResponse(
       {

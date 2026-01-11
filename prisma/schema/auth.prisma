@@ -35,4 +35,5 @@ model RefreshToken {
 enum OtpType {
   VERIFICATION
   RESET
+  TFA_ENABLE
 }

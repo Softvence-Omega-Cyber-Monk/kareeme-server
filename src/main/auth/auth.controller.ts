@@ -5,6 +5,7 @@ import {
   Get,
   Patch,
   Post,
+  Req,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -15,6 +16,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
+import { Request } from 'express';
 import { LoginDto } from './dto/login.dto';
 import { LogoutDto, RefreshTokenDto } from './dto/logout.dto';
 import { ResendOtpDto, VerifyOTPDto } from './dto/otp.dto';
@@ -54,8 +56,8 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Verify OTP after Registration or Login' })
   @Post('verify-otp')
-  async verifyEmail(@Body() body: VerifyOTPDto) {
-    return this.authOtpService.verifyOTP(body);
+  async verifyEmail(@Body() body: VerifyOTPDto, @Req() req: Request) {
+    return this.authOtpService.verifyOTP(body, undefined, req);
   }
 
   @ApiOperation({ summary: 'Resend OTP to Email' })
@@ -66,8 +68,8 @@ export class AuthController {
 
   @ApiOperation({ summary: 'User Login' })
   @Post('login')
-  async login(@Body() body: LoginDto) {
-    return this.authLoginService.login(body);
+  async login(@Body() body: LoginDto, @Req() req: Request) {
+    return this.authLoginService.login(body, req);
   }
 
   @ApiOperation({ summary: 'User Logout' })

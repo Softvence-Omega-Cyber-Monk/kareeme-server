@@ -270,6 +270,7 @@ export type LoginDeviceOrderByWithRelationInput = {
 
 export type LoginDeviceWhereUniqueInput = Prisma.AtLeast<{
   id?: string
+  userId_userAgent?: Prisma.LoginDeviceUserIdUserAgentCompoundUniqueInput
   AND?: Prisma.LoginDeviceWhereInput | Prisma.LoginDeviceWhereInput[]
   OR?: Prisma.LoginDeviceWhereInput[]
   NOT?: Prisma.LoginDeviceWhereInput | Prisma.LoginDeviceWhereInput[]
@@ -287,7 +288,7 @@ export type LoginDeviceWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"LoginDevice"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   refreshTokens?: Prisma.RefreshTokenListRelationFilter
-}, "id">
+}, "id" | "userId_userAgent">
 
 export type LoginDeviceOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -445,6 +446,11 @@ export type LoginDeviceUncheckedUpdateManyInput = {
 export type LoginDeviceNullableScalarRelationFilter = {
   is?: Prisma.LoginDeviceWhereInput | null
   isNot?: Prisma.LoginDeviceWhereInput | null
+}
+
+export type LoginDeviceUserIdUserAgentCompoundUniqueInput = {
+  userId: string
+  userAgent: string
 }
 
 export type LoginDeviceCountOrderByAggregateInput = {
