@@ -1,5 +1,7 @@
 import { Module } from '@nestjs/common';
-import { AuthController } from './auth.controller';
+import { AuthAdminController } from './controllers/auth-admin.controller';
+import { AuthController } from './controllers/auth.controller';
+import { AuthAdminService } from './services/auth-admin.service';
 import { AuthGetProfileService } from './services/auth-get-profile.service';
 import { AuthLoginService } from './services/auth-login.service';
 import { AuthLogoutService } from './services/auth-logout.service';
@@ -10,7 +12,7 @@ import { AuthUpdateProfileService } from './services/auth-update-profile.service
 
 @Module({
   imports: [],
-  controllers: [AuthController],
+  controllers: [AuthController, AuthAdminController],
   providers: [
     AuthRegisterService,
     AuthLoginService,
@@ -19,6 +21,7 @@ import { AuthUpdateProfileService } from './services/auth-update-profile.service
     AuthPasswordService,
     AuthGetProfileService,
     AuthUpdateProfileService,
+    AuthAdminService,
   ],
 })
 export class AuthModule {}

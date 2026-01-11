@@ -17,23 +17,23 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { Request } from 'express';
-import { LoginDto } from './dto/login.dto';
-import { LogoutDto, RefreshTokenDto } from './dto/logout.dto';
-import { ResendOtpDto, VerifyOTPDto } from './dto/otp.dto';
+import { LoginDto } from '../dto/login.dto';
+import { LogoutDto, RefreshTokenDto } from '../dto/logout.dto';
+import { ResendOtpDto, VerifyOTPDto } from '../dto/otp.dto';
 import {
   ChangePasswordDto,
   ForgotPasswordDto,
   ResetPasswordDto,
-} from './dto/password.dto';
-import { RegisterDto } from './dto/register.dto';
-import { UpdateProfileDto } from './dto/update-profile.dto';
-import { AuthGetProfileService } from './services/auth-get-profile.service';
-import { AuthLoginService } from './services/auth-login.service';
-import { AuthLogoutService } from './services/auth-logout.service';
-import { AuthOtpService } from './services/auth-otp.service';
-import { AuthPasswordService } from './services/auth-password.service';
-import { AuthRegisterService } from './services/auth-register.service';
-import { AuthUpdateProfileService } from './services/auth-update-profile.service';
+} from '../dto/password.dto';
+import { RegisterDto } from '../dto/register.dto';
+import { UpdateProfileDto } from '../dto/update-profile.dto';
+import { AuthGetProfileService } from '../services/auth-get-profile.service';
+import { AuthLoginService } from '../services/auth-login.service';
+import { AuthLogoutService } from '../services/auth-logout.service';
+import { AuthOtpService } from '../services/auth-otp.service';
+import { AuthPasswordService } from '../services/auth-password.service';
+import { AuthRegisterService } from '../services/auth-register.service';
+import { AuthUpdateProfileService } from '../services/auth-update-profile.service';
 
 @ApiTags('Auth')
 @Controller('auth')

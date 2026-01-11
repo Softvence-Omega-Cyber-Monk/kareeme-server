@@ -4,6 +4,7 @@ import { ConfigService } from '@nestjs/config';
 import * as he from 'he';
 import * as nodemailer from 'nodemailer';
 import { MailService } from '../mail.service';
+import { adminInvitationTemplate } from '../templates/admin-invite.template';
 import { otpTemplate } from '../templates/otp.template';
 import { passwordResetConfirmationTemplate } from '../templates/reset-password-confirm.template';
 
@@ -73,7 +74,7 @@ export class AuthMailService {
   ): Promise<nodemailer.SentMessageInfo> {
     const link = `${this.configService.getOrThrow(
       ENVEnum.FRONTEND_URL,
-    )}/verify?otp=${encodeURIComponent(code)}&email=${encodeURIComponent(
+    )}/reset?otp=${encodeURIComponent(code)}&email=${encodeURIComponent(
       to,
     )}&type=${encodeURIComponent(type)}`;
 
@@ -147,6 +148,33 @@ export class AuthMailService {
           "If you didn't request to enable TFA, please contact support immediately.",
       }),
       `${message}\nYour TFA enablement code: ${code}\nVerify here: ${link}`,
+    );
+  }
+
+  async sendAdminInvitationEmail(
+    to: string,
+    name: string,
+    password: string,
+    options: EmailOptions = {},
+  ): Promise<nodemailer.SentMessageInfo> {
+    const link = this.configService.getOrThrow(ENVEnum.FRONTEND_URL);
+    const safeLink = this.sanitize(link);
+
+    const message = this.sanitize(
+      options.message || 'You have been invited to join the team.',
+    );
+    const subject = options.subject || 'Admin Invitation';
+
+    return this.sendEmail(
+      to,
+      subject,
+      adminInvitationTemplate(
+        this.sanitize(name),
+        this.sanitize(to),
+        this.sanitize(password),
+        safeLink,
+      ),
+      `${message}\nEmail: ${to}\nPassword: ${password}\nLogin here: ${link}`,
     );
   }
 }
