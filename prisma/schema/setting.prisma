@@ -1,3 +1,25 @@
+model GlobalSettings {
+  id String @id @default(uuid())
+
+  emailNotificationsOn Boolean @default(true)
+  smsNotificationsOn   Boolean @default(false)
+  pushNotificationsOn  Boolean @default(false)
+
+  tfaOn Boolean @default(false)
+  passwordPolicyOn Boolean @default(false)
+
+  ipBlockList String[] @default([])
+
+  autoDistributionOn Boolean @default(true)
+
+  defaultDistributionPlatforms DistributionPlatform[] @default([All])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("global_settings")
+}
+
 model ClientSettings {
   id String @id @default(uuid())
 
@@ -13,3 +35,4 @@ model ClientSettings {
 
   @@map("client_settings")
 }
+

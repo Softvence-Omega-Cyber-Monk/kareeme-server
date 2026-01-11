@@ -34,20 +34,6 @@ model UserNotification {
   @@map("user_notifications")
 }
 
-// Global settings applicable to all users by default
-model GlobalNotificationSettings {
-  id String @id @default(uuid())
-
-  emailNotificationsOn Boolean @default(true)
-  smsNotificationsOn   Boolean @default(false)
-  pushNotificationsOn  Boolean @default(false)
-
-  createdAt DateTime @default(now())
-  updatedAt DateTime @default(now()) @updatedAt
-
-  @@map("global_notification_settings")
-}
-
 model NotificationSettings {
   id String @id @default(uuid())
 
