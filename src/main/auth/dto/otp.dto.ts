@@ -29,10 +29,19 @@ export class VerifyOTPDto {
   @IsNotEmpty()
   otp: string;
 
-  @ApiPropertyOptional({
+  @ApiProperty({
     example: 'john@gmail.com',
     description: 'Email address',
   })
   @IsEmail()
   email: string;
+
+  @ApiProperty({
+    example: OtpType.VERIFICATION,
+    description: 'OTP type',
+    enum: OtpType,
+  })
+  @IsNotEmpty()
+  @IsEnum(OtpType)
+  type: OtpType;
 }

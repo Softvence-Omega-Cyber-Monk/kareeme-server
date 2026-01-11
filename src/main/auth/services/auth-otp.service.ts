@@ -51,15 +51,27 @@ export class AuthOtpService {
             message: `Here is your OTP code. It will expire in 5 minutes.`,
           },
         );
-      }
-
-      if (type === OtpType.RESET) {
+      } else if (type === OtpType.RESET) {
         await this.authMailService.sendResetPasswordCodeEmail(
           email,
           otp.toString(),
           {
             subject: 'Your OTP Code',
             message: `Here is your OTP code. It will expire in 5 minutes.`,
+          },
+        );
+      } else if (type === OtpType.TFA_ENABLE) {
+        await this.authMailService.sendTFACodeEmail(email, otp.toString(), {
+          subject: 'Enable Two-Factor Authentication',
+          message: `Here is your code to enable Two-Factor Authentication. It will expire in 5 minutes.`,
+        });
+      } else if (type === OtpType.TFA_LOGIN) {
+        await this.authMailService.sendVerificationCodeEmail(
+          email,
+          otp.toString(),
+          {
+            subject: 'Two-Factor Authentication Code',
+            message: `Please enter this code to complete your login. It will expire in 5 minutes.`,
           },
         );
       }
@@ -79,12 +91,8 @@ export class AuthOtpService {
   }
 
   @HandleError('OTP verification failed', 'User')
-  async verifyOTP(
-    dto: VerifyOTPDto,
-    type: OtpType = OtpType.VERIFICATION,
-    req?: Request,
-  ): Promise<TResponse<any>> {
-    const { email, otp } = dto;
+  async verifyOTP(dto: VerifyOTPDto, req?: Request): Promise<TResponse<any>> {
+    const { email, otp, type } = dto;
 
     // 1. Find user
     const user = await this.prisma.client.user.findUnique({ where: { email } });
@@ -108,21 +116,46 @@ export class AuthOtpService {
     const isCorrectOtp = await this.utils.compare(otp, userOtp.code);
     if (!isCorrectOtp) throw new AppError(400, 'Invalid OTP');
 
-    // Capture device info if request is provided
-    const deviceId = req
-      ? await this.utils.handleDeviceTracking(user.id, req)
-      : undefined;
-
     // 3. OTP verified -> delete OTP
     await this.prisma.client.userOtp.deleteMany({
       where: { userId: user.id, type },
     });
 
-    // 4. Mark user verified if verification OTP
+    // Handle different OTP types
+    if (type === OtpType.RESET) {
+      // For password reset, just confirm OTP is valid
+      // The actual password reset happens in a separate endpoint
+      return successResponse(
+        { email: user.email },
+        'OTP verified successfully. You can now reset your password.',
+      );
+    }
+
+    if (type === OtpType.TFA_ENABLE) {
+      // Enable TFA for the user
+      const updatedUser = await this.prisma.client.user.update({
+        where: { id: user.id },
+        data: { isTFAEnabled: true },
+        include: { profilePicture: true },
+      });
+
+      return successResponse(
+        { user: await this.utils.sanitizeUser<UserResponseDto>(updatedUser) },
+        'Two-Factor Authentication enabled successfully.',
+      );
+    }
+
+    // For VERIFICATION and TFA_LOGIN: log the user in with device tracking
+    const deviceId = req
+      ? await this.utils.handleDeviceTracking(user.id, req)
+      : undefined;
+
     const updateData: Prisma.UserUpdateInput = {
       lastLoginAt: new Date(),
       lastActiveAt: new Date(),
     };
+
+    // Only mark as verified for VERIFICATION type
     if (type === OtpType.VERIFICATION) {
       updateData.isVerified = true;
     }
@@ -133,7 +166,7 @@ export class AuthOtpService {
       include: { profilePicture: true },
     });
 
-    // 5. Generate token
+    // Generate token for login
     const token = await this.utils.generateTokenPairAndSave(
       {
         sub: updatedUser.id,
@@ -143,12 +176,17 @@ export class AuthOtpService {
       deviceId,
     );
 
+    const message =
+      type === OtpType.TFA_LOGIN
+        ? 'Two-factor authentication successful. You are now logged in.'
+        : 'Email verified successfully. You are now logged in.';
+
     return successResponse(
       {
         user: await this.utils.sanitizeUser<UserResponseDto>(updatedUser),
         token,
       },
-      'OTP verified successfully',
+      message,
     );
   }
 }

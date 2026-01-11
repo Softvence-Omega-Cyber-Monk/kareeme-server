@@ -12,7 +12,8 @@
 export const OtpType = {
   VERIFICATION: 'VERIFICATION',
   RESET: 'RESET',
-  TFA_ENABLE: 'TFA_ENABLE'
+  TFA_ENABLE: 'TFA_ENABLE',
+  TFA_LOGIN: 'TFA_LOGIN'
 } as const
 
 export type OtpType = (typeof OtpType)[keyof typeof OtpType]

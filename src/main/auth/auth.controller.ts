@@ -54,14 +54,22 @@ export class AuthController {
     return this.authRegisterService.register(body);
   }
 
-  @ApiOperation({ summary: 'Verify OTP after Registration or Login' })
+  @ApiOperation({
+    summary: 'Verify OTP',
+    description:
+      'Verify OTP for different flows: VERIFICATION (email verification after registration), TFA_LOGIN (complete login with 2FA), TFA_ENABLE (enable 2FA), or RESET (password reset verification)',
+  })
   @Post('verify-otp')
-  async verifyEmail(@Body() body: VerifyOTPDto, @Req() req: Request) {
-    return this.authOtpService.verifyOTP(body, undefined, req);
+  async verifyOtp(@Body() body: VerifyOTPDto, @Req() req: Request) {
+    return this.authOtpService.verifyOTP(body, req);
   }
 
-  @ApiOperation({ summary: 'Resend OTP to Email' })
-  @Post('resend-otp')
+  @ApiOperation({
+    summary: 'Request OTP',
+    description:
+      'Request OTP code for any flow: VERIFICATION, TFA_LOGIN, TFA_ENABLE, or RESET',
+  })
+  @Post('request-otp')
   async resendOtp(@Body() body: ResendOtpDto) {
     return this.authOtpService.resendOtp(body);
   }

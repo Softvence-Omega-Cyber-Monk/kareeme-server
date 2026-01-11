@@ -35,15 +35,19 @@ export class AuthLoginService {
     // Two scenarios:
     // 1. If TFA is enabled, send OTP for verification
     if (user.isTFAEnabled) {
-      const otp = await this.utils.generateOTPAndSave(user.id, 'VERIFICATION');
+      const otp = await this.utils.generateOTPAndSave(user.id, 'TFA_LOGIN');
 
       await this.authMailService.sendVerificationCodeEmail(
         user.email,
         otp.toString(),
+        {
+          subject: 'Two-Factor Authentication Code',
+          message: 'Please enter this code to complete your login.',
+        },
       );
 
       return successResponse(
-        { email: user.email },
+        { email: user.email, requiresTFA: true },
         'TFA is enabled. A verification OTP has been sent to your email.',
       );
     }

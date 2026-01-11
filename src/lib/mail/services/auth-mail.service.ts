@@ -89,4 +89,29 @@ export class AuthMailService {
       message,
     );
   }
+
+  async sendTFACodeEmail(
+    to: string,
+    code: string,
+    options: EmailOptions = {},
+  ): Promise<nodemailer.SentMessageInfo> {
+    const message = this.sanitize(
+      options.message || 'Enable Two-Factor Authentication',
+    );
+    const safeCode = this.sanitize(code);
+    const subject = options.subject || 'Enable Two-Factor Authentication';
+
+    return this.sendEmail(
+      to,
+      subject,
+      otpTemplate({
+        title: '🔐 Enable Two-Factor Authentication',
+        message,
+        code: safeCode,
+        footer:
+          "If you didn't request to enable TFA, please contact support immediately.",
+      }),
+      `${message}\nYour TFA enablement code: ${code}`,
+    );
+  }
 }
