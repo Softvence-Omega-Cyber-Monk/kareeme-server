@@ -69,7 +69,6 @@ export class AuthUpdateProfileService {
         }),
         ...(dto.phone !== undefined && { phone: normalizedPhone }),
       },
-      include: { profilePicture: true },
     });
 
     return successResponse(

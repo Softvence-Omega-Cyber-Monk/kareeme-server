@@ -41,6 +41,8 @@ export class AuthRegisterService {
         name,
         phone: normalizedPhone,
         password: await this.utils.hash(password),
+        clientSettings: { create: {} },
+        notificationSettings: { create: {} },
       },
     });
 

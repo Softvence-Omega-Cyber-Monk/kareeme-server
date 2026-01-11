@@ -116,7 +116,7 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Update profile' })
   @ApiBearerAuth()
-  @Patch(':id')
+  @Patch()
   @ValidateAuth()
   @ApiConsumes('multipart/form-data')
   @UseInterceptors(FileInterceptor('image'))

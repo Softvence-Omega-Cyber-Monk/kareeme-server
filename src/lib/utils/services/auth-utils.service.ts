@@ -5,7 +5,7 @@ import { PrismaService } from '@/lib/prisma/prisma.service';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { JwtService } from '@nestjs/jwt';
-import { FileInstance, OtpType, User } from '@prisma';
+import { OtpType, User } from '@prisma';
 import * as bcrypt from 'bcrypt';
 import { plainToInstance } from 'class-transformer';
 import { randomBytes, randomInt } from 'crypto';
@@ -22,23 +22,10 @@ export class AuthUtilsService {
     private readonly prisma: PrismaService,
   ) {}
 
-  async sanitizeUser<T = UserResponseDto>(
-    user: User & { profilePicture?: FileInstance | null },
-  ): Promise<T> {
+  async sanitizeUser<T = UserResponseDto>(user: User): Promise<T> {
     if (!user) return null as T;
 
-    const profilePictureUrl =
-      user?.profilePictureId && user?.profilePicture
-        ? (user.profilePicture.url ?? null)
-        : null;
-
-    const flatData = {
-      ...user,
-      profilePictureId: user?.profilePictureId ?? null,
-      profilePictureUrl,
-    };
-
-    return plainToInstance(UserResponseDto, flatData, {
+    return plainToInstance(UserResponseDto, user, {
       excludeExtraneousValues: true,
     }) as T;
   }

@@ -27,20 +27,24 @@ export class AuthGetProfileService {
     const user = await this.prisma.client.user.findUniqueOrThrow({
       where,
       include: {
-        notifications: true,
-        profilePicture: true,
+        clientSettings: true,
+        loginDevices: true,
+        notificationSettings: true,
       },
     });
 
     // Extract only the main user fields
-    const { notifications, ...mainUser } = user;
+    const { clientSettings, loginDevices, notificationSettings, ...mainUser } =
+      user;
 
     const sanitizedUser = await this.authUtils.sanitizeUser(mainUser);
 
     // Rebuild the full object: sanitized user + full raw relations
     const data = {
       ...sanitizedUser,
-      notifications,
+      clientSettings,
+      loginDevices,
+      notificationSettings,
     };
 
     return successResponse(data, 'User data fetched successfully');

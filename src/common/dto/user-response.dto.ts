@@ -12,6 +12,9 @@ export class UserResponseDto {
   @Expose()
   email: string;
 
+  @Expose()
+  phone?: string;
+
   // ===== Settings =====
   @Expose()
   role: UserRole;
@@ -22,6 +25,9 @@ export class UserResponseDto {
   @Expose()
   isVerified: boolean;
 
+  @Expose()
+  isTFAEnabled?: boolean;
+
   // ===== Logout / activity tracking =====
   @Expose()
   lastLoginAt?: Date;
@@ -31,13 +37,7 @@ export class UserResponseDto {
 
   // ===== Avatar =====
   @Expose()
-  profilePictureId?: string;
-
-  @Expose()
   profilePictureUrl?: string;
-
-  @Expose()
-  avatarUrl?: string;
 
   // ===== Meta =====
   @Expose()
