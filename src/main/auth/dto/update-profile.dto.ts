@@ -14,4 +14,12 @@ export class UpdateProfileDto {
   })
   @IsOptional()
   image?: Express.Multer.File;
+
+  @ApiPropertyOptional({
+    example: '+1234567890',
+    description: 'Optional phone number',
+  })
+  @IsOptional()
+  @IsString()
+  phone?: string;
 }

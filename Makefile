@@ -6,15 +6,11 @@ PACKAGE_VERSION=latest
 # Docker image name
 APP_IMAGE := $(DOCKER_USERNAME)/$(PACKAGE_NAME):$(PACKAGE_VERSION)
 
-# Compose files
+# Files
 COMPOSE_FILE := compose.yaml
-DEV_COMPOSE_FILE := compose.dev.yaml
-
-# Docker files
 DOCKERFILE := Dockerfile
-DEV_DOCKERFILE := Dockerfile.dev
 
-.PHONY: help build up start stop restart logs logs-api clean push ps dev-up dev-stop dev-logs dev-clean dev-ps local-up local-down local images volumes networks
+.PHONY: help build up start stop restart logs logs-api clean push ps local-up local-down local images volumes networks
 
 help:
 	@echo "Available commands:"
@@ -30,13 +26,6 @@ help:
 	@echo "  make clean             Remove containers, networks, volumes"
 	@echo "  make push              Push image to Docker Hub"
 	@echo "  make ps                List production containers"
-	@echo ""
-	@echo "Development Commands (dev-* - Full Docker):"
-	@echo "  make dev-up            Start full Docker dev environment (detached)"
-	@echo "  make dev-stop          Stop Docker dev environment"
-	@echo "  make dev-logs          Show logs from Docker dev environment"
-	@echo "  make dev-clean         Clean Docker dev environment (remove volumes)"
-	@echo "  make dev-ps            List development containers"
 	@echo ""
 	@echo "Local Development Commands (local-* - Hybrid):"
 	@echo "  make local-up          Start dependencies (DB, Redis) only"
@@ -84,27 +73,6 @@ push:
 
 ps:
 	docker compose -f $(COMPOSE_FILE) --profile prod ps -a
-
-# ==========================================
-# Development Commands (Full Docker)
-# ==========================================
-dev-build:
-	docker compose -f $(DEV_COMPOSE_FILE) build
-
-dev-up:
-	docker compose -f $(DEV_COMPOSE_FILE) up -d
-
-dev-stop:
-	docker compose -f $(DEV_COMPOSE_FILE) down
-
-dev-logs:
-	docker compose -f $(DEV_COMPOSE_FILE) logs -f
-
-dev-clean:
-	docker compose -f $(DEV_COMPOSE_FILE) down --volumes --remove-orphans
-
-dev-ps:
-	docker compose -f $(DEV_COMPOSE_FILE) ps -a
 
 # ==========================================
 # Local Development Commands (Hybrid)

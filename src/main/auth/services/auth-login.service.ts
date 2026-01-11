@@ -28,8 +28,9 @@ export class AuthLoginService {
       throw new AppError(400, 'Invalid password');
     }
 
-    // 1. Email verification
-    if (!user.isVerified) {
+    // Two scenarios:
+    // 1. If TFA is enabled, send OTP for verification
+    if (user.isTFAEnabled) {
       const otp = await this.utils.generateOTPAndSave(user.id, 'VERIFICATION');
 
       await this.authMailService.sendVerificationCodeEmail(
@@ -39,7 +40,7 @@ export class AuthLoginService {
 
       return successResponse(
         { email: user.email },
-        'Your email is not verified. A new OTP has been sent to your email.',
+        'TFA is enabled. A verification OTP has been sent to your email.',
       );
     }
 

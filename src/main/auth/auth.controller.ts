@@ -1,5 +1,4 @@
 import { GetUser, ValidateAuth } from '@/core/jwt/jwt.decorator';
-import { MulterService } from '@/lib/file/services/multer.service';
 import {
   Body,
   Controller,
@@ -16,7 +15,6 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { FileType } from '@prisma';
 import { LoginDto } from './dto/login.dto';
 import { LogoutDto, RefreshTokenDto } from './dto/logout.dto';
 import { ResendOtpDto, VerifyOTPDto } from './dto/otp.dto';
@@ -121,12 +119,7 @@ export class AuthController {
   @Patch(':id')
   @ValidateAuth()
   @ApiConsumes('multipart/form-data')
-  @UseInterceptors(
-    FileInterceptor(
-      'image',
-      new MulterService().createMulterOptions('./temp', 'temp', FileType.image),
-    ),
-  )
+  @UseInterceptors(FileInterceptor('image'))
   update(
     @GetUser('sub') id: string,
     @Body() dto: UpdateProfileDto,

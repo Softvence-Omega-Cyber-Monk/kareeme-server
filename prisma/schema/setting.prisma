@@ -5,7 +5,7 @@ model GlobalSettings {
   smsNotificationsOn   Boolean @default(false)
   pushNotificationsOn  Boolean @default(false)
 
-  tfaOn Boolean @default(false)
+  tfaOn            Boolean @default(false)
   passwordPolicyOn Boolean @default(false)
 
   ipBlockList String[] @default([])
@@ -35,4 +35,3 @@ model ClientSettings {
 
   @@map("client_settings")
 }
-

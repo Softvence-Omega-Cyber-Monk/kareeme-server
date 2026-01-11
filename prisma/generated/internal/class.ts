@@ -20,7 +20,7 @@ const config: runtime.GetPrismaClientConfig = {
   "clientVersion": "7.2.0",
   "engineVersion": "0c8ef2ce45c83248ab3df073180d5eda9e8be7a3",
   "activeProvider": "postgresql",
-  "inlineSchema": "generator client {\n  provider = \"prisma-client\"\n  output   = \"./generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel Client {\n  clientId                     String   @id @default(uuid())\n  fullName                     String\n  email                        String   @unique\n  password                     String\n  phoneNumber                  String?\n  profileImageUrl              String?\n  isNewReleaseAlertsOn         Boolean  @default(true)\n  isEarningAlertsOn            Boolean  @default(true)\n  isPlatformUpdatesOn          Boolean  @default(true)\n  role                         String   @default(\"CLIENT\")\n  defaultDistributionPlatforms String[]\n  defaultGenres                String[]\n  distributionTerritorys       String[]\n  createdAt                    DateTime @default(now())\n  updatedAt                    DateTime @updatedAt\n}\n\nmodel SuperAdmin {\n  superAdminId String   @id @default(uuid())\n  fullName     String\n  email        String   @unique\n  password     String\n  role         String   @default(\"SUPER_ADMIN\")\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\nmodel Admin {\n  adminId     String   @id @default(uuid())\n  fullName    String\n  email       String   @unique\n  password    String\n  role        String   @default(\"ADMIN\")\n  givenAccess String[]\n  createdAt   DateTime @default(now())\n  updatedAt   DateTime @updatedAt\n}\n\nmodel Distributor {\n  distributorId String   @id @default(uuid())\n  name          String\n  email         String   @unique\n  password      String\n  role          String   @default(\"DISTRIBUTOR\")\n  createdAt     DateTime @default(now())\n  updatedAt     DateTime @updatedAt\n}\n\nmodel Accountant {\n  accountantId String   @id @default(uuid())\n  fullName     String\n  email        String   @unique\n  password     String\n  role         String   @default(\"ACCOUNTANT\")\n  createdAt    DateTime @default(now())\n  updatedAt    DateTime @updatedAt\n}\n\nenum ReleaseType {\n  Single\n  Album\n  EP\n}\n",
+  "inlineSchema": "model UserOtp {\n  id String @id @default(uuid())\n\n  code String // hashed OTP\n  type OtpType\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String\n\n  expiresAt DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@index([userId])\n  @@map(\"user_otps\")\n}\n\nmodel RefreshToken {\n  id    String @id @default(uuid())\n  token String @unique\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String\n\n  device   LoginDevice? @relation(fields: [deviceId], references: [id], onDelete: SetNull)\n  deviceId String?\n\n  expiresAt DateTime\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"refresh_tokens\")\n}\n\nenum OtpType {\n  VERIFICATION\n  RESET\n}\n\nenum ReleaseType {\n  Single\n  Album\n  EP\n}\n\nenum DistributionPlatform {\n  All\n  YouTubeMusic\n  Spotify\n  AppleMusic\n  SoundCloud\n  Tidal\n  Audiomack\n  Deezer\n  iHeartRadio\n}\n\nmodel FileInstance {\n  id String @id @default(uuid())\n\n  filename         String\n  originalFilename String\n  path             String\n  url              String\n  fileType         FileType @default(any)\n  mimeType         String\n  size             Int\n\n  users User[]\n\n  // Add this relation\n  mergeJob VideoMergeJob?\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"file_instances\")\n}\n\nenum FileType {\n  image\n  docs\n  link\n  document\n  any\n  video\n  audio\n}\n\nmodel VideoMergeJob {\n  id String @id @default(uuid())\n\n  jobId         String   @unique // AWS MediaConvert Job ID\n  outputUrl     String // S3 URL of the merged video\n  outputFileId  String?  @unique // Reference to FileInstance after merge completes\n  status        String   @default(\"SUBMITTED\") // SUBMITTED, PROGRESSING, COMPLETE, ERROR, CANCELED\n  errorMessage  String? // Store error details if job fails\n  sourceFileIds String[] // Array of FileInstance IDs that were merged\n\n  outputFile FileInstance? @relation(fields: [outputFileId], references: [id], onDelete: SetNull)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"video_merge_jobs\")\n}\n\nmodel LoginDevice {\n  id String @id @default(uuid())\n\n  userId String\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n\n  // Device Info\n  browser    String?\n  os         String?\n  deviceType String? // desktop, mobile, tablet\n  ipAddress  String?\n  userAgent  String?\n\n  // Location (optional)\n  city    String?\n  country String?\n\n  // Activity\n  lastLoginAt DateTime @default(now())\n  isActive    Boolean  @default(true)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  // Refresh Tokens associated with this device\n  refreshTokens RefreshToken[]\n\n  @@index([userId])\n  @@map(\"login_devices\")\n}\n\nmodel Notification {\n  id String @id @default(uuid())\n\n  type    String\n  title   String\n  message String\n\n  // Use JSON to store metadata\n  meta Json\n\n  users UserNotification[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"notifications\")\n}\n\nmodel UserNotification {\n  id String @id @default(uuid())\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String\n\n  notification   Notification @relation(fields: [notificationId], references: [id], onDelete: Cascade)\n  notificationId String\n\n  read Boolean @default(false)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@unique([userId, notificationId])\n  @@map(\"user_notifications\")\n}\n\nmodel NotificationSettings {\n  id String @id @default(uuid())\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String @unique\n\n  // Clients only can customize these settings\n  isNewReleaseAlertsOn Boolean @default(true)\n  isEarningAlertsOn    Boolean @default(true)\n  isPlatformUpdatesOn  Boolean @default(true)\n\n  // Toggles for specific channels\n  emailNotificationsOn Boolean @default(true)\n  smsNotificationsOn   Boolean @default(true)\n  pushNotificationsOn  Boolean @default(true)\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"notification_settings\")\n}\n\ngenerator client {\n  provider = \"prisma-client\"\n  output   = \"../generated\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n}\n\nmodel GlobalSettings {\n  id String @id @default(uuid())\n\n  emailNotificationsOn Boolean @default(true)\n  smsNotificationsOn   Boolean @default(false)\n  pushNotificationsOn  Boolean @default(false)\n\n  tfaOn            Boolean @default(false)\n  passwordPolicyOn Boolean @default(false)\n\n  ipBlockList String[] @default([])\n\n  autoDistributionOn Boolean @default(true)\n\n  defaultDistributionPlatforms DistributionPlatform[] @default([All])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"global_settings\")\n}\n\nmodel ClientSettings {\n  id String @id @default(uuid())\n\n  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)\n  userId String @unique\n\n  defaultDistributionPlatforms DistributionPlatform[] @default([All])\n  defaultGenres                String[]               @default([])\n  distributionTerritories      String[]               @default([])\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"client_settings\")\n}\n\nmodel User {\n  id String @id @default(uuid())\n\n  // Identity\n  name     String  @default(\"Unnamed User\")\n  email    String  @unique\n  password String // hashed password\n  phone    String? @unique\n\n  // Settings\n  role   UserRole   @default(CLIENT)\n  status UserStatus @default(ACTIVE)\n\n  isVerified   Boolean @default(false)\n  isTFAEnabled Boolean @default(false)\n\n  // Activity\n  lastLoginAt  DateTime?\n  lastActiveAt DateTime?\n\n  // Avatar\n  profilePictureUrl String?\n  profilePictureId  String?\n  profilePicture    FileInstance? @relation(fields: [profilePictureId], references: [id], onDelete: SetNull)\n\n  // Notifications Relations\n  notifications        UserNotification[]\n  notificationSettings NotificationSettings[]\n\n  // Auth Relations\n  otps          UserOtp[]\n  refreshTokens RefreshToken[]\n\n  // Settings Relations\n  clientSettings ClientSettings[]\n  loginDevices   LoginDevice[]\n\n  createdAt DateTime @default(now())\n  updatedAt DateTime @default(now()) @updatedAt\n\n  @@map(\"users\")\n}\n\nenum UserRole {\n  // System\n  SUPER_ADMIN\n\n  // Added by Super Admin (Each can be multiple)\n  ADMIN\n  DISTRIBUTOR\n  ACCOUNTANT\n\n  // Clients\n  CLIENT\n}\n\nenum UserStatus {\n  ACTIVE\n  INACTIVE\n  DELETED\n}\n",
   "runtimeDataModel": {
     "models": {},
     "enums": {},
@@ -28,7 +28,7 @@ const config: runtime.GetPrismaClientConfig = {
   }
 }
 
-config.runtimeDataModel = JSON.parse("{\"models\":{\"Client\":{\"fields\":[{\"name\":\"clientId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phoneNumber\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profileImageUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isNewReleaseAlertsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isEarningAlertsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isPlatformUpdatesOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"defaultDistributionPlatforms\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"defaultGenres\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"distributionTerritorys\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"SuperAdmin\":{\"fields\":[{\"name\":\"superAdminId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Admin\":{\"fields\":[{\"name\":\"adminId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"givenAccess\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Distributor\":{\"fields\":[{\"name\":\"distributorId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null},\"Accountant\":{\"fields\":[{\"name\":\"accountantId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fullName\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":null}},\"enums\":{},\"types\":{}}")
+config.runtimeDataModel = JSON.parse("{\"models\":{\"UserOtp\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"code\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"enum\",\"type\":\"OtpType\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserOtp\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"user_otps\"},\"RefreshToken\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"token\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"RefreshTokenToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"device\",\"kind\":\"object\",\"type\":\"LoginDevice\",\"relationName\":\"LoginDeviceToRefreshToken\"},{\"name\":\"deviceId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"expiresAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"refresh_tokens\"},\"FileInstance\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"filename\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"originalFilename\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"path\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"url\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"fileType\",\"kind\":\"enum\",\"type\":\"FileType\"},{\"name\":\"mimeType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"size\",\"kind\":\"scalar\",\"type\":\"Int\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"FileInstanceToUser\"},{\"name\":\"mergeJob\",\"kind\":\"object\",\"type\":\"VideoMergeJob\",\"relationName\":\"FileInstanceToVideoMergeJob\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"file_instances\"},\"VideoMergeJob\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"jobId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"outputUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"outputFileId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"status\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"errorMessage\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"sourceFileIds\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"outputFile\",\"kind\":\"object\",\"type\":\"FileInstance\",\"relationName\":\"FileInstanceToVideoMergeJob\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"video_merge_jobs\"},\"LoginDevice\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"LoginDeviceToUser\"},{\"name\":\"browser\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"os\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"deviceType\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"ipAddress\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"userAgent\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"city\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"country\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"lastLoginAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"isActive\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"refreshTokens\",\"kind\":\"object\",\"type\":\"RefreshToken\",\"relationName\":\"LoginDeviceToRefreshToken\"}],\"dbName\":\"login_devices\"},\"Notification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"type\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"title\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"message\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"meta\",\"kind\":\"scalar\",\"type\":\"Json\"},{\"name\":\"users\",\"kind\":\"object\",\"type\":\"UserNotification\",\"relationName\":\"NotificationToUserNotification\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"notifications\"},\"UserNotification\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"UserToUserNotification\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"notification\",\"kind\":\"object\",\"type\":\"Notification\",\"relationName\":\"NotificationToUserNotification\"},{\"name\":\"notificationId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"read\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"user_notifications\"},\"NotificationSettings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"NotificationSettingsToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"isNewReleaseAlertsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isEarningAlertsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isPlatformUpdatesOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"emailNotificationsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"smsNotificationsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"pushNotificationsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"notification_settings\"},\"GlobalSettings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"emailNotificationsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"smsNotificationsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"pushNotificationsOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"tfaOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"passwordPolicyOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"ipBlockList\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"autoDistributionOn\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"defaultDistributionPlatforms\",\"kind\":\"enum\",\"type\":\"DistributionPlatform\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"global_settings\"},\"ClientSettings\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"user\",\"kind\":\"object\",\"type\":\"User\",\"relationName\":\"ClientSettingsToUser\"},{\"name\":\"userId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"defaultDistributionPlatforms\",\"kind\":\"enum\",\"type\":\"DistributionPlatform\"},{\"name\":\"defaultGenres\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"distributionTerritories\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"client_settings\"},\"User\":{\"fields\":[{\"name\":\"id\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"name\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"email\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"password\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"phone\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"role\",\"kind\":\"enum\",\"type\":\"UserRole\"},{\"name\":\"status\",\"kind\":\"enum\",\"type\":\"UserStatus\"},{\"name\":\"isVerified\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"isTFAEnabled\",\"kind\":\"scalar\",\"type\":\"Boolean\"},{\"name\":\"lastLoginAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"lastActiveAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"profilePictureUrl\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profilePictureId\",\"kind\":\"scalar\",\"type\":\"String\"},{\"name\":\"profilePicture\",\"kind\":\"object\",\"type\":\"FileInstance\",\"relationName\":\"FileInstanceToUser\"},{\"name\":\"notifications\",\"kind\":\"object\",\"type\":\"UserNotification\",\"relationName\":\"UserToUserNotification\"},{\"name\":\"notificationSettings\",\"kind\":\"object\",\"type\":\"NotificationSettings\",\"relationName\":\"NotificationSettingsToUser\"},{\"name\":\"otps\",\"kind\":\"object\",\"type\":\"UserOtp\",\"relationName\":\"UserToUserOtp\"},{\"name\":\"refreshTokens\",\"kind\":\"object\",\"type\":\"RefreshToken\",\"relationName\":\"RefreshTokenToUser\"},{\"name\":\"clientSettings\",\"kind\":\"object\",\"type\":\"ClientSettings\",\"relationName\":\"ClientSettingsToUser\"},{\"name\":\"loginDevices\",\"kind\":\"object\",\"type\":\"LoginDevice\",\"relationName\":\"LoginDeviceToUser\"},{\"name\":\"createdAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"},{\"name\":\"updatedAt\",\"kind\":\"scalar\",\"type\":\"DateTime\"}],\"dbName\":\"users\"}},\"enums\":{},\"types\":{}}")
 
 async function decodeBase64AsWasm(wasmBase64: string): Promise<WebAssembly.Module> {
   const { Buffer } = await import('node:buffer')
@@ -58,8 +58,8 @@ export interface PrismaClientConstructor {
    * @example
    * ```
    * const prisma = new PrismaClient()
-   * // Fetch zero or more Clients
-   * const clients = await prisma.client.findMany()
+   * // Fetch zero or more UserOtps
+   * const userOtps = await prisma.userOtp.findMany()
    * ```
    * 
    * Read more in our [docs](https://pris.ly/d/client).
@@ -80,8 +80,8 @@ export interface PrismaClientConstructor {
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Clients
- * const clients = await prisma.client.findMany()
+ * // Fetch zero or more UserOtps
+ * const userOtps = await prisma.userOtp.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -175,54 +175,114 @@ export interface PrismaClient<
   }>>
 
       /**
-   * `prisma.client`: Exposes CRUD operations for the **Client** model.
+   * `prisma.userOtp`: Exposes CRUD operations for the **UserOtp** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Clients
-    * const clients = await prisma.client.findMany()
+    * // Fetch zero or more UserOtps
+    * const userOtps = await prisma.userOtp.findMany()
     * ```
     */
-  get client(): Prisma.ClientDelegate<ExtArgs, { omit: OmitOpts }>;
+  get userOtp(): Prisma.UserOtpDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.superAdmin`: Exposes CRUD operations for the **SuperAdmin** model.
+   * `prisma.refreshToken`: Exposes CRUD operations for the **RefreshToken** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more SuperAdmins
-    * const superAdmins = await prisma.superAdmin.findMany()
+    * // Fetch zero or more RefreshTokens
+    * const refreshTokens = await prisma.refreshToken.findMany()
     * ```
     */
-  get superAdmin(): Prisma.SuperAdminDelegate<ExtArgs, { omit: OmitOpts }>;
+  get refreshToken(): Prisma.RefreshTokenDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.admin`: Exposes CRUD operations for the **Admin** model.
+   * `prisma.fileInstance`: Exposes CRUD operations for the **FileInstance** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Admins
-    * const admins = await prisma.admin.findMany()
+    * // Fetch zero or more FileInstances
+    * const fileInstances = await prisma.fileInstance.findMany()
     * ```
     */
-  get admin(): Prisma.AdminDelegate<ExtArgs, { omit: OmitOpts }>;
+  get fileInstance(): Prisma.FileInstanceDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.distributor`: Exposes CRUD operations for the **Distributor** model.
+   * `prisma.videoMergeJob`: Exposes CRUD operations for the **VideoMergeJob** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Distributors
-    * const distributors = await prisma.distributor.findMany()
+    * // Fetch zero or more VideoMergeJobs
+    * const videoMergeJobs = await prisma.videoMergeJob.findMany()
     * ```
     */
-  get distributor(): Prisma.DistributorDelegate<ExtArgs, { omit: OmitOpts }>;
+  get videoMergeJob(): Prisma.VideoMergeJobDelegate<ExtArgs, { omit: OmitOpts }>;
 
   /**
-   * `prisma.accountant`: Exposes CRUD operations for the **Accountant** model.
+   * `prisma.loginDevice`: Exposes CRUD operations for the **LoginDevice** model.
     * Example usage:
     * ```ts
-    * // Fetch zero or more Accountants
-    * const accountants = await prisma.accountant.findMany()
+    * // Fetch zero or more LoginDevices
+    * const loginDevices = await prisma.loginDevice.findMany()
     * ```
     */
-  get accountant(): Prisma.AccountantDelegate<ExtArgs, { omit: OmitOpts }>;
+  get loginDevice(): Prisma.LoginDeviceDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.notification`: Exposes CRUD operations for the **Notification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Notifications
+    * const notifications = await prisma.notification.findMany()
+    * ```
+    */
+  get notification(): Prisma.NotificationDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.userNotification`: Exposes CRUD operations for the **UserNotification** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more UserNotifications
+    * const userNotifications = await prisma.userNotification.findMany()
+    * ```
+    */
+  get userNotification(): Prisma.UserNotificationDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.notificationSettings`: Exposes CRUD operations for the **NotificationSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more NotificationSettings
+    * const notificationSettings = await prisma.notificationSettings.findMany()
+    * ```
+    */
+  get notificationSettings(): Prisma.NotificationSettingsDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.globalSettings`: Exposes CRUD operations for the **GlobalSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more GlobalSettings
+    * const globalSettings = await prisma.globalSettings.findMany()
+    * ```
+    */
+  get globalSettings(): Prisma.GlobalSettingsDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.clientSettings`: Exposes CRUD operations for the **ClientSettings** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more ClientSettings
+    * const clientSettings = await prisma.clientSettings.findMany()
+    * ```
+    */
+  get clientSettings(): Prisma.ClientSettingsDelegate<ExtArgs, { omit: OmitOpts }>;
+
+  /**
+   * `prisma.user`: Exposes CRUD operations for the **User** model.
+    * Example usage:
+    * ```ts
+    * // Fetch zero or more Users
+    * const users = await prisma.user.findMany()
+    * ```
+    */
+  get user(): Prisma.UserDelegate<ExtArgs, { omit: OmitOpts }>;
 }
 
 export function getPrismaClientClass(): PrismaClientConstructor {

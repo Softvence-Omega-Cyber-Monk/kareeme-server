@@ -21,6 +21,7 @@ async function bootstrap() {
       'http://localhost:3002',
       'http://localhost:5173',
       'http://localhost:5174',
+      'https://oneisoneent.com',
     ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
     credentials: true,
@@ -34,8 +35,10 @@ async function bootstrap() {
 
   // * Swagger config with Bearer Auth
   const config = new DocumentBuilder()
-    .setTitle('Backend API')
-    .setDescription('The API description')
+    .setTitle('oneisone API')
+    .setDescription(
+      'The oneisone API description - Complete authentication and music distribution platform',
+    )
     .setVersion('1.0')
     .addBearerAuth()
     .build();

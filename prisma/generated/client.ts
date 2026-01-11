@@ -27,8 +27,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more Clients
- * const clients = await prisma.client.findMany()
+ * // Fetch zero or more UserOtps
+ * const userOtps = await prisma.userOtp.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -38,27 +38,57 @@ export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts exten
 export { Prisma }
 
 /**
- * Model Client
+ * Model UserOtp
  * 
  */
-export type Client = Prisma.ClientModel
+export type UserOtp = Prisma.UserOtpModel
 /**
- * Model SuperAdmin
+ * Model RefreshToken
  * 
  */
-export type SuperAdmin = Prisma.SuperAdminModel
+export type RefreshToken = Prisma.RefreshTokenModel
 /**
- * Model Admin
+ * Model FileInstance
  * 
  */
-export type Admin = Prisma.AdminModel
+export type FileInstance = Prisma.FileInstanceModel
 /**
- * Model Distributor
+ * Model VideoMergeJob
  * 
  */
-export type Distributor = Prisma.DistributorModel
+export type VideoMergeJob = Prisma.VideoMergeJobModel
 /**
- * Model Accountant
+ * Model LoginDevice
  * 
  */
-export type Accountant = Prisma.AccountantModel
+export type LoginDevice = Prisma.LoginDeviceModel
+/**
+ * Model Notification
+ * 
+ */
+export type Notification = Prisma.NotificationModel
+/**
+ * Model UserNotification
+ * 
+ */
+export type UserNotification = Prisma.UserNotificationModel
+/**
+ * Model NotificationSettings
+ * 
+ */
+export type NotificationSettings = Prisma.NotificationSettingsModel
+/**
+ * Model GlobalSettings
+ * 
+ */
+export type GlobalSettings = Prisma.GlobalSettingsModel
+/**
+ * Model ClientSettings
+ * 
+ */
+export type ClientSettings = Prisma.ClientSettingsModel
+/**
+ * Model User
+ * 
+ */
+export type User = Prisma.UserModel

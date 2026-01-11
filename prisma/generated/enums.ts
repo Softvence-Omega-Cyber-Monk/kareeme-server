@@ -9,6 +9,14 @@
 * 🟢 You can import this file directly.
 */
 
+export const OtpType = {
+  VERIFICATION: 'VERIFICATION',
+  RESET: 'RESET'
+} as const
+
+export type OtpType = (typeof OtpType)[keyof typeof OtpType]
+
+
 export const ReleaseType = {
   Single: 'Single',
   Album: 'Album',
@@ -16,3 +24,51 @@ export const ReleaseType = {
 } as const
 
 export type ReleaseType = (typeof ReleaseType)[keyof typeof ReleaseType]
+
+
+export const DistributionPlatform = {
+  All: 'All',
+  YouTubeMusic: 'YouTubeMusic',
+  Spotify: 'Spotify',
+  AppleMusic: 'AppleMusic',
+  SoundCloud: 'SoundCloud',
+  Tidal: 'Tidal',
+  Audiomack: 'Audiomack',
+  Deezer: 'Deezer',
+  iHeartRadio: 'iHeartRadio'
+} as const
+
+export type DistributionPlatform = (typeof DistributionPlatform)[keyof typeof DistributionPlatform]
+
+
+export const FileType = {
+  image: 'image',
+  docs: 'docs',
+  link: 'link',
+  document: 'document',
+  any: 'any',
+  video: 'video',
+  audio: 'audio'
+} as const
+
+export type FileType = (typeof FileType)[keyof typeof FileType]
+
+
+export const UserRole = {
+  SUPER_ADMIN: 'SUPER_ADMIN',
+  ADMIN: 'ADMIN',
+  DISTRIBUTOR: 'DISTRIBUTOR',
+  ACCOUNTANT: 'ACCOUNTANT',
+  CLIENT: 'CLIENT'
+} as const
+
+export type UserRole = (typeof UserRole)[keyof typeof UserRole]
+
+
+export const UserStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  DELETED: 'DELETED'
+} as const
+
+export type UserStatus = (typeof UserStatus)[keyof typeof UserStatus]
