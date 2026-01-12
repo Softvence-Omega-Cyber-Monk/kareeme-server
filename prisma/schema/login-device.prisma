@@ -1,0 +1,31 @@
+model LoginDevice {
+  id String @id @default(uuid())
+
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  // Device Info
+  browser    String?
+  os         String?
+  deviceType String? // desktop, mobile, tablet
+  ipAddress  String?
+  userAgent  String?
+
+  // Location (optional)
+  city    String?
+  country String?
+
+  // Activity
+  lastLoginAt DateTime @default(now())
+  isActive    Boolean  @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  // Refresh Tokens associated with this device
+  refreshTokens RefreshToken[]
+
+  @@unique([userId, userAgent])
+  @@index([userId])
+  @@map("login_devices")
+}
