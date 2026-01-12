@@ -6,6 +6,7 @@ import {
   Patch,
   Post,
   Req,
+  Res,
   UploadedFile,
   UseInterceptors,
 } from '@nestjs/common';
@@ -16,7 +17,7 @@ import {
   ApiOperation,
   ApiTags,
 } from '@nestjs/swagger';
-import { Request } from 'express';
+import { Request, Response } from 'express';
 import { LoginDto } from '../dto/login.dto';
 import { LogoutDto, RefreshTokenDto } from '../dto/logout.dto';
 import { ResendOtpDto, VerifyOTPDto } from '../dto/otp.dto';
@@ -60,8 +61,22 @@ export class AuthController {
       'Verify OTP for different flows: VERIFICATION (email verification after registration), TFA_LOGIN (complete login with 2FA), TFA_ENABLE (enable 2FA), or RESET (password reset verification)',
   })
   @Post('verify-otp')
-  async verifyOtp(@Body() body: VerifyOTPDto, @Req() req: Request) {
-    return this.authOtpService.verifyOTP(body, req);
+  async verifyOtp(
+    @Body() body: VerifyOTPDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.authOtpService.verifyOTP(body, req);
+
+    if (result.data?.token?.accessToken && result.data?.token?.refreshToken) {
+      this.setCookies(
+        res,
+        result.data.token.accessToken,
+        result.data.token.refreshToken,
+      );
+    }
+
+    return result;
   }
 
   @ApiOperation({
@@ -76,21 +91,50 @@ export class AuthController {
 
   @ApiOperation({ summary: 'User Login' })
   @Post('login')
-  async login(@Body() body: LoginDto, @Req() req: Request) {
-    return this.authLoginService.login(body, req);
+  async login(
+    @Body() body: LoginDto,
+    @Req() req: Request,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.authLoginService.login(body, req);
+
+    if (result.data?.tokens?.accessToken && result.data?.tokens?.refreshToken) {
+      this.setCookies(
+        res,
+        result.data.tokens.accessToken,
+        result.data.tokens.refreshToken,
+      );
+    }
+
+    return result;
   }
 
   @ApiOperation({ summary: 'User Logout' })
   @ApiBearerAuth()
   @Post('logout')
   @ValidateAuth()
-  async logOut(@GetUser('sub') userId: string, @Body() dto: LogoutDto) {
+  async logOut(
+    @GetUser('sub') userId: string,
+    @Body() dto: LogoutDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    res.clearCookie('token');
+    res.clearCookie('refreshToken');
     return this.authLogoutService.logout(userId, dto);
   }
 
   @Post('refresh')
-  async refresh(@Body() dto: RefreshTokenDto) {
-    return this.authLogoutService.refresh(dto);
+  async refresh(
+    @Body() dto: RefreshTokenDto,
+    @Res({ passthrough: true }) res: Response,
+  ) {
+    const result = await this.authLogoutService.refresh(dto);
+
+    if (result.data?.accessToken && result.data?.refreshToken) {
+      this.setCookies(res, result.data.accessToken, result.data.refreshToken);
+    }
+
+    return result;
   }
 
   @ApiOperation({ summary: 'Change Password' })
@@ -118,7 +162,7 @@ export class AuthController {
 
   @ApiOperation({ summary: 'Get User Profile' })
   @ApiBearerAuth()
-  @Get('profile')
+  @Get('me')
   @ValidateAuth()
   async getProfile(@GetUser('sub') userId: string) {
     return this.authGetProfileService.getProfile(userId);
@@ -136,5 +180,22 @@ export class AuthController {
     @UploadedFile() file?: Express.Multer.File,
   ) {
     return this.authUpdateProfileService.updateProfile(id, dto, file);
+  }
+
+  private setCookies(res: Response, accessToken: string, refreshToken: string) {
+    res.cookie('token', accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax', // Use lax for better compatibility
+      path: '/',
+    });
+
+    res.cookie('refreshToken', refreshToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      path: '/',
+      expires: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000), // 30 days
+    });
   }
 }

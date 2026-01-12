@@ -75,7 +75,9 @@ export class AuthLoginService {
     return successResponse(
       {
         user: await this.utils.sanitizeUser(updatedUser),
-        token,
+        token: token,
+        access_token: token.accessToken,
+        refresh_token: token.refreshToken,
       },
       'Logged in successfully',
     );
