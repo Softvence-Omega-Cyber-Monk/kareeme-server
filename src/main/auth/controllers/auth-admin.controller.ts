@@ -46,7 +46,7 @@ export class AuthAdminController {
   @ApiOperation({ summary: 'Change user role' })
   @Patch(':id/role')
   @ValidateSuperAdmin()
-  async changeRole(@Param('id') id: string, @Body() dto: AdminRoleDto) {
+  async changeRole(@Param('id') id: string, @Query() dto: AdminRoleDto) {
     return this.authAdminService.changeRole(id, dto);
   }
 

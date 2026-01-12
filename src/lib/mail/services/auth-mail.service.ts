@@ -157,7 +157,7 @@ export class AuthMailService {
     password: string,
     options: EmailOptions = {},
   ): Promise<nodemailer.SentMessageInfo> {
-    const link = this.configService.getOrThrow(ENVEnum.FRONTEND_URL);
+    const link = `${this.configService.getOrThrow(ENVEnum.FRONTEND_URL)}/login`;
     const safeLink = this.sanitize(link);
 
     const message = this.sanitize(

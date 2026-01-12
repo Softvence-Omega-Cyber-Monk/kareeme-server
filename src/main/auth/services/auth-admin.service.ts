@@ -46,6 +46,21 @@ export class AuthAdminService {
         where,
         skip,
         take: limit,
+        select: {
+          id: true,
+          name: true,
+          email: true,
+          phone: true,
+          role: true,
+          status: true,
+          isVerified: true,
+          isTFAEnabled: true,
+          lastLoginAt: true,
+          lastActiveAt: true,
+          profilePictureUrl: true,
+          createdAt: true,
+          updatedAt: true,
+        },
         orderBy: { createdAt: 'desc' },
       }),
       this.prisma.client.user.count({
@@ -54,7 +69,7 @@ export class AuthAdminService {
     ]);
 
     return successPaginatedResponse(
-      team.map((admin) => this.authUtils.sanitizeUser(admin)),
+      team,
       { page, limit, total },
       'Admins fetched successfully',
     );
