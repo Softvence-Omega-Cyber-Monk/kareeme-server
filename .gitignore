@@ -11,7 +11,7 @@ pnpm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 lerna-debug.log*
-*.pem
+
 # OS
 .DS_Store
 
@@ -41,18 +41,34 @@ lerna-debug.log*
 .env.test.local
 .env.production.local
 .env.local
+.env.production
 
 # temp directory
 .temp
 .tmp
+
+# uploads directory
+uploads
+temp
 
 # Runtime data
 pids
 *.pid
 *.seed
 *.pid.lock
+*.pem
 
 # Diagnostic reports (https://nodejs.org/api/report.html)
 report.[0-9]*.[0-9]*.[0-9]*.[0-9]*.json
 
-/generated/prisma
+logs
+.pnpm-store
+
+# temp dir
+temp
+tmp
+
+# Ignore temporary/generated JSON files only
+*.log.json
+report.*.json
+coverage.json

@@ -51,11 +51,17 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
-  Client: 'Client',
-  SuperAdmin: 'SuperAdmin',
-  Admin: 'Admin',
-  Distributor: 'Distributor',
-  Accountant: 'Accountant'
+  UserOtp: 'UserOtp',
+  RefreshToken: 'RefreshToken',
+  FileInstance: 'FileInstance',
+  VideoMergeJob: 'VideoMergeJob',
+  LoginDevice: 'LoginDevice',
+  Notification: 'Notification',
+  UserNotification: 'UserNotification',
+  NotificationSettings: 'NotificationSettings',
+  GlobalSettings: 'GlobalSettings',
+  ClientSettings: 'ClientSettings',
+  User: 'User'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -74,78 +80,172 @@ export const TransactionIsolationLevel = {
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
 
 
-export const ClientScalarFieldEnum = {
-  clientId: 'clientId',
-  fullName: 'fullName',
-  email: 'email',
-  password: 'password',
-  phoneNumber: 'phoneNumber',
-  profileImageUrl: 'profileImageUrl',
+export const UserOtpScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  type: 'type',
+  userId: 'userId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserOtpScalarFieldEnum = (typeof UserOtpScalarFieldEnum)[keyof typeof UserOtpScalarFieldEnum]
+
+
+export const RefreshTokenScalarFieldEnum = {
+  id: 'id',
+  token: 'token',
+  userId: 'userId',
+  deviceId: 'deviceId',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const FileInstanceScalarFieldEnum = {
+  id: 'id',
+  filename: 'filename',
+  originalFilename: 'originalFilename',
+  path: 'path',
+  url: 'url',
+  fileType: 'fileType',
+  mimeType: 'mimeType',
+  size: 'size',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type FileInstanceScalarFieldEnum = (typeof FileInstanceScalarFieldEnum)[keyof typeof FileInstanceScalarFieldEnum]
+
+
+export const VideoMergeJobScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  outputUrl: 'outputUrl',
+  outputFileId: 'outputFileId',
+  status: 'status',
+  errorMessage: 'errorMessage',
+  sourceFileIds: 'sourceFileIds',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type VideoMergeJobScalarFieldEnum = (typeof VideoMergeJobScalarFieldEnum)[keyof typeof VideoMergeJobScalarFieldEnum]
+
+
+export const LoginDeviceScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  browser: 'browser',
+  os: 'os',
+  deviceType: 'deviceType',
+  ipAddress: 'ipAddress',
+  userAgent: 'userAgent',
+  city: 'city',
+  country: 'country',
+  lastLoginAt: 'lastLoginAt',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LoginDeviceScalarFieldEnum = (typeof LoginDeviceScalarFieldEnum)[keyof typeof LoginDeviceScalarFieldEnum]
+
+
+export const NotificationScalarFieldEnum = {
+  id: 'id',
+  type: 'type',
+  title: 'title',
+  message: 'message',
+  meta: 'meta',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationScalarFieldEnum = (typeof NotificationScalarFieldEnum)[keyof typeof NotificationScalarFieldEnum]
+
+
+export const UserNotificationScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  notificationId: 'notificationId',
+  read: 'read',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type UserNotificationScalarFieldEnum = (typeof UserNotificationScalarFieldEnum)[keyof typeof UserNotificationScalarFieldEnum]
+
+
+export const NotificationSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
   isNewReleaseAlertsOn: 'isNewReleaseAlertsOn',
   isEarningAlertsOn: 'isEarningAlertsOn',
   isPlatformUpdatesOn: 'isPlatformUpdatesOn',
-  role: 'role',
+  emailNotificationsOn: 'emailNotificationsOn',
+  smsNotificationsOn: 'smsNotificationsOn',
+  pushNotificationsOn: 'pushNotificationsOn',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type NotificationSettingsScalarFieldEnum = (typeof NotificationSettingsScalarFieldEnum)[keyof typeof NotificationSettingsScalarFieldEnum]
+
+
+export const GlobalSettingsScalarFieldEnum = {
+  id: 'id',
+  emailNotificationsOn: 'emailNotificationsOn',
+  smsNotificationsOn: 'smsNotificationsOn',
+  pushNotificationsOn: 'pushNotificationsOn',
+  tfaOn: 'tfaOn',
+  passwordPolicyOn: 'passwordPolicyOn',
+  ipBlockList: 'ipBlockList',
+  autoDistributionOn: 'autoDistributionOn',
+  defaultDistributionPlatforms: 'defaultDistributionPlatforms',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GlobalSettingsScalarFieldEnum = (typeof GlobalSettingsScalarFieldEnum)[keyof typeof GlobalSettingsScalarFieldEnum]
+
+
+export const ClientSettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
   defaultDistributionPlatforms: 'defaultDistributionPlatforms',
   defaultGenres: 'defaultGenres',
-  distributionTerritorys: 'distributionTerritorys',
+  distributionTerritories: 'distributionTerritories',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type ClientScalarFieldEnum = (typeof ClientScalarFieldEnum)[keyof typeof ClientScalarFieldEnum]
+export type ClientSettingsScalarFieldEnum = (typeof ClientSettingsScalarFieldEnum)[keyof typeof ClientSettingsScalarFieldEnum]
 
 
-export const SuperAdminScalarFieldEnum = {
-  superAdminId: 'superAdminId',
-  fullName: 'fullName',
-  email: 'email',
-  password: 'password',
-  role: 'role',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type SuperAdminScalarFieldEnum = (typeof SuperAdminScalarFieldEnum)[keyof typeof SuperAdminScalarFieldEnum]
-
-
-export const AdminScalarFieldEnum = {
-  adminId: 'adminId',
-  fullName: 'fullName',
-  email: 'email',
-  password: 'password',
-  role: 'role',
-  givenAccess: 'givenAccess',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AdminScalarFieldEnum = (typeof AdminScalarFieldEnum)[keyof typeof AdminScalarFieldEnum]
-
-
-export const DistributorScalarFieldEnum = {
-  distributorId: 'distributorId',
+export const UserScalarFieldEnum = {
+  id: 'id',
   name: 'name',
   email: 'email',
   password: 'password',
+  phone: 'phone',
   role: 'role',
+  status: 'status',
+  isVerified: 'isVerified',
+  isTFAEnabled: 'isTFAEnabled',
+  lastLoginAt: 'lastLoginAt',
+  lastActiveAt: 'lastActiveAt',
+  profilePictureUrl: 'profilePictureUrl',
+  profilePictureId: 'profilePictureId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
 
-export type DistributorScalarFieldEnum = (typeof DistributorScalarFieldEnum)[keyof typeof DistributorScalarFieldEnum]
-
-
-export const AccountantScalarFieldEnum = {
-  accountantId: 'accountantId',
-  fullName: 'fullName',
-  email: 'email',
-  password: 'password',
-  role: 'role',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type AccountantScalarFieldEnum = (typeof AccountantScalarFieldEnum)[keyof typeof AccountantScalarFieldEnum]
+export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -154,6 +254,13 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const JsonNullValueInput = {
+  JsonNull: 'JsonNull'
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
 
 
 export const QueryMode = {
@@ -170,4 +277,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull',
+  AnyNull: 'AnyNull'
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

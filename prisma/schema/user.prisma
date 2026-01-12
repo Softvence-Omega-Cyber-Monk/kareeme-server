@@ -1,0 +1,61 @@
+model User {
+  id String @id @default(uuid())
+
+  // Identity
+  name     String  @default("Unnamed User")
+  email    String  @unique
+  password String // hashed password
+  phone    String? @unique
+
+  // Settings
+  role   UserRole   @default(CLIENT)
+  status UserStatus @default(ACTIVE)
+
+  isVerified   Boolean @default(false)
+  isTFAEnabled Boolean @default(false)
+
+  // Activity
+  lastLoginAt  DateTime?
+  lastActiveAt DateTime?
+
+  // Avatar
+  profilePictureUrl String?
+  profilePictureId  String?
+  profilePicture    FileInstance? @relation(fields: [profilePictureId], references: [id], onDelete: SetNull)
+
+  // Notifications Relations
+  notifications        UserNotification[]
+  notificationSettings NotificationSettings[]
+
+  // Auth Relations
+  otps          UserOtp[]
+  refreshTokens RefreshToken[]
+
+  // Settings Relations
+  clientSettings ClientSettings[]
+  loginDevices   LoginDevice[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("users")
+}
+
+enum UserRole {
+  // System
+  SUPER_ADMIN
+
+  // Added by Super Admin (Each can be multiple)
+  ADMIN
+  DISTRIBUTOR
+  ACCOUNTANT
+
+  // Clients
+  CLIENT
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+  DELETED
+}
