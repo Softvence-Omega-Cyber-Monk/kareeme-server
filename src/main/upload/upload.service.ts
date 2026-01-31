@@ -48,7 +48,7 @@ export class UploadService {
   async deleteFiles(fileIds: string[]): Promise<TResponse<any>> {
     if (!fileIds?.length) throw new AppError(400, 'No file IDs provided');
 
-    const files = await this.prisma.client.fileInstance.findMany({
+    const files = await this.prisma.fileInstance.findMany({
       where: { id: { in: fileIds } },
     });
 
@@ -69,13 +69,13 @@ export class UploadService {
     const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 10;
     const skip = (page - 1) * limit;
 
-    const [files, total] = await this.prisma.client.$transaction([
-      this.prisma.client.fileInstance.findMany({
+    const [files, total] = await this.prisma.$transaction([
+      this.prisma.fileInstance.findMany({
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
       }),
-      this.prisma.client.fileInstance.count(),
+      this.prisma.fileInstance.count(),
     ]);
 
     return successPaginatedResponse(
@@ -87,7 +87,7 @@ export class UploadService {
 
   @HandleError('Failed to get file', 'File')
   async getFileById(id: string): Promise<TResponse<any>> {
-    const file = await this.prisma.client.fileInstance.findUnique({
+    const file = await this.prisma.fileInstance.findUnique({
       where: { id },
     });
 
@@ -139,7 +139,7 @@ export class UploadService {
     const { jobId, outputUrl } = await this.s3.createMergeJob(videoUrls);
 
     // Save the merge job to database for tracking
-    const mergeRecord = await this.prisma.client.videoMergeJob.create({
+    const mergeRecord = await this.prisma.videoMergeJob.create({
       data: {
         jobId,
         outputUrl,
@@ -173,7 +173,7 @@ export class UploadService {
 
   @HandleError('Failed to check merge job status', 'File')
   async getMergeJobStatus(mergeId: string): Promise<TResponse<any>> {
-    const mergeJob = await this.prisma.client.videoMergeJob.findUnique({
+    const mergeJob = await this.prisma.videoMergeJob.findUnique({
       where: { id: mergeId },
     });
 

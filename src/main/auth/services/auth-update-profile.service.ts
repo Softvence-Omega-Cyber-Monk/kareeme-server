@@ -22,7 +22,7 @@ export class AuthUpdateProfileService {
     dto: UpdateProfileDto,
     file?: Express.Multer.File,
   ) {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -45,7 +45,7 @@ export class AuthUpdateProfileService {
       // remove + sign and spaces for checking
       normalizedPhone = dto.phone.replace(/\s+/g, '').replace('+', '');
 
-      const phoneExists = await this.prisma.client.user.findFirst({
+      const phoneExists = await this.prisma.user.findFirst({
         where: {
           phone: normalizedPhone,
           id: { not: userId },
@@ -57,7 +57,7 @@ export class AuthUpdateProfileService {
       }
     }
 
-    const updatedUser = await this.prisma.client.user.update({
+    const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: {
         name: dto.name?.trim() ? dto.name.trim() : user.name,

@@ -78,6 +78,61 @@ export type UserNotification = Prisma.UserNotificationModel
  */
 export type NotificationSettings = Prisma.NotificationSettingsModel
 /**
+ * Model Release
+ * 
+ */
+export type Release = Prisma.ReleaseModel
+/**
+ * Model Artist
+ * 
+ */
+export type Artist = Prisma.ArtistModel
+/**
+ * Model ReleaseArtist
+ * 
+ */
+export type ReleaseArtist = Prisma.ReleaseArtistModel
+/**
+ * Model Label
+ * 
+ */
+export type Label = Prisma.LabelModel
+/**
+ * Model ReleaseTerritory
+ * 
+ */
+export type ReleaseTerritory = Prisma.ReleaseTerritoryModel
+/**
+ * Model SplitSheetAgreement
+ * 
+ */
+export type SplitSheetAgreement = Prisma.SplitSheetAgreementModel
+/**
+ * Model Contributor
+ * 
+ */
+export type Contributor = Prisma.ContributorModel
+/**
+ * Model Track
+ * 
+ */
+export type Track = Prisma.TrackModel
+/**
+ * Model TrackArtist
+ * 
+ */
+export type TrackArtist = Prisma.TrackArtistModel
+/**
+ * Model Publisher
+ * 
+ */
+export type Publisher = Prisma.PublisherModel
+/**
+ * Model BackCatalogue
+ * 
+ */
+export type BackCatalogue = Prisma.BackCatalogueModel
+/**
  * Model GlobalSettings
  * 
  */

@@ -9,6 +9,7 @@ import cookieParser from 'cookie-parser';
 import { AppModule } from './app.module';
 import { ENVEnum } from './common/enum/env.enum';
 import { AllExceptionsFilter } from './core/filter/http-exception.filter';
+import { SeedService } from './lib/seed/seed.service';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, { rawBody: true });
@@ -61,5 +62,9 @@ async function bootstrap() {
   // * set port
   const port = parseInt(configService.get<string>(ENVEnum.PORT) ?? '3000', 10);
   await app.listen(port);
+
+  // * run seed
+  const seedService = app.get(SeedService);
+  await seedService.seed();
 }
 bootstrap();

@@ -19,7 +19,7 @@ export class FileService {
 
   @HandleError('Error creating file', 'file')
   async create(createFileDto: CreateFileDto) {
-    const file = await this.prisma.client.fileInstance.create({
+    const file = await this.prisma.fileInstance.create({
       data: createFileDto,
     });
 
@@ -32,7 +32,7 @@ export class FileService {
 
   @HandleError('Error finding file', 'file')
   async findOne(id: string) {
-    const file = await this.prisma.client.fileInstance.findUnique({
+    const file = await this.prisma.fileInstance.findUnique({
       where: { id },
     });
 
@@ -45,7 +45,7 @@ export class FileService {
 
   @HandleError('Error finding file', 'file')
   async findByFilename(filename: string) {
-    const file = await this.prisma.client.fileInstance.findFirst({
+    const file = await this.prisma.fileInstance.findFirst({
       where: { filename },
     });
 
@@ -69,7 +69,7 @@ export class FileService {
       throw new AppError(400, 'Error deleting file');
     }
 
-    await this.prisma.client.fileInstance.delete({
+    await this.prisma.fileInstance.delete({
       where: { id },
     });
   }

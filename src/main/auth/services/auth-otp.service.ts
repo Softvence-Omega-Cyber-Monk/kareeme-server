@@ -21,7 +21,7 @@ export class AuthOtpService {
   @HandleError('Failed to resend OTP')
   async resendOtp({ email, type }: ResendOtpDto): Promise<TResponse<any>> {
     // 1. Find user
-    const user = await this.prisma.client.user.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) throw new AppError(404, 'User not found');
 
     if (user.isVerified && type === OtpType.VERIFICATION) {
@@ -29,7 +29,7 @@ export class AuthOtpService {
     }
 
     // 2. Delete existing unexpired OTPs of this type
-    await this.prisma.client.userOtp.deleteMany({
+    await this.prisma.userOtp.deleteMany({
       where: {
         userId: user.id,
         type,
@@ -86,7 +86,7 @@ export class AuthOtpService {
     } catch (err) {
       console.error(err);
       // Clean up in case email fails
-      await this.prisma.client.userOtp.deleteMany({
+      await this.prisma.userOtp.deleteMany({
         where: { userId: user.id, type },
       });
       throw new AppError(
@@ -103,11 +103,11 @@ export class AuthOtpService {
     const { email, otp, type } = dto;
 
     // 1. Find user
-    const user = await this.prisma.client.user.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) throw new AppError(404, 'User not found');
 
     // 2. Find latest OTP for user and type
-    const userOtp = await this.prisma.client.userOtp.findFirst({
+    const userOtp = await this.prisma.userOtp.findFirst({
       where: { userId: user.id, type },
       orderBy: { createdAt: 'desc' },
     });
@@ -117,7 +117,7 @@ export class AuthOtpService {
 
     if (userOtp.expiresAt < new Date()) {
       // Expired -> delete
-      await this.prisma.client.userOtp.delete({ where: { id: userOtp.id } });
+      await this.prisma.userOtp.delete({ where: { id: userOtp.id } });
       throw new AppError(400, 'OTP has expired. Please request a new one.');
     }
 
@@ -125,7 +125,7 @@ export class AuthOtpService {
     if (!isCorrectOtp) throw new AppError(400, 'Invalid OTP');
 
     // 3. OTP verified -> delete OTP
-    await this.prisma.client.userOtp.deleteMany({
+    await this.prisma.userOtp.deleteMany({
       where: { userId: user.id, type },
     });
 
@@ -141,7 +141,7 @@ export class AuthOtpService {
 
     if (type === OtpType.TFA_ENABLE) {
       // Enable TFA for the user
-      const updatedUser = await this.prisma.client.user.update({
+      const updatedUser = await this.prisma.user.update({
         where: { id: user.id },
         data: { isTFAEnabled: true },
         include: { profilePicture: true },
@@ -168,7 +168,7 @@ export class AuthOtpService {
       updateData.isVerified = true;
     }
 
-    const updatedUser = await this.prisma.client.user.update({
+    const updatedUser = await this.prisma.user.update({
       where: { id: user.id },
       data: updateData,
       include: { profilePicture: true },

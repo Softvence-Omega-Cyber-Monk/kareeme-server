@@ -1,12 +1,12 @@
 import { ENVEnum } from '@/common/enum/env.enum';
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import { AuthUtilsService } from '@/lib/utils/services/auth-utils.service';
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { UserRole } from '@prisma';
 
 @Injectable()
-export class InitialUserSeedService implements OnModuleInit {
+export class InitialUserSeedService {
   private readonly logger = new Logger(InitialUserSeedService.name);
 
   constructor(
@@ -14,10 +14,6 @@ export class InitialUserSeedService implements OnModuleInit {
     private readonly authUtils: AuthUtilsService,
     private readonly configService: ConfigService,
   ) {}
-
-  onModuleInit(): Promise<void> {
-    return this.seedInitialUsers();
-  }
 
   async seedInitialUsers(): Promise<void> {
     const users = [
@@ -61,7 +57,7 @@ export class InitialUserSeedService implements OnModuleInit {
 
       const hashedPassword = await this.authUtils.hash(user.password.trim());
 
-      await this.prisma.client.user.upsert({
+      await this.prisma.user.upsert({
         where: { email: user.email },
         update: {
           password: hashedPassword,

@@ -1,0 +1,648 @@
+import { PrismaService } from '@/lib/prisma/prisma.service';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { Prisma } from '@prisma';
+import * as ExcelJS from 'exceljs';
+import { Parser } from 'json2csv';
+import { CreateReleaseFormDto } from './dto/create-release-form.dto';
+import {
+    ExportFormat,
+    ExportReleasesQueryDto,
+    GetReleasesQueryDto,
+    GetSplitSheetsQueryDto
+} from './dto/query-release.dto';
+
+@Injectable()
+export class ReleasesService {
+  constructor(private prisma: PrismaService) {}
+
+  /**
+   * Create a complete release with all related data in a transaction
+   * Automatically generates split sheets from track artists
+   */
+  async createRelease(dto: CreateReleaseFormDto) {
+    return await this.prisma.$transaction(async (tx : any) => {
+      // 1. Create the release
+      const release = await tx.release.create({
+        data: {
+          userId: dto.userId,
+          releaseDate: dto.releaseDate ? new Date(dto.releaseDate) : null,
+          preOrderDate: dto.preOrderDate ? new Date(dto.preOrderDate) : null,
+          releaseTitle: dto.releaseTitle,
+          typeOfRelease: dto.typeOfRelease,
+          genre: dto.genre,
+          language: dto.language,
+          isExplicitContent: dto.isExplicitContent,
+          hasExternalRightsHolder: dto.hasExternalRightsHolder,
+          hasDolbyAtmosVersion: dto.hasDolbyAtmosVersion,
+          hasExtendedMixForDjStores: dto.hasExtendedMixForDjStores,
+          additionalDetails: dto.additionalDetails,
+          hasArtistOnSpotify: dto.hasArtistOnSpotify,
+          hasMusicVideo: dto.hasMusicVideo,
+          status: dto.status || 'PENDING',
+        },
+      });
+
+      // 2. Create release artists
+      if (dto.releaseArtists && dto.releaseArtists.length > 0) {
+        for (const releaseArtist of dto.releaseArtists) {
+          let artistId = releaseArtist.artistId;
+
+          // Create new artist if artist data is provided
+          if (!artistId && releaseArtist.artist) {
+            const newArtist = await tx.artist.create({
+              data: releaseArtist.artist,
+            });
+            artistId = newArtist.artistId;
+          }
+
+          if (artistId) {
+            await tx.releaseArtist.create({
+              data: {
+                releaseId: release.releaseId,
+                artistId: artistId,
+                role: releaseArtist.role,
+              },
+            });
+          }
+        }
+      }
+
+      // 3. Create release territories
+      if (dto.releaseTerritories && dto.releaseTerritories.length > 0) {
+        await tx.releaseTerritory.createMany({
+          data: dto.releaseTerritories.map((territory) => ({
+            releaseId: release.releaseId,
+            territory: territory.territory,
+          })),
+        });
+      }
+
+      // 4. Create tracks with track artists
+      const createdTracks: string[] = [];
+      if (dto.tracks && dto.tracks.length > 0) {
+        for (const track of dto.tracks) {
+          const createdTrack = await tx.track.create({
+            data: {
+              releaseId: release.releaseId,
+              trackNumber: track.trackNumber,
+              trackTitle: track.trackTitle,
+              trackGenre: track.trackGenre,
+              trackMix: track.trackMix,
+              explicitContent: track.explicitContent,
+              trackLanguage: track.trackLanguage,
+              trackPublisher: track.trackPublisher,
+              originalReleaseDate: track.originalReleaseDate
+                ? new Date(track.originalReleaseDate)
+                : null,
+              trackIsrc: track.trackIsrc,
+              territoryRestrictions: track.territoryRestrictions,
+              audioFileUrl: track.audioFileUrl,
+            },
+          });
+
+          createdTracks.push(createdTrack.trackId);
+
+          // Create track artists
+          if (track.trackArtists && track.trackArtists.length > 0) {
+            for (const trackArtist of track.trackArtists) {
+              let artistId = trackArtist.artistId;
+
+              // Create new artist if artist data is provided
+              if (!artistId && trackArtist.artist) {
+                const newArtist = await tx.artist.create({
+                  data: trackArtist.artist,
+                });
+                artistId = newArtist.artistId;
+              }
+
+              await tx.trackArtist.create({
+                data: {
+                  trackId: createdTrack.trackId,
+                  artistId: artistId,
+                  clientName: trackArtist.clientName,
+                  nameOnTrack: trackArtist.nameOnTrack,
+                  artistType: trackArtist.artistType,
+                  songwriterRole: trackArtist.songwriterRole,
+                  realName: trackArtist.realName,
+                  masterSplit: trackArtist.masterSplit,
+                  spotifyId: trackArtist.spotifyId,
+                  appleId: trackArtist.appleId,
+                },
+              });
+            }
+          }
+        }
+      }
+
+      // 5. Create split sheet agreements or auto-generate them
+      if (dto.splitSheetAgreements && dto.splitSheetAgreements.length > 0) {
+        // Use provided split sheets
+        for (const splitSheet of dto.splitSheetAgreements) {
+          let labelId = splitSheet.recordLabelId;
+
+          // Create new label if label data is provided
+          if (!labelId && splitSheet.recordLabel) {
+            const newLabel = await tx.label.create({
+              data: splitSheet.recordLabel,
+            });
+            labelId = newLabel.labelId;
+          }
+
+          const createdSplitSheet = await tx.splitSheetAgreement.create({
+            data: {
+              releaseId: release.releaseId,
+              songTitle: splitSheet.songTitle,
+              isrc: splitSheet.isrc,
+              releaseDate: splitSheet.releaseDate
+                ? new Date(splitSheet.releaseDate)
+                : null,
+              recordLabelId: labelId,
+            },
+          });
+
+          // Create contributors
+          if (splitSheet.contributors && splitSheet.contributors.length > 0) {
+            await tx.contributor.createMany({
+              data: splitSheet.contributors.map((contributor) => ({
+                splitId: createdSplitSheet.splitId,
+                fullName: contributor.fullName,
+                contribution: contributor.contribution,
+                email: contributor.email,
+                phone: contributor.phone,
+                address: contributor.address,
+                publisher: contributor.publisher,
+                affiliation: contributor.affiliation,
+                ipiCaeNumber: contributor.ipiCaeNumber,
+                percentageSplit: contributor.percentageSplit,
+              })),
+            });
+          }
+        }
+      } else if (createdTracks.length > 0) {
+        // AUTO-GENERATE split sheets from tracks
+        for (const trackId of createdTracks) {
+          const track = await tx.track.findUnique({
+            where: { trackId },
+            include: {
+              trackArtists: {
+                include: {
+                  artist: true,
+                },
+              },
+            },
+          });
+
+          if (track && track.trackArtists.length > 0) {
+            const splitSheet = await tx.splitSheetAgreement.create({
+              data: {
+                releaseId: release.releaseId,
+                songTitle: track.trackTitle,
+                isrc: track.trackIsrc,
+                releaseDate: track.originalReleaseDate || release.releaseDate,
+              },
+            });
+
+            // Auto-generate contributors from track artists
+            const totalArtists = track.trackArtists.length;
+            const equalSplit = totalArtists > 0 ? 100 / totalArtists : 0;
+
+            for (const trackArtist of track.trackArtists) {
+              await tx.contributor.create({
+                data: {
+                  splitId: splitSheet.splitId,
+                  fullName:
+                    trackArtist.realName ||
+                    trackArtist.nameOnTrack ||
+                    trackArtist.artist?.name ||
+                    'Unknown',
+                  contribution: trackArtist.songwriterRole || 'Artist',
+                  email: trackArtist.artist?.email,
+                  phone: trackArtist.artist?.phone,
+                  address: trackArtist.artist?.address,
+                  percentageSplit: equalSplit,
+                },
+              });
+            }
+          }
+        }
+      }
+
+      // 6. Create back catalogue entries
+      if (dto.backCatalogue && dto.backCatalogue.length > 0) {
+        await tx.backCatalogue.createMany({
+          data: dto.backCatalogue.map((catalogue) => ({
+            releaseId: release.releaseId,
+            labelName: catalogue.labelName,
+            distributor: catalogue.distributor,
+            upc: catalogue.upc,
+            catalogueNumber: catalogue.catalogueNumber,
+            releaseArtist: catalogue.releaseArtist,
+            releaseTitle: catalogue.releaseTitle,
+            releaseType: catalogue.releaseType,
+            releaseDate: catalogue.releaseDate
+              ? new Date(catalogue.releaseDate)
+              : null,
+            releasePLine: catalogue.releasePLine,
+            releaseCLine: catalogue.releaseCLine,
+          })),
+        });
+      }
+
+      // Return the complete release with all related data
+      return await tx.release.findUnique({
+        where: { releaseId: release.releaseId },
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+              phone: true,
+            },
+          },
+          releaseArtists: {
+            include: {
+              artist: true,
+            },
+          },
+          releaseTerritories: true,
+          tracks: {
+            include: {
+              trackArtists: {
+                include: {
+                  artist: true,
+                },
+              },
+            },
+            orderBy: {
+              trackNumber: 'asc',
+            },
+          },
+          splitSheetAgreements: {
+            include: {
+              contributors: true,
+              recordLabel: true,
+            },
+          },
+          backCatalogue: true,
+        },
+      });
+    });
+  }
+
+  /**
+   * Get all releases with filtering, sorting, and searching
+   */
+  async getAllReleases(query: GetReleasesQueryDto) {
+    const { page = 1, limit = 10, search, sortBy = 'createdAt', sortOrder = 'desc', genre, status, typeOfRelease, userId, year } = query;
+
+    const where: Prisma.ReleaseWhereInput = {};
+
+    // Search filter
+    if (search) {
+      where.OR = [
+        { releaseTitle: { contains: search, mode: 'insensitive' } },
+        { genre: { contains: search, mode: 'insensitive' } },
+        {
+          releaseArtists: {
+            some: {
+              artist: {
+                name: { contains: search, mode: 'insensitive' },
+              },
+            },
+          },
+        },
+      ];
+    }
+
+    // Genre filter
+    if (genre) {
+      where.genre = { contains: genre, mode: 'insensitive' };
+    }
+
+    // Status filter
+    if (status) {
+      where.status = status;
+    }
+
+    // Type filter
+    if (typeOfRelease) {
+      where.typeOfRelease = typeOfRelease;
+    }
+
+    // User filter
+    if (userId) {
+      where.userId = userId;
+    }
+
+    // Year filter
+    if (year) {
+      where.releaseDate = {
+        gte: new Date(`${year}-01-01`),
+        lte: new Date(`${year}-12-31`),
+      };
+    }
+
+    const [total, releases] = await Promise.all([
+      this.prisma.release.count({ where }),
+      this.prisma.release.findMany({
+        where,
+        include: {
+          user: {
+            select: {
+              id: true,
+              name: true,
+              email: true,
+            },
+          },
+          releaseArtists: {
+            include: {
+              artist: true,
+            },
+          },
+          tracks: {
+            select: {
+              trackId: true,
+              trackTitle: true,
+              trackNumber: true,
+            },
+            orderBy: {
+              trackNumber: 'asc',
+            },
+          },
+          splitSheetAgreements: {
+            select: {
+              splitId: true,
+              songTitle: true,
+            },
+          },
+        },
+        orderBy: {
+          [sortBy]: sortOrder,
+        },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+    ]);
+
+    return {
+      data: releases,
+      metadata: {
+        page,
+        limit,
+        total,
+        totalPage: Math.ceil(total / limit),
+      },
+    };
+  }
+
+  /**
+   * Get single release by ID
+   */
+  async getReleaseById(releaseId: string) {
+    const release = await this.prisma.release.findUnique({
+      where: { releaseId },
+      include: {
+        user: {
+          select: {
+            id: true,
+            name: true,
+            email: true,
+            phone: true,
+          },
+        },
+        releaseArtists: {
+          include: {
+            artist: true,
+          },
+        },
+        releaseTerritories: true,
+        tracks: {
+          include: {
+            trackArtists: {
+              include: {
+                artist: true,
+              },
+            },
+          },
+          orderBy: {
+            trackNumber: 'asc',
+          },
+        },
+        splitSheetAgreements: {
+          include: {
+            contributors: true,
+            recordLabel: true,
+          },
+        },
+        backCatalogue: true,
+      },
+    });
+
+    if (!release) {
+      throw new NotFoundException(`Release with ID ${releaseId} not found`);
+    }
+
+    return release;
+  }
+
+  /**
+   * Get all split sheets with filtering
+   */
+  async getAllSplitSheets(query: GetSplitSheetsQueryDto) {
+    const { page = 1, limit = 10, search, releaseId } = query;
+
+    const where: Prisma.SplitSheetAgreementWhereInput = {};
+
+    // Search filter
+    if (search) {
+      where.OR = [
+        { songTitle: { contains: search, mode: 'insensitive' } },
+        { isrc: { contains: search, mode: 'insensitive' } },
+      ];
+    }
+
+    // Release filter
+    if (releaseId) {
+      where.releaseId = releaseId;
+    }
+
+    const [total, splitSheets] = await Promise.all([
+      this.prisma.splitSheetAgreement.count({ where }),
+      this.prisma.splitSheetAgreement.findMany({
+        where,
+        include: {
+          release: {
+            select: {
+              releaseId: true,
+              releaseTitle: true,
+              user: {
+                select: {
+                  id: true,
+                  name: true,
+                  email: true,
+                },
+              },
+            },
+          },
+          contributors: true,
+          recordLabel: true,
+        },
+        orderBy: {
+          createdAt: 'desc',
+        },
+        skip: (page - 1) * limit,
+        take: limit,
+      }),
+    ]);
+
+    return {
+      data: splitSheets,
+      metadata: {
+        page,
+        limit,
+        total,
+        totalPage: Math.ceil(total / limit),
+      },
+    };
+  }
+
+  /**
+   * Get single split sheet by ID
+   */
+  async getSplitSheetById(splitId: string) {
+    const splitSheet = await this.prisma.splitSheetAgreement.findUnique({
+      where: { splitId },
+      include: {
+        release: {
+          include: {
+            user: {
+              select: {
+                id: true,
+                name: true,
+                email: true,
+                phone: true,
+              },
+            },
+            releaseArtists: {
+              include: {
+                artist: true,
+              },
+            },
+            tracks: true,
+          },
+        },
+        contributors: true,
+        recordLabel: true,
+      },
+    });
+
+    if (!splitSheet) {
+      throw new NotFoundException(
+        `Split sheet with ID ${splitId} not found`,
+      );
+    }
+
+    return splitSheet;
+  }
+
+  /**
+   * Export releases to CSV, Excel, or PDF
+   */
+  async exportReleases(query: ExportReleasesQueryDto) {
+    const { format = ExportFormat.CSV, ...filters } = query;
+
+    // Get all releases without pagination for export
+    const { data: releases } = await this.getAllReleases({
+      ...filters,
+      limit: 10000, // Large limit for export
+    });
+
+    // Flatten data for export
+    const exportData = releases.map((release : any) => ({
+      'Release ID': release.releaseId,
+      'Release Title': release.releaseTitle || '',
+      'Type': release.typeOfRelease || '',
+      'Genre': release.genre || '',
+      'Language': release.language || '',
+      'Status': release.status || '',
+      'Release Date': release.releaseDate
+        ? release.releaseDate.toISOString().split('T')[0]
+        : '',
+      'Pre-order Date': release.preOrderDate
+        ? release.preOrderDate.toISOString().split('T')[0]
+        : '',
+      'User Name': release.user.name,
+      'User Email': release.user.email,
+      'Artists': release.releaseArtists
+        .map((ra : any) => ra.artist.name)
+        .join(', '),
+      'Tracks Count': release.tracks.length,
+      'Split Sheets Count': release.splitSheetAgreements.length,
+      'Explicit Content': release.isExplicitContent ? 'Yes' : 'No',
+      'Dolby Atmos': release.hasDolbyAtmosVersion ? 'Yes' : 'No',
+      'Created At': release.createdAt.toISOString(),
+    }));
+
+    switch (format) {
+      case ExportFormat.CSV:
+        return this.exportToCSV(exportData);
+      case ExportFormat.EXCEL:
+        return this.exportToExcel(exportData);
+      default:
+        return this.exportToCSV(exportData);
+    }
+  }
+
+  private exportToCSV(data: any[]) {
+    const parser = new Parser();
+    const csv = parser.parse(data);
+    return {
+      content: csv,
+      filename: `releases-export-${new Date().toISOString().split('T')[0]}.csv`,
+      contentType: 'text/csv',
+    };
+  }
+
+  private async exportToExcel(data: any[]) {
+    const workbook = new ExcelJS.Workbook();
+    const worksheet = workbook.addWorksheet('Releases');
+
+    // Add headers
+    const headers = Object.keys(data[0] || {});
+    worksheet.addRow(headers);
+
+    // Style header row
+    worksheet.getRow(1).font = { bold: true };
+    worksheet.getRow(1).fill = {
+      type: 'pattern',
+      pattern: 'solid',
+      fgColor: { argb: 'FFE0E0E0' },
+    };
+
+    // Add data
+    data.forEach((item) => {
+      worksheet.addRow(Object.values(item));
+    });
+
+    // Auto-fit columns
+    worksheet.columns.forEach((column : any) => {
+      let maxLength = 0;
+      column.eachCell({ includeEmpty: true }, (cell : any) => {
+        const cellLength = cell.value ? cell.value.toString().length : 10;
+        if (cellLength > maxLength) {
+          maxLength = cellLength;
+        }
+      });
+      column.width = Math.min(maxLength + 2, 50);
+    });
+
+    const buffer = await workbook.xlsx.writeBuffer();
+    return {
+      content: buffer,
+      filename: `releases-export-${new Date().toISOString().split('T')[0]}.xlsx`,
+      contentType:
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+    };
+  }
+}

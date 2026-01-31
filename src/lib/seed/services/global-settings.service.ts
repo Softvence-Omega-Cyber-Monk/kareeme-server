@@ -1,22 +1,18 @@
 import { PrismaService } from '@/lib/prisma/prisma.service';
-import { Injectable, Logger, OnModuleInit } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { DistributionPlatform } from '@prisma';
 
 @Injectable()
-export class GlobalSettingsService implements OnModuleInit {
+export class GlobalSettingsService {
   private readonly logger = new Logger(GlobalSettingsService.name);
 
   constructor(private readonly prisma: PrismaService) {}
 
-  onModuleInit(): Promise<void> {
-    return this.seedGlobalSettings();
-  }
-
   async seedGlobalSettings(): Promise<void> {
-    const existing = await this.prisma.client.globalSettings.findFirst();
+    const existing = await this.prisma.globalSettings.findFirst();
 
     if (!existing) {
-      await this.prisma.client.globalSettings.create({
+      await this.prisma.globalSettings.create({
         data: {
           emailNotificationsOn: true,
           smsNotificationsOn: false,

@@ -21,7 +21,7 @@ export class AuthPasswordService {
     userId: string,
     dto: ChangePasswordDto,
   ): Promise<TResponse<any>> {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
       select: { password: true },
     });
@@ -30,7 +30,7 @@ export class AuthPasswordService {
     // If user registered via social login and has no password set
     if (!user.password) {
       const hashedPassword = await this.utils.hash(dto.newPassword);
-      await this.prisma.client.user.update({
+      await this.prisma.user.update({
         where: { id: userId },
         data: { password: hashedPassword },
       });
@@ -44,7 +44,7 @@ export class AuthPasswordService {
     if (!isValid) throw new AppError(400, 'Invalid current password');
 
     const hashedPassword = await this.utils.hash(dto.newPassword);
-    await this.prisma.client.user.update({
+    await this.prisma.user.update({
       where: { id: userId },
       data: { password: hashedPassword },
     });
@@ -54,11 +54,11 @@ export class AuthPasswordService {
 
   @HandleError('Failed to send password reset email')
   async forgotPassword(email: string): Promise<TResponse<any>> {
-    const user = await this.prisma.client.user.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) throw new AppError(404, 'User not found');
 
     // Delete existing unexpired RESET OTPs
-    await this.prisma.client.userOtp.deleteMany({
+    await this.prisma.userOtp.deleteMany({
       where: {
         userId: user.id,
         type: OtpType.RESET,
@@ -82,11 +82,11 @@ export class AuthPasswordService {
   @HandleError('Failed to reset password')
   async resetPassword(dto: ResetPasswordDto): Promise<TResponse<any>> {
     const { otp, email, newPassword } = dto;
-    const user = await this.prisma.client.user.findUnique({ where: { email } });
+    const user = await this.prisma.user.findUnique({ where: { email } });
     if (!user) throw new AppError(404, 'User not found');
 
     // Find latest RESET OTP
-    const userOtp = await this.prisma.client.userOtp.findFirst({
+    const userOtp = await this.prisma.userOtp.findFirst({
       where: { userId: user.id, type: OtpType.RESET },
       orderBy: { createdAt: 'desc' },
     });
@@ -94,7 +94,7 @@ export class AuthPasswordService {
     if (!userOtp)
       throw new AppError(400, 'OTP is not set. Please request a new one.');
     if (userOtp.expiresAt < new Date()) {
-      await this.prisma.client.userOtp.delete({ where: { id: userOtp.id } });
+      await this.prisma.userOtp.delete({ where: { id: userOtp.id } });
       throw new AppError(401, 'OTP has expired. Please request a new one.');
     }
 
@@ -105,11 +105,11 @@ export class AuthPasswordService {
     const hashedPassword = await this.utils.hash(newPassword);
 
     // Update password and delete OTP
-    await this.prisma.client.user.update({
+    await this.prisma.user.update({
       where: { id: user.id },
       data: { password: hashedPassword },
     });
-    await this.prisma.client.userOtp.delete({ where: { id: userOtp.id } });
+    await this.prisma.userOtp.delete({ where: { id: userOtp.id } });
 
     // Send confirmation email
     await this.mailService.sendPasswordResetConfirmationEmail(email);

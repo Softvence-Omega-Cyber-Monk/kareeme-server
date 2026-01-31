@@ -79,7 +79,7 @@ export class AuthUtilsService {
 
     const deviceInfo = this.parseUserAgent(userAgentString);
 
-    const device = await this.prisma.client.loginDevice.upsert({
+    const device = await this.prisma.loginDevice.upsert({
       where: {
         userId_userAgent: {
           userId,
@@ -115,7 +115,7 @@ export class AuthUtilsService {
       Date.now() + this.refreshTokenDays * 24 * 60 * 60 * 1000,
     );
 
-    await this.prisma.client.refreshToken.create({
+    await this.prisma.refreshToken.create({
       data: {
         token: refreshToken,
         userId: payload.sub,
@@ -146,15 +146,15 @@ export class AuthUtilsService {
   }
 
   async revokeRefreshToken(token: string) {
-    await this.prisma.client.refreshToken.deleteMany({ where: { token } });
+    await this.prisma.refreshToken.deleteMany({ where: { token } });
   }
 
   async revokeAllRefreshTokensForUser(userId: string) {
-    await this.prisma.client.refreshToken.deleteMany({ where: { userId } });
+    await this.prisma.refreshToken.deleteMany({ where: { userId } });
   }
 
   async findRefreshToken(token: string) {
-    return this.prisma.client.refreshToken.findUnique({ where: { token } });
+    return this.prisma.refreshToken.findUnique({ where: { token } });
   }
 
   generateOtpAndExpiry(minutes = 5): { otp: number; expiryTime: Date } {
@@ -166,7 +166,7 @@ export class AuthUtilsService {
   async generateOTPAndSave(userId: string, type: OtpType) {
     const { otp, expiryTime } = this.generateOtpAndExpiry();
     const hashedOtp = await this.hash(otp.toString());
-    await this.prisma.client.userOtp.create({
+    await this.prisma.userOtp.create({
       data: {
         userId,
         code: hashedOtp,
@@ -178,7 +178,7 @@ export class AuthUtilsService {
   }
 
   async getSanitizedUserById(id: string) {
-    const user = await this.prisma.client.user.findUniqueOrThrow({
+    const user = await this.prisma.user.findUniqueOrThrow({
       where: { id },
       include: { profilePicture: true },
     });
@@ -187,7 +187,7 @@ export class AuthUtilsService {
   }
 
   async getUserByEmail(email: string) {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { email },
       include: { profilePicture: true },
     });

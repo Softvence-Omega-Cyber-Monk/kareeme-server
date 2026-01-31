@@ -27,7 +27,7 @@ export class AuthLogoutService {
     await this.utils.revokeAllRefreshTokensForUser(userId);
 
     // Remove lastLoginAt to force re-verification on next login
-    await this.prisma.client.user.update({
+    await this.prisma.user.update({
       where: { id: userId },
       data: { lastLoginAt: null },
     });
@@ -53,7 +53,7 @@ export class AuthLogoutService {
     }
 
     // Get user info
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: tokenRecord.userId },
     });
 
