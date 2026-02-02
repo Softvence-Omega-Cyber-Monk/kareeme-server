@@ -1,31 +1,38 @@
 import {
-    successPaginatedResponse,
-    successResponse,
+  successPaginatedResponse,
+  successResponse,
 } from '@/common/utils/response.util';
 import { GetUser, ValidateAuth } from '@/core/jwt/jwt.decorator';
 import {
-    Body,
-    Controller,
-    Get,
-    HttpStatus,
-    Param,
-    Post,
-    Query,
-    Res,
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  Res,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
+import { FilesInterceptor } from '@nestjs/platform-express';
 import {
-    ApiBearerAuth,
-    ApiOperation,
-    ApiQuery,
-    ApiResponse,
-    ApiTags,
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
-import { CreateReleaseFormDto } from './dto/create-release-form.dto';
+import * as multer from 'multer';
+import { CreateReleaseFormDataDto } from './dto/create-release-form.dto';
 import {
-    ExportReleasesQueryDto,
-    GetReleasesQueryDto,
-    GetSplitSheetsQueryDto,
+  ExportReleasesQueryDto,
+  GetReleasesQueryDto,
+  GetSplitSheetsQueryDto,
 } from './dto/query-release.dto';
 import { ReleasesService } from './releases.service';
 
@@ -38,10 +45,14 @@ export class ReleasesController {
   @Post()
   @ValidateAuth()
   @ApiOperation({
-    summary: 'Create a new release',
+    summary: 'Create a new release with file uploads',
     description:
-      'Create a complete release with all related data (artists, tracks, territories, split sheets, etc.) in a single submission. Split sheets are auto-generated from tracks if not provided.',
+      'Create a complete release with all related data (artists, tracks, territories, split sheets, etc.) and upload audio files. ' +
+      'Send as multipart/form-data with JSON strings for complex fields and binary files for audio. ' +
+      'Example: releaseArtists=\'[{"artistId":"uuid","role":"Primary"}]\', tracks=\'[{"trackNumber":1,"trackTitle":"Song","audioFileIndex":"0"}]\', files=[audio1.mp3]',
   })
+  @ApiConsumes('multipart/form-data')
+  @ApiBody({ type: CreateReleaseFormDataDto })
   @ApiResponse({
     status: HttpStatus.CREATED,
     description: 'Release created successfully',
@@ -54,13 +65,37 @@ export class ReleasesController {
     status: HttpStatus.UNAUTHORIZED,
     description: 'Unauthorized',
   })
+  @UseInterceptors(
+    FilesInterceptor('files', 20, {
+      storage: multer.memoryStorage(),
+      limits: {
+        files: 20,
+        fileSize: 100 * 1024 * 1024, // 100MB per file
+      },
+      fileFilter: (req, file, cb) => {
+        // Accept audio files
+        if (file.mimetype.startsWith('audio/')) {
+          cb(null, true);
+        } else {
+          cb(
+            new BadRequestException(
+              `Invalid file type: ${file.mimetype}. Only audio files are allowed.`,
+            ),
+            false,
+          );
+        }
+      },
+    }),
+  )
   async createRelease(
-    @Body() dto: CreateReleaseFormDto,
+    @Body() dto: CreateReleaseFormDataDto,
+    @UploadedFiles() files: Express.Multer.File[],
     @GetUser('sub') userId: string,
   ) {
     // Override userId with authenticated user
     dto.userId = userId;
-    const release = await this.releasesService.createRelease(dto);
+    
+    const release = await this.releasesService.createReleaseWithFiles(dto, files || []);
     return successResponse(release, 'Release created successfully');
   }
 

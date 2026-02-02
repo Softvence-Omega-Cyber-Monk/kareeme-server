@@ -1,26 +1,68 @@
 import { PrismaService } from '@/lib/prisma/prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
 import { Prisma } from '@prisma';
 import * as ExcelJS from 'exceljs';
 import { Parser } from 'json2csv';
-import { CreateReleaseFormDto } from './dto/create-release-form.dto';
+import { UploadService } from '../upload/upload.service';
+import { CreateReleaseFormDataDto } from './dto/create-release-form.dto';
 import {
-    ExportFormat,
-    ExportReleasesQueryDto,
-    GetReleasesQueryDto,
-    GetSplitSheetsQueryDto
+  ExportFormat,
+  ExportReleasesQueryDto,
+  GetReleasesQueryDto,
+  GetSplitSheetsQueryDto
 } from './dto/query-release.dto';
 
 @Injectable()
 export class ReleasesService {
-  constructor(private prisma: PrismaService) {}
+  private readonly logger = new Logger(ReleasesService.name);
+
+  constructor(
+    private prisma: PrismaService,
+    private uploadService: UploadService,
+  ) {}
 
   /**
-   * Create a complete release with all related data in a transaction
-   * Automatically generates split sheets from track artists
+   * Create a complete release with all related data and file uploads in a transaction
    */
-  async createRelease(dto: CreateReleaseFormDto) {
-    return await this.prisma.$transaction(async (tx : any) => {
+  async createReleaseWithFiles(dto: CreateReleaseFormDataDto, files: Express.Multer.File[]) {
+    this.logger.log(`Creating release with ${files?.length || 0} files`);
+
+    // Validate file references in tracks
+    if (dto.tracks && dto.tracks.length > 0) {
+      for (const track of dto.tracks) {
+        if (track.audioFileIndex !== undefined && track.audioFileIndex !== null) {
+          const fileIndex = parseInt(track.audioFileIndex, 10);
+          if (isNaN(fileIndex) || fileIndex < 0 || fileIndex >= (files?.length || 0)) {
+            throw new BadRequestException(
+              `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle}". ` +
+              `Must be between 0 and ${(files?.length || 1) - 1}`
+            );
+          }
+        }
+      }
+    }
+
+    // Upload all files first if any
+    const uploadedFiles: Record<number, any> = {};
+    if (files && files.length > 0) {
+      this.logger.log(`Uploading ${files.length} audio files...`);
+      
+      for (let i = 0; i < files.length; i++) {
+        try {
+          const result = await this.uploadService.uploadFiles([files[i]]);
+          if (result.data && result.data.files && result.data.files[0]) {
+            uploadedFiles[i] = result.data.files[0];
+            this.logger.log(`Uploaded file ${i}: ${uploadedFiles[i].url}`);
+          }
+        } catch (error) {
+          this.logger.error(`Failed to upload file at index ${i}:`, error);
+          throw new BadRequestException(`Failed to upload audio file at index ${i}: ${error.message}`);
+        }
+      }
+    }
+
+    // Create release with transaction
+    return await this.prisma.$transaction(async (tx: any) => {
       // 1. Create the release
       const release = await tx.release.create({
         data: {
@@ -70,17 +112,22 @@ export class ReleasesService {
       // 3. Create release territories
       if (dto.releaseTerritories && dto.releaseTerritories.length > 0) {
         await tx.releaseTerritory.createMany({
-          data: dto.releaseTerritories.map((territory) => ({
+          data: dto.releaseTerritories.map((territory : any) => ({
             releaseId: release.releaseId,
             territory: territory.territory,
           })),
         });
       }
 
-      // 4. Create tracks with track artists
+      // 4. Create tracks with track artists and link to uploaded audio files
       const createdTracks: string[] = [];
       if (dto.tracks && dto.tracks.length > 0) {
         for (const track of dto.tracks) {
+          // Get audio file URL if index is provided
+          let audioFileUrl = track.audioFileIndex !== undefined && track.audioFileIndex !== null
+            ? uploadedFiles[parseInt(track.audioFileIndex, 10)]?.url
+            : undefined;
+
           const createdTrack = await tx.track.create({
             data: {
               releaseId: release.releaseId,
@@ -96,7 +143,7 @@ export class ReleasesService {
                 : null,
               trackIsrc: track.trackIsrc,
               territoryRestrictions: track.territoryRestrictions,
-              audioFileUrl: track.audioFileUrl,
+              audioFileUrl: audioFileUrl,
             },
           });
 
@@ -163,7 +210,7 @@ export class ReleasesService {
           // Create contributors
           if (splitSheet.contributors && splitSheet.contributors.length > 0) {
             await tx.contributor.createMany({
-              data: splitSheet.contributors.map((contributor) => ({
+              data: splitSheet.contributors.map((contributor: any) => ({
                 splitId: createdSplitSheet.splitId,
                 fullName: contributor.fullName,
                 contribution: contributor.contribution,
@@ -180,6 +227,7 @@ export class ReleasesService {
         }
       } else if (createdTracks.length > 0) {
         // AUTO-GENERATE split sheets from tracks
+        this.logger.log('Auto-generating split sheets from tracks...');
         for (const trackId of createdTracks) {
           const track = await tx.track.findUnique({
             where: { trackId },
@@ -230,7 +278,7 @@ export class ReleasesService {
       // 6. Create back catalogue entries
       if (dto.backCatalogue && dto.backCatalogue.length > 0) {
         await tx.backCatalogue.createMany({
-          data: dto.backCatalogue.map((catalogue) => ({
+          data: dto.backCatalogue.map((catalogue: any) => ({
             releaseId: release.releaseId,
             labelName: catalogue.labelName,
             distributor: catalogue.distributor,
@@ -248,8 +296,8 @@ export class ReleasesService {
         });
       }
 
-      // Return the complete release with all related data
-      return await tx.release.findUnique({
+      // 7. Fetch and return the complete release with all relations
+      const completeRelease = await tx.release.findUnique({
         where: { releaseId: release.releaseId },
         include: {
           user: {
@@ -287,6 +335,9 @@ export class ReleasesService {
           backCatalogue: true,
         },
       });
+
+      this.logger.log(`Release created successfully: ${release.releaseId}`);
+      return completeRelease;
     });
   }
 
@@ -294,7 +345,18 @@ export class ReleasesService {
    * Get all releases with filtering, sorting, and searching
    */
   async getAllReleases(query: GetReleasesQueryDto) {
-    const { page = 1, limit = 10, search, sortBy = 'createdAt', sortOrder = 'desc', genre, status, typeOfRelease, userId, year } = query;
+    const {
+      page = 1,
+      limit = 10,
+      search,
+      sortBy = 'createdAt',
+      sortOrder = 'desc',
+      genre,
+      status,
+      typeOfRelease,
+      userId,
+      year,
+    } = query;
 
     const where: Prisma.ReleaseWhereInput = {};
 
@@ -315,31 +377,27 @@ export class ReleasesService {
       ];
     }
 
-    // Genre filter
+    // Individual filters
     if (genre) {
       where.genre = { contains: genre, mode: 'insensitive' };
     }
 
-    // Status filter
     if (status) {
       where.status = status;
     }
 
-    // Type filter
     if (typeOfRelease) {
       where.typeOfRelease = typeOfRelease;
     }
 
-    // User filter
     if (userId) {
       where.userId = userId;
     }
 
-    // Year filter
     if (year) {
       where.releaseDate = {
         gte: new Date(`${year}-01-01`),
-        lte: new Date(`${year}-12-31`),
+        lt: new Date(`${year + 1}-01-01`),
       };
     }
 
@@ -353,6 +411,7 @@ export class ReleasesService {
               id: true,
               name: true,
               email: true,
+              phone: true,
             },
           },
           releaseArtists: {
@@ -360,22 +419,26 @@ export class ReleasesService {
               artist: true,
             },
           },
+          releaseTerritories: true,
           tracks: {
-            select: {
-              trackId: true,
-              trackTitle: true,
-              trackNumber: true,
+            include: {
+              trackArtists: {
+                include: {
+                  artist: true,
+                },
+              },
             },
             orderBy: {
               trackNumber: 'asc',
             },
           },
           splitSheetAgreements: {
-            select: {
-              splitId: true,
-              songTitle: true,
+            include: {
+              contributors: true,
+              recordLabel: true,
             },
           },
+          backCatalogue: true,
         },
         orderBy: {
           [sortBy]: sortOrder,
@@ -559,7 +622,7 @@ export class ReleasesService {
     });
 
     // Flatten data for export
-    const exportData = releases.map((release : any) => ({
+    const exportData = releases.map((release: any) => ({
       'Release ID': release.releaseId,
       'Release Title': release.releaseTitle || '',
       'Type': release.typeOfRelease || '',
@@ -575,7 +638,7 @@ export class ReleasesService {
       'User Name': release.user.name,
       'User Email': release.user.email,
       'Artists': release.releaseArtists
-        .map((ra : any) => ra.artist.name)
+        .map((ra: any) => ra.artist.name)
         .join(', '),
       'Tracks Count': release.tracks.length,
       'Split Sheets Count': release.splitSheetAgreements.length,
@@ -626,9 +689,9 @@ export class ReleasesService {
     });
 
     // Auto-fit columns
-    worksheet.columns.forEach((column : any) => {
+    worksheet.columns.forEach((column: any) => {
       let maxLength = 0;
-      column.eachCell({ includeEmpty: true }, (cell : any) => {
+      column.eachCell({ includeEmpty: true }, (cell: any) => {
         const cellLength = cell.value ? cell.value.toString().length : 10;
         if (cellLength > maxLength) {
           maxLength = cellLength;
