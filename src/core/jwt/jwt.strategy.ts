@@ -21,7 +21,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
   }
 
   async validate(payload: JWTPayload) {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: payload.sub },
     });
 
@@ -38,7 +38,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
     }
 
     // Update lastActiveAt on each request
-    await this.prisma.client.user.update({
+    await this.prisma.user.update({
       where: { id: payload.sub },
       data: { lastActiveAt: new Date() },
     });

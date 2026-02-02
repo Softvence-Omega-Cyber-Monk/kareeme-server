@@ -59,6 +59,17 @@ export const ModelName = {
   Notification: 'Notification',
   UserNotification: 'UserNotification',
   NotificationSettings: 'NotificationSettings',
+  Release: 'Release',
+  Artist: 'Artist',
+  ReleaseArtist: 'ReleaseArtist',
+  Label: 'Label',
+  ReleaseTerritory: 'ReleaseTerritory',
+  SplitSheetAgreement: 'SplitSheetAgreement',
+  Contributor: 'Contributor',
+  Track: 'Track',
+  TrackArtist: 'TrackArtist',
+  Publisher: 'Publisher',
+  BackCatalogue: 'BackCatalogue',
   GlobalSettings: 'GlobalSettings',
   ClientSettings: 'ClientSettings',
   User: 'User'
@@ -195,6 +206,176 @@ export const NotificationSettingsScalarFieldEnum = {
 } as const
 
 export type NotificationSettingsScalarFieldEnum = (typeof NotificationSettingsScalarFieldEnum)[keyof typeof NotificationSettingsScalarFieldEnum]
+
+
+export const ReleaseScalarFieldEnum = {
+  releaseId: 'releaseId',
+  userId: 'userId',
+  releaseDate: 'releaseDate',
+  preOrderDate: 'preOrderDate',
+  releaseTitle: 'releaseTitle',
+  typeOfRelease: 'typeOfRelease',
+  genre: 'genre',
+  language: 'language',
+  isExplicitContent: 'isExplicitContent',
+  hasExternalRightsHolder: 'hasExternalRightsHolder',
+  hasDolbyAtmosVersion: 'hasDolbyAtmosVersion',
+  hasExtendedMixForDjStores: 'hasExtendedMixForDjStores',
+  additionalDetails: 'additionalDetails',
+  hasArtistOnSpotify: 'hasArtistOnSpotify',
+  hasMusicVideo: 'hasMusicVideo',
+  status: 'status',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ReleaseScalarFieldEnum = (typeof ReleaseScalarFieldEnum)[keyof typeof ReleaseScalarFieldEnum]
+
+
+export const ArtistScalarFieldEnum = {
+  artistId: 'artistId',
+  name: 'name',
+  email: 'email',
+  phone: 'phone',
+  address: 'address',
+  soundcloudProfile: 'soundcloudProfile',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ArtistScalarFieldEnum = (typeof ArtistScalarFieldEnum)[keyof typeof ArtistScalarFieldEnum]
+
+
+export const ReleaseArtistScalarFieldEnum = {
+  releaseId: 'releaseId',
+  artistId: 'artistId',
+  role: 'role'
+} as const
+
+export type ReleaseArtistScalarFieldEnum = (typeof ReleaseArtistScalarFieldEnum)[keyof typeof ReleaseArtistScalarFieldEnum]
+
+
+export const LabelScalarFieldEnum = {
+  labelId: 'labelId',
+  name: 'name',
+  attorney: 'attorney',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type LabelScalarFieldEnum = (typeof LabelScalarFieldEnum)[keyof typeof LabelScalarFieldEnum]
+
+
+export const ReleaseTerritoryScalarFieldEnum = {
+  releaseId: 'releaseId',
+  territory: 'territory'
+} as const
+
+export type ReleaseTerritoryScalarFieldEnum = (typeof ReleaseTerritoryScalarFieldEnum)[keyof typeof ReleaseTerritoryScalarFieldEnum]
+
+
+export const SplitSheetAgreementScalarFieldEnum = {
+  splitId: 'splitId',
+  releaseId: 'releaseId',
+  songTitle: 'songTitle',
+  isrc: 'isrc',
+  releaseDate: 'releaseDate',
+  recordLabelId: 'recordLabelId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type SplitSheetAgreementScalarFieldEnum = (typeof SplitSheetAgreementScalarFieldEnum)[keyof typeof SplitSheetAgreementScalarFieldEnum]
+
+
+export const ContributorScalarFieldEnum = {
+  contributorId: 'contributorId',
+  splitId: 'splitId',
+  fullName: 'fullName',
+  contribution: 'contribution',
+  email: 'email',
+  phone: 'phone',
+  address: 'address',
+  publisher: 'publisher',
+  affiliation: 'affiliation',
+  ipiCaeNumber: 'ipiCaeNumber',
+  percentageSplit: 'percentageSplit',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ContributorScalarFieldEnum = (typeof ContributorScalarFieldEnum)[keyof typeof ContributorScalarFieldEnum]
+
+
+export const TrackScalarFieldEnum = {
+  trackId: 'trackId',
+  releaseId: 'releaseId',
+  trackNumber: 'trackNumber',
+  trackTitle: 'trackTitle',
+  trackGenre: 'trackGenre',
+  trackMix: 'trackMix',
+  explicitContent: 'explicitContent',
+  trackLanguage: 'trackLanguage',
+  trackPublisher: 'trackPublisher',
+  originalReleaseDate: 'originalReleaseDate',
+  trackIsrc: 'trackIsrc',
+  territoryRestrictions: 'territoryRestrictions',
+  audioFileUrl: 'audioFileUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrackScalarFieldEnum = (typeof TrackScalarFieldEnum)[keyof typeof TrackScalarFieldEnum]
+
+
+export const TrackArtistScalarFieldEnum = {
+  trackArtistId: 'trackArtistId',
+  trackId: 'trackId',
+  artistId: 'artistId',
+  clientName: 'clientName',
+  nameOnTrack: 'nameOnTrack',
+  artistType: 'artistType',
+  songwriterRole: 'songwriterRole',
+  realName: 'realName',
+  masterSplit: 'masterSplit',
+  spotifyId: 'spotifyId',
+  appleId: 'appleId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TrackArtistScalarFieldEnum = (typeof TrackArtistScalarFieldEnum)[keyof typeof TrackArtistScalarFieldEnum]
+
+
+export const PublisherScalarFieldEnum = {
+  publisherId: 'publisherId',
+  name: 'name',
+  contactInfo: 'contactInfo',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PublisherScalarFieldEnum = (typeof PublisherScalarFieldEnum)[keyof typeof PublisherScalarFieldEnum]
+
+
+export const BackCatalogueScalarFieldEnum = {
+  catalogueId: 'catalogueId',
+  releaseId: 'releaseId',
+  labelName: 'labelName',
+  distributor: 'distributor',
+  upc: 'upc',
+  catalogueNumber: 'catalogueNumber',
+  releaseArtist: 'releaseArtist',
+  releaseTitle: 'releaseTitle',
+  releaseType: 'releaseType',
+  releaseDate: 'releaseDate',
+  releasePLine: 'releasePLine',
+  releaseCLine: 'releaseCLine',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type BackCatalogueScalarFieldEnum = (typeof BackCatalogueScalarFieldEnum)[keyof typeof BackCatalogueScalarFieldEnum]
 
 
 export const GlobalSettingsScalarFieldEnum = {

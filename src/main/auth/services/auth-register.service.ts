@@ -18,7 +18,7 @@ export class AuthRegisterService {
     const { email, password, name, phone } = dto;
 
     // Check if user email already exists
-    const existingUser = await this.prisma.client.user.findUnique({
+    const existingUser = await this.prisma.user.findUnique({
       where: { email },
     });
     if (existingUser) {
@@ -27,7 +27,7 @@ export class AuthRegisterService {
 
     // Check if phone number already exists
     const normalizedPhone = phone.replace(/\s+/g, '').replace('+', '');
-    const existingPhoneUser = await this.prisma.client.user.findFirst({
+    const existingPhoneUser = await this.prisma.user.findFirst({
       where: { phone: normalizedPhone },
     });
     if (existingPhoneUser) {
@@ -35,7 +35,7 @@ export class AuthRegisterService {
     }
 
     // Create new user
-    const newUser = await this.prisma.client.user.create({
+    const newUser = await this.prisma.user.create({
       data: {
         email,
         name,

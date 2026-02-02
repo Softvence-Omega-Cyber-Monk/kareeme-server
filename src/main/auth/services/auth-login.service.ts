@@ -20,7 +20,7 @@ export class AuthLoginService {
   async login(dto: LoginDto, req: Request): Promise<TResponse<any>> {
     const { email, password } = dto;
 
-    const user = await this.prisma.client.user.findUniqueOrThrow({
+    const user = await this.prisma.user.findUniqueOrThrow({
       where: { email },
     });
 
@@ -54,7 +54,7 @@ export class AuthLoginService {
     }
 
     // 2. Regular login
-    const updatedUser = await this.prisma.client.user.update({
+    const updatedUser = await this.prisma.user.update({
       where: { email },
       data: {
         lastLoginAt: new Date(),

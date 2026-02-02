@@ -16,7 +16,7 @@ export class GenericTriggerService {
 
   async emitEventToTriggerWorker() {
     try {
-      const superAdmin = await this.prisma.client.user.findFirst({
+      const superAdmin = await this.prisma.user.findFirst({
         where: {
           role: 'SUPER_ADMIN',
         },

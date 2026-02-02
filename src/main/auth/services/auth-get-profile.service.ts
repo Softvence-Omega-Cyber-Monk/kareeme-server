@@ -24,7 +24,7 @@ export class AuthGetProfileService {
     const where: any = {};
     where[key] = value;
 
-    const user = await this.prisma.client.user.findUniqueOrThrow({
+    const user = await this.prisma.user.findUniqueOrThrow({
       where,
       include: {
         clientSettings: true,

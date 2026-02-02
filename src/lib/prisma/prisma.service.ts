@@ -1,47 +1,51 @@
 import { ENVEnum } from '@/common/enum/env.enum';
 import {
-  Injectable,
-  Logger,
-  OnModuleDestroy,
-  OnModuleInit,
+    Injectable,
+    Logger,
+    OnModuleDestroy,
+    OnModuleInit,
 } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
 import { PrismaClient } from '@prisma';
 import { PrismaPg } from '@prisma/adapter-pg';
 
 @Injectable()
-export class PrismaService implements OnModuleInit, OnModuleDestroy {
+export class PrismaService
+  extends PrismaClient
+  implements OnModuleInit, OnModuleDestroy
+{
   private readonly logger = new Logger(PrismaService.name);
-  private readonly prisma: PrismaClient;
   private readonly connectionString: string;
 
-  constructor(private readonly configService: ConfigService) {
-    this.connectionString = this.configService.getOrThrow<string>(
+  constructor(configService: ConfigService) {
+    const connectionString = configService.getOrThrow<string>(
       ENVEnum.DATABASE_URL,
     );
 
-    const adapter = new PrismaPg({ connectionString: this.connectionString });
+    const adapter = new PrismaPg({ connectionString });
 
-    this.prisma = new PrismaClient({
+    super({
       adapter,
       log: [{ emit: 'event', level: 'error' }],
     });
+
+    this.connectionString = connectionString;
   }
 
   async onModuleInit() {
     this.logger.log('[INIT] Prisma connecting...');
-    await this.prisma.$connect();
+    await this.$connect();
     this.logger.log('[INIT] Prisma connected');
   }
 
   async onModuleDestroy() {
     this.logger.log('[DESTROY] Prisma disconnecting...');
-    await this.prisma.$disconnect();
+    await this.$disconnect();
     this.logger.log('[DESTROY] Prisma disconnected');
   }
 
-  /** Expose Prisma models (like prisma.user, prisma.post, etc.) */
+  /** Keep backwards-compatibility: some modules use `prisma.client` */
   get client() {
-    return this.prisma;
+    return this;
   }
 }

@@ -41,8 +41,8 @@ export class AuthAdminService {
       },
     };
 
-    const [team, total] = await this.prisma.client.$transaction([
-      this.prisma.client.user.findMany({
+    const [team, total] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
         where,
         skip,
         take: limit,
@@ -63,7 +63,7 @@ export class AuthAdminService {
         },
         orderBy: { createdAt: 'desc' },
       }),
-      this.prisma.client.user.count({
+      this.prisma.user.count({
         where,
       }),
     ]);
@@ -77,7 +77,7 @@ export class AuthAdminService {
 
   @HandleError('Failed to fetch admin')
   async getAdmin(userId: string) {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -91,7 +91,7 @@ export class AuthAdminService {
 
   @HandleError('Failed to invite admin')
   async inviteAdmin(dto: InviteAdminDto) {
-    const existingUser = await this.prisma.client.user.findUnique({
+    const existingUser = await this.prisma.user.findUnique({
       where: { email: dto.email },
     });
 
@@ -103,7 +103,7 @@ export class AuthAdminService {
     const hashedPassword = await this.authUtils.hash(generatedPassword);
 
     // Explicit cast to any if enums don't perfectly overlap in types, but they match in value
-    const newUser = await this.prisma.client.user.create({
+    const newUser = await this.prisma.user.create({
       data: {
         email: dto.email,
         name: dto.name,
@@ -130,7 +130,7 @@ export class AuthAdminService {
 
   @HandleError("Failed to update admin's role")
   async changeRole(userId: string, dto: AdminRoleDto) {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -143,7 +143,7 @@ export class AuthAdminService {
       user.role === UserEnum.SUPER_ADMIN &&
       dto.role !== UserEnum.SUPER_ADMIN
     ) {
-      const superAdminCount = await this.prisma.client.user.count({
+      const superAdminCount = await this.prisma.user.count({
         where: { role: UserEnum.SUPER_ADMIN },
       });
 
@@ -155,7 +155,7 @@ export class AuthAdminService {
       }
     }
 
-    const updatedUser = await this.prisma.client.user.update({
+    const updatedUser = await this.prisma.user.update({
       where: { id: userId },
       data: { role: dto.role as any },
     });
@@ -169,7 +169,7 @@ export class AuthAdminService {
 
   @HandleError('Failed to delete admin user')
   async deleteAdmin(userId: string) {
-    const user = await this.prisma.client.user.findUnique({
+    const user = await this.prisma.user.findUnique({
       where: { id: userId },
     });
 
@@ -178,7 +178,7 @@ export class AuthAdminService {
     }
 
     if (user.role === UserEnum.SUPER_ADMIN) {
-      const superAdminCount = await this.prisma.client.user.count({
+      const superAdminCount = await this.prisma.user.count({
         where: { role: UserEnum.SUPER_ADMIN },
       });
 
@@ -190,7 +190,7 @@ export class AuthAdminService {
       }
     }
 
-    const deletedUser = await this.prisma.client.user.delete({
+    const deletedUser = await this.prisma.user.delete({
       where: { id: userId },
     });
 
