@@ -25,76 +25,76 @@ export class GetReleasesQueryDto {
   @IsInt()
   page?: number = 1;
 
-  @ApiPropertyOptional({ 
-    default: 10, 
-    description: 'Number of items per page' 
+  @ApiPropertyOptional({
+    default: 10,
+    description: 'Number of items per page',
   })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   limit?: number = 10;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Search term for release title, artist name, or genre',
-    example: 'Album' 
+    example: 'Album',
   })
   @IsOptional()
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional({ 
-    enum: ReleaseSortBy, 
+  @ApiPropertyOptional({
+    enum: ReleaseSortBy,
     default: ReleaseSortBy.CREATED_AT,
-    description: 'Field to sort by'
+    description: 'Field to sort by',
   })
   @IsOptional()
   @IsEnum(ReleaseSortBy)
   sortBy?: ReleaseSortBy = ReleaseSortBy.CREATED_AT;
 
-  @ApiPropertyOptional({ 
-    enum: SortOrder, 
+  @ApiPropertyOptional({
+    enum: SortOrder,
     default: SortOrder.DESC,
-    description: 'Sort order'
+    description: 'Sort order',
   })
   @IsOptional()
   @IsEnum(SortOrder)
   sortOrder?: SortOrder = SortOrder.DESC;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by genre',
-    example: 'Pop' 
+    example: 'Pop',
   })
   @IsOptional()
   @IsString()
   genre?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by status',
-    example: 'PENDING' 
+    example: 'PENDING',
   })
   @IsOptional()
   @IsString()
   status?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by type of release',
-    example: 'Album' 
+    example: 'Album',
   })
   @IsOptional()
   @IsString()
   typeOfRelease?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by user ID',
-    example: '550e8400-e29b-41d4-a716-446655440000' 
+    example: '550e8400-e29b-41d4-a716-446655440000',
   })
   @IsOptional()
   @IsString()
   userId?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by year',
-    example: 2024 
+    example: 2024,
   })
   @IsOptional()
   @Type(() => Number)
@@ -112,26 +112,26 @@ export class GetSplitSheetsQueryDto {
   @IsInt()
   page?: number = 1;
 
-  @ApiPropertyOptional({ 
-    default: 10, 
-    description: 'Number of items per page' 
+  @ApiPropertyOptional({
+    default: 10,
+    description: 'Number of items per page',
   })
   @IsOptional()
   @Type(() => Number)
   @IsInt()
   limit?: number = 10;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Search term for song title or ISRC',
-    example: 'Beautiful Song' 
+    example: 'Beautiful Song',
   })
   @IsOptional()
   @IsString()
   search?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'Filter by release ID',
-    example: '550e8400-e29b-41d4-a716-446655440000' 
+    example: '550e8400-e29b-41d4-a716-446655440000',
   })
   @IsOptional()
   @IsString()
@@ -145,10 +145,10 @@ export enum ExportFormat {
 }
 
 export class ExportReleasesQueryDto extends GetReleasesQueryDto {
-  @ApiPropertyOptional({ 
-    enum: ExportFormat, 
+  @ApiPropertyOptional({
+    enum: ExportFormat,
     default: ExportFormat.CSV,
-    description: 'Export format'
+    description: 'Export format',
   })
   @IsOptional()
   @IsEnum(ExportFormat)

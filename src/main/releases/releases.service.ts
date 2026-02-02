@@ -1,5 +1,10 @@
 import { PrismaService } from '@/lib/prisma/prisma.service';
-import { BadRequestException, Injectable, Logger, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
+} from '@nestjs/common';
 import { Prisma } from '@prisma';
 import * as ExcelJS from 'exceljs';
 import { Parser } from 'json2csv';
@@ -9,7 +14,7 @@ import {
   ExportFormat,
   ExportReleasesQueryDto,
   GetReleasesQueryDto,
-  GetSplitSheetsQueryDto
+  GetSplitSheetsQueryDto,
 } from './dto/query-release.dto';
 
 @Injectable()
@@ -24,18 +29,28 @@ export class ReleasesService {
   /**
    * Create a complete release with all related data and file uploads in a transaction
    */
-  async createReleaseWithFiles(dto: CreateReleaseFormDataDto, files: Express.Multer.File[]) {
+  async createReleaseWithFiles(
+    dto: CreateReleaseFormDataDto,
+    files: Express.Multer.File[],
+  ) {
     this.logger.log(`Creating release with ${files?.length || 0} files`);
 
     // Validate file references in tracks
     if (dto.tracks && dto.tracks.length > 0) {
       for (const track of dto.tracks) {
-        if (track.audioFileIndex !== undefined && track.audioFileIndex !== null) {
+        if (
+          track.audioFileIndex !== undefined &&
+          track.audioFileIndex !== null
+        ) {
           const fileIndex = parseInt(track.audioFileIndex, 10);
-          if (isNaN(fileIndex) || fileIndex < 0 || fileIndex >= (files?.length || 0)) {
+          if (
+            isNaN(fileIndex) ||
+            fileIndex < 0 ||
+            fileIndex >= (files?.length || 0)
+          ) {
             throw new BadRequestException(
               `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle}". ` +
-              `Must be between 0 and ${(files?.length || 1) - 1}`
+                `Must be between 0 and ${(files?.length || 1) - 1}`,
             );
           }
         }
@@ -46,7 +61,7 @@ export class ReleasesService {
     const uploadedFiles: Record<number, any> = {};
     if (files && files.length > 0) {
       this.logger.log(`Uploading ${files.length} audio files...`);
-      
+
       for (let i = 0; i < files.length; i++) {
         try {
           const result = await this.uploadService.uploadFiles([files[i]]);
@@ -56,7 +71,9 @@ export class ReleasesService {
           }
         } catch (error) {
           this.logger.error(`Failed to upload file at index ${i}:`, error);
-          throw new BadRequestException(`Failed to upload audio file at index ${i}: ${error.message}`);
+          throw new BadRequestException(
+            `Failed to upload audio file at index ${i}: ${error.message}`,
+          );
         }
       }
     }
@@ -112,7 +129,7 @@ export class ReleasesService {
       // 3. Create release territories
       if (dto.releaseTerritories && dto.releaseTerritories.length > 0) {
         await tx.releaseTerritory.createMany({
-          data: dto.releaseTerritories.map((territory : any) => ({
+          data: dto.releaseTerritories.map((territory: any) => ({
             releaseId: release.releaseId,
             territory: territory.territory,
           })),
@@ -124,9 +141,10 @@ export class ReleasesService {
       if (dto.tracks && dto.tracks.length > 0) {
         for (const track of dto.tracks) {
           // Get audio file URL if index is provided
-          let audioFileUrl = track.audioFileIndex !== undefined && track.audioFileIndex !== null
-            ? uploadedFiles[parseInt(track.audioFileIndex, 10)]?.url
-            : undefined;
+          let audioFileUrl =
+            track.audioFileIndex !== undefined && track.audioFileIndex !== null
+              ? uploadedFiles[parseInt(track.audioFileIndex, 10)]?.url
+              : undefined;
 
           const createdTrack = await tx.track.create({
             data: {
@@ -601,9 +619,7 @@ export class ReleasesService {
     });
 
     if (!splitSheet) {
-      throw new NotFoundException(
-        `Split sheet with ID ${splitId} not found`,
-      );
+      throw new NotFoundException(`Split sheet with ID ${splitId} not found`);
     }
 
     return splitSheet;
@@ -625,10 +641,10 @@ export class ReleasesService {
     const exportData = releases.map((release: any) => ({
       'Release ID': release.releaseId,
       'Release Title': release.releaseTitle || '',
-      'Type': release.typeOfRelease || '',
-      'Genre': release.genre || '',
-      'Language': release.language || '',
-      'Status': release.status || '',
+      Type: release.typeOfRelease || '',
+      Genre: release.genre || '',
+      Language: release.language || '',
+      Status: release.status || '',
       'Release Date': release.releaseDate
         ? release.releaseDate.toISOString().split('T')[0]
         : '',
@@ -637,7 +653,7 @@ export class ReleasesService {
         : '',
       'User Name': release.user.name,
       'User Email': release.user.email,
-      'Artists': release.releaseArtists
+      Artists: release.releaseArtists
         .map((ra: any) => ra.artist.name)
         .join(', '),
       'Tracks Count': release.tracks.length,

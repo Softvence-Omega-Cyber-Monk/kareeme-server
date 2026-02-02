@@ -73,17 +73,17 @@ export class CreateArtistDto {
 
 // ========== Release Artist DTOs ==========
 export class CreateReleaseArtistDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'Existing artist ID (use this OR artist object)' 
+    description: 'Existing artist ID (use this OR artist object)',
   })
   @IsOptional()
   @IsUUID()
   artistId?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'New artist data as JSON string (use this OR artistId)',
-    example: '{"name":"John Doe","email":"artist@example.com"}'
+    example: '{"name":"John Doe","email":"artist@example.com"}',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -160,7 +160,7 @@ export class CreateContributorDto {
   @IsString()
   ipiCaeNumber?: string;
 
-  @ApiPropertyOptional({ example: 25.50 })
+  @ApiPropertyOptional({ example: 25.5 })
   @IsOptional()
   @Transform(({ value }) => parseNumber(value))
   @IsDecimal()
@@ -184,17 +184,17 @@ export class CreateSplitSheetAgreementDto {
   @IsDateString()
   releaseDate?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'Existing label ID (use this OR recordLabel object)' 
+    description: 'Existing label ID (use this OR recordLabel object)',
   })
   @IsOptional()
   @IsUUID()
   recordLabelId?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'New label data as JSON string (use this OR recordLabelId)',
-    example: '{"name":"Universal Music","attorney":"John Attorney"}'
+    example: '{"name":"Universal Music","attorney":"John Attorney"}',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -202,10 +202,10 @@ export class CreateSplitSheetAgreementDto {
   @Type(() => CreateLabelDto)
   recordLabel?: CreateLabelDto;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Contributors as JSON array string',
-    example: '[{"fullName":"Jane Smith","contribution":"Songwriter"}]'
+    example: '[{"fullName":"Jane Smith","contribution":"Songwriter"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -217,17 +217,17 @@ export class CreateSplitSheetAgreementDto {
 
 // ========== Track Artist DTOs ==========
 export class CreateTrackArtistDto {
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'Existing artist ID (use this OR artist object)' 
+    description: 'Existing artist ID (use this OR artist object)',
   })
   @IsOptional()
   @IsUUID()
   artistId?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     description: 'New artist data as JSON string (use this OR artistId)',
-    example: '{"name":"John Doe","email":"artist@example.com"}'
+    example: '{"name":"John Doe","email":"artist@example.com"}',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -330,18 +330,19 @@ export class CreateTrackDto {
   @IsString()
   territoryRestrictions?: string;
 
-  @ApiPropertyOptional({ 
-    description: 'Index of the audio file in the files array (e.g., "0" for first file)',
-    example: '0'
+  @ApiPropertyOptional({
+    description:
+      'Index of the audio file in the files array (e.g., "0" for first file)',
+    example: '0',
   })
   @IsOptional()
   @IsString()
   audioFileIndex?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Track artists as JSON array string',
-    example: '[{"nameOnTrack":"John Doe","artistType":"Primary"}]'
+    example: '[{"nameOnTrack":"John Doe","artistType":"Primary"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -406,9 +407,9 @@ export class CreateBackCatalogueDto {
 
 // ========== Main Release Form DTO (FormData) ==========
 export class CreateReleaseFormDataDto {
-  @ApiProperty({ 
+  @ApiProperty({
     example: '550e8400-e29b-41d4-a716-446655440000',
-    description: 'User ID from authenticated user (will be overridden by JWT)' 
+    description: 'User ID from authenticated user (will be overridden by JWT)',
   })
   @IsNotEmpty()
   @IsUUID()
@@ -490,10 +491,11 @@ export class CreateReleaseFormDataDto {
   @IsString()
   status?: string;
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Release artists as JSON array string',
-    example: '[{"artistId":"836c0e3b-950c-415e-aafc-842011526da1","role":"Primary Artist"},{"artistId":"836c0e3b-950c-415e-aafc-842011526da1","role":"Secondary Artist"}]'
+    example:
+      '[{"artistId":"836c0e3b-950c-415e-aafc-842011526da1","role":"Primary Artist"},{"artistId":"836c0e3b-950c-415e-aafc-842011526da1","role":"Secondary Artist"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -502,10 +504,10 @@ export class CreateReleaseFormDataDto {
   @Type(() => CreateReleaseArtistDto)
   releaseArtists?: CreateReleaseArtistDto[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Release territories as JSON array string',
-    example: '[{"territory":"US"},{"territory":"UK"}]'
+    example: '[{"territory":"US"},{"territory":"UK"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -514,10 +516,10 @@ export class CreateReleaseFormDataDto {
   @Type(() => CreateReleaseTerritoryDto)
   releaseTerritories?: CreateReleaseTerritoryDto[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Split sheet agreements as JSON array string',
-    example: '[{"songTitle":"Beautiful Song","isrc":"USRC17607839"}]'
+    example: '[{"songTitle":"Beautiful Song","isrc":"USRC17607839"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -526,10 +528,11 @@ export class CreateReleaseFormDataDto {
   @Type(() => CreateSplitSheetAgreementDto)
   splitSheetAgreements?: CreateSplitSheetAgreementDto[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Tracks as JSON array string',
-    example: '[{"trackNumber":1,"trackTitle":"Song Title","audioFileIndex":"0"}]'
+    example:
+      '[{"trackNumber":1,"trackTitle":"Song Title","audioFileIndex":"0"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -538,10 +541,10 @@ export class CreateReleaseFormDataDto {
   @Type(() => CreateTrackDto)
   tracks?: CreateTrackDto[];
 
-  @ApiPropertyOptional({ 
+  @ApiPropertyOptional({
     type: 'string',
     description: 'Back catalogue entries as JSON array string',
-    example: '[{"labelName":"Universal Records","upc":"123456789012"}]'
+    example: '[{"labelName":"Universal Records","upc":"123456789012"}]',
   })
   @IsOptional()
   @Transform(({ value }) => parseJSON(value))
@@ -556,7 +559,8 @@ export class CreateReleaseFormDataDto {
       type: 'string',
       format: 'binary',
     },
-    description: 'Audio files for tracks (max 20 files). Reference by index in track.audioFileIndex',
+    description:
+      'Audio files for tracks (max 20 files). Reference by index in track.audioFileIndex',
   })
   files?: Express.Multer.File[];
 }

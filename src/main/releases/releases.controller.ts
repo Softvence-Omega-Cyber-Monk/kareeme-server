@@ -94,8 +94,11 @@ export class ReleasesController {
   ) {
     // Override userId with authenticated user
     dto.userId = userId;
-    
-    const release = await this.releasesService.createReleaseWithFiles(dto, files || []);
+
+    const release = await this.releasesService.createReleaseWithFiles(
+      dto,
+      files || [],
+    );
     return successResponse(release, 'Release created successfully');
   }
 
@@ -109,7 +112,11 @@ export class ReleasesController {
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })
   @ApiQuery({ name: 'search', required: false, type: String })
-  @ApiQuery({ name: 'sortBy', required: false, enum: ['createdAt', 'updatedAt', 'releaseDate', 'releaseTitle', 'status'] })
+  @ApiQuery({
+    name: 'sortBy',
+    required: false,
+    enum: ['createdAt', 'updatedAt', 'releaseDate', 'releaseTitle', 'status'],
+  })
   @ApiQuery({ name: 'sortOrder', required: false, enum: ['asc', 'desc'] })
   @ApiQuery({ name: 'genre', required: false, type: String })
   @ApiQuery({ name: 'status', required: false, type: String })
@@ -174,8 +181,7 @@ export class ReleasesController {
   @ValidateAuth()
   @ApiOperation({
     summary: 'Get all split sheets',
-    description:
-      'Get all split sheet agreements with filtering and pagination',
+    description: 'Get all split sheet agreements with filtering and pagination',
   })
   @ApiQuery({ name: 'page', required: false, type: Number })
   @ApiQuery({ name: 'limit', required: false, type: Number })

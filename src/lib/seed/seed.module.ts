@@ -7,6 +7,11 @@ import { InitialUserSeedService } from './services/initial-user-seed.service';
 @Global()
 @Module({
   imports: [],
-  providers: [FileService, GlobalSettingsService, InitialUserSeedService, SeedService],
+  providers: [
+    FileService,
+    GlobalSettingsService,
+    InitialUserSeedService,
+    SeedService,
+  ],
 })
 export class SeedModule {}
