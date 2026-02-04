@@ -2,20 +2,20 @@ import { ENVEnum } from '@/common/enum/env.enum';
 import { AppError } from '@/core/error/handle-error.app';
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import {
-  AacCodingMode,
-  AudioCodec,
-  AudioDefaultSelection,
-  CreateJobCommand,
-  GetJobCommand,
-  H264RateControlMode,
-  H264SceneChangeDetect,
-  MediaConvertClient,
-  VideoCodec,
+    AacCodingMode,
+    AudioCodec,
+    AudioDefaultSelection,
+    CreateJobCommand,
+    GetJobCommand,
+    H264RateControlMode,
+    H264SceneChangeDetect,
+    MediaConvertClient,
+    VideoCodec,
 } from '@aws-sdk/client-mediaconvert';
 import {
-  DeleteObjectCommand,
-  PutObjectCommand,
-  S3Client,
+    DeleteObjectCommand,
+    PutObjectCommand,
+    S3Client,
 } from '@aws-sdk/client-s3';
 import { Injectable, Logger } from '@nestjs/common';
 import { ConfigService } from '@nestjs/config';
@@ -115,7 +115,7 @@ export class S3Service {
     const fileUrl = await this.uploadBuffer(s3Key, file.buffer, file.mimetype);
 
     // Save record in database
-    const fileRecord = await this.prisma.client.fileInstance.create({
+    const fileRecord = await this.prisma.fileInstance.create({
       data: {
         filename: uniqueFileName,
         originalFilename: file.originalname,
@@ -131,7 +131,7 @@ export class S3Service {
   }
 
   async deleteFile(id: string) {
-    const file = await this.prisma.client.fileInstance.findUnique({
+    const file = await this.prisma.fileInstance.findUnique({
       where: { id },
     });
 
@@ -141,7 +141,7 @@ export class S3Service {
 
     await this.deleteObject(file.path);
 
-    await this.prisma.client.fileInstance.delete({
+    await this.prisma.fileInstance.delete({
       where: { id },
     });
   }
@@ -173,7 +173,7 @@ export class S3Service {
     const fileUrl = this.buildS3Url(s3Key);
 
     // Save record in DB
-    const fileRecord = await this.prisma.client.fileInstance.create({
+    const fileRecord = await this.prisma.fileInstance.create({
       data: {
         filename: uniqueFileName,
         originalFilename: originalName || path.basename(filePath),
