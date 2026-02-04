@@ -1,9 +1,9 @@
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import {
-  BadRequestException,
-  Injectable,
-  Logger,
-  NotFoundException,
+    BadRequestException,
+    Injectable,
+    Logger,
+    NotFoundException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma';
 import * as ExcelJS from 'exceljs';
@@ -11,10 +11,10 @@ import { Parser } from 'json2csv';
 import { UploadService } from '../upload/upload.service';
 import { CreateReleaseFormDataDto } from './dto/create-release-form.dto';
 import {
-  ExportFormat,
-  ExportReleasesQueryDto,
-  GetReleasesQueryDto,
-  GetSplitSheetsQueryDto,
+    ExportFormat,
+    ExportReleasesQueryDto,
+    GetReleasesQueryDto,
+    GetSplitSheetsQueryDto,
 } from './dto/query-release.dto';
 
 @Injectable()
@@ -33,53 +33,54 @@ export class ReleasesService {
     dto: CreateReleaseFormDataDto,
     files: Express.Multer.File[],
   ) {
-    this.logger.log(`Creating release with ${files?.length || 0} files`);
+    try {
+      this.logger.log(`Creating release with ${files?.length || 0} files`);
 
-    // Validate file references in tracks
-    if (dto.tracks && dto.tracks.length > 0) {
-      for (const track of dto.tracks) {
-        if (
-          track.audioFileIndex !== undefined &&
-          track.audioFileIndex !== null
-        ) {
-          const fileIndex = parseInt(track.audioFileIndex, 10);
+      // Validate file references in tracks
+      if (dto.tracks && dto.tracks.length > 0) {
+        for (const track of dto.tracks) {
           if (
-            isNaN(fileIndex) ||
-            fileIndex < 0 ||
-            fileIndex >= (files?.length || 0)
+            track.audioFileIndex !== undefined &&
+            track.audioFileIndex !== null
           ) {
+            const fileIndex = parseInt(track.audioFileIndex, 10);
+            if (
+              isNaN(fileIndex) ||
+              fileIndex < 0 ||
+              fileIndex >= (files?.length || 0)
+            ) {
+              throw new BadRequestException(
+                `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle}". ` +
+                  `Must be between 0 and ${(files?.length || 1) - 1}`,
+              );
+            }
+          }
+        }
+      }
+
+      // Upload all files first if any
+      const uploadedFiles: Record<number, any> = {};
+      if (files && files.length > 0) {
+        this.logger.log(`Uploading ${files.length} audio files...`);
+
+        for (let i = 0; i < files.length; i++) {
+          try {
+            const result = await this.uploadService.uploadFiles([files[i]]);
+            if (result.data && result.data.files && result.data.files[0]) {
+              uploadedFiles[i] = result.data.files[0];
+              this.logger.log(`Uploaded file ${i}: ${uploadedFiles[i].url}`);
+            }
+          } catch (error) {
+            this.logger.error(`Failed to upload file at index ${i}:`, error);
             throw new BadRequestException(
-              `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle}". ` +
-                `Must be between 0 and ${(files?.length || 1) - 1}`,
+              `Failed to upload audio file at index ${i}: ${error.message}`,
             );
           }
         }
       }
-    }
 
-    // Upload all files first if any
-    const uploadedFiles: Record<number, any> = {};
-    if (files && files.length > 0) {
-      this.logger.log(`Uploading ${files.length} audio files...`);
-
-      for (let i = 0; i < files.length; i++) {
-        try {
-          const result = await this.uploadService.uploadFiles([files[i]]);
-          if (result.data && result.data.files && result.data.files[0]) {
-            uploadedFiles[i] = result.data.files[0];
-            this.logger.log(`Uploaded file ${i}: ${uploadedFiles[i].url}`);
-          }
-        } catch (error) {
-          this.logger.error(`Failed to upload file at index ${i}:`, error);
-          throw new BadRequestException(
-            `Failed to upload audio file at index ${i}: ${error.message}`,
-          );
-        }
-      }
-    }
-
-    // Create release with transaction
-    return await this.prisma.$transaction(async (tx: any) => {
+      // Create release with transaction
+      return await this.prisma.$transaction(async (tx: any) => {
       // 1. Create the release
       const release = await tx.release.create({
         data: {
@@ -357,6 +358,42 @@ export class ReleasesService {
       this.logger.log(`Release created successfully: ${release.releaseId}`);
       return completeRelease;
     });
+    } catch (error) {
+      this.logger.error('Error creating release:', error);
+      
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      
+      if (error instanceof NotFoundException) {
+        throw error;
+      }
+
+      // Handle Prisma validation errors
+      if (error instanceof Prisma.PrismaClientValidationError) {
+        throw new BadRequestException(
+          `Invalid data provided: ${error.message}`,
+        );
+      }
+
+      // Handle Prisma unique constraint errors
+      if (error instanceof Prisma.PrismaClientKnownRequestError) {
+        if (error.code === 'P2002') {
+          const field = (error.meta?.target as string[])?.[0] || 'field';
+          throw new BadRequestException(
+            `A release with this ${field} already exists`,
+          );
+        }
+        throw new BadRequestException(
+          `Database error: ${error.message}`,
+        );
+      }
+
+      // Generic error handler
+      throw new BadRequestException(
+        `Failed to create release: ${error.message || 'Unknown error occurred'}`,
+      );
+    }
   }
 
   /**

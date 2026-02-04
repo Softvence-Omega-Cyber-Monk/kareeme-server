@@ -1,9 +1,9 @@
 import { PaginationDto } from '@/common/dto/pagination.dto';
 import {
-  successPaginatedResponse,
-  successResponse,
-  TPaginatedResponse,
-  TResponse,
+    successPaginatedResponse,
+    successResponse,
+    TPaginatedResponse,
+    TResponse,
 } from '@/common/utils/response.util';
 import { AppError } from '@/core/error/handle-error.app';
 import { HandleError } from '@/core/error/handle-error.decorator';
@@ -30,18 +30,34 @@ export class UploadService {
       throw new AppError(400, 'You can upload a maximum of 5 files');
     }
 
-    // Parallelize uploads
-    const results = await Promise.all(
-      files.map((file) => this.s3.uploadFile(file)),
-    );
+    try {
+      // Parallelize uploads
+      const results = await Promise.all(
+        files.map((file) => {
+          this.logger.log(`Uploading file: ${file.originalname} (${file.size} bytes)`);
+          return this.s3.uploadFile(file).catch((error) => {
+            this.logger.error(`Failed to upload file ${file.originalname}:`, error);
+            throw error;
+          });
+        }),
+      );
 
-    return successResponse(
-      {
-        files: results,
-        count: results.length,
-      },
-      'Files uploaded successfully',
-    );
+      this.logger.log(`Successfully uploaded ${results.length} file(s)`);
+
+      return successResponse(
+        {
+          files: results,
+          count: results.length,
+        },
+        'Files uploaded successfully',
+      );
+    } catch (error) {
+      this.logger.error('Error uploading files:', error);
+      throw new AppError(
+        500,
+        `Failed to upload files: ${error.message || 'Unknown error occurred'}`,
+      );
+    }
   }
 
   @HandleError('Failed to delete files', 'File')
