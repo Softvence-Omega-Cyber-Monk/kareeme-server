@@ -1,38 +1,38 @@
 import {
-  successPaginatedResponse,
-  successResponse,
+    successPaginatedResponse,
+    successResponse,
 } from '@/common/utils/response.util';
 import { GetUser, ValidateAuth } from '@/core/jwt/jwt.decorator';
 import {
-  BadRequestException,
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Param,
-  Post,
-  Query,
-  Res,
-  UploadedFiles,
-  UseInterceptors,
+    BadRequestException,
+    Body,
+    Controller,
+    Get,
+    HttpStatus,
+    Param,
+    Post,
+    Query,
+    Res,
+    UploadedFiles,
+    UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import {
-  ApiBearerAuth,
-  ApiBody,
-  ApiConsumes,
-  ApiOperation,
-  ApiQuery,
-  ApiResponse,
-  ApiTags,
+    ApiBearerAuth,
+    ApiBody,
+    ApiConsumes,
+    ApiOperation,
+    ApiQuery,
+    ApiResponse,
+    ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import * as multer from 'multer';
 import { CreateReleaseFormDataDto } from './dto/create-release-form.dto';
 import {
-  ExportReleasesQueryDto,
-  GetReleasesQueryDto,
-  GetSplitSheetsQueryDto,
+    ExportReleasesQueryDto,
+    GetReleasesQueryDto,
+    GetSplitSheetsQueryDto,
 } from './dto/query-release.dto';
 import { ReleasesService } from './releases.service';
 
@@ -92,14 +92,29 @@ export class ReleasesController {
     @UploadedFiles() files: Express.Multer.File[],
     @GetUser('sub') userId: string,
   ) {
-    // Override userId with authenticated user
-    dto.userId = userId;
+    try {
+      // Override userId with authenticated user
+      dto.userId = userId;
 
-    const release = await this.releasesService.createReleaseWithFiles(
-      dto,
-      files || [],
-    );
-    return successResponse(release, 'Release created successfully');
+      const release = await this.releasesService.createReleaseWithFiles(
+        dto,
+        files || [],
+      );
+      return successResponse(release, 'Release created successfully');
+    } catch (error) {
+      // Re-throw BadRequestException and other known errors
+      if (error instanceof BadRequestException) {
+        throw error;
+      }
+      
+      // Log unexpected errors
+      console.error('Unexpected error in createRelease:', error);
+      
+      // Throw a generic error with details
+      throw new BadRequestException(
+        `Failed to create release: ${error.message || 'Unknown server error'}`,
+      );
+    }
   }
 
   @Get()

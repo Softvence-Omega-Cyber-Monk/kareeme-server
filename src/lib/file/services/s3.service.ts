@@ -106,28 +106,41 @@ export class S3Service {
   }
 
   async uploadFile(file: Express.Multer.File) {
-    const fileExt = file.originalname.split('.').pop();
-    const folder = this.getFolderByMimeType(file.mimetype);
-    const uniqueFileName = `${uuid()}.${fileExt}`;
-    const s3Key = `${folder}/${uniqueFileName}`;
+    try {
+      const fileExt = file.originalname.split('.').pop();
+      const folder = this.getFolderByMimeType(file.mimetype);
+      const uniqueFileName = `${uuid()}.${fileExt}`;
+      const s3Key = `${folder}/${uniqueFileName}`;
 
-    // Upload to S3
-    const fileUrl = await this.uploadBuffer(s3Key, file.buffer, file.mimetype);
+      this.logger.log(`Uploading file to S3: ${s3Key}`);
 
-    // Save record in database
-    const fileRecord = await this.prisma.fileInstance.create({
-      data: {
-        filename: uniqueFileName,
-        originalFilename: file.originalname,
-        path: s3Key,
-        url: fileUrl,
-        fileType: this.getFileType(file.mimetype),
-        mimeType: file.mimetype,
-        size: file.size,
-      },
-    });
+      // Upload to S3
+      const fileUrl = await this.uploadBuffer(s3Key, file.buffer, file.mimetype);
+      this.logger.log(`File uploaded to S3: ${fileUrl}`);
 
-    return fileRecord;
+      // Save record in database
+      this.logger.log(`Saving file record to database: ${file.originalname}`);
+      const fileRecord = await this.prisma.fileInstance.create({
+        data: {
+          filename: uniqueFileName,
+          originalFilename: file.originalname,
+          path: s3Key,
+          url: fileUrl,
+          fileType: this.getFileType(file.mimetype),
+          mimeType: file.mimetype,
+          size: file.size,
+        },
+      });
+
+      this.logger.log(`File record created successfully: ${fileRecord.id}`);
+      return fileRecord;
+    } catch (error) {
+      this.logger.error(`Failed to upload file ${file.originalname}:`, error);
+      throw new AppError(
+        500,
+        `Failed to upload file ${file.originalname}: ${error.message || 'Unknown S3 error'}`,
+      );
+    }
   }
 
   async deleteFile(id: string) {
@@ -147,48 +160,61 @@ export class S3Service {
   }
 
   async uploadFileByPath(filePath: string, originalName?: string) {
-    if (!fs.existsSync(filePath)) {
-      throw new AppError(404, `File not found: ${filePath}`);
+    try {
+      if (!fs.existsSync(filePath)) {
+        throw new AppError(404, `File not found: ${filePath}`);
+      }
+
+      const fileBuffer = fs.readFileSync(filePath);
+      const fileExt = path.extname(originalName || filePath).slice(1);
+      const mimeType = this.getMimeTypeFromExtension(fileExt);
+
+      const folder = this.getFolderByMimeType(mimeType);
+      const uniqueFileName = `${uuid()}.${fileExt}`;
+      const s3Key = `${folder}/${uniqueFileName}`;
+
+      this.logger.log(`Uploading file by path to S3: ${s3Key}`);
+
+      // Upload to S3
+      const command = new PutObjectCommand({
+        Bucket: this.AWS_S3_BUCKET_NAME,
+        Key: s3Key,
+        Body: fileBuffer,
+        ContentType: mimeType,
+      });
+
+      await this.s3.send(command);
+      this.logger.log(`File uploaded to S3 by path: ${s3Key}`);
+
+      // Construct file URL
+      const fileUrl = this.buildS3Url(s3Key);
+
+      // Save record in DB
+      this.logger.log(`Saving file record to database: ${originalName || filePath}`);
+      const fileRecord = await this.prisma.fileInstance.create({
+        data: {
+          filename: uniqueFileName,
+          originalFilename: originalName || path.basename(filePath),
+          path: s3Key,
+          url: fileUrl,
+          fileType: this.getFileType(mimeType),
+          mimeType,
+          size: fileBuffer.length,
+        },
+      });
+
+      // Delete file from disk
+      fs.unlinkSync(filePath);
+      this.logger.log(`File record created and local file deleted: ${fileRecord.id}`);
+
+      return fileRecord;
+    } catch (error) {
+      this.logger.error(`Failed to upload file by path ${filePath}:`, error);
+      throw new AppError(
+        500,
+        `Failed to upload file: ${error.message || 'Unknown error occurred'}`,
+      );
     }
-
-    const fileBuffer = fs.readFileSync(filePath);
-    const fileExt = path.extname(originalName || filePath).slice(1);
-    const mimeType = this.getMimeTypeFromExtension(fileExt);
-
-    const folder = this.getFolderByMimeType(mimeType);
-    const uniqueFileName = `${uuid()}.${fileExt}`;
-    const s3Key = `${folder}/${uniqueFileName}`;
-
-    // Upload to S3
-    const command = new PutObjectCommand({
-      Bucket: this.AWS_S3_BUCKET_NAME,
-      Key: s3Key,
-      Body: fileBuffer,
-      ContentType: mimeType,
-    });
-
-    await this.s3.send(command);
-
-    // Construct file URL
-    const fileUrl = this.buildS3Url(s3Key);
-
-    // Save record in DB
-    const fileRecord = await this.prisma.fileInstance.create({
-      data: {
-        filename: uniqueFileName,
-        originalFilename: originalName || path.basename(filePath),
-        path: s3Key,
-        url: fileUrl,
-        fileType: this.getFileType(mimeType),
-        mimeType,
-        size: fileBuffer.length,
-      },
-    });
-
-    // Delete file from disk
-    fs.unlinkSync(filePath);
-
-    return fileRecord;
   }
 
   async createMergeJob(
