@@ -36,9 +36,16 @@ export class ReleasesService {
     try {
       this.logger.log(`Creating release with ${files?.length || 0} files`);
 
-      // Validate file references in tracks
+      // Validate track data
       if (dto.tracks && dto.tracks.length > 0) {
         for (const track of dto.tracks) {
+          // Validate required track fields
+          if (!track.trackTitle) {
+            throw new BadRequestException(
+              `Each track must have a 'trackTitle'. Track at index ${dto.tracks.indexOf(track)} is missing this required field.`,
+            );
+          }
+
           if (
             track.audioFileIndex !== undefined &&
             track.audioFileIndex !== null
@@ -105,6 +112,12 @@ export class ReleasesService {
       // 2. Create release artists
       if (dto.releaseArtists && dto.releaseArtists.length > 0) {
         for (const releaseArtist of dto.releaseArtists) {
+          if (!releaseArtist.artistId && !releaseArtist.artist) {
+            throw new BadRequestException(
+              `Each release artist must have either 'artistId' or 'artist' data. At least one of these is required.`,
+            );
+          }
+
           let artistId = releaseArtist.artistId;
 
           // Create new artist if artist data is provided
@@ -129,6 +142,16 @@ export class ReleasesService {
 
       // 3. Create release territories
       if (dto.releaseTerritories && dto.releaseTerritories.length > 0) {
+        // Validate territories have required fields
+        const invalidTerritories = dto.releaseTerritories.filter(
+          (t: any) => !t.territory,
+        );
+        if (invalidTerritories.length > 0) {
+          throw new BadRequestException(
+            `Release territories must have a 'territory' field. Found ${invalidTerritories.length} territory(ies) with missing or invalid territory value.`,
+          );
+        }
+
         await tx.releaseTerritory.createMany({
           data: dto.releaseTerritories.map((territory: any) => ({
             releaseId: release.releaseId,
@@ -204,6 +227,13 @@ export class ReleasesService {
       if (dto.splitSheetAgreements && dto.splitSheetAgreements.length > 0) {
         // Use provided split sheets
         for (const splitSheet of dto.splitSheetAgreements) {
+          // Validate required split sheet fields
+          if (!splitSheet.songTitle && !splitSheet.isrc) {
+            throw new BadRequestException(
+              `Each split sheet must have at least a 'songTitle' or 'isrc'. Found split sheet with neither.`,
+            );
+          }
+
           let labelId = splitSheet.recordLabelId;
 
           // Create new label if label data is provided
