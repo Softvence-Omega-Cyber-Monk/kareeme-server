@@ -1,17 +1,17 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Transform, Type } from 'class-transformer';
 import {
-  IsArray,
-  IsBoolean,
-  IsDateString,
-  IsDecimal,
-  IsEmail,
-  IsInt,
-  IsNotEmpty,
-  IsOptional,
-  IsString,
-  IsUUID,
-  ValidateNested,
+    IsArray,
+    IsBoolean,
+    IsDateString,
+    IsDecimal,
+    IsEmail,
+    IsInt,
+    IsNotEmpty,
+    IsOptional,
+    IsString,
+    IsUUID,
+    ValidateNested,
 } from 'class-validator';
 
 // Helper to parse JSON from FormData
@@ -278,16 +278,16 @@ export class CreateTrackArtistDto {
 
 // ========== Track DTOs ==========
 export class CreateTrackDto {
-  @ApiPropertyOptional({ example: 1 })
-  @IsOptional()
+  @ApiProperty({ example: 1 })
+  @IsNotEmpty()
   @Transform(({ value }) => parseNumber(value))
   @IsInt()
-  trackNumber?: number;
+  trackNumber: number;
 
-  @ApiPropertyOptional({ example: 'Song Title' })
-  @IsOptional()
+  @ApiProperty({ example: 'Song Title' })
+  @IsNotEmpty()
   @IsString()
-  trackTitle?: string;
+  trackTitle: string;
 
   @ApiPropertyOptional({ example: 'Pop' })
   @IsOptional()
