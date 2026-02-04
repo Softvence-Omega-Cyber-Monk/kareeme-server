@@ -38,13 +38,11 @@ export class ReleasesService {
 
       // Validate track data
       if (dto.tracks && dto.tracks.length > 0) {
-        for (const track of dto.tracks) {
-          // Validate required track fields
-          if (!track.trackTitle) {
-            throw new BadRequestException(
-              `Each track must have a 'trackTitle'. Track at index ${dto.tracks.indexOf(track)} is missing this required field.`,
-            );
-          }
+        this.logger.log(`Validating ${dto.tracks.length} track(s)...`);
+        
+        for (let i = 0; i < dto.tracks.length; i++) {
+          const track = dto.tracks[i];
+          this.logger.log(`Track ${i}:`, JSON.stringify(track));
 
           if (
             track.audioFileIndex !== undefined &&
@@ -57,7 +55,7 @@ export class ReleasesService {
               fileIndex >= (files?.length || 0)
             ) {
               throw new BadRequestException(
-                `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle}". ` +
+                `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle || 'Unknown'}". ` +
                   `Must be between 0 and ${(files?.length || 1) - 1}`,
               );
             }
