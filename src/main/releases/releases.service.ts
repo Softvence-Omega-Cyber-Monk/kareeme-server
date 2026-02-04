@@ -1,9 +1,9 @@
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import {
-    BadRequestException,
-    Injectable,
-    Logger,
-    NotFoundException,
+  BadRequestException,
+  Injectable,
+  Logger,
+  NotFoundException,
 } from '@nestjs/common';
 import { Prisma } from '@prisma';
 import * as ExcelJS from 'exceljs';
@@ -11,10 +11,10 @@ import { Parser } from 'json2csv';
 import { UploadService } from '../upload/upload.service';
 import { CreateReleaseFormDataDto } from './dto/create-release-form.dto';
 import {
-    ExportFormat,
-    ExportReleasesQueryDto,
-    GetReleasesQueryDto,
-    GetSplitSheetsQueryDto,
+  ExportFormat,
+  ExportReleasesQueryDto,
+  GetReleasesQueryDto,
+  GetSplitSheetsQueryDto,
 } from './dto/query-release.dto';
 
 @Injectable()
@@ -109,53 +109,60 @@ export class ReleasesService {
 
       // 2. Create release artists
       if (dto.releaseArtists && dto.releaseArtists.length > 0) {
-        for (const releaseArtist of dto.releaseArtists) {
-          if (!releaseArtist.artistId && !releaseArtist.artist) {
-            throw new BadRequestException(
-              `Each release artist must have either 'artistId' or 'artist' data. At least one of these is required.`,
-            );
+        this.logger.log(`Processing ${dto.releaseArtists.length} release artist(s)...`);
+        
+        for (let i = 0; i < dto.releaseArtists.length; i++) {
+          const releaseArtist = dto.releaseArtists[i];
+          this.logger.log(`Release artist ${i}:`, JSON.stringify(releaseArtist));
+
+          // Skip empty artist objects
+          if (!releaseArtist || (Object.keys(releaseArtist).length === 0)) {
+            this.logger.warn(`Skipping empty release artist at index ${i}`);
+            continue;
           }
 
-          let artistId = releaseArtist.artistId;
+          // Only validate if the artist object has data
+          if (releaseArtist.artistId || releaseArtist.artist) {
+            let artistId = releaseArtist.artistId;
 
-          // Create new artist if artist data is provided
-          if (!artistId && releaseArtist.artist) {
-            const newArtist = await tx.artist.create({
-              data: releaseArtist.artist,
-            });
-            artistId = newArtist.artistId;
-          }
+            // Create new artist if artist data is provided
+            if (!artistId && releaseArtist.artist) {
+              const newArtist = await tx.artist.create({
+                data: releaseArtist.artist,
+              });
+              artistId = newArtist.artistId;
+            }
 
-          if (artistId) {
-            await tx.releaseArtist.create({
-              data: {
-                releaseId: release.releaseId,
-                artistId: artistId,
-                role: releaseArtist.role,
-              },
-            });
+            if (artistId) {
+              await tx.releaseArtist.create({
+                data: {
+                  releaseId: release.releaseId,
+                  artistId: artistId,
+                  role: releaseArtist.role,
+                },
+              });
+            }
           }
         }
       }
 
       // 3. Create release territories
       if (dto.releaseTerritories && dto.releaseTerritories.length > 0) {
-        // Validate territories have required fields
-        const invalidTerritories = dto.releaseTerritories.filter(
-          (t: any) => !t.territory,
-        );
-        if (invalidTerritories.length > 0) {
-          throw new BadRequestException(
-            `Release territories must have a 'territory' field. Found ${invalidTerritories.length} territory(ies) with missing or invalid territory value.`,
-          );
+        this.logger.log(`Processing ${dto.releaseTerritories.length} territory(ies)...`);
+        
+        // Filter out empty territories and validate non-empty ones
+        const validTerritories = dto.releaseTerritories.filter((t: any) => t && t.territory);
+        
+        this.logger.log(`Found ${validTerritories.length} valid territories out of ${dto.releaseTerritories.length}`);
+        
+        if (validTerritories.length > 0) {
+          await tx.releaseTerritory.createMany({
+            data: validTerritories.map((territory: any) => ({
+              releaseId: release.releaseId,
+              territory: territory.territory,
+            })),
+          });
         }
-
-        await tx.releaseTerritory.createMany({
-          data: dto.releaseTerritories.map((territory: any) => ({
-            releaseId: release.releaseId,
-            territory: territory.territory,
-          })),
-        });
       }
 
       // 4. Create tracks with track artists and link to uploaded audio files

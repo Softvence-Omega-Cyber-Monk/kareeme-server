@@ -4,13 +4,15 @@ import {
     IsArray,
     IsBoolean,
     IsDateString,
-    IsDecimal,
     IsEmail,
     IsInt,
     IsNotEmpty,
+    IsNumber,
     IsOptional,
     IsString,
     IsUUID,
+    Max,
+    Min,
     ValidateNested,
 } from 'class-validator';
 
@@ -160,10 +162,12 @@ export class CreateContributorDto {
   @IsString()
   ipiCaeNumber?: string;
 
-  @ApiPropertyOptional({ example: 25.5 })
+  @ApiPropertyOptional({ example: 25.5, description: 'Percentage split (0-100)' })
   @IsOptional()
   @Transform(({ value }) => parseNumber(value))
-  @IsDecimal()
+  @IsNumber({ maxDecimalPlaces: 2 })
+  @Min(0)
+  @Max(100)
   percentageSplit?: number;
 }
 
@@ -282,6 +286,7 @@ export class CreateTrackDto {
   @IsNotEmpty()
   @Transform(({ value }) => parseNumber(value))
   @IsInt()
+  @Min(1)
   trackNumber: number;
 
   @ApiProperty({ example: 'Song Title' })
@@ -394,7 +399,7 @@ export class CreateBackCatalogueDto {
   @IsDateString()
   releaseDate?: string;
 
-  @ApiPropertyOptional({ example: 'ℙ 2024 Label Name' })
+  @ApiPropertyOptional({ example: '℗ 2024 Label Name' })
   @IsOptional()
   @IsString()
   releasePLine?: string;
