@@ -258,6 +258,7 @@ export type FileInstanceWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
   users?: Prisma.UserListRelationFilter
   mergeJob?: Prisma.XOR<Prisma.VideoMergeJobNullableScalarRelationFilter, Prisma.VideoMergeJobWhereInput> | null
+  tracks?: Prisma.TrackListRelationFilter
 }
 
 export type FileInstanceOrderByWithRelationInput = {
@@ -273,6 +274,7 @@ export type FileInstanceOrderByWithRelationInput = {
   updatedAt?: Prisma.SortOrder
   users?: Prisma.UserOrderByRelationAggregateInput
   mergeJob?: Prisma.VideoMergeJobOrderByWithRelationInput
+  tracks?: Prisma.TrackOrderByRelationAggregateInput
 }
 
 export type FileInstanceWhereUniqueInput = Prisma.AtLeast<{
@@ -291,6 +293,7 @@ export type FileInstanceWhereUniqueInput = Prisma.AtLeast<{
   updatedAt?: Prisma.DateTimeFilter<"FileInstance"> | Date | string
   users?: Prisma.UserListRelationFilter
   mergeJob?: Prisma.XOR<Prisma.VideoMergeJobNullableScalarRelationFilter, Prisma.VideoMergeJobWhereInput> | null
+  tracks?: Prisma.TrackListRelationFilter
 }, "id">
 
 export type FileInstanceOrderByWithAggregationInput = {
@@ -340,6 +343,7 @@ export type FileInstanceCreateInput = {
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutProfilePictureInput
   mergeJob?: Prisma.VideoMergeJobCreateNestedOneWithoutOutputFileInput
+  tracks?: Prisma.TrackCreateNestedManyWithoutAudioFileInput
 }
 
 export type FileInstanceUncheckedCreateInput = {
@@ -355,6 +359,7 @@ export type FileInstanceUncheckedCreateInput = {
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutProfilePictureInput
   mergeJob?: Prisma.VideoMergeJobUncheckedCreateNestedOneWithoutOutputFileInput
+  tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAudioFileInput
 }
 
 export type FileInstanceUpdateInput = {
@@ -370,6 +375,7 @@ export type FileInstanceUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutProfilePictureNestedInput
   mergeJob?: Prisma.VideoMergeJobUpdateOneWithoutOutputFileNestedInput
+  tracks?: Prisma.TrackUpdateManyWithoutAudioFileNestedInput
 }
 
 export type FileInstanceUncheckedUpdateInput = {
@@ -385,6 +391,7 @@ export type FileInstanceUncheckedUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutProfilePictureNestedInput
   mergeJob?: Prisma.VideoMergeJobUncheckedUpdateOneWithoutOutputFileNestedInput
+  tracks?: Prisma.TrackUncheckedUpdateManyWithoutAudioFileNestedInput
 }
 
 export type FileInstanceCreateManyInput = {
@@ -506,6 +513,22 @@ export type FileInstanceUpdateOneWithoutMergeJobNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.FileInstanceUpdateToOneWithWhereWithoutMergeJobInput, Prisma.FileInstanceUpdateWithoutMergeJobInput>, Prisma.FileInstanceUncheckedUpdateWithoutMergeJobInput>
 }
 
+export type FileInstanceCreateNestedOneWithoutTracksInput = {
+  create?: Prisma.XOR<Prisma.FileInstanceCreateWithoutTracksInput, Prisma.FileInstanceUncheckedCreateWithoutTracksInput>
+  connectOrCreate?: Prisma.FileInstanceCreateOrConnectWithoutTracksInput
+  connect?: Prisma.FileInstanceWhereUniqueInput
+}
+
+export type FileInstanceUpdateOneWithoutTracksNestedInput = {
+  create?: Prisma.XOR<Prisma.FileInstanceCreateWithoutTracksInput, Prisma.FileInstanceUncheckedCreateWithoutTracksInput>
+  connectOrCreate?: Prisma.FileInstanceCreateOrConnectWithoutTracksInput
+  upsert?: Prisma.FileInstanceUpsertWithoutTracksInput
+  disconnect?: Prisma.FileInstanceWhereInput | boolean
+  delete?: Prisma.FileInstanceWhereInput | boolean
+  connect?: Prisma.FileInstanceWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.FileInstanceUpdateToOneWithWhereWithoutTracksInput, Prisma.FileInstanceUpdateWithoutTracksInput>, Prisma.FileInstanceUncheckedUpdateWithoutTracksInput>
+}
+
 export type FileInstanceCreateNestedOneWithoutUsersInput = {
   create?: Prisma.XOR<Prisma.FileInstanceCreateWithoutUsersInput, Prisma.FileInstanceUncheckedCreateWithoutUsersInput>
   connectOrCreate?: Prisma.FileInstanceCreateOrConnectWithoutUsersInput
@@ -534,6 +557,7 @@ export type FileInstanceCreateWithoutMergeJobInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserCreateNestedManyWithoutProfilePictureInput
+  tracks?: Prisma.TrackCreateNestedManyWithoutAudioFileInput
 }
 
 export type FileInstanceUncheckedCreateWithoutMergeJobInput = {
@@ -548,6 +572,7 @@ export type FileInstanceUncheckedCreateWithoutMergeJobInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   users?: Prisma.UserUncheckedCreateNestedManyWithoutProfilePictureInput
+  tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAudioFileInput
 }
 
 export type FileInstanceCreateOrConnectWithoutMergeJobInput = {
@@ -578,6 +603,7 @@ export type FileInstanceUpdateWithoutMergeJobInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUpdateManyWithoutProfilePictureNestedInput
+  tracks?: Prisma.TrackUpdateManyWithoutAudioFileNestedInput
 }
 
 export type FileInstanceUncheckedUpdateWithoutMergeJobInput = {
@@ -592,6 +618,83 @@ export type FileInstanceUncheckedUpdateWithoutMergeJobInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   users?: Prisma.UserUncheckedUpdateManyWithoutProfilePictureNestedInput
+  tracks?: Prisma.TrackUncheckedUpdateManyWithoutAudioFileNestedInput
+}
+
+export type FileInstanceCreateWithoutTracksInput = {
+  id?: string
+  filename: string
+  originalFilename: string
+  path: string
+  url: string
+  fileType?: $Enums.FileType
+  mimeType: string
+  size: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserCreateNestedManyWithoutProfilePictureInput
+  mergeJob?: Prisma.VideoMergeJobCreateNestedOneWithoutOutputFileInput
+}
+
+export type FileInstanceUncheckedCreateWithoutTracksInput = {
+  id?: string
+  filename: string
+  originalFilename: string
+  path: string
+  url: string
+  fileType?: $Enums.FileType
+  mimeType: string
+  size: number
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  users?: Prisma.UserUncheckedCreateNestedManyWithoutProfilePictureInput
+  mergeJob?: Prisma.VideoMergeJobUncheckedCreateNestedOneWithoutOutputFileInput
+}
+
+export type FileInstanceCreateOrConnectWithoutTracksInput = {
+  where: Prisma.FileInstanceWhereUniqueInput
+  create: Prisma.XOR<Prisma.FileInstanceCreateWithoutTracksInput, Prisma.FileInstanceUncheckedCreateWithoutTracksInput>
+}
+
+export type FileInstanceUpsertWithoutTracksInput = {
+  update: Prisma.XOR<Prisma.FileInstanceUpdateWithoutTracksInput, Prisma.FileInstanceUncheckedUpdateWithoutTracksInput>
+  create: Prisma.XOR<Prisma.FileInstanceCreateWithoutTracksInput, Prisma.FileInstanceUncheckedCreateWithoutTracksInput>
+  where?: Prisma.FileInstanceWhereInput
+}
+
+export type FileInstanceUpdateToOneWithWhereWithoutTracksInput = {
+  where?: Prisma.FileInstanceWhereInput
+  data: Prisma.XOR<Prisma.FileInstanceUpdateWithoutTracksInput, Prisma.FileInstanceUncheckedUpdateWithoutTracksInput>
+}
+
+export type FileInstanceUpdateWithoutTracksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUpdateManyWithoutProfilePictureNestedInput
+  mergeJob?: Prisma.VideoMergeJobUpdateOneWithoutOutputFileNestedInput
+}
+
+export type FileInstanceUncheckedUpdateWithoutTracksInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  filename?: Prisma.StringFieldUpdateOperationsInput | string
+  originalFilename?: Prisma.StringFieldUpdateOperationsInput | string
+  path?: Prisma.StringFieldUpdateOperationsInput | string
+  url?: Prisma.StringFieldUpdateOperationsInput | string
+  fileType?: Prisma.EnumFileTypeFieldUpdateOperationsInput | $Enums.FileType
+  mimeType?: Prisma.StringFieldUpdateOperationsInput | string
+  size?: Prisma.IntFieldUpdateOperationsInput | number
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  users?: Prisma.UserUncheckedUpdateManyWithoutProfilePictureNestedInput
+  mergeJob?: Prisma.VideoMergeJobUncheckedUpdateOneWithoutOutputFileNestedInput
 }
 
 export type FileInstanceCreateWithoutUsersInput = {
@@ -606,6 +709,7 @@ export type FileInstanceCreateWithoutUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   mergeJob?: Prisma.VideoMergeJobCreateNestedOneWithoutOutputFileInput
+  tracks?: Prisma.TrackCreateNestedManyWithoutAudioFileInput
 }
 
 export type FileInstanceUncheckedCreateWithoutUsersInput = {
@@ -620,6 +724,7 @@ export type FileInstanceUncheckedCreateWithoutUsersInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   mergeJob?: Prisma.VideoMergeJobUncheckedCreateNestedOneWithoutOutputFileInput
+  tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutAudioFileInput
 }
 
 export type FileInstanceCreateOrConnectWithoutUsersInput = {
@@ -650,6 +755,7 @@ export type FileInstanceUpdateWithoutUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mergeJob?: Prisma.VideoMergeJobUpdateOneWithoutOutputFileNestedInput
+  tracks?: Prisma.TrackUpdateManyWithoutAudioFileNestedInput
 }
 
 export type FileInstanceUncheckedUpdateWithoutUsersInput = {
@@ -664,6 +770,7 @@ export type FileInstanceUncheckedUpdateWithoutUsersInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   mergeJob?: Prisma.VideoMergeJobUncheckedUpdateOneWithoutOutputFileNestedInput
+  tracks?: Prisma.TrackUncheckedUpdateManyWithoutAudioFileNestedInput
 }
 
 
@@ -673,10 +780,12 @@ export type FileInstanceUncheckedUpdateWithoutUsersInput = {
 
 export type FileInstanceCountOutputType = {
   users: number
+  tracks: number
 }
 
 export type FileInstanceCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | FileInstanceCountOutputTypeCountUsersArgs
+  tracks?: boolean | FileInstanceCountOutputTypeCountTracksArgs
 }
 
 /**
@@ -696,6 +805,13 @@ export type FileInstanceCountOutputTypeCountUsersArgs<ExtArgs extends runtime.Ty
   where?: Prisma.UserWhereInput
 }
 
+/**
+ * FileInstanceCountOutputType without action
+ */
+export type FileInstanceCountOutputTypeCountTracksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TrackWhereInput
+}
+
 
 export type FileInstanceSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -710,6 +826,7 @@ export type FileInstanceSelect<ExtArgs extends runtime.Types.Extensions.Internal
   updatedAt?: boolean
   users?: boolean | Prisma.FileInstance$usersArgs<ExtArgs>
   mergeJob?: boolean | Prisma.FileInstance$mergeJobArgs<ExtArgs>
+  tracks?: boolean | Prisma.FileInstance$tracksArgs<ExtArgs>
   _count?: boolean | Prisma.FileInstanceCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["fileInstance"]>
 
@@ -756,6 +873,7 @@ export type FileInstanceOmit<ExtArgs extends runtime.Types.Extensions.InternalAr
 export type FileInstanceInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   users?: boolean | Prisma.FileInstance$usersArgs<ExtArgs>
   mergeJob?: boolean | Prisma.FileInstance$mergeJobArgs<ExtArgs>
+  tracks?: boolean | Prisma.FileInstance$tracksArgs<ExtArgs>
   _count?: boolean | Prisma.FileInstanceCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type FileInstanceIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -766,6 +884,7 @@ export type $FileInstancePayload<ExtArgs extends runtime.Types.Extensions.Intern
   objects: {
     users: Prisma.$UserPayload<ExtArgs>[]
     mergeJob: Prisma.$VideoMergeJobPayload<ExtArgs> | null
+    tracks: Prisma.$TrackPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1174,6 +1293,7 @@ export interface Prisma__FileInstanceClient<T, Null = never, ExtArgs extends run
   readonly [Symbol.toStringTag]: "PrismaPromise"
   users<T extends Prisma.FileInstance$usersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FileInstance$usersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   mergeJob<T extends Prisma.FileInstance$mergeJobArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FileInstance$mergeJobArgs<ExtArgs>>): Prisma.Prisma__VideoMergeJobClient<runtime.Types.Result.GetResult<Prisma.$VideoMergeJobPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  tracks<T extends Prisma.FileInstance$tracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.FileInstance$tracksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1641,6 +1761,30 @@ export type FileInstance$mergeJobArgs<ExtArgs extends runtime.Types.Extensions.I
    */
   include?: Prisma.VideoMergeJobInclude<ExtArgs> | null
   where?: Prisma.VideoMergeJobWhereInput
+}
+
+/**
+ * FileInstance.tracks
+ */
+export type FileInstance$tracksArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Track
+   */
+  select?: Prisma.TrackSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Track
+   */
+  omit?: Prisma.TrackOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TrackInclude<ExtArgs> | null
+  where?: Prisma.TrackWhereInput
+  orderBy?: Prisma.TrackOrderByWithRelationInput | Prisma.TrackOrderByWithRelationInput[]
+  cursor?: Prisma.TrackWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TrackScalarFieldEnum | Prisma.TrackScalarFieldEnum[]
 }
 
 /**

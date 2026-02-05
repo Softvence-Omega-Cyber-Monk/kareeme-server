@@ -2226,6 +2226,13 @@ export const ReleaseScalarFieldEnum = {
   hasArtistOnSpotify: 'hasArtistOnSpotify',
   hasMusicVideo: 'hasMusicVideo',
   status: 'status',
+  producerCredits: 'producerCredits',
+  lyricistCredits: 'lyricistCredits',
+  masterSplits: 'masterSplits',
+  copyrightHolder: 'copyrightHolder',
+  labelName: 'labelName',
+  albumLevelArtistName: 'albumLevelArtistName',
+  musicFileLink: 'musicFileLink',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2235,11 +2242,15 @@ export type ReleaseScalarFieldEnum = (typeof ReleaseScalarFieldEnum)[keyof typeo
 
 export const ArtistScalarFieldEnum = {
   artistId: 'artistId',
+  userId: 'userId',
   name: 'name',
   email: 'email',
   phone: 'phone',
-  address: 'address',
-  soundcloudProfile: 'soundcloudProfile',
+  stageName: 'stageName',
+  bio: 'bio',
+  imageUrl: 'imageUrl',
+  spotifyId: 'spotifyId',
+  appleId: 'appleId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -2322,6 +2333,7 @@ export const TrackScalarFieldEnum = {
   trackIsrc: 'trackIsrc',
   territoryRestrictions: 'territoryRestrictions',
   audioFileUrl: 'audioFileUrl',
+  audioFileId: 'audioFileId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

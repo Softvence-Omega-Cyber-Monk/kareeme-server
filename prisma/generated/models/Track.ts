@@ -48,6 +48,7 @@ export type TrackMinAggregateOutputType = {
   trackIsrc: string | null
   territoryRestrictions: string | null
   audioFileUrl: string | null
+  audioFileId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -66,6 +67,7 @@ export type TrackMaxAggregateOutputType = {
   trackIsrc: string | null
   territoryRestrictions: string | null
   audioFileUrl: string | null
+  audioFileId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -84,6 +86,7 @@ export type TrackCountAggregateOutputType = {
   trackIsrc: number
   territoryRestrictions: number
   audioFileUrl: number
+  audioFileId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -112,6 +115,7 @@ export type TrackMinAggregateInputType = {
   trackIsrc?: true
   territoryRestrictions?: true
   audioFileUrl?: true
+  audioFileId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -130,6 +134,7 @@ export type TrackMaxAggregateInputType = {
   trackIsrc?: true
   territoryRestrictions?: true
   audioFileUrl?: true
+  audioFileId?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -148,6 +153,7 @@ export type TrackCountAggregateInputType = {
   trackIsrc?: true
   territoryRestrictions?: true
   audioFileUrl?: true
+  audioFileId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -253,6 +259,7 @@ export type TrackGroupByOutputType = {
   trackIsrc: string | null
   territoryRestrictions: string | null
   audioFileUrl: string | null
+  audioFileId: string | null
   createdAt: Date
   updatedAt: Date
   _count: TrackCountAggregateOutputType | null
@@ -294,10 +301,12 @@ export type TrackWhereInput = {
   trackIsrc?: Prisma.StringNullableFilter<"Track"> | string | null
   territoryRestrictions?: Prisma.StringNullableFilter<"Track"> | string | null
   audioFileUrl?: Prisma.StringNullableFilter<"Track"> | string | null
+  audioFileId?: Prisma.StringNullableFilter<"Track"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Track"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
   release?: Prisma.XOR<Prisma.ReleaseScalarRelationFilter, Prisma.ReleaseWhereInput>
   trackArtists?: Prisma.TrackArtistListRelationFilter
+  audioFile?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
 }
 
 export type TrackOrderByWithRelationInput = {
@@ -314,10 +323,12 @@ export type TrackOrderByWithRelationInput = {
   trackIsrc?: Prisma.SortOrderInput | Prisma.SortOrder
   territoryRestrictions?: Prisma.SortOrderInput | Prisma.SortOrder
   audioFileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  audioFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   release?: Prisma.ReleaseOrderByWithRelationInput
   trackArtists?: Prisma.TrackArtistOrderByRelationAggregateInput
+  audioFile?: Prisma.FileInstanceOrderByWithRelationInput
 }
 
 export type TrackWhereUniqueInput = Prisma.AtLeast<{
@@ -337,10 +348,12 @@ export type TrackWhereUniqueInput = Prisma.AtLeast<{
   trackIsrc?: Prisma.StringNullableFilter<"Track"> | string | null
   territoryRestrictions?: Prisma.StringNullableFilter<"Track"> | string | null
   audioFileUrl?: Prisma.StringNullableFilter<"Track"> | string | null
+  audioFileId?: Prisma.StringNullableFilter<"Track"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Track"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
   release?: Prisma.XOR<Prisma.ReleaseScalarRelationFilter, Prisma.ReleaseWhereInput>
   trackArtists?: Prisma.TrackArtistListRelationFilter
+  audioFile?: Prisma.XOR<Prisma.FileInstanceNullableScalarRelationFilter, Prisma.FileInstanceWhereInput> | null
 }, "trackId">
 
 export type TrackOrderByWithAggregationInput = {
@@ -357,6 +370,7 @@ export type TrackOrderByWithAggregationInput = {
   trackIsrc?: Prisma.SortOrderInput | Prisma.SortOrder
   territoryRestrictions?: Prisma.SortOrderInput | Prisma.SortOrder
   audioFileUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  audioFileId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.TrackCountOrderByAggregateInput
@@ -383,6 +397,7 @@ export type TrackScalarWhereWithAggregatesInput = {
   trackIsrc?: Prisma.StringNullableWithAggregatesFilter<"Track"> | string | null
   territoryRestrictions?: Prisma.StringNullableWithAggregatesFilter<"Track"> | string | null
   audioFileUrl?: Prisma.StringNullableWithAggregatesFilter<"Track"> | string | null
+  audioFileId?: Prisma.StringNullableWithAggregatesFilter<"Track"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Track"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Track"> | Date | string
 }
@@ -404,6 +419,7 @@ export type TrackCreateInput = {
   updatedAt?: Date | string
   release: Prisma.ReleaseCreateNestedOneWithoutTracksInput
   trackArtists?: Prisma.TrackArtistCreateNestedManyWithoutTrackInput
+  audioFile?: Prisma.FileInstanceCreateNestedOneWithoutTracksInput
 }
 
 export type TrackUncheckedCreateInput = {
@@ -420,6 +436,7 @@ export type TrackUncheckedCreateInput = {
   trackIsrc?: string | null
   territoryRestrictions?: string | null
   audioFileUrl?: string | null
+  audioFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trackArtists?: Prisma.TrackArtistUncheckedCreateNestedManyWithoutTrackInput
@@ -442,6 +459,7 @@ export type TrackUpdateInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   release?: Prisma.ReleaseUpdateOneRequiredWithoutTracksNestedInput
   trackArtists?: Prisma.TrackArtistUpdateManyWithoutTrackNestedInput
+  audioFile?: Prisma.FileInstanceUpdateOneWithoutTracksNestedInput
 }
 
 export type TrackUncheckedUpdateInput = {
@@ -458,6 +476,7 @@ export type TrackUncheckedUpdateInput = {
   trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trackArtists?: Prisma.TrackArtistUncheckedUpdateManyWithoutTrackNestedInput
@@ -477,6 +496,7 @@ export type TrackCreateManyInput = {
   trackIsrc?: string | null
   territoryRestrictions?: string | null
   audioFileUrl?: string | null
+  audioFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -512,6 +532,7 @@ export type TrackUncheckedUpdateManyInput = {
   trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -540,6 +561,7 @@ export type TrackCountOrderByAggregateInput = {
   trackIsrc?: Prisma.SortOrder
   territoryRestrictions?: Prisma.SortOrder
   audioFileUrl?: Prisma.SortOrder
+  audioFileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -562,6 +584,7 @@ export type TrackMaxOrderByAggregateInput = {
   trackIsrc?: Prisma.SortOrder
   territoryRestrictions?: Prisma.SortOrder
   audioFileUrl?: Prisma.SortOrder
+  audioFileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -580,6 +603,7 @@ export type TrackMinOrderByAggregateInput = {
   trackIsrc?: Prisma.SortOrder
   territoryRestrictions?: Prisma.SortOrder
   audioFileUrl?: Prisma.SortOrder
+  audioFileId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -591,6 +615,48 @@ export type TrackSumOrderByAggregateInput = {
 export type TrackScalarRelationFilter = {
   is?: Prisma.TrackWhereInput
   isNot?: Prisma.TrackWhereInput
+}
+
+export type TrackCreateNestedManyWithoutAudioFileInput = {
+  create?: Prisma.XOR<Prisma.TrackCreateWithoutAudioFileInput, Prisma.TrackUncheckedCreateWithoutAudioFileInput> | Prisma.TrackCreateWithoutAudioFileInput[] | Prisma.TrackUncheckedCreateWithoutAudioFileInput[]
+  connectOrCreate?: Prisma.TrackCreateOrConnectWithoutAudioFileInput | Prisma.TrackCreateOrConnectWithoutAudioFileInput[]
+  createMany?: Prisma.TrackCreateManyAudioFileInputEnvelope
+  connect?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+}
+
+export type TrackUncheckedCreateNestedManyWithoutAudioFileInput = {
+  create?: Prisma.XOR<Prisma.TrackCreateWithoutAudioFileInput, Prisma.TrackUncheckedCreateWithoutAudioFileInput> | Prisma.TrackCreateWithoutAudioFileInput[] | Prisma.TrackUncheckedCreateWithoutAudioFileInput[]
+  connectOrCreate?: Prisma.TrackCreateOrConnectWithoutAudioFileInput | Prisma.TrackCreateOrConnectWithoutAudioFileInput[]
+  createMany?: Prisma.TrackCreateManyAudioFileInputEnvelope
+  connect?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+}
+
+export type TrackUpdateManyWithoutAudioFileNestedInput = {
+  create?: Prisma.XOR<Prisma.TrackCreateWithoutAudioFileInput, Prisma.TrackUncheckedCreateWithoutAudioFileInput> | Prisma.TrackCreateWithoutAudioFileInput[] | Prisma.TrackUncheckedCreateWithoutAudioFileInput[]
+  connectOrCreate?: Prisma.TrackCreateOrConnectWithoutAudioFileInput | Prisma.TrackCreateOrConnectWithoutAudioFileInput[]
+  upsert?: Prisma.TrackUpsertWithWhereUniqueWithoutAudioFileInput | Prisma.TrackUpsertWithWhereUniqueWithoutAudioFileInput[]
+  createMany?: Prisma.TrackCreateManyAudioFileInputEnvelope
+  set?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  disconnect?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  delete?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  connect?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  update?: Prisma.TrackUpdateWithWhereUniqueWithoutAudioFileInput | Prisma.TrackUpdateWithWhereUniqueWithoutAudioFileInput[]
+  updateMany?: Prisma.TrackUpdateManyWithWhereWithoutAudioFileInput | Prisma.TrackUpdateManyWithWhereWithoutAudioFileInput[]
+  deleteMany?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
+}
+
+export type TrackUncheckedUpdateManyWithoutAudioFileNestedInput = {
+  create?: Prisma.XOR<Prisma.TrackCreateWithoutAudioFileInput, Prisma.TrackUncheckedCreateWithoutAudioFileInput> | Prisma.TrackCreateWithoutAudioFileInput[] | Prisma.TrackUncheckedCreateWithoutAudioFileInput[]
+  connectOrCreate?: Prisma.TrackCreateOrConnectWithoutAudioFileInput | Prisma.TrackCreateOrConnectWithoutAudioFileInput[]
+  upsert?: Prisma.TrackUpsertWithWhereUniqueWithoutAudioFileInput | Prisma.TrackUpsertWithWhereUniqueWithoutAudioFileInput[]
+  createMany?: Prisma.TrackCreateManyAudioFileInputEnvelope
+  set?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  disconnect?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  delete?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  connect?: Prisma.TrackWhereUniqueInput | Prisma.TrackWhereUniqueInput[]
+  update?: Prisma.TrackUpdateWithWhereUniqueWithoutAudioFileInput | Prisma.TrackUpdateWithWhereUniqueWithoutAudioFileInput[]
+  updateMany?: Prisma.TrackUpdateManyWithWhereWithoutAudioFileInput | Prisma.TrackUpdateManyWithWhereWithoutAudioFileInput[]
+  deleteMany?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
 }
 
 export type TrackCreateNestedManyWithoutReleaseInput = {
@@ -657,6 +723,92 @@ export type TrackUpdateOneRequiredWithoutTrackArtistsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.TrackUpdateToOneWithWhereWithoutTrackArtistsInput, Prisma.TrackUpdateWithoutTrackArtistsInput>, Prisma.TrackUncheckedUpdateWithoutTrackArtistsInput>
 }
 
+export type TrackCreateWithoutAudioFileInput = {
+  trackId?: string
+  trackNumber?: number | null
+  trackTitle?: string | null
+  trackGenre?: string | null
+  trackMix?: string | null
+  explicitContent?: boolean | null
+  trackLanguage?: string | null
+  trackPublisher?: string | null
+  originalReleaseDate?: Date | string | null
+  trackIsrc?: string | null
+  territoryRestrictions?: string | null
+  audioFileUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  release: Prisma.ReleaseCreateNestedOneWithoutTracksInput
+  trackArtists?: Prisma.TrackArtistCreateNestedManyWithoutTrackInput
+}
+
+export type TrackUncheckedCreateWithoutAudioFileInput = {
+  trackId?: string
+  releaseId: string
+  trackNumber?: number | null
+  trackTitle?: string | null
+  trackGenre?: string | null
+  trackMix?: string | null
+  explicitContent?: boolean | null
+  trackLanguage?: string | null
+  trackPublisher?: string | null
+  originalReleaseDate?: Date | string | null
+  trackIsrc?: string | null
+  territoryRestrictions?: string | null
+  audioFileUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  trackArtists?: Prisma.TrackArtistUncheckedCreateNestedManyWithoutTrackInput
+}
+
+export type TrackCreateOrConnectWithoutAudioFileInput = {
+  where: Prisma.TrackWhereUniqueInput
+  create: Prisma.XOR<Prisma.TrackCreateWithoutAudioFileInput, Prisma.TrackUncheckedCreateWithoutAudioFileInput>
+}
+
+export type TrackCreateManyAudioFileInputEnvelope = {
+  data: Prisma.TrackCreateManyAudioFileInput | Prisma.TrackCreateManyAudioFileInput[]
+  skipDuplicates?: boolean
+}
+
+export type TrackUpsertWithWhereUniqueWithoutAudioFileInput = {
+  where: Prisma.TrackWhereUniqueInput
+  update: Prisma.XOR<Prisma.TrackUpdateWithoutAudioFileInput, Prisma.TrackUncheckedUpdateWithoutAudioFileInput>
+  create: Prisma.XOR<Prisma.TrackCreateWithoutAudioFileInput, Prisma.TrackUncheckedCreateWithoutAudioFileInput>
+}
+
+export type TrackUpdateWithWhereUniqueWithoutAudioFileInput = {
+  where: Prisma.TrackWhereUniqueInput
+  data: Prisma.XOR<Prisma.TrackUpdateWithoutAudioFileInput, Prisma.TrackUncheckedUpdateWithoutAudioFileInput>
+}
+
+export type TrackUpdateManyWithWhereWithoutAudioFileInput = {
+  where: Prisma.TrackScalarWhereInput
+  data: Prisma.XOR<Prisma.TrackUpdateManyMutationInput, Prisma.TrackUncheckedUpdateManyWithoutAudioFileInput>
+}
+
+export type TrackScalarWhereInput = {
+  AND?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
+  OR?: Prisma.TrackScalarWhereInput[]
+  NOT?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
+  trackId?: Prisma.StringFilter<"Track"> | string
+  releaseId?: Prisma.StringFilter<"Track"> | string
+  trackNumber?: Prisma.IntNullableFilter<"Track"> | number | null
+  trackTitle?: Prisma.StringNullableFilter<"Track"> | string | null
+  trackGenre?: Prisma.StringNullableFilter<"Track"> | string | null
+  trackMix?: Prisma.StringNullableFilter<"Track"> | string | null
+  explicitContent?: Prisma.BoolNullableFilter<"Track"> | boolean | null
+  trackLanguage?: Prisma.StringNullableFilter<"Track"> | string | null
+  trackPublisher?: Prisma.StringNullableFilter<"Track"> | string | null
+  originalReleaseDate?: Prisma.DateTimeNullableFilter<"Track"> | Date | string | null
+  trackIsrc?: Prisma.StringNullableFilter<"Track"> | string | null
+  territoryRestrictions?: Prisma.StringNullableFilter<"Track"> | string | null
+  audioFileUrl?: Prisma.StringNullableFilter<"Track"> | string | null
+  audioFileId?: Prisma.StringNullableFilter<"Track"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Track"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
+}
+
 export type TrackCreateWithoutReleaseInput = {
   trackId?: string
   trackNumber?: number | null
@@ -673,6 +825,7 @@ export type TrackCreateWithoutReleaseInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   trackArtists?: Prisma.TrackArtistCreateNestedManyWithoutTrackInput
+  audioFile?: Prisma.FileInstanceCreateNestedOneWithoutTracksInput
 }
 
 export type TrackUncheckedCreateWithoutReleaseInput = {
@@ -688,6 +841,7 @@ export type TrackUncheckedCreateWithoutReleaseInput = {
   trackIsrc?: string | null
   territoryRestrictions?: string | null
   audioFileUrl?: string | null
+  audioFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trackArtists?: Prisma.TrackArtistUncheckedCreateNestedManyWithoutTrackInput
@@ -719,27 +873,6 @@ export type TrackUpdateManyWithWhereWithoutReleaseInput = {
   data: Prisma.XOR<Prisma.TrackUpdateManyMutationInput, Prisma.TrackUncheckedUpdateManyWithoutReleaseInput>
 }
 
-export type TrackScalarWhereInput = {
-  AND?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
-  OR?: Prisma.TrackScalarWhereInput[]
-  NOT?: Prisma.TrackScalarWhereInput | Prisma.TrackScalarWhereInput[]
-  trackId?: Prisma.StringFilter<"Track"> | string
-  releaseId?: Prisma.StringFilter<"Track"> | string
-  trackNumber?: Prisma.IntNullableFilter<"Track"> | number | null
-  trackTitle?: Prisma.StringNullableFilter<"Track"> | string | null
-  trackGenre?: Prisma.StringNullableFilter<"Track"> | string | null
-  trackMix?: Prisma.StringNullableFilter<"Track"> | string | null
-  explicitContent?: Prisma.BoolNullableFilter<"Track"> | boolean | null
-  trackLanguage?: Prisma.StringNullableFilter<"Track"> | string | null
-  trackPublisher?: Prisma.StringNullableFilter<"Track"> | string | null
-  originalReleaseDate?: Prisma.DateTimeNullableFilter<"Track"> | Date | string | null
-  trackIsrc?: Prisma.StringNullableFilter<"Track"> | string | null
-  territoryRestrictions?: Prisma.StringNullableFilter<"Track"> | string | null
-  audioFileUrl?: Prisma.StringNullableFilter<"Track"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Track"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Track"> | Date | string
-}
-
 export type TrackCreateWithoutTrackArtistsInput = {
   trackId?: string
   trackNumber?: number | null
@@ -756,6 +889,7 @@ export type TrackCreateWithoutTrackArtistsInput = {
   createdAt?: Date | string
   updatedAt?: Date | string
   release: Prisma.ReleaseCreateNestedOneWithoutTracksInput
+  audioFile?: Prisma.FileInstanceCreateNestedOneWithoutTracksInput
 }
 
 export type TrackUncheckedCreateWithoutTrackArtistsInput = {
@@ -772,6 +906,7 @@ export type TrackUncheckedCreateWithoutTrackArtistsInput = {
   trackIsrc?: string | null
   territoryRestrictions?: string | null
   audioFileUrl?: string | null
+  audioFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -808,9 +943,85 @@ export type TrackUpdateWithoutTrackArtistsInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   release?: Prisma.ReleaseUpdateOneRequiredWithoutTracksNestedInput
+  audioFile?: Prisma.FileInstanceUpdateOneWithoutTracksNestedInput
 }
 
 export type TrackUncheckedUpdateWithoutTrackArtistsInput = {
+  trackId?: Prisma.StringFieldUpdateOperationsInput | string
+  releaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  trackNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackGenre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackMix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  explicitContent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  trackLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackPublisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type TrackCreateManyAudioFileInput = {
+  trackId?: string
+  releaseId: string
+  trackNumber?: number | null
+  trackTitle?: string | null
+  trackGenre?: string | null
+  trackMix?: string | null
+  explicitContent?: boolean | null
+  trackLanguage?: string | null
+  trackPublisher?: string | null
+  originalReleaseDate?: Date | string | null
+  trackIsrc?: string | null
+  territoryRestrictions?: string | null
+  audioFileUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type TrackUpdateWithoutAudioFileInput = {
+  trackId?: Prisma.StringFieldUpdateOperationsInput | string
+  trackNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackGenre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackMix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  explicitContent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  trackLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackPublisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  release?: Prisma.ReleaseUpdateOneRequiredWithoutTracksNestedInput
+  trackArtists?: Prisma.TrackArtistUpdateManyWithoutTrackNestedInput
+}
+
+export type TrackUncheckedUpdateWithoutAudioFileInput = {
+  trackId?: Prisma.StringFieldUpdateOperationsInput | string
+  releaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  trackNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
+  trackTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackGenre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackMix?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  explicitContent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  trackLanguage?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  trackPublisher?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  originalReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  trackArtists?: Prisma.TrackArtistUncheckedUpdateManyWithoutTrackNestedInput
+}
+
+export type TrackUncheckedUpdateManyWithoutAudioFileInput = {
   trackId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
   trackNumber?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
@@ -841,6 +1052,7 @@ export type TrackCreateManyReleaseInput = {
   trackIsrc?: string | null
   territoryRestrictions?: string | null
   audioFileUrl?: string | null
+  audioFileId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -861,6 +1073,7 @@ export type TrackUpdateWithoutReleaseInput = {
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trackArtists?: Prisma.TrackArtistUpdateManyWithoutTrackNestedInput
+  audioFile?: Prisma.FileInstanceUpdateOneWithoutTracksNestedInput
 }
 
 export type TrackUncheckedUpdateWithoutReleaseInput = {
@@ -876,6 +1089,7 @@ export type TrackUncheckedUpdateWithoutReleaseInput = {
   trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trackArtists?: Prisma.TrackArtistUncheckedUpdateManyWithoutTrackNestedInput
@@ -894,6 +1108,7 @@ export type TrackUncheckedUpdateManyWithoutReleaseInput = {
   trackIsrc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   territoryRestrictions?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   audioFileUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  audioFileId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -943,10 +1158,12 @@ export type TrackSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   trackIsrc?: boolean
   territoryRestrictions?: boolean
   audioFileUrl?: boolean
+  audioFileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
   trackArtists?: boolean | Prisma.Track$trackArtistsArgs<ExtArgs>
+  audioFile?: boolean | Prisma.Track$audioFileArgs<ExtArgs>
   _count?: boolean | Prisma.TrackCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
 
@@ -964,9 +1181,11 @@ export type TrackSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   trackIsrc?: boolean
   territoryRestrictions?: boolean
   audioFileUrl?: boolean
+  audioFileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
+  audioFile?: boolean | Prisma.Track$audioFileArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
 
 export type TrackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -983,9 +1202,11 @@ export type TrackSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   trackIsrc?: boolean
   territoryRestrictions?: boolean
   audioFileUrl?: boolean
+  audioFileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
+  audioFile?: boolean | Prisma.Track$audioFileArgs<ExtArgs>
 }, ExtArgs["result"]["track"]>
 
 export type TrackSelectScalar = {
@@ -1002,21 +1223,25 @@ export type TrackSelectScalar = {
   trackIsrc?: boolean
   territoryRestrictions?: boolean
   audioFileUrl?: boolean
+  audioFileId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type TrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"trackId" | "releaseId" | "trackNumber" | "trackTitle" | "trackGenre" | "trackMix" | "explicitContent" | "trackLanguage" | "trackPublisher" | "originalReleaseDate" | "trackIsrc" | "territoryRestrictions" | "audioFileUrl" | "createdAt" | "updatedAt", ExtArgs["result"]["track"]>
+export type TrackOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"trackId" | "releaseId" | "trackNumber" | "trackTitle" | "trackGenre" | "trackMix" | "explicitContent" | "trackLanguage" | "trackPublisher" | "originalReleaseDate" | "trackIsrc" | "territoryRestrictions" | "audioFileUrl" | "audioFileId" | "createdAt" | "updatedAt", ExtArgs["result"]["track"]>
 export type TrackInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
   trackArtists?: boolean | Prisma.Track$trackArtistsArgs<ExtArgs>
+  audioFile?: boolean | Prisma.Track$audioFileArgs<ExtArgs>
   _count?: boolean | Prisma.TrackCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type TrackIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
+  audioFile?: boolean | Prisma.Track$audioFileArgs<ExtArgs>
 }
 export type TrackIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
+  audioFile?: boolean | Prisma.Track$audioFileArgs<ExtArgs>
 }
 
 export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1024,6 +1249,7 @@ export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   objects: {
     release: Prisma.$ReleasePayload<ExtArgs>
     trackArtists: Prisma.$TrackArtistPayload<ExtArgs>[]
+    audioFile: Prisma.$FileInstancePayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     trackId: string
@@ -1039,6 +1265,7 @@ export type $TrackPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     trackIsrc: string | null
     territoryRestrictions: string | null
     audioFileUrl: string | null
+    audioFileId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["track"]>
@@ -1437,6 +1664,7 @@ export interface Prisma__TrackClient<T, Null = never, ExtArgs extends runtime.Ty
   readonly [Symbol.toStringTag]: "PrismaPromise"
   release<T extends Prisma.ReleaseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReleaseDefaultArgs<ExtArgs>>): Prisma.Prisma__ReleaseClient<runtime.Types.Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   trackArtists<T extends Prisma.Track$trackArtistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Track$trackArtistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  audioFile<T extends Prisma.Track$audioFileArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Track$audioFileArgs<ExtArgs>>): Prisma.Prisma__FileInstanceClient<runtime.Types.Result.GetResult<Prisma.$FileInstancePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1479,6 +1707,7 @@ export interface TrackFieldRefs {
   readonly trackIsrc: Prisma.FieldRef<"Track", 'String'>
   readonly territoryRestrictions: Prisma.FieldRef<"Track", 'String'>
   readonly audioFileUrl: Prisma.FieldRef<"Track", 'String'>
+  readonly audioFileId: Prisma.FieldRef<"Track", 'String'>
   readonly createdAt: Prisma.FieldRef<"Track", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Track", 'DateTime'>
 }
@@ -1898,6 +2127,25 @@ export type Track$trackArtistsArgs<ExtArgs extends runtime.Types.Extensions.Inte
   take?: number
   skip?: number
   distinct?: Prisma.TrackArtistScalarFieldEnum | Prisma.TrackArtistScalarFieldEnum[]
+}
+
+/**
+ * Track.audioFile
+ */
+export type Track$audioFileArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the FileInstance
+   */
+  select?: Prisma.FileInstanceSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the FileInstance
+   */
+  omit?: Prisma.FileInstanceOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.FileInstanceInclude<ExtArgs> | null
+  where?: Prisma.FileInstanceWhereInput
 }
 
 /**

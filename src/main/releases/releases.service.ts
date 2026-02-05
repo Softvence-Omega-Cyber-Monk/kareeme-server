@@ -35,6 +35,7 @@ export class ReleasesService {
   ) {
     try {
       this.logger.log(`Creating release with ${files?.length || 0} files`);
+      this.logger.log(`Received files:`, files?.map(f => ({ name: f.originalname, size: f.size, mimetype: f.mimetype })));
 
       // Validate track data
       if (dto.tracks && dto.tracks.length > 0) {
@@ -46,7 +47,8 @@ export class ReleasesService {
 
           if (
             track.audioFileIndex !== undefined &&
-            track.audioFileIndex !== null
+            track.audioFileIndex !== null &&
+            track.audioFileIndex !== ''
           ) {
             const fileIndex = parseInt(track.audioFileIndex, 10);
             if (
@@ -56,7 +58,7 @@ export class ReleasesService {
             ) {
               throw new BadRequestException(
                 `Invalid audioFileIndex "${track.audioFileIndex}" for track "${track.trackTitle || 'Unknown'}". ` +
-                  `Must be between 0 and ${(files?.length || 1) - 1}`,
+                  `Must be between 0 and ${(files?.length || 1) - 1}. Available files: ${files?.length || 0}`,
               );
             }
           }
@@ -70,10 +72,29 @@ export class ReleasesService {
 
         for (let i = 0; i < files.length; i++) {
           try {
+            this.logger.log(`Uploading file ${i}: ${files[i].originalname}`);
             const result = await this.uploadService.uploadFiles([files[i]]);
+            
+            this.logger.log(`Upload result structure:`, {
+              success: result.success,
+              hasData: !!result.data,
+              hasFiles: !!(result.data && result.data.files),
+              filesCount: result.data?.files?.length,
+            });
+
             if (result.data && result.data.files && result.data.files[0]) {
               uploadedFiles[i] = result.data.files[0];
-              this.logger.log(`Uploaded file ${i}: ${uploadedFiles[i].url}`);
+              this.logger.log(`Successfully uploaded file ${i}:`, {
+                id: uploadedFiles[i].id,
+                filename: uploadedFiles[i].filename,
+                url: uploadedFiles[i].url,
+                size: uploadedFiles[i].size,
+              });
+            } else {
+              this.logger.error(`Upload result missing expected structure for file ${i}:`, result);
+              throw new BadRequestException(
+                `Failed to upload audio file at index ${i}: Invalid response structure from upload service`,
+              );
             }
           } catch (error) {
             this.logger.error(`Failed to upload file at index ${i}:`, error);
@@ -82,6 +103,17 @@ export class ReleasesService {
             );
           }
         }
+
+        this.logger.log(`All files uploaded successfully. File mapping:`, 
+          Object.keys(uploadedFiles).map(key => {
+            const numKey = parseInt(key, 10);
+            return {
+              index: key,
+              url: uploadedFiles[numKey].url,
+              id: uploadedFiles[numKey].id,
+            };
+          })
+        );
       }
 
       // Create release with transaction
@@ -107,6 +139,8 @@ export class ReleasesService {
         },
       });
 
+      this.logger.log(`Release created with ID: ${release.releaseId}`);
+
       // 2. Create release artists
       if (dto.releaseArtists && dto.releaseArtists.length > 0) {
         this.logger.log(`Processing ${dto.releaseArtists.length} release artist(s)...`);
@@ -131,6 +165,7 @@ export class ReleasesService {
                 data: releaseArtist.artist,
               });
               artistId = newArtist.artistId;
+              this.logger.log(`Created new artist with ID: ${artistId}`);
             }
 
             if (artistId) {
@@ -141,6 +176,7 @@ export class ReleasesService {
                   role: releaseArtist.role,
                 },
               });
+              this.logger.log(`Linked artist ${artistId} to release`);
             }
           }
         }
@@ -168,12 +204,21 @@ export class ReleasesService {
       // 4. Create tracks with track artists and link to uploaded audio files
       const createdTracks: string[] = [];
       if (dto.tracks && dto.tracks.length > 0) {
+        this.logger.log(`Creating ${dto.tracks.length} track(s)...`);
+        
         for (const track of dto.tracks) {
           // Get audio file URL if index is provided
-          let audioFileUrl =
-            track.audioFileIndex !== undefined && track.audioFileIndex !== null
-              ? uploadedFiles[parseInt(track.audioFileIndex, 10)]?.url
-              : undefined;
+          let audioFileUrl: string | undefined = undefined;
+          
+          if (track.audioFileIndex !== undefined && track.audioFileIndex !== null && track.audioFileIndex !== '') {
+            const fileIndex = parseInt(track.audioFileIndex, 10);
+            if (!isNaN(fileIndex) && uploadedFiles[fileIndex]) {
+              audioFileUrl = uploadedFiles[fileIndex].url;
+              this.logger.log(`Track "${track.trackTitle}" (index ${fileIndex}) linked to audio file: ${audioFileUrl}`);
+            } else {
+              this.logger.warn(`Track "${track.trackTitle}" has audioFileIndex="${track.audioFileIndex}" but no uploaded file found at that index`);
+            }
+          }
 
           const createdTrack = await tx.track.create({
             data: {
@@ -194,6 +239,8 @@ export class ReleasesService {
             },
           });
 
+          this.logger.log(`Created track "${track.trackTitle}" with ID: ${createdTrack.trackId}, audioFileUrl: ${audioFileUrl || 'none'}`);
+
           createdTracks.push(createdTrack.trackId);
 
           // Create track artists
@@ -209,20 +256,22 @@ export class ReleasesService {
                 artistId = newArtist.artistId;
               }
 
-              await tx.trackArtist.create({
-                data: {
-                  trackId: createdTrack.trackId,
-                  artistId: artistId,
-                  clientName: trackArtist.clientName,
-                  nameOnTrack: trackArtist.nameOnTrack,
-                  artistType: trackArtist.artistType,
-                  songwriterRole: trackArtist.songwriterRole,
-                  realName: trackArtist.realName,
-                  masterSplit: trackArtist.masterSplit,
-                  spotifyId: trackArtist.spotifyId,
-                  appleId: trackArtist.appleId,
-                },
-              });
+              if (artistId) {
+                await tx.trackArtist.create({
+                  data: {
+                    trackId: createdTrack.trackId,
+                    artistId: artistId,
+                    clientName: trackArtist.clientName,
+                    nameOnTrack: trackArtist.nameOnTrack,
+                    artistType: trackArtist.artistType,
+                    songwriterRole: trackArtist.songwriterRole,
+                    realName: trackArtist.realName,
+                    masterSplit: trackArtist.masterSplit,
+                    spotifyId: trackArtist.spotifyId,
+                    appleId: trackArtist.appleId,
+                  },
+                });
+              }
             }
           }
         }
@@ -242,16 +291,15 @@ export class ReleasesService {
         // Use provided split sheets
         for (let i = 0; i < validSplitSheets.length; i++) {
           const splitSheet = validSplitSheets[i];
-          this.logger.log(`Split sheet ${i}:`, JSON.stringify(splitSheet));
-
-          let labelId = splitSheet.recordLabelId;
+          
+          let recordLabelId = splitSheet.recordLabelId;
 
           // Create new label if label data is provided
-          if (!labelId && splitSheet.recordLabel) {
+          if (!recordLabelId && splitSheet.recordLabel) {
             const newLabel = await tx.label.create({
               data: splitSheet.recordLabel,
             });
-            labelId = newLabel.labelId;
+            recordLabelId = newLabel.labelId;
           }
 
           const createdSplitSheet = await tx.splitSheetAgreement.create({
@@ -259,10 +307,8 @@ export class ReleasesService {
               releaseId: release.releaseId,
               songTitle: splitSheet.songTitle,
               isrc: splitSheet.isrc,
-              releaseDate: splitSheet.releaseDate
-                ? new Date(splitSheet.releaseDate)
-                : null,
-              recordLabelId: labelId,
+              releaseDate: splitSheet.releaseDate ? new Date(splitSheet.releaseDate) : null,
+              recordLabelId: recordLabelId,
             },
           });
 
@@ -285,66 +331,36 @@ export class ReleasesService {
           }
         }
       } else if (createdTracks.length > 0) {
-        // AUTO-GENERATE split sheets from tracks
-        this.logger.log('Auto-generating split sheets from tracks...');
+        // Auto-generate split sheets for tracks if none were provided
+        this.logger.log(`Auto-generating split sheets for ${createdTracks.length} tracks...`);
+        
         for (const trackId of createdTracks) {
           const track = await tx.track.findUnique({
             where: { trackId },
-            include: {
-              trackArtists: {
-                include: {
-                  artist: true,
-                },
-              },
-            },
+            include: { trackArtists: true },
           });
 
-          if (track && track.trackArtists.length > 0) {
-            const splitSheet = await tx.splitSheetAgreement.create({
+          if (track) {
+            await tx.splitSheetAgreement.create({
               data: {
                 releaseId: release.releaseId,
-                songTitle: track.trackTitle,
+                songTitle: track.trackTitle || 'Untitled',
                 isrc: track.trackIsrc,
-                releaseDate: track.originalReleaseDate || release.releaseDate,
+                releaseDate: track.originalReleaseDate,
               },
             });
-
-            // Auto-generate contributors from track artists
-            const totalArtists = track.trackArtists.length;
-            const equalSplit = totalArtists > 0 ? 100 / totalArtists : 0;
-
-            for (const trackArtist of track.trackArtists) {
-              await tx.contributor.create({
-                data: {
-                  splitId: splitSheet.splitId,
-                  fullName:
-                    trackArtist.realName ||
-                    trackArtist.nameOnTrack ||
-                    trackArtist.artist?.name ||
-                    'Unknown',
-                  contribution: trackArtist.songwriterRole || 'Artist',
-                  email: trackArtist.artist?.email,
-                  phone: trackArtist.artist?.phone,
-                  address: trackArtist.artist?.address,
-                  percentageSplit: equalSplit,
-                },
-              });
-            }
           }
         }
       }
 
       // 6. Create back catalogue entries
       if (dto.backCatalogue && dto.backCatalogue.length > 0) {
-        this.logger.log(`Processing ${dto.backCatalogue.length} back catalogue entry(ies)...`);
+        this.logger.log(`Processing ${dto.backCatalogue.length} back catalogue entries...`);
         
-        // Filter out empty back catalogue entries
         const validBackCatalogue = dto.backCatalogue.filter(
-          (bc: any) => bc && (bc.labelName || bc.upc || bc.catalogueNumber),
+          (bc: any) => bc && Object.keys(bc).length > 0,
         );
-        
-        this.logger.log(`Found ${validBackCatalogue.length} valid back catalogue entries out of ${dto.backCatalogue.length}`);
-        
+
         if (validBackCatalogue.length > 0) {
           await tx.backCatalogue.createMany({
             data: validBackCatalogue.map((catalogue: any) => ({
@@ -356,9 +372,7 @@ export class ReleasesService {
               releaseArtist: catalogue.releaseArtist,
               releaseTitle: catalogue.releaseTitle,
               releaseType: catalogue.releaseType,
-              releaseDate: catalogue.releaseDate
-                ? new Date(catalogue.releaseDate)
-                : null,
+              releaseDate: catalogue.releaseDate ? new Date(catalogue.releaseDate) : null,
               releasePLine: catalogue.releasePLine,
               releaseCLine: catalogue.releaseCLine,
             })),
@@ -366,7 +380,7 @@ export class ReleasesService {
         }
       }
 
-      // 7. Fetch and return the complete release with all relations
+      // 7. Fetch and return the complete release
       const completeRelease = await tx.release.findUnique({
         where: { releaseId: release.releaseId },
         include: {
@@ -406,49 +420,23 @@ export class ReleasesService {
         },
       });
 
-      this.logger.log(`Release created successfully: ${release.releaseId}`);
+      this.logger.log(`Release created successfully with ${completeRelease.tracks.length} tracks`);
+      
+      // Log track audio file URLs for verification
+      completeRelease.tracks.forEach((track: any) => {
+        this.logger.log(`Track ${track.trackNumber} "${track.trackTitle}": audioFileUrl = ${track.audioFileUrl || 'none'}`);
+      });
+
       return completeRelease;
     });
     } catch (error) {
       this.logger.error('Error creating release:', error);
-      
-      if (error instanceof BadRequestException) {
-        throw error;
-      }
-      
-      if (error instanceof NotFoundException) {
-        throw error;
-      }
-
-      // Handle Prisma validation errors
-      if (error instanceof Prisma.PrismaClientValidationError) {
-        throw new BadRequestException(
-          `Invalid data provided: ${error.message}`,
-        );
-      }
-
-      // Handle Prisma unique constraint errors
-      if (error instanceof Prisma.PrismaClientKnownRequestError) {
-        if (error.code === 'P2002') {
-          const field = (error.meta?.target as string[])?.[0] || 'field';
-          throw new BadRequestException(
-            `A release with this ${field} already exists`,
-          );
-        }
-        throw new BadRequestException(
-          `Database error: ${error.message}`,
-        );
-      }
-
-      // Generic error handler
-      throw new BadRequestException(
-        `Failed to create release: ${error.message || 'Unknown error occurred'}`,
-      );
+      throw error;
     }
   }
 
   /**
-   * Get all releases with filtering, sorting, and searching
+   * Get all releases with filtering
    */
   async getAllReleases(query: GetReleasesQueryDto) {
     const {
@@ -483,23 +471,27 @@ export class ReleasesService {
       ];
     }
 
-    // Individual filters
+    // Genre filter
     if (genre) {
       where.genre = { contains: genre, mode: 'insensitive' };
     }
 
+    // Status filter
     if (status) {
       where.status = status;
     }
 
+    // Type of release filter
     if (typeOfRelease) {
       where.typeOfRelease = typeOfRelease;
     }
 
+    // User filter
     if (userId) {
       where.userId = userId;
     }
 
+    // Year filter
     if (year) {
       where.releaseDate = {
         gte: new Date(`${year}-01-01`),

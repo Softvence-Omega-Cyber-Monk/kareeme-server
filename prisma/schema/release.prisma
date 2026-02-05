@@ -1,51 +1,65 @@
 // ========== Music Release Models ==========
 
 model Release {
-  releaseId                     String              @id @default(uuid()) @map("release_id")
-  userId                        String              @map("user_id")
-  releaseDate                   DateTime?           @map("release_date") @db.Date
-  preOrderDate                  DateTime?           @map("pre_order_date") @db.Date
-  releaseTitle                  String?             @map("release_title") @db.VarChar
-  typeOfRelease                 String?             @map("type_of_release") @db.VarChar
-  genre                         String?             @db.VarChar
-  language                      String?             @db.VarChar
-  isExplicitContent             Boolean?            @map("is_explicit_content")
-  hasExternalRightsHolder       Boolean?            @map("has_external_rights_holder")
-  hasDolbyAtmosVersion          Boolean?            @map("has_dolby_atmos_version")
-  hasExtendedMixForDjStores     Boolean?            @map("has_extended_mix_for_dj_stores")
-  additionalDetails             String?             @map("additional_details") @db.VarChar
-  hasArtistOnSpotify            Boolean?            @map("has_artist_on_spotify")
-  hasMusicVideo                 Boolean?            @map("has_music_video")
-  status                        String?             @db.VarChar
+  releaseId                 String    @id @default(uuid()) @map("release_id")
+  userId                    String    @map("user_id")
+  releaseDate               DateTime? @map("release_date") @db.Date
+  preOrderDate              DateTime? @map("pre_order_date") @db.Date
+  releaseTitle              String?   @map("release_title") @db.VarChar
+  typeOfRelease             String?   @map("type_of_release") @db.VarChar
+  genre                     String?   @db.VarChar
+  language                  String?   @db.VarChar
+  isExplicitContent         Boolean?  @map("is_explicit_content")
+  hasExternalRightsHolder   Boolean?  @map("has_external_rights_holder")
+  hasDolbyAtmosVersion      Boolean?  @map("has_dolby_atmos_version")
+  hasExtendedMixForDjStores Boolean?  @map("has_extended_mix_for_dj_stores")
+  additionalDetails         String?   @map("additional_details") @db.VarChar
+  hasArtistOnSpotify        Boolean?  @map("has_artist_on_spotify")
+  hasMusicVideo             Boolean?  @map("has_music_video")
+  status                    String?   @db.VarChar
+  producerCredits           String?   @map("producer_credits")
+  lyricistCredits           String?   @map("lyricist_credits")
+  masterSplits              String?   @map("master_splits")
+  copyrightHolder           String?   @map("copyright_holder")
+  labelName                 String?   @map("label_name")
+  albumLevelArtistName      String?   @map("album_level_artist_name")
+  musicFileLink             String?   @map("music_file_link")
 
-  user                          User                @relation(fields: [userId], references: [id])
-  releaseArtists                ReleaseArtist[]
-  releaseTerritories            ReleaseTerritory[]
-  splitSheetAgreements          SplitSheetAgreement[]
-  tracks                        Track[]
-  backCatalogue                 BackCatalogue[]
+  user                 User                  @relation(fields: [userId], references: [id])
+  releaseArtists       ReleaseArtist[]
+  releaseTerritories   ReleaseTerritory[]
+  splitSheetAgreements SplitSheetAgreement[]
+  tracks               Track[]
+  backCatalogue        BackCatalogue[]
 
-  createdAt                     DateTime            @default(now()) @map("created_at")
-  updatedAt                     DateTime            @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("releases")
 }
 
 model Artist {
-  artistId          String          @id @default(uuid()) @map("artist_id")
-  name              String?         @db.VarChar
-  email             String?         @db.VarChar
-  phone             String?         @db.VarChar
-  address           String?         @db.VarChar
-  soundcloudProfile String?         @map("soundcloud_profile") @db.VarChar
+  artistId  String   @id @default(uuid())
+  userId    String
+  name      String
+  email     String?
+  phone     String?
+  stageName String?
+  bio       String?
+  imageUrl  String?
+  spotifyId String?
+  appleId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  releaseArtists    ReleaseArtist[]
-  trackArtists      TrackArtist[]
+  // Relations
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  releaseArtists ReleaseArtist[]
+  trackArtists   TrackArtist[]
 
-  createdAt         DateTime        @default(now()) @map("created_at")
-  updatedAt         DateTime        @updatedAt @map("updated_at")
-
-  @@map("artists")
+  @@unique([userId, name])
+  @@index([userId])
+  @@index([name])
 }
 
 model ReleaseArtist {
@@ -53,97 +67,100 @@ model ReleaseArtist {
   artistId  String  @map("artist_id")
   role      String? @db.VarChar
 
-  release   Release @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
-  artist    Artist  @relation(fields: [artistId], references: [artistId], onDelete: Cascade)
+  release Release @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
+  artist  Artist  @relation(fields: [artistId], references: [artistId], onDelete: Cascade)
 
   @@id([releaseId, artistId])
   @@map("release_artists")
 }
 
 model Label {
-  labelId               String                @id @default(uuid()) @map("label_id")
-  name                  String?               @db.VarChar
-  attorney              String?               @db.VarChar
+  labelId  String  @id @default(uuid()) @map("label_id")
+  name     String? @db.VarChar
+  attorney String? @db.VarChar
 
-  splitSheetAgreements  SplitSheetAgreement[]
+  splitSheetAgreements SplitSheetAgreement[]
 
-  createdAt             DateTime              @default(now()) @map("created_at")
-  updatedAt             DateTime              @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("labels")
 }
 
 model ReleaseTerritory {
-  releaseId String  @map("release_id")
-  territory String  @db.VarChar
+  releaseId String @map("release_id")
+  territory String @db.VarChar
 
-  release   Release @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
+  release Release @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
 
   @@id([releaseId, territory])
   @@map("release_territories")
 }
 
 model SplitSheetAgreement {
-  splitId        String        @id @default(uuid()) @map("split_id")
-  releaseId      String        @map("release_id")
-  songTitle      String?       @map("song_title") @db.VarChar
-  isrc           String?       @db.VarChar
-  releaseDate    DateTime?     @map("release_date") @db.Date
-  recordLabelId  String?       @map("record_label_id")
+  splitId       String    @id @default(uuid()) @map("split_id")
+  releaseId     String    @map("release_id")
+  songTitle     String?   @map("song_title") @db.VarChar
+  isrc          String?   @db.VarChar
+  releaseDate   DateTime? @map("release_date") @db.Date
+  recordLabelId String?   @map("record_label_id")
 
-  release        Release       @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
-  recordLabel    Label?        @relation(fields: [recordLabelId], references: [labelId], onDelete: SetNull)
-  contributors   Contributor[]
+  release      Release       @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
+  recordLabel  Label?        @relation(fields: [recordLabelId], references: [labelId], onDelete: SetNull)
+  contributors Contributor[]
 
-  createdAt      DateTime      @default(now()) @map("created_at")
-  updatedAt      DateTime      @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("split_sheet_agreements")
 }
 
 model Contributor {
-  contributorId      String               @id @default(uuid()) @map("contributor_id")
-  splitId            String               @map("split_id")
-  fullName           String?              @map("full_name") @db.VarChar
-  contribution       String?              @db.VarChar
-  email              String?              @db.VarChar
-  phone              String?              @db.VarChar
-  address            String?              @db.VarChar
-  publisher          String?              @db.VarChar
-  affiliation        String?              @db.VarChar
-  ipiCaeNumber       String?              @map("ipi_cae_number") @db.VarChar
-  percentageSplit    Decimal?             @map("percentage_split") @db.Decimal(5, 2)
+  contributorId   String   @id @default(uuid()) @map("contributor_id")
+  splitId         String   @map("split_id")
+  fullName        String?  @map("full_name") @db.VarChar
+  contribution    String?  @db.VarChar
+  email           String?  @db.VarChar
+  phone           String?  @db.VarChar
+  address         String?  @db.VarChar
+  publisher       String?  @db.VarChar
+  affiliation     String?  @db.VarChar
+  ipiCaeNumber    String?  @map("ipi_cae_number") @db.VarChar
+  percentageSplit Decimal? @map("percentage_split") @db.Decimal(5, 2)
 
   splitSheetAgreement SplitSheetAgreement @relation(fields: [splitId], references: [splitId], onDelete: Cascade)
 
-  createdAt          DateTime             @default(now()) @map("created_at")
-  updatedAt          DateTime             @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("contributors")
 }
 
 model Track {
-  trackId               String        @id @default(uuid()) @map("track_id")
-  releaseId             String        @map("release_id")
-  trackNumber           Int?          @map("track_number")
-  trackTitle            String?       @map("track_title") @db.VarChar
-  trackGenre            String?       @map("track_genre") @db.VarChar
-  trackMix              String?       @map("track_mix") @db.VarChar
-  explicitContent       Boolean?      @map("explicit_content")
-  trackLanguage         String?       @map("track_language") @db.VarChar
-  trackPublisher        String?       @map("track_publisher") @db.VarChar
-  originalReleaseDate   DateTime?     @map("original_release_date") @db.Date
-  trackIsrc             String?       @map("track_isrc") @db.VarChar
-  territoryRestrictions String?       @map("territory_restrictions") @db.VarChar
-  audioFileUrl          String?       @map("audio_file_url") @db.VarChar
+  trackId               String    @id @default(uuid())
+  releaseId             String
+  trackNumber           Int?
+  trackTitle            String?
+  trackGenre            String?
+  trackMix              String?
+  explicitContent       Boolean?  @default(false)
+  trackLanguage         String?
+  trackPublisher        String?
+  originalReleaseDate   DateTime?
+  trackIsrc             String?
+  territoryRestrictions String?
+  audioFileUrl          String?
+  audioFileId           String? // ✅ ADD THIS FIELD
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
 
-  release               Release       @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
-  trackArtists          TrackArtist[]
+  // Relations
+  release      Release       @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
+  trackArtists TrackArtist[]
+  audioFile    FileInstance? @relation(fields: [audioFileId], references: [id], onDelete: SetNull) // ✅ ADD THIS
 
-  createdAt             DateTime      @default(now()) @map("created_at")
-  updatedAt             DateTime      @updatedAt @map("updated_at")
-
-  @@map("tracks")
+  @@index([releaseId])
+  @@index([audioFileId]) // ✅ ADD THIS for performance
 }
 
 model TrackArtist {
@@ -159,11 +176,11 @@ model TrackArtist {
   spotifyId      String? @map("spotify_id") @db.VarChar
   appleId        String? @map("apple_id") @db.VarChar
 
-  track          Track   @relation(fields: [trackId], references: [trackId], onDelete: Cascade)
-  artist         Artist? @relation(fields: [artistId], references: [artistId], onDelete: SetNull)
+  track  Track   @relation(fields: [trackId], references: [trackId], onDelete: Cascade)
+  artist Artist? @relation(fields: [artistId], references: [artistId], onDelete: SetNull)
 
-  createdAt      DateTime @default(now()) @map("created_at")
-  updatedAt      DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("track_artists")
 }
@@ -173,8 +190,8 @@ model Publisher {
   name        String? @db.VarChar
   contactInfo String? @map("contact_info") @db.VarChar
 
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("publishers")
 }
@@ -193,10 +210,10 @@ model BackCatalogue {
   releasePLine    String?   @map("release_p_line") @db.VarChar
   releaseCLine    String?   @map("release_c_line") @db.VarChar
 
-  release         Release   @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
+  release Release @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
 
-  createdAt       DateTime  @default(now()) @map("created_at")
-  updatedAt       DateTime  @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
   @@map("back_catalogue")
 }

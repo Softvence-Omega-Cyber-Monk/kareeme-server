@@ -41,6 +41,13 @@ export type ReleaseMinAggregateOutputType = {
   hasArtistOnSpotify: boolean | null
   hasMusicVideo: boolean | null
   status: string | null
+  producerCredits: string | null
+  lyricistCredits: string | null
+  masterSplits: string | null
+  copyrightHolder: string | null
+  labelName: string | null
+  albumLevelArtistName: string | null
+  musicFileLink: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,6 +69,13 @@ export type ReleaseMaxAggregateOutputType = {
   hasArtistOnSpotify: boolean | null
   hasMusicVideo: boolean | null
   status: string | null
+  producerCredits: string | null
+  lyricistCredits: string | null
+  masterSplits: string | null
+  copyrightHolder: string | null
+  labelName: string | null
+  albumLevelArtistName: string | null
+  musicFileLink: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -83,6 +97,13 @@ export type ReleaseCountAggregateOutputType = {
   hasArtistOnSpotify: number
   hasMusicVideo: number
   status: number
+  producerCredits: number
+  lyricistCredits: number
+  masterSplits: number
+  copyrightHolder: number
+  labelName: number
+  albumLevelArtistName: number
+  musicFileLink: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -106,6 +127,13 @@ export type ReleaseMinAggregateInputType = {
   hasArtistOnSpotify?: true
   hasMusicVideo?: true
   status?: true
+  producerCredits?: true
+  lyricistCredits?: true
+  masterSplits?: true
+  copyrightHolder?: true
+  labelName?: true
+  albumLevelArtistName?: true
+  musicFileLink?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -127,6 +155,13 @@ export type ReleaseMaxAggregateInputType = {
   hasArtistOnSpotify?: true
   hasMusicVideo?: true
   status?: true
+  producerCredits?: true
+  lyricistCredits?: true
+  masterSplits?: true
+  copyrightHolder?: true
+  labelName?: true
+  albumLevelArtistName?: true
+  musicFileLink?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -148,6 +183,13 @@ export type ReleaseCountAggregateInputType = {
   hasArtistOnSpotify?: true
   hasMusicVideo?: true
   status?: true
+  producerCredits?: true
+  lyricistCredits?: true
+  masterSplits?: true
+  copyrightHolder?: true
+  labelName?: true
+  albumLevelArtistName?: true
+  musicFileLink?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -242,6 +284,13 @@ export type ReleaseGroupByOutputType = {
   hasArtistOnSpotify: boolean | null
   hasMusicVideo: boolean | null
   status: string | null
+  producerCredits: string | null
+  lyricistCredits: string | null
+  masterSplits: string | null
+  copyrightHolder: string | null
+  labelName: string | null
+  albumLevelArtistName: string | null
+  musicFileLink: string | null
   createdAt: Date
   updatedAt: Date
   _count: ReleaseCountAggregateOutputType | null
@@ -284,6 +333,13 @@ export type ReleaseWhereInput = {
   hasArtistOnSpotify?: Prisma.BoolNullableFilter<"Release"> | boolean | null
   hasMusicVideo?: Prisma.BoolNullableFilter<"Release"> | boolean | null
   status?: Prisma.StringNullableFilter<"Release"> | string | null
+  producerCredits?: Prisma.StringNullableFilter<"Release"> | string | null
+  lyricistCredits?: Prisma.StringNullableFilter<"Release"> | string | null
+  masterSplits?: Prisma.StringNullableFilter<"Release"> | string | null
+  copyrightHolder?: Prisma.StringNullableFilter<"Release"> | string | null
+  labelName?: Prisma.StringNullableFilter<"Release"> | string | null
+  albumLevelArtistName?: Prisma.StringNullableFilter<"Release"> | string | null
+  musicFileLink?: Prisma.StringNullableFilter<"Release"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Release"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Release"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -311,6 +367,13 @@ export type ReleaseOrderByWithRelationInput = {
   hasArtistOnSpotify?: Prisma.SortOrderInput | Prisma.SortOrder
   hasMusicVideo?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrderInput | Prisma.SortOrder
+  producerCredits?: Prisma.SortOrderInput | Prisma.SortOrder
+  lyricistCredits?: Prisma.SortOrderInput | Prisma.SortOrder
+  masterSplits?: Prisma.SortOrderInput | Prisma.SortOrder
+  copyrightHolder?: Prisma.SortOrderInput | Prisma.SortOrder
+  labelName?: Prisma.SortOrderInput | Prisma.SortOrder
+  albumLevelArtistName?: Prisma.SortOrderInput | Prisma.SortOrder
+  musicFileLink?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   user?: Prisma.UserOrderByWithRelationInput
@@ -341,6 +404,13 @@ export type ReleaseWhereUniqueInput = Prisma.AtLeast<{
   hasArtistOnSpotify?: Prisma.BoolNullableFilter<"Release"> | boolean | null
   hasMusicVideo?: Prisma.BoolNullableFilter<"Release"> | boolean | null
   status?: Prisma.StringNullableFilter<"Release"> | string | null
+  producerCredits?: Prisma.StringNullableFilter<"Release"> | string | null
+  lyricistCredits?: Prisma.StringNullableFilter<"Release"> | string | null
+  masterSplits?: Prisma.StringNullableFilter<"Release"> | string | null
+  copyrightHolder?: Prisma.StringNullableFilter<"Release"> | string | null
+  labelName?: Prisma.StringNullableFilter<"Release"> | string | null
+  albumLevelArtistName?: Prisma.StringNullableFilter<"Release"> | string | null
+  musicFileLink?: Prisma.StringNullableFilter<"Release"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Release"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Release"> | Date | string
   user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
@@ -368,6 +438,13 @@ export type ReleaseOrderByWithAggregationInput = {
   hasArtistOnSpotify?: Prisma.SortOrderInput | Prisma.SortOrder
   hasMusicVideo?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrderInput | Prisma.SortOrder
+  producerCredits?: Prisma.SortOrderInput | Prisma.SortOrder
+  lyricistCredits?: Prisma.SortOrderInput | Prisma.SortOrder
+  masterSplits?: Prisma.SortOrderInput | Prisma.SortOrder
+  copyrightHolder?: Prisma.SortOrderInput | Prisma.SortOrder
+  labelName?: Prisma.SortOrderInput | Prisma.SortOrder
+  albumLevelArtistName?: Prisma.SortOrderInput | Prisma.SortOrder
+  musicFileLink?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ReleaseCountOrderByAggregateInput
@@ -395,6 +472,13 @@ export type ReleaseScalarWhereWithAggregatesInput = {
   hasArtistOnSpotify?: Prisma.BoolNullableWithAggregatesFilter<"Release"> | boolean | null
   hasMusicVideo?: Prisma.BoolNullableWithAggregatesFilter<"Release"> | boolean | null
   status?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  producerCredits?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  lyricistCredits?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  masterSplits?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  copyrightHolder?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  labelName?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  albumLevelArtistName?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
+  musicFileLink?: Prisma.StringNullableWithAggregatesFilter<"Release"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Release"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Release"> | Date | string
 }
@@ -415,6 +499,13 @@ export type ReleaseCreateInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReleasesInput
@@ -442,6 +533,13 @@ export type ReleaseUncheckedCreateInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
@@ -467,6 +565,13 @@ export type ReleaseUpdateInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
@@ -494,6 +599,13 @@ export type ReleaseUncheckedUpdateInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
@@ -520,6 +632,13 @@ export type ReleaseCreateManyInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -540,6 +659,13 @@ export type ReleaseUpdateManyMutationInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -561,6 +687,13 @@ export type ReleaseUncheckedUpdateManyInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -582,6 +715,13 @@ export type ReleaseCountOrderByAggregateInput = {
   hasArtistOnSpotify?: Prisma.SortOrder
   hasMusicVideo?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  producerCredits?: Prisma.SortOrder
+  lyricistCredits?: Prisma.SortOrder
+  masterSplits?: Prisma.SortOrder
+  copyrightHolder?: Prisma.SortOrder
+  labelName?: Prisma.SortOrder
+  albumLevelArtistName?: Prisma.SortOrder
+  musicFileLink?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -603,6 +743,13 @@ export type ReleaseMaxOrderByAggregateInput = {
   hasArtistOnSpotify?: Prisma.SortOrder
   hasMusicVideo?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  producerCredits?: Prisma.SortOrder
+  lyricistCredits?: Prisma.SortOrder
+  masterSplits?: Prisma.SortOrder
+  copyrightHolder?: Prisma.SortOrder
+  labelName?: Prisma.SortOrder
+  albumLevelArtistName?: Prisma.SortOrder
+  musicFileLink?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -624,6 +771,13 @@ export type ReleaseMinOrderByAggregateInput = {
   hasArtistOnSpotify?: Prisma.SortOrder
   hasMusicVideo?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  producerCredits?: Prisma.SortOrder
+  lyricistCredits?: Prisma.SortOrder
+  masterSplits?: Prisma.SortOrder
+  copyrightHolder?: Prisma.SortOrder
+  labelName?: Prisma.SortOrder
+  albumLevelArtistName?: Prisma.SortOrder
+  musicFileLink?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -779,6 +933,13 @@ export type ReleaseCreateWithoutReleaseArtistsInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReleasesInput
@@ -805,6 +966,13 @@ export type ReleaseUncheckedCreateWithoutReleaseArtistsInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedCreateNestedManyWithoutReleaseInput
@@ -845,6 +1013,13 @@ export type ReleaseUpdateWithoutReleaseArtistsInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
@@ -871,6 +1046,13 @@ export type ReleaseUncheckedUpdateWithoutReleaseArtistsInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedUpdateManyWithoutReleaseNestedInput
@@ -895,6 +1077,13 @@ export type ReleaseCreateWithoutReleaseTerritoriesInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReleasesInput
@@ -921,6 +1110,13 @@ export type ReleaseUncheckedCreateWithoutReleaseTerritoriesInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
@@ -961,6 +1157,13 @@ export type ReleaseUpdateWithoutReleaseTerritoriesInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
@@ -987,6 +1190,13 @@ export type ReleaseUncheckedUpdateWithoutReleaseTerritoriesInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
@@ -1011,6 +1221,13 @@ export type ReleaseCreateWithoutSplitSheetAgreementsInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReleasesInput
@@ -1037,6 +1254,13 @@ export type ReleaseUncheckedCreateWithoutSplitSheetAgreementsInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
@@ -1077,6 +1301,13 @@ export type ReleaseUpdateWithoutSplitSheetAgreementsInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
@@ -1103,6 +1334,13 @@ export type ReleaseUncheckedUpdateWithoutSplitSheetAgreementsInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
@@ -1127,6 +1365,13 @@ export type ReleaseCreateWithoutTracksInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReleasesInput
@@ -1153,6 +1398,13 @@ export type ReleaseUncheckedCreateWithoutTracksInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
@@ -1193,6 +1445,13 @@ export type ReleaseUpdateWithoutTracksInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
@@ -1219,6 +1478,13 @@ export type ReleaseUncheckedUpdateWithoutTracksInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
@@ -1243,6 +1509,13 @@ export type ReleaseCreateWithoutBackCatalogueInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   user: Prisma.UserCreateNestedOneWithoutReleasesInput
@@ -1269,6 +1542,13 @@ export type ReleaseUncheckedCreateWithoutBackCatalogueInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
@@ -1309,6 +1589,13 @@ export type ReleaseUpdateWithoutBackCatalogueInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
@@ -1335,6 +1622,13 @@ export type ReleaseUncheckedUpdateWithoutBackCatalogueInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
@@ -1359,6 +1653,13 @@ export type ReleaseCreateWithoutUserInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistCreateNestedManyWithoutReleaseInput
@@ -1384,6 +1685,13 @@ export type ReleaseUncheckedCreateWithoutUserInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
@@ -1439,6 +1747,13 @@ export type ReleaseScalarWhereInput = {
   hasArtistOnSpotify?: Prisma.BoolNullableFilter<"Release"> | boolean | null
   hasMusicVideo?: Prisma.BoolNullableFilter<"Release"> | boolean | null
   status?: Prisma.StringNullableFilter<"Release"> | string | null
+  producerCredits?: Prisma.StringNullableFilter<"Release"> | string | null
+  lyricistCredits?: Prisma.StringNullableFilter<"Release"> | string | null
+  masterSplits?: Prisma.StringNullableFilter<"Release"> | string | null
+  copyrightHolder?: Prisma.StringNullableFilter<"Release"> | string | null
+  labelName?: Prisma.StringNullableFilter<"Release"> | string | null
+  albumLevelArtistName?: Prisma.StringNullableFilter<"Release"> | string | null
+  musicFileLink?: Prisma.StringNullableFilter<"Release"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Release"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Release"> | Date | string
 }
@@ -1459,6 +1774,13 @@ export type ReleaseCreateManyUserInput = {
   hasArtistOnSpotify?: boolean | null
   hasMusicVideo?: boolean | null
   status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1479,6 +1801,13 @@ export type ReleaseUpdateWithoutUserInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUpdateManyWithoutReleaseNestedInput
@@ -1504,6 +1833,13 @@ export type ReleaseUncheckedUpdateWithoutUserInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
@@ -1529,6 +1865,13 @@ export type ReleaseUncheckedUpdateManyWithoutUserInput = {
   hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
   status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1617,6 +1960,13 @@ export type ReleaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   hasArtistOnSpotify?: boolean
   hasMusicVideo?: boolean
   status?: boolean
+  producerCredits?: boolean
+  lyricistCredits?: boolean
+  masterSplits?: boolean
+  copyrightHolder?: boolean
+  labelName?: boolean
+  albumLevelArtistName?: boolean
+  musicFileLink?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1645,6 +1995,13 @@ export type ReleaseSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   hasArtistOnSpotify?: boolean
   hasMusicVideo?: boolean
   status?: boolean
+  producerCredits?: boolean
+  lyricistCredits?: boolean
+  masterSplits?: boolean
+  copyrightHolder?: boolean
+  labelName?: boolean
+  albumLevelArtistName?: boolean
+  musicFileLink?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1667,6 +2024,13 @@ export type ReleaseSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   hasArtistOnSpotify?: boolean
   hasMusicVideo?: boolean
   status?: boolean
+  producerCredits?: boolean
+  lyricistCredits?: boolean
+  masterSplits?: boolean
+  copyrightHolder?: boolean
+  labelName?: boolean
+  albumLevelArtistName?: boolean
+  musicFileLink?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
@@ -1689,11 +2053,18 @@ export type ReleaseSelectScalar = {
   hasArtistOnSpotify?: boolean
   hasMusicVideo?: boolean
   status?: boolean
+  producerCredits?: boolean
+  lyricistCredits?: boolean
+  masterSplits?: boolean
+  copyrightHolder?: boolean
+  labelName?: boolean
+  albumLevelArtistName?: boolean
+  musicFileLink?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ReleaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"releaseId" | "userId" | "releaseDate" | "preOrderDate" | "releaseTitle" | "typeOfRelease" | "genre" | "language" | "isExplicitContent" | "hasExternalRightsHolder" | "hasDolbyAtmosVersion" | "hasExtendedMixForDjStores" | "additionalDetails" | "hasArtistOnSpotify" | "hasMusicVideo" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["release"]>
+export type ReleaseOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"releaseId" | "userId" | "releaseDate" | "preOrderDate" | "releaseTitle" | "typeOfRelease" | "genre" | "language" | "isExplicitContent" | "hasExternalRightsHolder" | "hasDolbyAtmosVersion" | "hasExtendedMixForDjStores" | "additionalDetails" | "hasArtistOnSpotify" | "hasMusicVideo" | "status" | "producerCredits" | "lyricistCredits" | "masterSplits" | "copyrightHolder" | "labelName" | "albumLevelArtistName" | "musicFileLink" | "createdAt" | "updatedAt", ExtArgs["result"]["release"]>
 export type ReleaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   releaseArtists?: boolean | Prisma.Release$releaseArtistsArgs<ExtArgs>
@@ -1737,6 +2108,13 @@ export type $ReleasePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     hasArtistOnSpotify: boolean | null
     hasMusicVideo: boolean | null
     status: string | null
+    producerCredits: string | null
+    lyricistCredits: string | null
+    masterSplits: string | null
+    copyrightHolder: string | null
+    labelName: string | null
+    albumLevelArtistName: string | null
+    musicFileLink: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["release"]>
@@ -2184,6 +2562,13 @@ export interface ReleaseFieldRefs {
   readonly hasArtistOnSpotify: Prisma.FieldRef<"Release", 'Boolean'>
   readonly hasMusicVideo: Prisma.FieldRef<"Release", 'Boolean'>
   readonly status: Prisma.FieldRef<"Release", 'String'>
+  readonly producerCredits: Prisma.FieldRef<"Release", 'String'>
+  readonly lyricistCredits: Prisma.FieldRef<"Release", 'String'>
+  readonly masterSplits: Prisma.FieldRef<"Release", 'String'>
+  readonly copyrightHolder: Prisma.FieldRef<"Release", 'String'>
+  readonly labelName: Prisma.FieldRef<"Release", 'String'>
+  readonly albumLevelArtistName: Prisma.FieldRef<"Release", 'String'>
+  readonly musicFileLink: Prisma.FieldRef<"Release", 'String'>
   readonly createdAt: Prisma.FieldRef<"Release", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Release", 'DateTime'>
 }

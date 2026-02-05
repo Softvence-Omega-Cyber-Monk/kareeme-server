@@ -31,7 +31,7 @@ async function bootstrap() {
   });
 
   // * add global pipes
-  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: true }));
+  app.useGlobalPipes(new ValidationPipe({ whitelist: true, transform: false }));
 
   // * add global filters
   app.useGlobalFilters(new AllExceptionsFilter());

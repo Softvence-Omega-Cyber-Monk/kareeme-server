@@ -26,33 +26,45 @@ export type AggregateArtist = {
 
 export type ArtistMinAggregateOutputType = {
   artistId: string | null
+  userId: string | null
   name: string | null
   email: string | null
   phone: string | null
-  address: string | null
-  soundcloudProfile: string | null
+  stageName: string | null
+  bio: string | null
+  imageUrl: string | null
+  spotifyId: string | null
+  appleId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ArtistMaxAggregateOutputType = {
   artistId: string | null
+  userId: string | null
   name: string | null
   email: string | null
   phone: string | null
-  address: string | null
-  soundcloudProfile: string | null
+  stageName: string | null
+  bio: string | null
+  imageUrl: string | null
+  spotifyId: string | null
+  appleId: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ArtistCountAggregateOutputType = {
   artistId: number
+  userId: number
   name: number
   email: number
   phone: number
-  address: number
-  soundcloudProfile: number
+  stageName: number
+  bio: number
+  imageUrl: number
+  spotifyId: number
+  appleId: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -61,33 +73,45 @@ export type ArtistCountAggregateOutputType = {
 
 export type ArtistMinAggregateInputType = {
   artistId?: true
+  userId?: true
   name?: true
   email?: true
   phone?: true
-  address?: true
-  soundcloudProfile?: true
+  stageName?: true
+  bio?: true
+  imageUrl?: true
+  spotifyId?: true
+  appleId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type ArtistMaxAggregateInputType = {
   artistId?: true
+  userId?: true
   name?: true
   email?: true
   phone?: true
-  address?: true
-  soundcloudProfile?: true
+  stageName?: true
+  bio?: true
+  imageUrl?: true
+  spotifyId?: true
+  appleId?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type ArtistCountAggregateInputType = {
   artistId?: true
+  userId?: true
   name?: true
   email?: true
   phone?: true
-  address?: true
-  soundcloudProfile?: true
+  stageName?: true
+  bio?: true
+  imageUrl?: true
+  spotifyId?: true
+  appleId?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -167,11 +191,15 @@ export type ArtistGroupByArgs<ExtArgs extends runtime.Types.Extensions.InternalA
 
 export type ArtistGroupByOutputType = {
   artistId: string
-  name: string | null
+  userId: string
+  name: string
   email: string | null
   phone: string | null
-  address: string | null
-  soundcloudProfile: string | null
+  stageName: string | null
+  bio: string | null
+  imageUrl: string | null
+  spotifyId: string | null
+  appleId: string | null
   createdAt: Date
   updatedAt: Date
   _count: ArtistCountAggregateOutputType | null
@@ -199,53 +227,73 @@ export type ArtistWhereInput = {
   OR?: Prisma.ArtistWhereInput[]
   NOT?: Prisma.ArtistWhereInput | Prisma.ArtistWhereInput[]
   artistId?: Prisma.StringFilter<"Artist"> | string
-  name?: Prisma.StringNullableFilter<"Artist"> | string | null
+  userId?: Prisma.StringFilter<"Artist"> | string
+  name?: Prisma.StringFilter<"Artist"> | string
   email?: Prisma.StringNullableFilter<"Artist"> | string | null
   phone?: Prisma.StringNullableFilter<"Artist"> | string | null
-  address?: Prisma.StringNullableFilter<"Artist"> | string | null
-  soundcloudProfile?: Prisma.StringNullableFilter<"Artist"> | string | null
+  stageName?: Prisma.StringNullableFilter<"Artist"> | string | null
+  bio?: Prisma.StringNullableFilter<"Artist"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Artist"> | string | null
+  spotifyId?: Prisma.StringNullableFilter<"Artist"> | string | null
+  appleId?: Prisma.StringNullableFilter<"Artist"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Artist"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Artist"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   releaseArtists?: Prisma.ReleaseArtistListRelationFilter
   trackArtists?: Prisma.TrackArtistListRelationFilter
 }
 
 export type ArtistOrderByWithRelationInput = {
   artistId?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  address?: Prisma.SortOrderInput | Prisma.SortOrder
-  soundcloudProfile?: Prisma.SortOrderInput | Prisma.SortOrder
+  stageName?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  spotifyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  appleId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+  user?: Prisma.UserOrderByWithRelationInput
   releaseArtists?: Prisma.ReleaseArtistOrderByRelationAggregateInput
   trackArtists?: Prisma.TrackArtistOrderByRelationAggregateInput
 }
 
 export type ArtistWhereUniqueInput = Prisma.AtLeast<{
   artistId?: string
+  userId_name?: Prisma.ArtistUserIdNameCompoundUniqueInput
   AND?: Prisma.ArtistWhereInput | Prisma.ArtistWhereInput[]
   OR?: Prisma.ArtistWhereInput[]
   NOT?: Prisma.ArtistWhereInput | Prisma.ArtistWhereInput[]
-  name?: Prisma.StringNullableFilter<"Artist"> | string | null
+  userId?: Prisma.StringFilter<"Artist"> | string
+  name?: Prisma.StringFilter<"Artist"> | string
   email?: Prisma.StringNullableFilter<"Artist"> | string | null
   phone?: Prisma.StringNullableFilter<"Artist"> | string | null
-  address?: Prisma.StringNullableFilter<"Artist"> | string | null
-  soundcloudProfile?: Prisma.StringNullableFilter<"Artist"> | string | null
+  stageName?: Prisma.StringNullableFilter<"Artist"> | string | null
+  bio?: Prisma.StringNullableFilter<"Artist"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Artist"> | string | null
+  spotifyId?: Prisma.StringNullableFilter<"Artist"> | string | null
+  appleId?: Prisma.StringNullableFilter<"Artist"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Artist"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Artist"> | Date | string
+  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   releaseArtists?: Prisma.ReleaseArtistListRelationFilter
   trackArtists?: Prisma.TrackArtistListRelationFilter
-}, "artistId">
+}, "artistId" | "userId_name">
 
 export type ArtistOrderByWithAggregationInput = {
   artistId?: Prisma.SortOrder
-  name?: Prisma.SortOrderInput | Prisma.SortOrder
+  userId?: Prisma.SortOrder
+  name?: Prisma.SortOrder
   email?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
-  address?: Prisma.SortOrderInput | Prisma.SortOrder
-  soundcloudProfile?: Prisma.SortOrderInput | Prisma.SortOrder
+  stageName?: Prisma.SortOrderInput | Prisma.SortOrder
+  bio?: Prisma.SortOrderInput | Prisma.SortOrder
+  imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
+  spotifyId?: Prisma.SortOrderInput | Prisma.SortOrder
+  appleId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ArtistCountOrderByAggregateInput
@@ -258,35 +306,47 @@ export type ArtistScalarWhereWithAggregatesInput = {
   OR?: Prisma.ArtistScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ArtistScalarWhereWithAggregatesInput | Prisma.ArtistScalarWhereWithAggregatesInput[]
   artistId?: Prisma.StringWithAggregatesFilter<"Artist"> | string
-  name?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
+  userId?: Prisma.StringWithAggregatesFilter<"Artist"> | string
+  name?: Prisma.StringWithAggregatesFilter<"Artist"> | string
   email?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
-  address?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
-  soundcloudProfile?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
+  stageName?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
+  bio?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
+  imageUrl?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
+  spotifyId?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
+  appleId?: Prisma.StringNullableWithAggregatesFilter<"Artist"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Artist"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Artist"> | Date | string
 }
 
 export type ArtistCreateInput = {
   artistId?: string
-  name?: string | null
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutArtistsInput
   releaseArtists?: Prisma.ReleaseArtistCreateNestedManyWithoutArtistInput
   trackArtists?: Prisma.TrackArtistCreateNestedManyWithoutArtistInput
 }
 
 export type ArtistUncheckedCreateInput = {
   artistId?: string
-  name?: string | null
+  userId: string
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutArtistInput
@@ -295,24 +355,32 @@ export type ArtistUncheckedCreateInput = {
 
 export type ArtistUpdateInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutArtistsNestedInput
   releaseArtists?: Prisma.ReleaseArtistUpdateManyWithoutArtistNestedInput
   trackArtists?: Prisma.TrackArtistUpdateManyWithoutArtistNestedInput
 }
 
 export type ArtistUncheckedUpdateInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutArtistNestedInput
@@ -321,66 +389,94 @@ export type ArtistUncheckedUpdateInput = {
 
 export type ArtistCreateManyInput = {
   artistId?: string
-  name?: string | null
+  userId: string
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ArtistUpdateManyMutationInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ArtistUncheckedUpdateManyInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
+export type ArtistUserIdNameCompoundUniqueInput = {
+  userId: string
+  name: string
+}
+
 export type ArtistCountOrderByAggregateInput = {
   artistId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  address?: Prisma.SortOrder
-  soundcloudProfile?: Prisma.SortOrder
+  stageName?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  spotifyId?: Prisma.SortOrder
+  appleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ArtistMaxOrderByAggregateInput = {
   artistId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  address?: Prisma.SortOrder
-  soundcloudProfile?: Prisma.SortOrder
+  stageName?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  spotifyId?: Prisma.SortOrder
+  appleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ArtistMinOrderByAggregateInput = {
   artistId?: Prisma.SortOrder
+  userId?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
   phone?: Prisma.SortOrder
-  address?: Prisma.SortOrder
-  soundcloudProfile?: Prisma.SortOrder
+  stageName?: Prisma.SortOrder
+  bio?: Prisma.SortOrder
+  imageUrl?: Prisma.SortOrder
+  spotifyId?: Prisma.SortOrder
+  appleId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -393,6 +489,16 @@ export type ArtistScalarRelationFilter = {
 export type ArtistNullableScalarRelationFilter = {
   is?: Prisma.ArtistWhereInput | null
   isNot?: Prisma.ArtistWhereInput | null
+}
+
+export type ArtistListRelationFilter = {
+  every?: Prisma.ArtistWhereInput
+  some?: Prisma.ArtistWhereInput
+  none?: Prisma.ArtistWhereInput
+}
+
+export type ArtistOrderByRelationAggregateInput = {
+  _count?: Prisma.SortOrder
 }
 
 export type ArtistCreateNestedOneWithoutReleaseArtistsInput = {
@@ -425,25 +531,75 @@ export type ArtistUpdateOneWithoutTrackArtistsNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.ArtistUpdateToOneWithWhereWithoutTrackArtistsInput, Prisma.ArtistUpdateWithoutTrackArtistsInput>, Prisma.ArtistUncheckedUpdateWithoutTrackArtistsInput>
 }
 
+export type ArtistCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ArtistCreateWithoutUserInput, Prisma.ArtistUncheckedCreateWithoutUserInput> | Prisma.ArtistCreateWithoutUserInput[] | Prisma.ArtistUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ArtistCreateOrConnectWithoutUserInput | Prisma.ArtistCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ArtistCreateManyUserInputEnvelope
+  connect?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+}
+
+export type ArtistUncheckedCreateNestedManyWithoutUserInput = {
+  create?: Prisma.XOR<Prisma.ArtistCreateWithoutUserInput, Prisma.ArtistUncheckedCreateWithoutUserInput> | Prisma.ArtistCreateWithoutUserInput[] | Prisma.ArtistUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ArtistCreateOrConnectWithoutUserInput | Prisma.ArtistCreateOrConnectWithoutUserInput[]
+  createMany?: Prisma.ArtistCreateManyUserInputEnvelope
+  connect?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+}
+
+export type ArtistUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ArtistCreateWithoutUserInput, Prisma.ArtistUncheckedCreateWithoutUserInput> | Prisma.ArtistCreateWithoutUserInput[] | Prisma.ArtistUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ArtistCreateOrConnectWithoutUserInput | Prisma.ArtistCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ArtistUpsertWithWhereUniqueWithoutUserInput | Prisma.ArtistUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ArtistCreateManyUserInputEnvelope
+  set?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  disconnect?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  delete?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  connect?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  update?: Prisma.ArtistUpdateWithWhereUniqueWithoutUserInput | Prisma.ArtistUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ArtistUpdateManyWithWhereWithoutUserInput | Prisma.ArtistUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ArtistScalarWhereInput | Prisma.ArtistScalarWhereInput[]
+}
+
+export type ArtistUncheckedUpdateManyWithoutUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ArtistCreateWithoutUserInput, Prisma.ArtistUncheckedCreateWithoutUserInput> | Prisma.ArtistCreateWithoutUserInput[] | Prisma.ArtistUncheckedCreateWithoutUserInput[]
+  connectOrCreate?: Prisma.ArtistCreateOrConnectWithoutUserInput | Prisma.ArtistCreateOrConnectWithoutUserInput[]
+  upsert?: Prisma.ArtistUpsertWithWhereUniqueWithoutUserInput | Prisma.ArtistUpsertWithWhereUniqueWithoutUserInput[]
+  createMany?: Prisma.ArtistCreateManyUserInputEnvelope
+  set?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  disconnect?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  delete?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  connect?: Prisma.ArtistWhereUniqueInput | Prisma.ArtistWhereUniqueInput[]
+  update?: Prisma.ArtistUpdateWithWhereUniqueWithoutUserInput | Prisma.ArtistUpdateWithWhereUniqueWithoutUserInput[]
+  updateMany?: Prisma.ArtistUpdateManyWithWhereWithoutUserInput | Prisma.ArtistUpdateManyWithWhereWithoutUserInput[]
+  deleteMany?: Prisma.ArtistScalarWhereInput | Prisma.ArtistScalarWhereInput[]
+}
+
 export type ArtistCreateWithoutReleaseArtistsInput = {
   artistId?: string
-  name?: string | null
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutArtistsInput
   trackArtists?: Prisma.TrackArtistCreateNestedManyWithoutArtistInput
 }
 
 export type ArtistUncheckedCreateWithoutReleaseArtistsInput = {
   artistId?: string
-  name?: string | null
+  userId: string
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   trackArtists?: Prisma.TrackArtistUncheckedCreateNestedManyWithoutArtistInput
@@ -467,23 +623,31 @@ export type ArtistUpdateToOneWithWhereWithoutReleaseArtistsInput = {
 
 export type ArtistUpdateWithoutReleaseArtistsInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutArtistsNestedInput
   trackArtists?: Prisma.TrackArtistUpdateManyWithoutArtistNestedInput
 }
 
 export type ArtistUncheckedUpdateWithoutReleaseArtistsInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   trackArtists?: Prisma.TrackArtistUncheckedUpdateManyWithoutArtistNestedInput
@@ -491,23 +655,31 @@ export type ArtistUncheckedUpdateWithoutReleaseArtistsInput = {
 
 export type ArtistCreateWithoutTrackArtistsInput = {
   artistId?: string
-  name?: string | null
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutArtistsInput
   releaseArtists?: Prisma.ReleaseArtistCreateNestedManyWithoutArtistInput
 }
 
 export type ArtistUncheckedCreateWithoutTrackArtistsInput = {
   artistId?: string
-  name?: string | null
+  userId: string
+  name: string
   email?: string | null
   phone?: string | null
-  address?: string | null
-  soundcloudProfile?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutArtistInput
@@ -531,26 +703,170 @@ export type ArtistUpdateToOneWithWhereWithoutTrackArtistsInput = {
 
 export type ArtistUpdateWithoutTrackArtistsInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutArtistsNestedInput
   releaseArtists?: Prisma.ReleaseArtistUpdateManyWithoutArtistNestedInput
 }
 
 export type ArtistUncheckedUpdateWithoutTrackArtistsInput = {
   artistId?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  address?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  soundcloudProfile?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutArtistNestedInput
+}
+
+export type ArtistCreateWithoutUserInput = {
+  artistId?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  releaseArtists?: Prisma.ReleaseArtistCreateNestedManyWithoutArtistInput
+  trackArtists?: Prisma.TrackArtistCreateNestedManyWithoutArtistInput
+}
+
+export type ArtistUncheckedCreateWithoutUserInput = {
+  artistId?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutArtistInput
+  trackArtists?: Prisma.TrackArtistUncheckedCreateNestedManyWithoutArtistInput
+}
+
+export type ArtistCreateOrConnectWithoutUserInput = {
+  where: Prisma.ArtistWhereUniqueInput
+  create: Prisma.XOR<Prisma.ArtistCreateWithoutUserInput, Prisma.ArtistUncheckedCreateWithoutUserInput>
+}
+
+export type ArtistCreateManyUserInputEnvelope = {
+  data: Prisma.ArtistCreateManyUserInput | Prisma.ArtistCreateManyUserInput[]
+  skipDuplicates?: boolean
+}
+
+export type ArtistUpsertWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ArtistWhereUniqueInput
+  update: Prisma.XOR<Prisma.ArtistUpdateWithoutUserInput, Prisma.ArtistUncheckedUpdateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ArtistCreateWithoutUserInput, Prisma.ArtistUncheckedCreateWithoutUserInput>
+}
+
+export type ArtistUpdateWithWhereUniqueWithoutUserInput = {
+  where: Prisma.ArtistWhereUniqueInput
+  data: Prisma.XOR<Prisma.ArtistUpdateWithoutUserInput, Prisma.ArtistUncheckedUpdateWithoutUserInput>
+}
+
+export type ArtistUpdateManyWithWhereWithoutUserInput = {
+  where: Prisma.ArtistScalarWhereInput
+  data: Prisma.XOR<Prisma.ArtistUpdateManyMutationInput, Prisma.ArtistUncheckedUpdateManyWithoutUserInput>
+}
+
+export type ArtistScalarWhereInput = {
+  AND?: Prisma.ArtistScalarWhereInput | Prisma.ArtistScalarWhereInput[]
+  OR?: Prisma.ArtistScalarWhereInput[]
+  NOT?: Prisma.ArtistScalarWhereInput | Prisma.ArtistScalarWhereInput[]
+  artistId?: Prisma.StringFilter<"Artist"> | string
+  userId?: Prisma.StringFilter<"Artist"> | string
+  name?: Prisma.StringFilter<"Artist"> | string
+  email?: Prisma.StringNullableFilter<"Artist"> | string | null
+  phone?: Prisma.StringNullableFilter<"Artist"> | string | null
+  stageName?: Prisma.StringNullableFilter<"Artist"> | string | null
+  bio?: Prisma.StringNullableFilter<"Artist"> | string | null
+  imageUrl?: Prisma.StringNullableFilter<"Artist"> | string | null
+  spotifyId?: Prisma.StringNullableFilter<"Artist"> | string | null
+  appleId?: Prisma.StringNullableFilter<"Artist"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Artist"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Artist"> | Date | string
+}
+
+export type ArtistCreateManyUserInput = {
+  artistId?: string
+  name: string
+  email?: string | null
+  phone?: string | null
+  stageName?: string | null
+  bio?: string | null
+  imageUrl?: string | null
+  spotifyId?: string | null
+  appleId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+}
+
+export type ArtistUpdateWithoutUserInput = {
+  artistId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  releaseArtists?: Prisma.ReleaseArtistUpdateManyWithoutArtistNestedInput
+  trackArtists?: Prisma.TrackArtistUpdateManyWithoutArtistNestedInput
+}
+
+export type ArtistUncheckedUpdateWithoutUserInput = {
+  artistId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutArtistNestedInput
+  trackArtists?: Prisma.TrackArtistUncheckedUpdateManyWithoutArtistNestedInput
+}
+
+export type ArtistUncheckedUpdateManyWithoutUserInput = {
+  artistId?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  stageName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  bio?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  spotifyId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  appleId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 
@@ -595,13 +911,18 @@ export type ArtistCountOutputTypeCountTrackArtistsArgs<ExtArgs extends runtime.T
 
 export type ArtistSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   artistId?: boolean
+  userId?: boolean
   name?: boolean
   email?: boolean
   phone?: boolean
-  address?: boolean
-  soundcloudProfile?: boolean
+  stageName?: boolean
+  bio?: boolean
+  imageUrl?: boolean
+  spotifyId?: boolean
+  appleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   releaseArtists?: boolean | Prisma.Artist$releaseArtistsArgs<ExtArgs>
   trackArtists?: boolean | Prisma.Artist$trackArtistsArgs<ExtArgs>
   _count?: boolean | Prisma.ArtistCountOutputTypeDefaultArgs<ExtArgs>
@@ -609,59 +930,83 @@ export type ArtistSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs =
 
 export type ArtistSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   artistId?: boolean
+  userId?: boolean
   name?: boolean
   email?: boolean
   phone?: boolean
-  address?: boolean
-  soundcloudProfile?: boolean
+  stageName?: boolean
+  bio?: boolean
+  imageUrl?: boolean
+  spotifyId?: boolean
+  appleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["artist"]>
 
 export type ArtistSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   artistId?: boolean
+  userId?: boolean
   name?: boolean
   email?: boolean
   phone?: boolean
-  address?: boolean
-  soundcloudProfile?: boolean
+  stageName?: boolean
+  bio?: boolean
+  imageUrl?: boolean
+  spotifyId?: boolean
+  appleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["artist"]>
 
 export type ArtistSelectScalar = {
   artistId?: boolean
+  userId?: boolean
   name?: boolean
   email?: boolean
   phone?: boolean
-  address?: boolean
-  soundcloudProfile?: boolean
+  stageName?: boolean
+  bio?: boolean
+  imageUrl?: boolean
+  spotifyId?: boolean
+  appleId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ArtistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"artistId" | "name" | "email" | "phone" | "address" | "soundcloudProfile" | "createdAt" | "updatedAt", ExtArgs["result"]["artist"]>
+export type ArtistOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"artistId" | "userId" | "name" | "email" | "phone" | "stageName" | "bio" | "imageUrl" | "spotifyId" | "appleId" | "createdAt" | "updatedAt", ExtArgs["result"]["artist"]>
 export type ArtistInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   releaseArtists?: boolean | Prisma.Artist$releaseArtistsArgs<ExtArgs>
   trackArtists?: boolean | Prisma.Artist$trackArtistsArgs<ExtArgs>
   _count?: boolean | Prisma.ArtistCountOutputTypeDefaultArgs<ExtArgs>
 }
-export type ArtistIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
-export type ArtistIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
+export type ArtistIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
+export type ArtistIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+}
 
 export type $ArtistPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Artist"
   objects: {
+    user: Prisma.$UserPayload<ExtArgs>
     releaseArtists: Prisma.$ReleaseArtistPayload<ExtArgs>[]
     trackArtists: Prisma.$TrackArtistPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     artistId: string
-    name: string | null
+    userId: string
+    name: string
     email: string | null
     phone: string | null
-    address: string | null
-    soundcloudProfile: string | null
+    stageName: string | null
+    bio: string | null
+    imageUrl: string | null
+    spotifyId: string | null
+    appleId: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["artist"]>
@@ -1058,6 +1403,7 @@ readonly fields: ArtistFieldRefs;
  */
 export interface Prisma__ArtistClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
+  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   releaseArtists<T extends Prisma.Artist$releaseArtistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Artist$releaseArtistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReleaseArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   trackArtists<T extends Prisma.Artist$trackArtistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Artist$trackArtistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
@@ -1090,11 +1436,15 @@ export interface Prisma__ArtistClient<T, Null = never, ExtArgs extends runtime.T
  */
 export interface ArtistFieldRefs {
   readonly artistId: Prisma.FieldRef<"Artist", 'String'>
+  readonly userId: Prisma.FieldRef<"Artist", 'String'>
   readonly name: Prisma.FieldRef<"Artist", 'String'>
   readonly email: Prisma.FieldRef<"Artist", 'String'>
   readonly phone: Prisma.FieldRef<"Artist", 'String'>
-  readonly address: Prisma.FieldRef<"Artist", 'String'>
-  readonly soundcloudProfile: Prisma.FieldRef<"Artist", 'String'>
+  readonly stageName: Prisma.FieldRef<"Artist", 'String'>
+  readonly bio: Prisma.FieldRef<"Artist", 'String'>
+  readonly imageUrl: Prisma.FieldRef<"Artist", 'String'>
+  readonly spotifyId: Prisma.FieldRef<"Artist", 'String'>
+  readonly appleId: Prisma.FieldRef<"Artist", 'String'>
   readonly createdAt: Prisma.FieldRef<"Artist", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Artist", 'DateTime'>
 }
@@ -1346,6 +1696,10 @@ export type ArtistCreateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    */
   data: Prisma.ArtistCreateManyInput | Prisma.ArtistCreateManyInput[]
   skipDuplicates?: boolean
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ArtistIncludeCreateManyAndReturn<ExtArgs> | null
 }
 
 /**
@@ -1416,6 +1770,10 @@ export type ArtistUpdateManyAndReturnArgs<ExtArgs extends runtime.Types.Extensio
    * Limit how many Artists to update.
    */
   limit?: number
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ArtistIncludeUpdateManyAndReturn<ExtArgs> | null
 }
 
 /**
