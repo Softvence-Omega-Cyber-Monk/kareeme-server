@@ -1,38 +1,39 @@
 import {
-    successPaginatedResponse,
-    successResponse,
+  successPaginatedResponse,
+  successResponse,
 } from '@/common/utils/response.util';
 import { GetUser, ValidateAuth } from '@/core/jwt/jwt.decorator';
+import { ParseFormDataJsonPipe } from '@/core/pipe/parse-form-data-json.pipe';
 import {
-    BadRequestException,
-    Body,
-    Controller,
-    Get,
-    HttpStatus,
-    Param,
-    Post,
-    Query,
-    Res,
-    UploadedFiles,
-    UseInterceptors,
+  BadRequestException,
+  Body,
+  Controller,
+  Get,
+  HttpStatus,
+  Param,
+  Post,
+  Query,
+  Res,
+  UploadedFiles,
+  UseInterceptors,
 } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import {
-    ApiBearerAuth,
-    ApiBody,
-    ApiConsumes,
-    ApiOperation,
-    ApiQuery,
-    ApiResponse,
-    ApiTags,
+  ApiBearerAuth,
+  ApiBody,
+  ApiConsumes,
+  ApiOperation,
+  ApiQuery,
+  ApiResponse,
+  ApiTags,
 } from '@nestjs/swagger';
 import { Response } from 'express';
 import * as multer from 'multer';
 import { CreateReleaseFormDataDto } from './dto/create-release-form.dto';
 import {
-    ExportReleasesQueryDto,
-    GetReleasesQueryDto,
-    GetSplitSheetsQueryDto,
+  ExportReleasesQueryDto,
+  GetReleasesQueryDto,
+  GetSplitSheetsQueryDto,
 } from './dto/query-release.dto';
 import { ReleasesService } from './releases.service';
 
@@ -88,13 +89,20 @@ export class ReleasesController {
     }),
   )
   async createRelease(
-    @Body() dto: CreateReleaseFormDataDto,
+    @Body(ParseFormDataJsonPipe) dto: CreateReleaseFormDataDto,
     @UploadedFiles() files: Express.Multer.File[],
     @GetUser('sub') userId: string,
   ) {
     try {
       // Override userId with authenticated user
       dto.userId = userId;
+
+      console.log('=== CONTROLLER DEBUG ===');
+      console.log('DTO after pipe - tracks:', dto.tracks);
+      console.log('DTO after pipe - releaseArtists:', dto.releaseArtists);
+      console.log('DTO after pipe - isExplicitContent type:', typeof dto.isExplicitContent);
+      console.log('Files count:', files?.length);
+      console.log('========================');
 
       const release = await this.releasesService.createReleaseWithFiles(
         dto,

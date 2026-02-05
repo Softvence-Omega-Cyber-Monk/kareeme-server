@@ -270,6 +270,7 @@ export type UserWhereInput = {
   clientSettings?: Prisma.ClientSettingsListRelationFilter
   loginDevices?: Prisma.LoginDeviceListRelationFilter
   releases?: Prisma.ReleaseListRelationFilter
+  artists?: Prisma.ArtistListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -296,6 +297,7 @@ export type UserOrderByWithRelationInput = {
   clientSettings?: Prisma.ClientSettingsOrderByRelationAggregateInput
   loginDevices?: Prisma.LoginDeviceOrderByRelationAggregateInput
   releases?: Prisma.ReleaseOrderByRelationAggregateInput
+  artists?: Prisma.ArtistOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -325,6 +327,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   clientSettings?: Prisma.ClientSettingsListRelationFilter
   loginDevices?: Prisma.LoginDeviceListRelationFilter
   releases?: Prisma.ReleaseListRelationFilter
+  artists?: Prisma.ArtistListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -392,6 +395,7 @@ export type UserCreateInput = {
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -417,6 +421,7 @@ export type UserUncheckedCreateInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -442,6 +447,7 @@ export type UserUpdateInput = {
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -467,6 +473,7 @@ export type UserUncheckedUpdateInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -717,6 +724,20 @@ export type UserUpdateOneRequiredWithoutReleasesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReleasesInput, Prisma.UserUpdateWithoutReleasesInput>, Prisma.UserUncheckedUpdateWithoutReleasesInput>
 }
 
+export type UserCreateNestedOneWithoutArtistsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutArtistsInput, Prisma.UserUncheckedCreateWithoutArtistsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutArtistsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutArtistsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutArtistsInput, Prisma.UserUncheckedCreateWithoutArtistsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutArtistsInput
+  upsert?: Prisma.UserUpsertWithoutArtistsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutArtistsInput, Prisma.UserUpdateWithoutArtistsInput>, Prisma.UserUncheckedUpdateWithoutArtistsInput>
+}
+
 export type UserCreateNestedOneWithoutClientSettingsInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutClientSettingsInput, Prisma.UserUncheckedCreateWithoutClientSettingsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientSettingsInput
@@ -761,6 +782,7 @@ export type UserCreateWithoutOtpsInput = {
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOtpsInput = {
@@ -785,6 +807,7 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOtpsInput = {
@@ -825,6 +848,7 @@ export type UserUpdateWithoutOtpsInput = {
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpsInput = {
@@ -849,6 +873,7 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -873,6 +898,7 @@ export type UserCreateWithoutRefreshTokensInput = {
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -897,6 +923,7 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -937,6 +964,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -961,6 +989,7 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfilePictureInput = {
@@ -985,6 +1014,7 @@ export type UserCreateWithoutProfilePictureInput = {
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfilePictureInput = {
@@ -1009,6 +1039,7 @@ export type UserUncheckedCreateWithoutProfilePictureInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfilePictureInput = {
@@ -1080,6 +1111,7 @@ export type UserCreateWithoutLoginDevicesInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoginDevicesInput = {
@@ -1104,6 +1136,7 @@ export type UserUncheckedCreateWithoutLoginDevicesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLoginDevicesInput = {
@@ -1144,6 +1177,7 @@ export type UserUpdateWithoutLoginDevicesInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoginDevicesInput = {
@@ -1168,6 +1202,7 @@ export type UserUncheckedUpdateWithoutLoginDevicesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1192,6 +1227,7 @@ export type UserCreateWithoutNotificationsInput = {
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1216,6 +1252,7 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1256,6 +1293,7 @@ export type UserUpdateWithoutNotificationsInput = {
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -1280,6 +1318,7 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationSettingsInput = {
@@ -1304,6 +1343,7 @@ export type UserCreateWithoutNotificationSettingsInput = {
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationSettingsInput = {
@@ -1328,6 +1368,7 @@ export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationSettingsInput = {
@@ -1368,6 +1409,7 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
@@ -1392,6 +1434,7 @@ export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReleasesInput = {
@@ -1416,6 +1459,7 @@ export type UserCreateWithoutReleasesInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReleasesInput = {
@@ -1440,6 +1484,7 @@ export type UserUncheckedCreateWithoutReleasesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReleasesInput = {
@@ -1480,6 +1525,7 @@ export type UserUpdateWithoutReleasesInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReleasesInput = {
@@ -1504,6 +1550,123 @@ export type UserUncheckedUpdateWithoutReleasesInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutArtistsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutArtistsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutArtistsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutArtistsInput, Prisma.UserUncheckedCreateWithoutArtistsInput>
+}
+
+export type UserUpsertWithoutArtistsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutArtistsInput, Prisma.UserUncheckedUpdateWithoutArtistsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutArtistsInput, Prisma.UserUncheckedCreateWithoutArtistsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutArtistsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutArtistsInput, Prisma.UserUncheckedUpdateWithoutArtistsInput>
+}
+
+export type UserUpdateWithoutArtistsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutArtistsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClientSettingsInput = {
@@ -1528,6 +1691,7 @@ export type UserCreateWithoutClientSettingsInput = {
   refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientSettingsInput = {
@@ -1552,6 +1716,7 @@ export type UserUncheckedCreateWithoutClientSettingsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
   loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
   releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientSettingsInput = {
@@ -1592,6 +1757,7 @@ export type UserUpdateWithoutClientSettingsInput = {
   refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientSettingsInput = {
@@ -1616,6 +1782,7 @@ export type UserUncheckedUpdateWithoutClientSettingsInput = {
   refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyProfilePictureInput = {
@@ -1657,6 +1824,7 @@ export type UserUpdateWithoutProfilePictureInput = {
   clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfilePictureInput = {
@@ -1681,6 +1849,7 @@ export type UserUncheckedUpdateWithoutProfilePictureInput = {
   clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
   loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
   releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutProfilePictureInput = {
@@ -1713,6 +1882,7 @@ export type UserCountOutputType = {
   clientSettings: number
   loginDevices: number
   releases: number
+  artists: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1723,6 +1893,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   clientSettings?: boolean | UserCountOutputTypeCountClientSettingsArgs
   loginDevices?: boolean | UserCountOutputTypeCountLoginDevicesArgs
   releases?: boolean | UserCountOutputTypeCountReleasesArgs
+  artists?: boolean | UserCountOutputTypeCountArtistsArgs
 }
 
 /**
@@ -1784,6 +1955,13 @@ export type UserCountOutputTypeCountReleasesArgs<ExtArgs extends runtime.Types.E
   where?: Prisma.ReleaseWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountArtistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ArtistWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1809,6 +1987,7 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   clientSettings?: boolean | Prisma.User$clientSettingsArgs<ExtArgs>
   loginDevices?: boolean | Prisma.User$loginDevicesArgs<ExtArgs>
   releases?: boolean | Prisma.User$releasesArgs<ExtArgs>
+  artists?: boolean | Prisma.User$artistsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1878,6 +2057,7 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   clientSettings?: boolean | Prisma.User$clientSettingsArgs<ExtArgs>
   loginDevices?: boolean | Prisma.User$loginDevicesArgs<ExtArgs>
   releases?: boolean | Prisma.User$releasesArgs<ExtArgs>
+  artists?: boolean | Prisma.User$artistsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1898,6 +2078,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     clientSettings: Prisma.$ClientSettingsPayload<ExtArgs>[]
     loginDevices: Prisma.$LoginDevicePayload<ExtArgs>[]
     releases: Prisma.$ReleasePayload<ExtArgs>[]
+    artists: Prisma.$ArtistPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2317,6 +2498,7 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   clientSettings<T extends Prisma.User$clientSettingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientSettingsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientSettingsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   loginDevices<T extends Prisma.User$loginDevicesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$loginDevicesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$LoginDevicePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   releases<T extends Prisma.User$releasesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$releasesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  artists<T extends Prisma.User$artistsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$artistsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ArtistPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2941,6 +3123,30 @@ export type User$releasesArgs<ExtArgs extends runtime.Types.Extensions.InternalA
   take?: number
   skip?: number
   distinct?: Prisma.ReleaseScalarFieldEnum | Prisma.ReleaseScalarFieldEnum[]
+}
+
+/**
+ * User.artists
+ */
+export type User$artistsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Artist
+   */
+  select?: Prisma.ArtistSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Artist
+   */
+  omit?: Prisma.ArtistOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ArtistInclude<ExtArgs> | null
+  where?: Prisma.ArtistWhereInput
+  orderBy?: Prisma.ArtistOrderByWithRelationInput | Prisma.ArtistOrderByWithRelationInput[]
+  cursor?: Prisma.ArtistWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ArtistScalarFieldEnum | Prisma.ArtistScalarFieldEnum[]
 }
 
 /**
