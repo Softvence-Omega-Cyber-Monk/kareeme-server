@@ -230,14 +230,19 @@ export class ReleasesService {
 
       // 5. Create split sheet agreements or auto-generate them
       if (dto.splitSheetAgreements && dto.splitSheetAgreements.length > 0) {
+        this.logger.log(`Processing ${dto.splitSheetAgreements.length} split sheet(s)...`);
+        
+        // Filter out empty split sheets
+        const validSplitSheets = dto.splitSheetAgreements.filter(
+          (ss: any) => ss && (ss.songTitle || ss.isrc || ss.contributors?.length > 0),
+        );
+        
+        this.logger.log(`Found ${validSplitSheets.length} valid split sheets out of ${dto.splitSheetAgreements.length}`);
+
         // Use provided split sheets
-        for (const splitSheet of dto.splitSheetAgreements) {
-          // Validate required split sheet fields
-          if (!splitSheet.songTitle && !splitSheet.isrc) {
-            throw new BadRequestException(
-              `Each split sheet must have at least a 'songTitle' or 'isrc'. Found split sheet with neither.`,
-            );
-          }
+        for (let i = 0; i < validSplitSheets.length; i++) {
+          const splitSheet = validSplitSheets[i];
+          this.logger.log(`Split sheet ${i}:`, JSON.stringify(splitSheet));
 
           let labelId = splitSheet.recordLabelId;
 
@@ -331,23 +336,34 @@ export class ReleasesService {
 
       // 6. Create back catalogue entries
       if (dto.backCatalogue && dto.backCatalogue.length > 0) {
-        await tx.backCatalogue.createMany({
-          data: dto.backCatalogue.map((catalogue: any) => ({
-            releaseId: release.releaseId,
-            labelName: catalogue.labelName,
-            distributor: catalogue.distributor,
-            upc: catalogue.upc,
-            catalogueNumber: catalogue.catalogueNumber,
-            releaseArtist: catalogue.releaseArtist,
-            releaseTitle: catalogue.releaseTitle,
-            releaseType: catalogue.releaseType,
-            releaseDate: catalogue.releaseDate
-              ? new Date(catalogue.releaseDate)
-              : null,
-            releasePLine: catalogue.releasePLine,
-            releaseCLine: catalogue.releaseCLine,
-          })),
-        });
+        this.logger.log(`Processing ${dto.backCatalogue.length} back catalogue entry(ies)...`);
+        
+        // Filter out empty back catalogue entries
+        const validBackCatalogue = dto.backCatalogue.filter(
+          (bc: any) => bc && (bc.labelName || bc.upc || bc.catalogueNumber),
+        );
+        
+        this.logger.log(`Found ${validBackCatalogue.length} valid back catalogue entries out of ${dto.backCatalogue.length}`);
+        
+        if (validBackCatalogue.length > 0) {
+          await tx.backCatalogue.createMany({
+            data: validBackCatalogue.map((catalogue: any) => ({
+              releaseId: release.releaseId,
+              labelName: catalogue.labelName,
+              distributor: catalogue.distributor,
+              upc: catalogue.upc,
+              catalogueNumber: catalogue.catalogueNumber,
+              releaseArtist: catalogue.releaseArtist,
+              releaseTitle: catalogue.releaseTitle,
+              releaseType: catalogue.releaseType,
+              releaseDate: catalogue.releaseDate
+                ? new Date(catalogue.releaseDate)
+                : null,
+              releasePLine: catalogue.releasePLine,
+              releaseCLine: catalogue.releaseCLine,
+            })),
+          });
+        }
       }
 
       // 7. Fetch and return the complete release with all relations
