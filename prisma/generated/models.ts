@@ -8,6 +8,13 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/Statement'
+export type * from './models/Transaction'
+export type * from './models/DealStatus'
+export type * from './models/StatementRelease'
+export type * from './models/StatementTerritory'
+export type * from './models/StatementPlatform'
+export type * from './models/PaymentRequest'
 export type * from './models/UserOtp'
 export type * from './models/RefreshToken'
 export type * from './models/FileInstance'

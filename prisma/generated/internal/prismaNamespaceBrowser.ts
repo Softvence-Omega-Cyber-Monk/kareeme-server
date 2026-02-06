@@ -51,6 +51,13 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  Statement: 'Statement',
+  Transaction: 'Transaction',
+  DealStatus: 'DealStatus',
+  StatementRelease: 'StatementRelease',
+  StatementTerritory: 'StatementTerritory',
+  StatementPlatform: 'StatementPlatform',
+  PaymentRequest: 'PaymentRequest',
   UserOtp: 'UserOtp',
   RefreshToken: 'RefreshToken',
   FileInstance: 'FileInstance',
@@ -89,6 +96,130 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const StatementScalarFieldEnum = {
+  statementId: 'statementId',
+  userId: 'userId',
+  statementMonth: 'statementMonth',
+  statementYear: 'statementYear',
+  periodStart: 'periodStart',
+  periodEnd: 'periodEnd',
+  issuedOn: 'issuedOn',
+  paidOn: 'paidOn',
+  openingBalance: 'openingBalance',
+  totalEarnings: 'totalEarnings',
+  totalExpenses: 'totalExpenses',
+  payment: 'payment',
+  closingBalance: 'closingBalance',
+  status: 'status',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StatementScalarFieldEnum = (typeof StatementScalarFieldEnum)[keyof typeof StatementScalarFieldEnum]
+
+
+export const TransactionScalarFieldEnum = {
+  transactionId: 'transactionId',
+  statementId: 'statementId',
+  userId: 'userId',
+  type: 'type',
+  source: 'source',
+  description: 'description',
+  amount: 'amount',
+  date: 'date',
+  releaseId: 'releaseId',
+  trackId: 'trackId',
+  metadata: 'metadata',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const DealStatusScalarFieldEnum = {
+  dealStatusId: 'dealStatusId',
+  statementId: 'statementId',
+  userId: 'userId',
+  account: 'account',
+  artistName: 'artistName',
+  releaseTitle: 'releaseTitle',
+  openingBalance: 'openingBalance',
+  earnings: 'earnings',
+  expenses: 'expenses',
+  payment: 'payment',
+  closingBalance: 'closingBalance',
+  releaseId: 'releaseId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DealStatusScalarFieldEnum = (typeof DealStatusScalarFieldEnum)[keyof typeof DealStatusScalarFieldEnum]
+
+
+export const StatementReleaseScalarFieldEnum = {
+  id: 'id',
+  statementId: 'statementId',
+  title: 'title',
+  artist: 'artist',
+  upc: 'upc',
+  isrc: 'isrc',
+  assetId: 'assetId',
+  assetType: 'assetType',
+  amount: 'amount',
+  releaseId: 'releaseId',
+  trackId: 'trackId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StatementReleaseScalarFieldEnum = (typeof StatementReleaseScalarFieldEnum)[keyof typeof StatementReleaseScalarFieldEnum]
+
+
+export const StatementTerritoryScalarFieldEnum = {
+  id: 'id',
+  statementId: 'statementId',
+  country: 'country',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StatementTerritoryScalarFieldEnum = (typeof StatementTerritoryScalarFieldEnum)[keyof typeof StatementTerritoryScalarFieldEnum]
+
+
+export const StatementPlatformScalarFieldEnum = {
+  id: 'id',
+  statementId: 'statementId',
+  platform: 'platform',
+  amount: 'amount',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type StatementPlatformScalarFieldEnum = (typeof StatementPlatformScalarFieldEnum)[keyof typeof StatementPlatformScalarFieldEnum]
+
+
+export const PaymentRequestScalarFieldEnum = {
+  paymentRequestId: 'paymentRequestId',
+  userId: 'userId',
+  amount: 'amount',
+  status: 'status',
+  paymentMethod: 'paymentMethod',
+  paymentDetails: 'paymentDetails',
+  requestedAt: 'requestedAt',
+  processedAt: 'processedAt',
+  paidAt: 'paidAt',
+  transactionRef: 'transactionRef',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentRequestScalarFieldEnum = (typeof PaymentRequestScalarFieldEnum)[keyof typeof PaymentRequestScalarFieldEnum]
 
 
 export const UserOtpScalarFieldEnum = {
@@ -447,6 +578,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: 'DbNull',
+  JsonNull: 'JsonNull'
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const JsonNullValueInput = {

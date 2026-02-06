@@ -363,10 +363,6 @@ export type RefreshTokenOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
-}
-
 export type RefreshTokenCreateNestedManyWithoutDeviceInput = {
   create?: Prisma.XOR<Prisma.RefreshTokenCreateWithoutDeviceInput, Prisma.RefreshTokenUncheckedCreateWithoutDeviceInput> | Prisma.RefreshTokenCreateWithoutDeviceInput[] | Prisma.RefreshTokenUncheckedCreateWithoutDeviceInput[]
   connectOrCreate?: Prisma.RefreshTokenCreateOrConnectWithoutDeviceInput | Prisma.RefreshTokenCreateOrConnectWithoutDeviceInput[]

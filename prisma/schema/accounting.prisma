@@ -1,0 +1,216 @@
+// ========== Accounting & Statement Models ==========
+
+enum StatementStatus {
+  Paid
+  PaymentRequired
+  PaymentSubmitted
+  PaymentNotRequired
+  Pending
+}
+
+enum PaymentStatus {
+  Pending
+  Submitted
+  Paid
+  Failed
+  Cancelled
+}
+
+enum TransactionType {
+  Income
+  Expense
+  Payment
+  Refund
+  Adjustment
+}
+
+model Statement {
+  statementId String @id @default(uuid()) @map("statement_id")
+  userId      String @map("user_id")
+
+  // Statement Period
+  statementMonth Int      @map("statement_month") // 1-12
+  statementYear  Int      @map("statement_year")
+  periodStart    DateTime @map("period_start")
+  periodEnd      DateTime @map("period_end")
+
+  // Dates
+  issuedOn DateTime? @map("issued_on")
+  paidOn   DateTime? @map("paid_on")
+
+  // Financial Summary
+  openingBalance Decimal @default(0) @map("opening_balance") @db.Decimal(15, 2)
+  totalEarnings  Decimal @default(0) @map("total_earnings") @db.Decimal(15, 2)
+  totalExpenses  Decimal @default(0) @map("total_expenses") @db.Decimal(15, 2)
+  payment        Decimal @default(0) @map("payment") @db.Decimal(15, 2)
+  closingBalance Decimal @default(0) @map("closing_balance") @db.Decimal(15, 2)
+
+  status StatementStatus @default(Pending)
+  notes  String?         @db.Text
+
+  // Relations
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  dealStatuses DealStatus[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, statementMonth, statementYear])
+  @@index([userId, statementYear, statementMonth])
+  @@map("statements")
+}
+
+model Transaction {
+  transactionId String @id @default(uuid()) @map("transaction_id")
+  statementId   String @map("statement_id")
+  userId        String @map("user_id")
+
+  // Transaction Details
+  type        TransactionType
+  source      String?         @db.VarChar // e.g., "August 2024 Royalties", "Atlanta Studio Session"
+  description String?         @db.Text
+  amount      Decimal         @db.Decimal(15, 2)
+  date        DateTime
+
+  // Related Entities (optional)
+  releaseId String? @map("release_id")
+  trackId   String? @map("track_id")
+
+  // Metadata
+  metadata Json? // Store additional data like platform, territory, etc.
+
+  // Relations
+  statement Statement @relation(fields: [statementId], references: [statementId], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, date])
+  @@index([statementId, type])
+  @@index([type, date])
+  @@map("transactions")
+}
+
+model DealStatus {
+  dealStatusId String @id @default(uuid()) @map("deal_status_id")
+  statementId  String @map("statement_id")
+  userId       String @map("user_id")
+
+  // Account/Artist Info
+  account      String  @db.VarChar // e.g., "K Shiday - Trickin"
+  artistName   String? @map("artist_name") @db.VarChar
+  releaseTitle String? @map("release_title") @db.VarChar
+
+  // Financial Breakdown
+  openingBalance Decimal @default(0) @map("opening_balance") @db.Decimal(15, 2)
+  earnings       Decimal @default(0) @db.Decimal(15, 2)
+  expenses       Decimal @default(0) @db.Decimal(15, 2)
+  payment        Decimal @default(0) @db.Decimal(15, 2)
+  closingBalance Decimal @default(0) @map("closing_balance") @db.Decimal(15, 2)
+
+  // Optional Relations
+  releaseId String? @map("release_id")
+
+  // Relations
+  statement Statement @relation(fields: [statementId], references: [statementId], onDelete: Cascade)
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([statementId])
+  @@index([userId])
+  @@map("deal_statuses")
+}
+
+model StatementRelease {
+  id          String @id @default(uuid())
+  statementId String @map("statement_id")
+
+  // Release Info
+  title     String  @db.VarChar
+  artist    String  @db.VarChar
+  upc       String? @db.VarChar
+  isrc      String? @db.VarChar
+  assetId   String? @map("asset_id") @db.VarChar
+  assetType String? @map("asset_type") @db.VarChar // Art Track, Sound Recording
+
+  amount Decimal @db.Decimal(15, 2)
+
+  // Optional link to actual release
+  releaseId String? @map("release_id")
+  trackId   String? @map("track_id")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([statementId])
+  @@map("statement_releases")
+}
+
+model StatementTerritory {
+  id          String @id @default(uuid())
+  statementId String @map("statement_id")
+
+  country String  @db.VarChar
+  amount  Decimal @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([statementId])
+  @@map("statement_territories")
+}
+
+model StatementPlatform {
+  id          String @id @default(uuid())
+  statementId String @map("statement_id")
+
+  platform String  @db.VarChar // YouTube, Spotify, Apple Music, etc.
+  amount   Decimal @db.Decimal(15, 2)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([statementId])
+  @@map("statement_platforms")
+}
+
+model PaymentRequest {
+  paymentRequestId String @id @default(uuid()) @map("payment_request_id")
+  userId           String @map("user_id")
+
+  amount Decimal       @db.Decimal(15, 2)
+  status PaymentStatus @default(Pending)
+
+  // Payment Method
+  paymentMethod  String? @map("payment_method") @db.VarChar // Bank Transfer, PayPal, etc.
+  paymentDetails Json?   @map("payment_details") // Bank details, PayPal email, etc.
+
+  // Dates
+  requestedAt DateTime  @default(now()) @map("requested_at")
+  processedAt DateTime? @map("processed_at")
+  paidAt      DateTime? @map("paid_at")
+
+  // References
+  transactionRef String? @map("transaction_ref") @db.VarChar
+  notes          String? @db.Text
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, status])
+  @@index([status, requestedAt])
+  @@map("payment_requests")
+}
+
+// Add these relations to the existing User model:
+// statements        Statement[]
+// transactions      Transaction[]
+// dealStatuses      DealStatus[]
+// paymentRequests   PaymentRequest[]

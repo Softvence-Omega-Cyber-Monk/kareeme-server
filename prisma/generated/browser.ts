@@ -18,6 +18,41 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model Statement
+ * 
+ */
+export type Statement = Prisma.StatementModel
+/**
+ * Model Transaction
+ * 
+ */
+export type Transaction = Prisma.TransactionModel
+/**
+ * Model DealStatus
+ * 
+ */
+export type DealStatus = Prisma.DealStatusModel
+/**
+ * Model StatementRelease
+ * 
+ */
+export type StatementRelease = Prisma.StatementReleaseModel
+/**
+ * Model StatementTerritory
+ * 
+ */
+export type StatementTerritory = Prisma.StatementTerritoryModel
+/**
+ * Model StatementPlatform
+ * 
+ */
+export type StatementPlatform = Prisma.StatementPlatformModel
+/**
+ * Model PaymentRequest
+ * 
+ */
+export type PaymentRequest = Prisma.PaymentRequestModel
+/**
  * Model UserOtp
  * 
  */
