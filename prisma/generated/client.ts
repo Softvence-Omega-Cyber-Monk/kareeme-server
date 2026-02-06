@@ -27,8 +27,8 @@ export * from "./enums"
  * @example
  * ```
  * const prisma = new PrismaClient()
- * // Fetch zero or more UserOtps
- * const userOtps = await prisma.userOtp.findMany()
+ * // Fetch zero or more Statements
+ * const statements = await prisma.statement.findMany()
  * ```
  * 
  * Read more in our [docs](https://pris.ly/d/client).
@@ -37,6 +37,41 @@ export const PrismaClient = $Class.getPrismaClientClass()
 export type PrismaClient<LogOpts extends Prisma.LogLevel = never, OmitOpts extends Prisma.PrismaClientOptions["omit"] = Prisma.PrismaClientOptions["omit"], ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = $Class.PrismaClient<LogOpts, OmitOpts, ExtArgs>
 export { Prisma }
 
+/**
+ * Model Statement
+ * 
+ */
+export type Statement = Prisma.StatementModel
+/**
+ * Model Transaction
+ * 
+ */
+export type Transaction = Prisma.TransactionModel
+/**
+ * Model DealStatus
+ * 
+ */
+export type DealStatus = Prisma.DealStatusModel
+/**
+ * Model StatementRelease
+ * 
+ */
+export type StatementRelease = Prisma.StatementReleaseModel
+/**
+ * Model StatementTerritory
+ * 
+ */
+export type StatementTerritory = Prisma.StatementTerritoryModel
+/**
+ * Model StatementPlatform
+ * 
+ */
+export type StatementPlatform = Prisma.StatementPlatformModel
+/**
+ * Model PaymentRequest
+ * 
+ */
+export type PaymentRequest = Prisma.PaymentRequestModel
 /**
  * Model UserOtp
  * 

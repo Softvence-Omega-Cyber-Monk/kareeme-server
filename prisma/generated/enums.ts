@@ -9,6 +9,39 @@
 * 🟢 You can import this file directly.
 */
 
+export const StatementStatus = {
+  Paid: 'Paid',
+  PaymentRequired: 'PaymentRequired',
+  PaymentSubmitted: 'PaymentSubmitted',
+  PaymentNotRequired: 'PaymentNotRequired',
+  Pending: 'Pending'
+} as const
+
+export type StatementStatus = (typeof StatementStatus)[keyof typeof StatementStatus]
+
+
+export const PaymentStatus = {
+  Pending: 'Pending',
+  Submitted: 'Submitted',
+  Paid: 'Paid',
+  Failed: 'Failed',
+  Cancelled: 'Cancelled'
+} as const
+
+export type PaymentStatus = (typeof PaymentStatus)[keyof typeof PaymentStatus]
+
+
+export const TransactionType = {
+  Income: 'Income',
+  Expense: 'Expense',
+  Payment: 'Payment',
+  Refund: 'Refund',
+  Adjustment: 'Adjustment'
+} as const
+
+export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
+
+
 export const OtpType = {
   VERIFICATION: 'VERIFICATION',
   RESET: 'RESET',
