@@ -42,6 +42,33 @@ export const TransactionType = {
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
 
 
+export const Platform = {
+  YouTube: 'YouTube',
+  Spotify: 'Spotify',
+  AppleMusic: 'AppleMusic',
+  SoundCloud: 'SoundCloud',
+  Audiomack: 'Audiomack',
+  Deezer: 'Deezer',
+  TIDAL: 'TIDAL',
+  iHeartRadio: 'iHeartRadio',
+  AmazonMusic: 'AmazonMusic',
+  Pandora: 'Pandora'
+} as const
+
+export type Platform = (typeof Platform)[keyof typeof Platform]
+
+
+export const ClaimStatus = {
+  Active: 'Active',
+  Pending: 'Pending',
+  Resolved: 'Resolved',
+  Disputed: 'Disputed',
+  Rejected: 'Rejected'
+} as const
+
+export type ClaimStatus = (typeof ClaimStatus)[keyof typeof ClaimStatus]
+
+
 export const OtpType = {
   VERIFICATION: 'VERIFICATION',
   RESET: 'RESET',

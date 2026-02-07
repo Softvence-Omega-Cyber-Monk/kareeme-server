@@ -210,7 +210,3 @@ model PaymentRequest {
 }
 
 // Add these relations to the existing User model:
-// statements        Statement[]
-// transactions      Transaction[]
-// dealStatuses      DealStatus[]
-// paymentRequests   PaymentRequest[]

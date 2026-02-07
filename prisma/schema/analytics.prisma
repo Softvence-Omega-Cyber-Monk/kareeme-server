@@ -1,0 +1,158 @@
+enum Platform {
+  YouTube
+  Spotify
+  AppleMusic
+  SoundCloud
+  Audiomack
+  Deezer
+  TIDAL
+  iHeartRadio
+  AmazonMusic
+  Pandora
+}
+
+enum ClaimStatus {
+  Active
+  Pending
+  Resolved
+  Disputed
+  Rejected
+}
+
+model PlatformAnalytics {
+  analyticsId String   @id @default(uuid()) @map("analytics_id")
+  userId      String   @map("user_id")
+  platform    Platform
+
+  // Date tracking
+  date  DateTime @db.Date
+  month Int // 1-12
+  year  Int
+
+  // Metrics
+  totalViews    Int     @default(0) @map("total_views")
+  totalEarnings Decimal @default(0) @map("total_earnings") @db.Decimal(15, 2)
+
+  // Earnings breakdown
+  freeEarnings Decimal @default(0) @map("free_earnings") @db.Decimal(15, 2)
+  freeViews    Int     @default(0) @map("free_views")
+
+  premiumEarnings Decimal @default(0) @map("premium_earnings") @db.Decimal(15, 2)
+  premiumViews    Int     @default(0) @map("premium_views")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, platform, date])
+  @@index([userId, platform, year, month])
+  @@index([platform, date])
+  @@map("platform_analytics")
+}
+
+model Asset {
+  assetId String @id @default(uuid()) @map("asset_id")
+  userId  String @map("user_id")
+
+  // Asset details
+  title    String   @db.VarChar
+  artist   String   @db.VarChar
+  platform Platform
+
+  // Asset type and metadata
+  assetType     String?   @map("asset_type") @db.VarChar // "Video", "Audio"
+  thumbnailUrl  String?   @map("thumbnail_url") @db.VarChar
+  publishedDate DateTime? @map("published_date") @db.Date
+
+  // Metrics
+  totalViews    Int     @default(0) @map("total_views")
+  totalEarnings Decimal @default(0) @map("total_earnings") @db.Decimal(15, 2)
+
+  // Earnings breakdown
+  adSupported    Decimal @default(0) @map("ad_supported") @db.Decimal(15, 2)
+  youtubePremium Decimal @default(0) @map("youtube_premium") @db.Decimal(15, 2)
+
+  // Optional link to release/track
+  releaseId String? @map("release_id")
+  trackId   String? @map("track_id")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, platform])
+  @@index([platform, totalEarnings])
+  @@map("assets")
+}
+
+model GeoTrend {
+  geoTrendId String   @id @default(uuid()) @map("geo_trend_id")
+  userId     String   @map("user_id")
+  platform   Platform
+
+  // Location
+  country String  @db.VarChar
+  region  String? @db.VarChar // US regions like "California", "Ohio"
+
+  // Time period
+  date  DateTime @db.Date
+  month Int // 1-12
+  year  Int
+
+  // Metrics
+  views    Int     @default(0)
+  earnings Decimal @default(0) @db.Decimal(15, 2)
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, platform, country, region, date])
+  @@index([userId, platform, year, month])
+  @@index([country, earnings])
+  @@map("geo_trends")
+}
+
+model Claim {
+  claimId String @id @default(uuid()) @map("claim_id")
+  userId  String @map("user_id")
+
+  // Claim details
+  title    String      @db.VarChar
+  claimant String?     @db.VarChar // Who made the claim
+  platform Platform
+  status   ClaimStatus @default(Pending)
+
+  // Asset information
+  thumbnailUrl  String?   @map("thumbnail_url") @db.VarChar
+  publishedDate DateTime? @map("published_date") @db.Date
+
+  // Claim specifics
+  description String? @db.Text
+
+  // Metrics
+  views          Int     @default(0)
+  adSupported    Decimal @default(0) @map("ad_supported") @db.Decimal(15, 2)
+  youtubePremium Decimal @default(0) @map("youtube_premium") @db.Decimal(15, 2)
+  totalEarnings  Decimal @default(0) @map("total_earnings") @db.Decimal(15, 2)
+
+  // Dates
+  claimedDate  DateTime? @map("claimed_date") @db.Date
+  resolvedDate DateTime? @map("resolved_date") @db.Date
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([userId, platform, status])
+  @@index([status, claimedDate])
+  @@map("claims")
+}

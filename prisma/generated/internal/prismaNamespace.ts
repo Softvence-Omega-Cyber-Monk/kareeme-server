@@ -391,6 +391,10 @@ export const ModelName = {
   StatementTerritory: 'StatementTerritory',
   StatementPlatform: 'StatementPlatform',
   PaymentRequest: 'PaymentRequest',
+  PlatformAnalytics: 'PlatformAnalytics',
+  Asset: 'Asset',
+  GeoTrend: 'GeoTrend',
+  Claim: 'Claim',
   UserOtp: 'UserOtp',
   RefreshToken: 'RefreshToken',
   FileInstance: 'FileInstance',
@@ -428,7 +432,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "statement" | "transaction" | "dealStatus" | "statementRelease" | "statementTerritory" | "statementPlatform" | "paymentRequest" | "userOtp" | "refreshToken" | "fileInstance" | "videoMergeJob" | "loginDevice" | "notification" | "userNotification" | "notificationSettings" | "release" | "artist" | "releaseArtist" | "label" | "releaseTerritory" | "splitSheetAgreement" | "contributor" | "track" | "trackArtist" | "publisher" | "backCatalogue" | "globalSettings" | "clientSettings" | "user"
+    modelProps: "statement" | "transaction" | "dealStatus" | "statementRelease" | "statementTerritory" | "statementPlatform" | "paymentRequest" | "platformAnalytics" | "asset" | "geoTrend" | "claim" | "userOtp" | "refreshToken" | "fileInstance" | "videoMergeJob" | "loginDevice" | "notification" | "userNotification" | "notificationSettings" | "release" | "artist" | "releaseArtist" | "label" | "releaseTerritory" | "splitSheetAgreement" | "contributor" | "track" | "trackArtist" | "publisher" | "backCatalogue" | "globalSettings" | "clientSettings" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -947,6 +951,302 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PaymentRequestCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PaymentRequestCountAggregateOutputType> | number
+        }
+      }
+    }
+    PlatformAnalytics: {
+      payload: Prisma.$PlatformAnalyticsPayload<ExtArgs>
+      fields: Prisma.PlatformAnalyticsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.PlatformAnalyticsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.PlatformAnalyticsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>
+        }
+        findFirst: {
+          args: Prisma.PlatformAnalyticsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.PlatformAnalyticsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>
+        }
+        findMany: {
+          args: Prisma.PlatformAnalyticsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>[]
+        }
+        create: {
+          args: Prisma.PlatformAnalyticsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>
+        }
+        createMany: {
+          args: Prisma.PlatformAnalyticsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.PlatformAnalyticsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>[]
+        }
+        delete: {
+          args: Prisma.PlatformAnalyticsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>
+        }
+        update: {
+          args: Prisma.PlatformAnalyticsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>
+        }
+        deleteMany: {
+          args: Prisma.PlatformAnalyticsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.PlatformAnalyticsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.PlatformAnalyticsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>[]
+        }
+        upsert: {
+          args: Prisma.PlatformAnalyticsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$PlatformAnalyticsPayload>
+        }
+        aggregate: {
+          args: Prisma.PlatformAnalyticsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregatePlatformAnalytics>
+        }
+        groupBy: {
+          args: Prisma.PlatformAnalyticsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAnalyticsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.PlatformAnalyticsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.PlatformAnalyticsCountAggregateOutputType> | number
+        }
+      }
+    }
+    Asset: {
+      payload: Prisma.$AssetPayload<ExtArgs>
+      fields: Prisma.AssetFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AssetFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AssetFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
+        }
+        findFirst: {
+          args: Prisma.AssetFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AssetFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
+        }
+        findMany: {
+          args: Prisma.AssetFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>[]
+        }
+        create: {
+          args: Prisma.AssetCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
+        }
+        createMany: {
+          args: Prisma.AssetCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AssetCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>[]
+        }
+        delete: {
+          args: Prisma.AssetDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
+        }
+        update: {
+          args: Prisma.AssetUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
+        }
+        deleteMany: {
+          args: Prisma.AssetDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AssetUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AssetUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>[]
+        }
+        upsert: {
+          args: Prisma.AssetUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssetPayload>
+        }
+        aggregate: {
+          args: Prisma.AssetAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAsset>
+        }
+        groupBy: {
+          args: Prisma.AssetGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssetGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AssetCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssetCountAggregateOutputType> | number
+        }
+      }
+    }
+    GeoTrend: {
+      payload: Prisma.$GeoTrendPayload<ExtArgs>
+      fields: Prisma.GeoTrendFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.GeoTrendFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.GeoTrendFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>
+        }
+        findFirst: {
+          args: Prisma.GeoTrendFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.GeoTrendFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>
+        }
+        findMany: {
+          args: Prisma.GeoTrendFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>[]
+        }
+        create: {
+          args: Prisma.GeoTrendCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>
+        }
+        createMany: {
+          args: Prisma.GeoTrendCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.GeoTrendCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>[]
+        }
+        delete: {
+          args: Prisma.GeoTrendDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>
+        }
+        update: {
+          args: Prisma.GeoTrendUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>
+        }
+        deleteMany: {
+          args: Prisma.GeoTrendDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.GeoTrendUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.GeoTrendUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>[]
+        }
+        upsert: {
+          args: Prisma.GeoTrendUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$GeoTrendPayload>
+        }
+        aggregate: {
+          args: Prisma.GeoTrendAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateGeoTrend>
+        }
+        groupBy: {
+          args: Prisma.GeoTrendGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GeoTrendGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.GeoTrendCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.GeoTrendCountAggregateOutputType> | number
+        }
+      }
+    }
+    Claim: {
+      payload: Prisma.$ClaimPayload<ExtArgs>
+      fields: Prisma.ClaimFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.ClaimFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.ClaimFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>
+        }
+        findFirst: {
+          args: Prisma.ClaimFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.ClaimFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>
+        }
+        findMany: {
+          args: Prisma.ClaimFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>[]
+        }
+        create: {
+          args: Prisma.ClaimCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>
+        }
+        createMany: {
+          args: Prisma.ClaimCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.ClaimCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>[]
+        }
+        delete: {
+          args: Prisma.ClaimDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>
+        }
+        update: {
+          args: Prisma.ClaimUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>
+        }
+        deleteMany: {
+          args: Prisma.ClaimDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.ClaimUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.ClaimUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>[]
+        }
+        upsert: {
+          args: Prisma.ClaimUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$ClaimPayload>
+        }
+        aggregate: {
+          args: Prisma.ClaimAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateClaim>
+        }
+        groupBy: {
+          args: Prisma.ClaimGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClaimGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.ClaimCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.ClaimCountAggregateOutputType> | number
         }
       }
     }
@@ -2741,6 +3041,89 @@ export const PaymentRequestScalarFieldEnum = {
 export type PaymentRequestScalarFieldEnum = (typeof PaymentRequestScalarFieldEnum)[keyof typeof PaymentRequestScalarFieldEnum]
 
 
+export const PlatformAnalyticsScalarFieldEnum = {
+  analyticsId: 'analyticsId',
+  userId: 'userId',
+  platform: 'platform',
+  date: 'date',
+  month: 'month',
+  year: 'year',
+  totalViews: 'totalViews',
+  totalEarnings: 'totalEarnings',
+  freeEarnings: 'freeEarnings',
+  freeViews: 'freeViews',
+  premiumEarnings: 'premiumEarnings',
+  premiumViews: 'premiumViews',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformAnalyticsScalarFieldEnum = (typeof PlatformAnalyticsScalarFieldEnum)[keyof typeof PlatformAnalyticsScalarFieldEnum]
+
+
+export const AssetScalarFieldEnum = {
+  assetId: 'assetId',
+  userId: 'userId',
+  title: 'title',
+  artist: 'artist',
+  platform: 'platform',
+  assetType: 'assetType',
+  thumbnailUrl: 'thumbnailUrl',
+  publishedDate: 'publishedDate',
+  totalViews: 'totalViews',
+  totalEarnings: 'totalEarnings',
+  adSupported: 'adSupported',
+  youtubePremium: 'youtubePremium',
+  releaseId: 'releaseId',
+  trackId: 'trackId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
+
+
+export const GeoTrendScalarFieldEnum = {
+  geoTrendId: 'geoTrendId',
+  userId: 'userId',
+  platform: 'platform',
+  country: 'country',
+  region: 'region',
+  date: 'date',
+  month: 'month',
+  year: 'year',
+  views: 'views',
+  earnings: 'earnings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GeoTrendScalarFieldEnum = (typeof GeoTrendScalarFieldEnum)[keyof typeof GeoTrendScalarFieldEnum]
+
+
+export const ClaimScalarFieldEnum = {
+  claimId: 'claimId',
+  userId: 'userId',
+  title: 'title',
+  claimant: 'claimant',
+  platform: 'platform',
+  status: 'status',
+  thumbnailUrl: 'thumbnailUrl',
+  publishedDate: 'publishedDate',
+  description: 'description',
+  views: 'views',
+  adSupported: 'adSupported',
+  youtubePremium: 'youtubePremium',
+  totalEarnings: 'totalEarnings',
+  claimedDate: 'claimedDate',
+  resolvedDate: 'resolvedDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClaimScalarFieldEnum = (typeof ClaimScalarFieldEnum)[keyof typeof ClaimScalarFieldEnum]
+
+
 export const UserOtpScalarFieldEnum = {
   id: 'id',
   code: 'code',
@@ -3258,6 +3641,34 @@ export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'Platform'
+ */
+export type EnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform'>
+    
+
+
+/**
+ * Reference to a field of type 'Platform[]'
+ */
+export type ListEnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform[]'>
+    
+
+
+/**
+ * Reference to a field of type 'ClaimStatus'
+ */
+export type EnumClaimStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClaimStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'ClaimStatus[]'
+ */
+export type ListEnumClaimStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ClaimStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'OtpType'
  */
 export type EnumOtpTypeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'OtpType'>
@@ -3449,6 +3860,10 @@ export type GlobalOmitConfig = {
   statementTerritory?: Prisma.StatementTerritoryOmit
   statementPlatform?: Prisma.StatementPlatformOmit
   paymentRequest?: Prisma.PaymentRequestOmit
+  platformAnalytics?: Prisma.PlatformAnalyticsOmit
+  asset?: Prisma.AssetOmit
+  geoTrend?: Prisma.GeoTrendOmit
+  claim?: Prisma.ClaimOmit
   userOtp?: Prisma.UserOtpOmit
   refreshToken?: Prisma.RefreshTokenOmit
   fileInstance?: Prisma.FileInstanceOmit
