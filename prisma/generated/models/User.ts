@@ -275,6 +275,10 @@ export type UserWhereInput = {
   transactions?: Prisma.TransactionListRelationFilter
   dealStatuses?: Prisma.DealStatusListRelationFilter
   paymentRequests?: Prisma.PaymentRequestListRelationFilter
+  platformAnalytics?: Prisma.PlatformAnalyticsListRelationFilter
+  assets?: Prisma.AssetListRelationFilter
+  geoTrends?: Prisma.GeoTrendListRelationFilter
+  claims?: Prisma.ClaimListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -306,6 +310,10 @@ export type UserOrderByWithRelationInput = {
   transactions?: Prisma.TransactionOrderByRelationAggregateInput
   dealStatuses?: Prisma.DealStatusOrderByRelationAggregateInput
   paymentRequests?: Prisma.PaymentRequestOrderByRelationAggregateInput
+  platformAnalytics?: Prisma.PlatformAnalyticsOrderByRelationAggregateInput
+  assets?: Prisma.AssetOrderByRelationAggregateInput
+  geoTrends?: Prisma.GeoTrendOrderByRelationAggregateInput
+  claims?: Prisma.ClaimOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -340,6 +348,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   transactions?: Prisma.TransactionListRelationFilter
   dealStatuses?: Prisma.DealStatusListRelationFilter
   paymentRequests?: Prisma.PaymentRequestListRelationFilter
+  platformAnalytics?: Prisma.PlatformAnalyticsListRelationFilter
+  assets?: Prisma.AssetListRelationFilter
+  geoTrends?: Prisma.GeoTrendListRelationFilter
+  claims?: Prisma.ClaimListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -412,6 +424,10 @@ export type UserCreateInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -442,6 +458,10 @@ export type UserUncheckedCreateInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -472,6 +492,10 @@ export type UserUpdateInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -502,6 +526,10 @@ export type UserUncheckedUpdateInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -680,6 +708,62 @@ export type UserUpdateOneRequiredWithoutPaymentRequestsNestedInput = {
   upsert?: Prisma.UserUpsertWithoutPaymentRequestsInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPaymentRequestsInput, Prisma.UserUpdateWithoutPaymentRequestsInput>, Prisma.UserUncheckedUpdateWithoutPaymentRequestsInput>
+}
+
+export type UserCreateNestedOneWithoutPlatformAnalyticsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlatformAnalyticsInput, Prisma.UserUncheckedCreateWithoutPlatformAnalyticsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlatformAnalyticsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutPlatformAnalyticsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutPlatformAnalyticsInput, Prisma.UserUncheckedCreateWithoutPlatformAnalyticsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutPlatformAnalyticsInput
+  upsert?: Prisma.UserUpsertWithoutPlatformAnalyticsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutPlatformAnalyticsInput, Prisma.UserUpdateWithoutPlatformAnalyticsInput>, Prisma.UserUncheckedUpdateWithoutPlatformAnalyticsInput>
+}
+
+export type UserCreateNestedOneWithoutAssetsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssetsInput, Prisma.UserUncheckedCreateWithoutAssetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssetsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutAssetsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutAssetsInput, Prisma.UserUncheckedCreateWithoutAssetsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutAssetsInput
+  upsert?: Prisma.UserUpsertWithoutAssetsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutAssetsInput, Prisma.UserUpdateWithoutAssetsInput>, Prisma.UserUncheckedUpdateWithoutAssetsInput>
+}
+
+export type UserCreateNestedOneWithoutGeoTrendsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGeoTrendsInput, Prisma.UserUncheckedCreateWithoutGeoTrendsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGeoTrendsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutGeoTrendsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutGeoTrendsInput, Prisma.UserUncheckedCreateWithoutGeoTrendsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutGeoTrendsInput
+  upsert?: Prisma.UserUpsertWithoutGeoTrendsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutGeoTrendsInput, Prisma.UserUpdateWithoutGeoTrendsInput>, Prisma.UserUncheckedUpdateWithoutGeoTrendsInput>
+}
+
+export type UserCreateNestedOneWithoutClaimsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClaimsInput, Prisma.UserUncheckedCreateWithoutClaimsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClaimsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutClaimsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClaimsInput, Prisma.UserUncheckedCreateWithoutClaimsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClaimsInput
+  upsert?: Prisma.UserUpsertWithoutClaimsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClaimsInput, Prisma.UserUpdateWithoutClaimsInput>, Prisma.UserUncheckedUpdateWithoutClaimsInput>
 }
 
 export type UserCreateNestedOneWithoutOtpsInput = {
@@ -871,6 +955,10 @@ export type UserCreateWithoutStatementsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStatementsInput = {
@@ -900,6 +988,10 @@ export type UserUncheckedCreateWithoutStatementsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStatementsInput = {
@@ -945,6 +1037,10 @@ export type UserUpdateWithoutStatementsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatementsInput = {
@@ -974,6 +1070,10 @@ export type UserUncheckedUpdateWithoutStatementsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
@@ -1003,6 +1103,10 @@ export type UserCreateWithoutTransactionsInput = {
   statements?: Prisma.StatementCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -1032,6 +1136,10 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -1077,6 +1185,10 @@ export type UserUpdateWithoutTransactionsInput = {
   statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -1106,6 +1218,10 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDealStatusesInput = {
@@ -1135,6 +1251,10 @@ export type UserCreateWithoutDealStatusesInput = {
   statements?: Prisma.StatementCreateNestedManyWithoutUserInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDealStatusesInput = {
@@ -1164,6 +1284,10 @@ export type UserUncheckedCreateWithoutDealStatusesInput = {
   statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDealStatusesInput = {
@@ -1209,6 +1333,10 @@ export type UserUpdateWithoutDealStatusesInput = {
   statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDealStatusesInput = {
@@ -1238,6 +1366,10 @@ export type UserUncheckedUpdateWithoutDealStatusesInput = {
   statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentRequestsInput = {
@@ -1267,6 +1399,10 @@ export type UserCreateWithoutPaymentRequestsInput = {
   statements?: Prisma.StatementCreateNestedManyWithoutUserInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentRequestsInput = {
@@ -1296,6 +1432,10 @@ export type UserUncheckedCreateWithoutPaymentRequestsInput = {
   statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentRequestsInput = {
@@ -1341,6 +1481,10 @@ export type UserUpdateWithoutPaymentRequestsInput = {
   statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
@@ -1370,6 +1514,602 @@ export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
   statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutPlatformAnalyticsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutPlatformAnalyticsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutPlatformAnalyticsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlatformAnalyticsInput, Prisma.UserUncheckedCreateWithoutPlatformAnalyticsInput>
+}
+
+export type UserUpsertWithoutPlatformAnalyticsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutPlatformAnalyticsInput, Prisma.UserUncheckedUpdateWithoutPlatformAnalyticsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutPlatformAnalyticsInput, Prisma.UserUncheckedCreateWithoutPlatformAnalyticsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutPlatformAnalyticsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutPlatformAnalyticsInput, Prisma.UserUncheckedUpdateWithoutPlatformAnalyticsInput>
+}
+
+export type UserUpdateWithoutPlatformAnalyticsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutPlatformAnalyticsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutAssetsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutAssetsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutAssetsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssetsInput, Prisma.UserUncheckedCreateWithoutAssetsInput>
+}
+
+export type UserUpsertWithoutAssetsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutAssetsInput, Prisma.UserUncheckedUpdateWithoutAssetsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutAssetsInput, Prisma.UserUncheckedCreateWithoutAssetsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutAssetsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutAssetsInput, Prisma.UserUncheckedUpdateWithoutAssetsInput>
+}
+
+export type UserUpdateWithoutAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutAssetsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutGeoTrendsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutGeoTrendsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutGeoTrendsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutGeoTrendsInput, Prisma.UserUncheckedCreateWithoutGeoTrendsInput>
+}
+
+export type UserUpsertWithoutGeoTrendsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutGeoTrendsInput, Prisma.UserUncheckedUpdateWithoutGeoTrendsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutGeoTrendsInput, Prisma.UserUncheckedCreateWithoutGeoTrendsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutGeoTrendsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutGeoTrendsInput, Prisma.UserUncheckedUpdateWithoutGeoTrendsInput>
+}
+
+export type UserUpdateWithoutGeoTrendsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutGeoTrendsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutClaimsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClaimsInput = {
+  id?: string
+  name?: string
+  email: string
+  password: string
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClaimsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClaimsInput, Prisma.UserUncheckedCreateWithoutClaimsInput>
+}
+
+export type UserUpsertWithoutClaimsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClaimsInput, Prisma.UserUncheckedUpdateWithoutClaimsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClaimsInput, Prisma.UserUncheckedCreateWithoutClaimsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClaimsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClaimsInput, Prisma.UserUncheckedUpdateWithoutClaimsInput>
+}
+
+export type UserUpdateWithoutClaimsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClaimsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOtpsInput = {
@@ -1399,6 +2139,10 @@ export type UserCreateWithoutOtpsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOtpsInput = {
@@ -1428,6 +2172,10 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOtpsInput = {
@@ -1473,6 +2221,10 @@ export type UserUpdateWithoutOtpsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpsInput = {
@@ -1502,6 +2254,10 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -1531,6 +2287,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -1560,6 +2320,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -1605,6 +2369,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -1634,6 +2402,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfilePictureInput = {
@@ -1663,6 +2435,10 @@ export type UserCreateWithoutProfilePictureInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfilePictureInput = {
@@ -1692,6 +2468,10 @@ export type UserUncheckedCreateWithoutProfilePictureInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfilePictureInput = {
@@ -1768,6 +2548,10 @@ export type UserCreateWithoutLoginDevicesInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoginDevicesInput = {
@@ -1797,6 +2581,10 @@ export type UserUncheckedCreateWithoutLoginDevicesInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLoginDevicesInput = {
@@ -1842,6 +2630,10 @@ export type UserUpdateWithoutLoginDevicesInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoginDevicesInput = {
@@ -1871,6 +2663,10 @@ export type UserUncheckedUpdateWithoutLoginDevicesInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -1900,6 +2696,10 @@ export type UserCreateWithoutNotificationsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -1929,6 +2729,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -1974,6 +2778,10 @@ export type UserUpdateWithoutNotificationsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -2003,6 +2811,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationSettingsInput = {
@@ -2032,6 +2844,10 @@ export type UserCreateWithoutNotificationSettingsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationSettingsInput = {
@@ -2061,6 +2877,10 @@ export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationSettingsInput = {
@@ -2106,6 +2926,10 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
@@ -2135,6 +2959,10 @@ export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReleasesInput = {
@@ -2164,6 +2992,10 @@ export type UserCreateWithoutReleasesInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReleasesInput = {
@@ -2193,6 +3025,10 @@ export type UserUncheckedCreateWithoutReleasesInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReleasesInput = {
@@ -2238,6 +3074,10 @@ export type UserUpdateWithoutReleasesInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReleasesInput = {
@@ -2267,6 +3107,10 @@ export type UserUncheckedUpdateWithoutReleasesInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutArtistsInput = {
@@ -2296,6 +3140,10 @@ export type UserCreateWithoutArtistsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutArtistsInput = {
@@ -2325,6 +3173,10 @@ export type UserUncheckedCreateWithoutArtistsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutArtistsInput = {
@@ -2370,6 +3222,10 @@ export type UserUpdateWithoutArtistsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArtistsInput = {
@@ -2399,6 +3255,10 @@ export type UserUncheckedUpdateWithoutArtistsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClientSettingsInput = {
@@ -2428,6 +3288,10 @@ export type UserCreateWithoutClientSettingsInput = {
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientSettingsInput = {
@@ -2457,6 +3321,10 @@ export type UserUncheckedCreateWithoutClientSettingsInput = {
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
   dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
   paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientSettingsInput = {
@@ -2502,6 +3370,10 @@ export type UserUpdateWithoutClientSettingsInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientSettingsInput = {
@@ -2531,6 +3403,10 @@ export type UserUncheckedUpdateWithoutClientSettingsInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyProfilePictureInput = {
@@ -2577,6 +3453,10 @@ export type UserUpdateWithoutProfilePictureInput = {
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfilePictureInput = {
@@ -2606,6 +3486,10 @@ export type UserUncheckedUpdateWithoutProfilePictureInput = {
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
   dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
   paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutProfilePictureInput = {
@@ -2643,6 +3527,10 @@ export type UserCountOutputType = {
   transactions: number
   dealStatuses: number
   paymentRequests: number
+  platformAnalytics: number
+  assets: number
+  geoTrends: number
+  claims: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2658,6 +3546,10 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
   dealStatuses?: boolean | UserCountOutputTypeCountDealStatusesArgs
   paymentRequests?: boolean | UserCountOutputTypeCountPaymentRequestsArgs
+  platformAnalytics?: boolean | UserCountOutputTypeCountPlatformAnalyticsArgs
+  assets?: boolean | UserCountOutputTypeCountAssetsArgs
+  geoTrends?: boolean | UserCountOutputTypeCountGeoTrendsArgs
+  claims?: boolean | UserCountOutputTypeCountClaimsArgs
 }
 
 /**
@@ -2754,6 +3646,34 @@ export type UserCountOutputTypeCountPaymentRequestsArgs<ExtArgs extends runtime.
   where?: Prisma.PaymentRequestWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountPlatformAnalyticsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.PlatformAnalyticsWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountAssetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.AssetWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountGeoTrendsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.GeoTrendWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountClaimsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClaimWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -2784,6 +3704,10 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
   dealStatuses?: boolean | Prisma.User$dealStatusesArgs<ExtArgs>
   paymentRequests?: boolean | Prisma.User$paymentRequestsArgs<ExtArgs>
+  platformAnalytics?: boolean | Prisma.User$platformAnalyticsArgs<ExtArgs>
+  assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
+  geoTrends?: boolean | Prisma.User$geoTrendsArgs<ExtArgs>
+  claims?: boolean | Prisma.User$claimsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -2858,6 +3782,10 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
   dealStatuses?: boolean | Prisma.User$dealStatusesArgs<ExtArgs>
   paymentRequests?: boolean | Prisma.User$paymentRequestsArgs<ExtArgs>
+  platformAnalytics?: boolean | Prisma.User$platformAnalyticsArgs<ExtArgs>
+  assets?: boolean | Prisma.User$assetsArgs<ExtArgs>
+  geoTrends?: boolean | Prisma.User$geoTrendsArgs<ExtArgs>
+  claims?: boolean | Prisma.User$claimsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2883,6 +3811,10 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     transactions: Prisma.$TransactionPayload<ExtArgs>[]
     dealStatuses: Prisma.$DealStatusPayload<ExtArgs>[]
     paymentRequests: Prisma.$PaymentRequestPayload<ExtArgs>[]
+    platformAnalytics: Prisma.$PlatformAnalyticsPayload<ExtArgs>[]
+    assets: Prisma.$AssetPayload<ExtArgs>[]
+    geoTrends: Prisma.$GeoTrendPayload<ExtArgs>[]
+    claims: Prisma.$ClaimPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -3307,6 +4239,10 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   transactions<T extends Prisma.User$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   dealStatuses<T extends Prisma.User$dealStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$dealStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DealStatusPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentRequests<T extends Prisma.User$paymentRequestsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentRequestsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentRequestPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  platformAnalytics<T extends Prisma.User$platformAnalyticsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$platformAnalyticsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformAnalyticsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  assets<T extends Prisma.User$assetsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$assetsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$AssetPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  geoTrends<T extends Prisma.User$geoTrendsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$geoTrendsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$GeoTrendPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  claims<T extends Prisma.User$claimsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$claimsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -4051,6 +4987,102 @@ export type User$paymentRequestsArgs<ExtArgs extends runtime.Types.Extensions.In
   take?: number
   skip?: number
   distinct?: Prisma.PaymentRequestScalarFieldEnum | Prisma.PaymentRequestScalarFieldEnum[]
+}
+
+/**
+ * User.platformAnalytics
+ */
+export type User$platformAnalyticsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the PlatformAnalytics
+   */
+  select?: Prisma.PlatformAnalyticsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the PlatformAnalytics
+   */
+  omit?: Prisma.PlatformAnalyticsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.PlatformAnalyticsInclude<ExtArgs> | null
+  where?: Prisma.PlatformAnalyticsWhereInput
+  orderBy?: Prisma.PlatformAnalyticsOrderByWithRelationInput | Prisma.PlatformAnalyticsOrderByWithRelationInput[]
+  cursor?: Prisma.PlatformAnalyticsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.PlatformAnalyticsScalarFieldEnum | Prisma.PlatformAnalyticsScalarFieldEnum[]
+}
+
+/**
+ * User.assets
+ */
+export type User$assetsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Asset
+   */
+  select?: Prisma.AssetSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Asset
+   */
+  omit?: Prisma.AssetOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.AssetInclude<ExtArgs> | null
+  where?: Prisma.AssetWhereInput
+  orderBy?: Prisma.AssetOrderByWithRelationInput | Prisma.AssetOrderByWithRelationInput[]
+  cursor?: Prisma.AssetWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.AssetScalarFieldEnum | Prisma.AssetScalarFieldEnum[]
+}
+
+/**
+ * User.geoTrends
+ */
+export type User$geoTrendsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the GeoTrend
+   */
+  select?: Prisma.GeoTrendSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the GeoTrend
+   */
+  omit?: Prisma.GeoTrendOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.GeoTrendInclude<ExtArgs> | null
+  where?: Prisma.GeoTrendWhereInput
+  orderBy?: Prisma.GeoTrendOrderByWithRelationInput | Prisma.GeoTrendOrderByWithRelationInput[]
+  cursor?: Prisma.GeoTrendWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.GeoTrendScalarFieldEnum | Prisma.GeoTrendScalarFieldEnum[]
+}
+
+/**
+ * User.claims
+ */
+export type User$claimsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Claim
+   */
+  select?: Prisma.ClaimSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Claim
+   */
+  omit?: Prisma.ClaimOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClaimInclude<ExtArgs> | null
+  where?: Prisma.ClaimWhereInput
+  orderBy?: Prisma.ClaimOrderByWithRelationInput | Prisma.ClaimOrderByWithRelationInput[]
+  cursor?: Prisma.ClaimWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClaimScalarFieldEnum | Prisma.ClaimScalarFieldEnum[]
 }
 
 /**

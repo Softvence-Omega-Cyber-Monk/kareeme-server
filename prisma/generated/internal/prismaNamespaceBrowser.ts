@@ -58,6 +58,10 @@ export const ModelName = {
   StatementTerritory: 'StatementTerritory',
   StatementPlatform: 'StatementPlatform',
   PaymentRequest: 'PaymentRequest',
+  PlatformAnalytics: 'PlatformAnalytics',
+  Asset: 'Asset',
+  GeoTrend: 'GeoTrend',
+  Claim: 'Claim',
   UserOtp: 'UserOtp',
   RefreshToken: 'RefreshToken',
   FileInstance: 'FileInstance',
@@ -220,6 +224,89 @@ export const PaymentRequestScalarFieldEnum = {
 } as const
 
 export type PaymentRequestScalarFieldEnum = (typeof PaymentRequestScalarFieldEnum)[keyof typeof PaymentRequestScalarFieldEnum]
+
+
+export const PlatformAnalyticsScalarFieldEnum = {
+  analyticsId: 'analyticsId',
+  userId: 'userId',
+  platform: 'platform',
+  date: 'date',
+  month: 'month',
+  year: 'year',
+  totalViews: 'totalViews',
+  totalEarnings: 'totalEarnings',
+  freeEarnings: 'freeEarnings',
+  freeViews: 'freeViews',
+  premiumEarnings: 'premiumEarnings',
+  premiumViews: 'premiumViews',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformAnalyticsScalarFieldEnum = (typeof PlatformAnalyticsScalarFieldEnum)[keyof typeof PlatformAnalyticsScalarFieldEnum]
+
+
+export const AssetScalarFieldEnum = {
+  assetId: 'assetId',
+  userId: 'userId',
+  title: 'title',
+  artist: 'artist',
+  platform: 'platform',
+  assetType: 'assetType',
+  thumbnailUrl: 'thumbnailUrl',
+  publishedDate: 'publishedDate',
+  totalViews: 'totalViews',
+  totalEarnings: 'totalEarnings',
+  adSupported: 'adSupported',
+  youtubePremium: 'youtubePremium',
+  releaseId: 'releaseId',
+  trackId: 'trackId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssetScalarFieldEnum = (typeof AssetScalarFieldEnum)[keyof typeof AssetScalarFieldEnum]
+
+
+export const GeoTrendScalarFieldEnum = {
+  geoTrendId: 'geoTrendId',
+  userId: 'userId',
+  platform: 'platform',
+  country: 'country',
+  region: 'region',
+  date: 'date',
+  month: 'month',
+  year: 'year',
+  views: 'views',
+  earnings: 'earnings',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GeoTrendScalarFieldEnum = (typeof GeoTrendScalarFieldEnum)[keyof typeof GeoTrendScalarFieldEnum]
+
+
+export const ClaimScalarFieldEnum = {
+  claimId: 'claimId',
+  userId: 'userId',
+  title: 'title',
+  claimant: 'claimant',
+  platform: 'platform',
+  status: 'status',
+  thumbnailUrl: 'thumbnailUrl',
+  publishedDate: 'publishedDate',
+  description: 'description',
+  views: 'views',
+  adSupported: 'adSupported',
+  youtubePremium: 'youtubePremium',
+  totalEarnings: 'totalEarnings',
+  claimedDate: 'claimedDate',
+  resolvedDate: 'resolvedDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClaimScalarFieldEnum = (typeof ClaimScalarFieldEnum)[keyof typeof ClaimScalarFieldEnum]
 
 
 export const UserOtpScalarFieldEnum = {

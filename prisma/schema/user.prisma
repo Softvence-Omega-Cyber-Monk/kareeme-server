@@ -36,13 +36,17 @@ model User {
   loginDevices   LoginDevice[]
   releases       Release[]
 
-  createdAt       DateTime         @default(now())
-  updatedAt       DateTime         @default(now()) @updatedAt
-  artists         Artist[]
-  statements      Statement[]
-  transactions    Transaction[]
-  dealStatuses    DealStatus[]
-  paymentRequests PaymentRequest[]
+  createdAt         DateTime            @default(now())
+  updatedAt         DateTime            @default(now()) @updatedAt
+  artists           Artist[]
+  statements        Statement[]
+  transactions      Transaction[]
+  dealStatuses      DealStatus[]
+  paymentRequests   PaymentRequest[]
+  platformAnalytics PlatformAnalytics[]
+  assets            Asset[]
+  geoTrends         GeoTrend[]
+  claims            Claim[]
 
   @@map("users")
 }

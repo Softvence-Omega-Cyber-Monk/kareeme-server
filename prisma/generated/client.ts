@@ -73,6 +73,26 @@ export type StatementPlatform = Prisma.StatementPlatformModel
  */
 export type PaymentRequest = Prisma.PaymentRequestModel
 /**
+ * Model PlatformAnalytics
+ * 
+ */
+export type PlatformAnalytics = Prisma.PlatformAnalyticsModel
+/**
+ * Model Asset
+ * 
+ */
+export type Asset = Prisma.AssetModel
+/**
+ * Model GeoTrend
+ * 
+ */
+export type GeoTrend = Prisma.GeoTrendModel
+/**
+ * Model Claim
+ * 
+ */
+export type Claim = Prisma.ClaimModel
+/**
  * Model UserOtp
  * 
  */
