@@ -687,20 +687,12 @@ export type StatementOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type StringFieldUpdateOperationsInput = {
-  set?: string
-}
-
 export type IntFieldUpdateOperationsInput = {
   set?: number
   increment?: number
   decrement?: number
   multiply?: number
   divide?: number
-}
-
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string
 }
 
 export type NullableDateTimeFieldUpdateOperationsInput = {
@@ -717,10 +709,6 @@ export type DecimalFieldUpdateOperationsInput = {
 
 export type EnumStatementStatusFieldUpdateOperationsInput = {
   set?: $Enums.StatementStatus
-}
-
-export type NullableStringFieldUpdateOperationsInput = {
-  set?: string | null
 }
 
 export type StatementCreateNestedOneWithoutTransactionsInput = {

@@ -1,0 +1,50 @@
+model PaymentMethod {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  type          PaymentMethodType @default(BANK_ACCOUNT)
+  legalName     String
+  bankName      String
+  accountNumber String
+  routingNumber String
+  accountType   String?
+  isDefault     Boolean           @default(false)
+  isVerified    Boolean           @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@map("payment_methods")
+}
+
+enum PaymentMethodType {
+  BANK_ACCOUNT
+  PAYPAL
+  WIRE_TRANSFER
+  CRYPTO
+}
+
+model PrivacySettings {
+  id     String @id @default(uuid())
+  userId String
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  profileVisibility    ProfileVisibility @default(PUBLIC)
+  showEmail            Boolean           @default(false)
+  showPhone            Boolean           @default(false)
+  allowDataCollection  Boolean           @default(true)
+  allowMarketingEmails Boolean           @default(true)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now()) @updatedAt
+
+  @@unique([userId])
+  @@map("privacy_settings")
+}
+
+enum ProfileVisibility {
+  PUBLIC
+  PRIVATE
+  CONNECTIONS_ONLY
+}

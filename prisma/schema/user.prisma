@@ -47,6 +47,8 @@ model User {
   assets            Asset[]
   geoTrends         GeoTrend[]
   claims            Claim[]
+  paymentMethods    PaymentMethod[]
+  privacySettings   PrivacySettings?
 
   @@map("users")
 }

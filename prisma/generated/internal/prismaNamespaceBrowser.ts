@@ -51,6 +51,8 @@ export const AnyNull = runtime.AnyNull
 
 
 export const ModelName = {
+  PaymentMethod: 'PaymentMethod',
+  PrivacySettings: 'PrivacySettings',
   Statement: 'Statement',
   Transaction: 'Transaction',
   DealStatus: 'DealStatus',
@@ -100,6 +102,39 @@ export const TransactionIsolationLevel = {
 } as const
 
 export type TransactionIsolationLevel = (typeof TransactionIsolationLevel)[keyof typeof TransactionIsolationLevel]
+
+
+export const PaymentMethodScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  type: 'type',
+  legalName: 'legalName',
+  bankName: 'bankName',
+  accountNumber: 'accountNumber',
+  routingNumber: 'routingNumber',
+  accountType: 'accountType',
+  isDefault: 'isDefault',
+  isVerified: 'isVerified',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PaymentMethodScalarFieldEnum = (typeof PaymentMethodScalarFieldEnum)[keyof typeof PaymentMethodScalarFieldEnum]
+
+
+export const PrivacySettingsScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  profileVisibility: 'profileVisibility',
+  showEmail: 'showEmail',
+  showPhone: 'showPhone',
+  allowDataCollection: 'allowDataCollection',
+  allowMarketingEmails: 'allowMarketingEmails',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PrivacySettingsScalarFieldEnum = (typeof PrivacySettingsScalarFieldEnum)[keyof typeof PrivacySettingsScalarFieldEnum]
 
 
 export const StatementScalarFieldEnum = {
