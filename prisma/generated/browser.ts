@@ -18,6 +18,16 @@ export { Prisma }
 export * as $Enums from './enums'
 export * from './enums';
 /**
+ * Model PaymentMethod
+ * 
+ */
+export type PaymentMethod = Prisma.PaymentMethodModel
+/**
+ * Model PrivacySettings
+ * 
+ */
+export type PrivacySettings = Prisma.PrivacySettingsModel
+/**
  * Model Statement
  * 
  */

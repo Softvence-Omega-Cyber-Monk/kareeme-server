@@ -9,6 +9,25 @@
 * 🟢 You can import this file directly.
 */
 
+export const PaymentMethodType = {
+  BANK_ACCOUNT: 'BANK_ACCOUNT',
+  PAYPAL: 'PAYPAL',
+  WIRE_TRANSFER: 'WIRE_TRANSFER',
+  CRYPTO: 'CRYPTO'
+} as const
+
+export type PaymentMethodType = (typeof PaymentMethodType)[keyof typeof PaymentMethodType]
+
+
+export const ProfileVisibility = {
+  PUBLIC: 'PUBLIC',
+  PRIVATE: 'PRIVATE',
+  CONNECTIONS_ONLY: 'CONNECTIONS_ONLY'
+} as const
+
+export type ProfileVisibility = (typeof ProfileVisibility)[keyof typeof ProfileVisibility]
+
+
 export const StatementStatus = {
   Paid: 'Paid',
   PaymentRequired: 'PaymentRequired',

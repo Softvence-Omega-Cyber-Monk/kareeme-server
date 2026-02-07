@@ -8,6 +8,8 @@
  *
  * 🟢 You can import this file directly.
  */
+export type * from './models/PaymentMethod'
+export type * from './models/PrivacySettings'
 export type * from './models/Statement'
 export type * from './models/Transaction'
 export type * from './models/DealStatus'

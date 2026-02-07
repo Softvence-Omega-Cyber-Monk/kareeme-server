@@ -527,10 +527,6 @@ export type LoginDeviceUpdateOneWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.LoginDeviceUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.LoginDeviceUpdateWithoutRefreshTokensInput>, Prisma.LoginDeviceUncheckedUpdateWithoutRefreshTokensInput>
 }
 
-export type BoolFieldUpdateOperationsInput = {
-  set?: boolean
-}
-
 export type LoginDeviceCreateNestedManyWithoutUserInput = {
   create?: Prisma.XOR<Prisma.LoginDeviceCreateWithoutUserInput, Prisma.LoginDeviceUncheckedCreateWithoutUserInput> | Prisma.LoginDeviceCreateWithoutUserInput[] | Prisma.LoginDeviceUncheckedCreateWithoutUserInput[]
   connectOrCreate?: Prisma.LoginDeviceCreateOrConnectWithoutUserInput | Prisma.LoginDeviceCreateOrConnectWithoutUserInput[]

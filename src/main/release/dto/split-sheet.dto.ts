@@ -1,9 +1,10 @@
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { Type } from 'class-transformer';
 import {
   IsArray,
   IsDateString,
-  IsDecimal,
   IsNotEmpty,
+  IsNumber,
   IsOptional,
   IsString,
   IsUUID,
@@ -11,7 +12,6 @@ import {
   Min,
   ValidateNested,
 } from 'class-validator';
-import { Type } from 'class-transformer';
 
 export class CreateContributorDto {
   @ApiPropertyOptional({
@@ -82,7 +82,7 @@ export class CreateContributorDto {
     example: 25.00,
     description: 'Percentage split (0-100)',
   })
-  @IsDecimal({ decimal_digits: '2' })
+  @IsNumber()
   @Min(0)
   @Max(100)
   @IsNotEmpty()
