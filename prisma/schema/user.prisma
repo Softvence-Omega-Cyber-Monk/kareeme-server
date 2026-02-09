@@ -4,7 +4,7 @@ model User {
   // Identity
   name     String  @default("Unnamed User")
   email    String  @unique
-  password String // hashed password
+  password String? // hashed password
   phone    String? @unique
 
   // Settings
@@ -36,19 +36,27 @@ model User {
   loginDevices   LoginDevice[]
   releases       Release[]
 
-  createdAt         DateTime            @default(now())
-  updatedAt         DateTime            @default(now()) @updatedAt
-  artists           Artist[]
-  statements        Statement[]
-  transactions      Transaction[]
-  dealStatuses      DealStatus[]
-  paymentRequests   PaymentRequest[]
-  platformAnalytics PlatformAnalytics[]
-  assets            Asset[]
-  geoTrends         GeoTrend[]
-  claims            Claim[]
-  paymentMethods    PaymentMethod[]
-  privacySettings   PrivacySettings?
+  createdAt                DateTime              @default(now())
+  updatedAt                DateTime              @default(now()) @updatedAt
+  artists                  Artist[]
+  statements               Statement[]
+  transactions             Transaction[]
+  dealStatuses             DealStatus[]
+  paymentRequests          PaymentRequest[]
+  platformAnalytics        PlatformAnalytics[]
+  assets                   Asset[]
+  geoTrends                GeoTrend[]
+  claims                   Claim[]
+  paymentMethods           PaymentMethod[]
+  privacySettings          PrivacySettings?
+  distributorClients       DistributorClient[]   @relation("DistributorClients")
+  distributorCatalogues    ClientBackCatalogue[] @relation("DistributorCatalogues")
+  distributorDistributions Distribution[]        @relation("DistributorDistributions")
+  clientDistributions      Distribution[]        @relation("ClientDistributions")
+  distributionNotes        DistributionNote[]
+
+  clientDistributor DistributorClient[]   @relation("ClientDistributor")
+  clientCatalogues  ClientBackCatalogue[] @relation("ClientCatalogues")
 
   @@map("users")
 }

@@ -16,6 +16,7 @@ export class PrismaService
 {
   private readonly logger = new Logger(PrismaService.name);
   private readonly connectionString: string;
+  submission: any;
 
   constructor(configService: ConfigService) {
     const connectionString = configService.getOrThrow<string>(

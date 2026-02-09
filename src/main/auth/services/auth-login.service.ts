@@ -24,7 +24,12 @@ export class AuthLoginService {
       where: { email },
     });
 
+    if (!user.password) {
+      throw new AppError(400, 'Password not set. Please set your password first.');
+    }
+
     const isPasswordCorrect = await this.utils.compare(password, user.password);
+
     if (!isPasswordCorrect) {
       throw new AppError(400, 'Invalid password');
     }

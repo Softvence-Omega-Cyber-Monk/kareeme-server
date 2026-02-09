@@ -31,6 +31,7 @@ model Release {
   splitSheetAgreements SplitSheetAgreement[]
   tracks               Track[]
   backCatalogue        BackCatalogue[]
+  distributions        Distribution[]
 
   createdAt DateTime @default(now()) @map("created_at")
   updatedAt DateTime @updatedAt @map("updated_at")
@@ -108,9 +109,8 @@ model SplitSheetAgreement {
   release      Release       @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
   recordLabel  Label?        @relation(fields: [recordLabelId], references: [labelId], onDelete: SetNull)
   contributors Contributor[]
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt    DateTime      @default(now()) @map("created_at")
+  updatedAt    DateTime      @updatedAt @map("updated_at")
 
   @@map("split_sheet_agreements")
 }

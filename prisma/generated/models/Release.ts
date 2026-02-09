@@ -348,6 +348,7 @@ export type ReleaseWhereInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementListRelationFilter
   tracks?: Prisma.TrackListRelationFilter
   backCatalogue?: Prisma.BackCatalogueListRelationFilter
+  distributions?: Prisma.DistributionListRelationFilter
 }
 
 export type ReleaseOrderByWithRelationInput = {
@@ -382,6 +383,7 @@ export type ReleaseOrderByWithRelationInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementOrderByRelationAggregateInput
   tracks?: Prisma.TrackOrderByRelationAggregateInput
   backCatalogue?: Prisma.BackCatalogueOrderByRelationAggregateInput
+  distributions?: Prisma.DistributionOrderByRelationAggregateInput
 }
 
 export type ReleaseWhereUniqueInput = Prisma.AtLeast<{
@@ -419,6 +421,7 @@ export type ReleaseWhereUniqueInput = Prisma.AtLeast<{
   splitSheetAgreements?: Prisma.SplitSheetAgreementListRelationFilter
   tracks?: Prisma.TrackListRelationFilter
   backCatalogue?: Prisma.BackCatalogueListRelationFilter
+  distributions?: Prisma.DistributionListRelationFilter
 }, "releaseId">
 
 export type ReleaseOrderByWithAggregationInput = {
@@ -514,6 +517,7 @@ export type ReleaseCreateInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateInput = {
@@ -547,6 +551,7 @@ export type ReleaseUncheckedCreateInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUpdateInput = {
@@ -580,6 +585,7 @@ export type ReleaseUpdateInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateInput = {
@@ -613,6 +619,7 @@ export type ReleaseUncheckedUpdateInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseCreateManyInput = {
@@ -696,6 +703,11 @@ export type ReleaseUncheckedUpdateManyInput = {
   musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+}
+
+export type ReleaseScalarRelationFilter = {
+  is?: Prisma.ReleaseWhereInput
+  isNot?: Prisma.ReleaseWhereInput
 }
 
 export type ReleaseCountOrderByAggregateInput = {
@@ -782,11 +794,6 @@ export type ReleaseMinOrderByAggregateInput = {
   updatedAt?: Prisma.SortOrder
 }
 
-export type ReleaseScalarRelationFilter = {
-  is?: Prisma.ReleaseWhereInput
-  isNot?: Prisma.ReleaseWhereInput
-}
-
 export type ReleaseListRelationFilter = {
   every?: Prisma.ReleaseWhereInput
   some?: Prisma.ReleaseWhereInput
@@ -795,6 +802,20 @@ export type ReleaseListRelationFilter = {
 
 export type ReleaseOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type ReleaseCreateNestedOneWithoutDistributionsInput = {
+  create?: Prisma.XOR<Prisma.ReleaseCreateWithoutDistributionsInput, Prisma.ReleaseUncheckedCreateWithoutDistributionsInput>
+  connectOrCreate?: Prisma.ReleaseCreateOrConnectWithoutDistributionsInput
+  connect?: Prisma.ReleaseWhereUniqueInput
+}
+
+export type ReleaseUpdateOneRequiredWithoutDistributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.ReleaseCreateWithoutDistributionsInput, Prisma.ReleaseUncheckedCreateWithoutDistributionsInput>
+  connectOrCreate?: Prisma.ReleaseCreateOrConnectWithoutDistributionsInput
+  upsert?: Prisma.ReleaseUpsertWithoutDistributionsInput
+  connect?: Prisma.ReleaseWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.ReleaseUpdateToOneWithWhereWithoutDistributionsInput, Prisma.ReleaseUpdateWithoutDistributionsInput>, Prisma.ReleaseUncheckedUpdateWithoutDistributionsInput>
 }
 
 export type NullableBoolFieldUpdateOperationsInput = {
@@ -913,6 +934,154 @@ export type ReleaseUncheckedUpdateManyWithoutUserNestedInput = {
   deleteMany?: Prisma.ReleaseScalarWhereInput | Prisma.ReleaseScalarWhereInput[]
 }
 
+export type ReleaseCreateWithoutDistributionsInput = {
+  releaseId?: string
+  releaseDate?: Date | string | null
+  preOrderDate?: Date | string | null
+  releaseTitle?: string | null
+  typeOfRelease?: string | null
+  genre?: string | null
+  language?: string | null
+  isExplicitContent?: boolean | null
+  hasExternalRightsHolder?: boolean | null
+  hasDolbyAtmosVersion?: boolean | null
+  hasExtendedMixForDjStores?: boolean | null
+  additionalDetails?: string | null
+  hasArtistOnSpotify?: boolean | null
+  hasMusicVideo?: boolean | null
+  status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  user: Prisma.UserCreateNestedOneWithoutReleasesInput
+  releaseArtists?: Prisma.ReleaseArtistCreateNestedManyWithoutReleaseInput
+  releaseTerritories?: Prisma.ReleaseTerritoryCreateNestedManyWithoutReleaseInput
+  splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
+  tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
+  backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+}
+
+export type ReleaseUncheckedCreateWithoutDistributionsInput = {
+  releaseId?: string
+  userId: string
+  releaseDate?: Date | string | null
+  preOrderDate?: Date | string | null
+  releaseTitle?: string | null
+  typeOfRelease?: string | null
+  genre?: string | null
+  language?: string | null
+  isExplicitContent?: boolean | null
+  hasExternalRightsHolder?: boolean | null
+  hasDolbyAtmosVersion?: boolean | null
+  hasExtendedMixForDjStores?: boolean | null
+  additionalDetails?: string | null
+  hasArtistOnSpotify?: boolean | null
+  hasMusicVideo?: boolean | null
+  status?: string | null
+  producerCredits?: string | null
+  lyricistCredits?: string | null
+  masterSplits?: string | null
+  copyrightHolder?: string | null
+  labelName?: string | null
+  albumLevelArtistName?: string | null
+  musicFileLink?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  releaseArtists?: Prisma.ReleaseArtistUncheckedCreateNestedManyWithoutReleaseInput
+  releaseTerritories?: Prisma.ReleaseTerritoryUncheckedCreateNestedManyWithoutReleaseInput
+  splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
+  tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
+  backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+}
+
+export type ReleaseCreateOrConnectWithoutDistributionsInput = {
+  where: Prisma.ReleaseWhereUniqueInput
+  create: Prisma.XOR<Prisma.ReleaseCreateWithoutDistributionsInput, Prisma.ReleaseUncheckedCreateWithoutDistributionsInput>
+}
+
+export type ReleaseUpsertWithoutDistributionsInput = {
+  update: Prisma.XOR<Prisma.ReleaseUpdateWithoutDistributionsInput, Prisma.ReleaseUncheckedUpdateWithoutDistributionsInput>
+  create: Prisma.XOR<Prisma.ReleaseCreateWithoutDistributionsInput, Prisma.ReleaseUncheckedCreateWithoutDistributionsInput>
+  where?: Prisma.ReleaseWhereInput
+}
+
+export type ReleaseUpdateToOneWithWhereWithoutDistributionsInput = {
+  where?: Prisma.ReleaseWhereInput
+  data: Prisma.XOR<Prisma.ReleaseUpdateWithoutDistributionsInput, Prisma.ReleaseUncheckedUpdateWithoutDistributionsInput>
+}
+
+export type ReleaseUpdateWithoutDistributionsInput = {
+  releaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  preOrderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  typeOfRelease?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isExplicitContent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasExternalRightsHolder?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasDolbyAtmosVersion?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasExtendedMixForDjStores?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  additionalDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  user?: Prisma.UserUpdateOneRequiredWithoutReleasesNestedInput
+  releaseArtists?: Prisma.ReleaseArtistUpdateManyWithoutReleaseNestedInput
+  releaseTerritories?: Prisma.ReleaseTerritoryUpdateManyWithoutReleaseNestedInput
+  splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
+  tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
+  backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+}
+
+export type ReleaseUncheckedUpdateWithoutDistributionsInput = {
+  releaseId?: Prisma.StringFieldUpdateOperationsInput | string
+  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  preOrderDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  typeOfRelease?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  language?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  isExplicitContent?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasExternalRightsHolder?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasDolbyAtmosVersion?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasExtendedMixForDjStores?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  additionalDetails?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  hasArtistOnSpotify?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  hasMusicVideo?: Prisma.NullableBoolFieldUpdateOperationsInput | boolean | null
+  status?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  producerCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  lyricistCredits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  masterSplits?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  copyrightHolder?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  albumLevelArtistName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  musicFileLink?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  releaseArtists?: Prisma.ReleaseArtistUncheckedUpdateManyWithoutReleaseNestedInput
+  releaseTerritories?: Prisma.ReleaseTerritoryUncheckedUpdateManyWithoutReleaseNestedInput
+  splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
+  tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
+  backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+}
+
 export type ReleaseCreateWithoutReleaseArtistsInput = {
   releaseId?: string
   releaseDate?: Date | string | null
@@ -943,6 +1112,7 @@ export type ReleaseCreateWithoutReleaseArtistsInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateWithoutReleaseArtistsInput = {
@@ -975,6 +1145,7 @@ export type ReleaseUncheckedCreateWithoutReleaseArtistsInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseCreateOrConnectWithoutReleaseArtistsInput = {
@@ -1023,6 +1194,7 @@ export type ReleaseUpdateWithoutReleaseArtistsInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateWithoutReleaseArtistsInput = {
@@ -1055,6 +1227,7 @@ export type ReleaseUncheckedUpdateWithoutReleaseArtistsInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseCreateWithoutReleaseTerritoriesInput = {
@@ -1087,6 +1260,7 @@ export type ReleaseCreateWithoutReleaseTerritoriesInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateWithoutReleaseTerritoriesInput = {
@@ -1119,6 +1293,7 @@ export type ReleaseUncheckedCreateWithoutReleaseTerritoriesInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseCreateOrConnectWithoutReleaseTerritoriesInput = {
@@ -1167,6 +1342,7 @@ export type ReleaseUpdateWithoutReleaseTerritoriesInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateWithoutReleaseTerritoriesInput = {
@@ -1199,6 +1375,7 @@ export type ReleaseUncheckedUpdateWithoutReleaseTerritoriesInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseCreateWithoutSplitSheetAgreementsInput = {
@@ -1231,6 +1408,7 @@ export type ReleaseCreateWithoutSplitSheetAgreementsInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateWithoutSplitSheetAgreementsInput = {
@@ -1263,6 +1441,7 @@ export type ReleaseUncheckedCreateWithoutSplitSheetAgreementsInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseCreateOrConnectWithoutSplitSheetAgreementsInput = {
@@ -1311,6 +1490,7 @@ export type ReleaseUpdateWithoutSplitSheetAgreementsInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateWithoutSplitSheetAgreementsInput = {
@@ -1343,6 +1523,7 @@ export type ReleaseUncheckedUpdateWithoutSplitSheetAgreementsInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseCreateWithoutTracksInput = {
@@ -1375,6 +1556,7 @@ export type ReleaseCreateWithoutTracksInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryCreateNestedManyWithoutReleaseInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateWithoutTracksInput = {
@@ -1407,6 +1589,7 @@ export type ReleaseUncheckedCreateWithoutTracksInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedCreateNestedManyWithoutReleaseInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseCreateOrConnectWithoutTracksInput = {
@@ -1455,6 +1638,7 @@ export type ReleaseUpdateWithoutTracksInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUpdateManyWithoutReleaseNestedInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateWithoutTracksInput = {
@@ -1487,6 +1671,7 @@ export type ReleaseUncheckedUpdateWithoutTracksInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedUpdateManyWithoutReleaseNestedInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseCreateWithoutBackCatalogueInput = {
@@ -1519,6 +1704,7 @@ export type ReleaseCreateWithoutBackCatalogueInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryCreateNestedManyWithoutReleaseInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateWithoutBackCatalogueInput = {
@@ -1551,6 +1737,7 @@ export type ReleaseUncheckedCreateWithoutBackCatalogueInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedCreateNestedManyWithoutReleaseInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseCreateOrConnectWithoutBackCatalogueInput = {
@@ -1599,6 +1786,7 @@ export type ReleaseUpdateWithoutBackCatalogueInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUpdateManyWithoutReleaseNestedInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateWithoutBackCatalogueInput = {
@@ -1631,6 +1819,7 @@ export type ReleaseUncheckedUpdateWithoutBackCatalogueInput = {
   releaseTerritories?: Prisma.ReleaseTerritoryUncheckedUpdateManyWithoutReleaseNestedInput
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseCreateWithoutUserInput = {
@@ -1663,6 +1852,7 @@ export type ReleaseCreateWithoutUserInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseUncheckedCreateWithoutUserInput = {
@@ -1695,6 +1885,7 @@ export type ReleaseUncheckedCreateWithoutUserInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedCreateNestedManyWithoutReleaseInput
   tracks?: Prisma.TrackUncheckedCreateNestedManyWithoutReleaseInput
   backCatalogue?: Prisma.BackCatalogueUncheckedCreateNestedManyWithoutReleaseInput
+  distributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutReleaseInput
 }
 
 export type ReleaseCreateOrConnectWithoutUserInput = {
@@ -1811,6 +2002,7 @@ export type ReleaseUpdateWithoutUserInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateWithoutUserInput = {
@@ -1843,6 +2035,7 @@ export type ReleaseUncheckedUpdateWithoutUserInput = {
   splitSheetAgreements?: Prisma.SplitSheetAgreementUncheckedUpdateManyWithoutReleaseNestedInput
   tracks?: Prisma.TrackUncheckedUpdateManyWithoutReleaseNestedInput
   backCatalogue?: Prisma.BackCatalogueUncheckedUpdateManyWithoutReleaseNestedInput
+  distributions?: Prisma.DistributionUncheckedUpdateManyWithoutReleaseNestedInput
 }
 
 export type ReleaseUncheckedUpdateManyWithoutUserInput = {
@@ -1883,6 +2076,7 @@ export type ReleaseCountOutputType = {
   splitSheetAgreements: number
   tracks: number
   backCatalogue: number
+  distributions: number
 }
 
 export type ReleaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1891,6 +2085,7 @@ export type ReleaseCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   splitSheetAgreements?: boolean | ReleaseCountOutputTypeCountSplitSheetAgreementsArgs
   tracks?: boolean | ReleaseCountOutputTypeCountTracksArgs
   backCatalogue?: boolean | ReleaseCountOutputTypeCountBackCatalogueArgs
+  distributions?: boolean | ReleaseCountOutputTypeCountDistributionsArgs
 }
 
 /**
@@ -1938,6 +2133,13 @@ export type ReleaseCountOutputTypeCountBackCatalogueArgs<ExtArgs extends runtime
   where?: Prisma.BackCatalogueWhereInput
 }
 
+/**
+ * ReleaseCountOutputType without action
+ */
+export type ReleaseCountOutputTypeCountDistributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DistributionWhereInput
+}
+
 
 export type ReleaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   releaseId?: boolean
@@ -1971,6 +2173,7 @@ export type ReleaseSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   splitSheetAgreements?: boolean | Prisma.Release$splitSheetAgreementsArgs<ExtArgs>
   tracks?: boolean | Prisma.Release$tracksArgs<ExtArgs>
   backCatalogue?: boolean | Prisma.Release$backCatalogueArgs<ExtArgs>
+  distributions?: boolean | Prisma.Release$distributionsArgs<ExtArgs>
   _count?: boolean | Prisma.ReleaseCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["release"]>
 
@@ -2068,6 +2271,7 @@ export type ReleaseInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   splitSheetAgreements?: boolean | Prisma.Release$splitSheetAgreementsArgs<ExtArgs>
   tracks?: boolean | Prisma.Release$tracksArgs<ExtArgs>
   backCatalogue?: boolean | Prisma.Release$backCatalogueArgs<ExtArgs>
+  distributions?: boolean | Prisma.Release$distributionsArgs<ExtArgs>
   _count?: boolean | Prisma.ReleaseCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type ReleaseIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -2086,6 +2290,7 @@ export type $ReleasePayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     splitSheetAgreements: Prisma.$SplitSheetAgreementPayload<ExtArgs>[]
     tracks: Prisma.$TrackPayload<ExtArgs>[]
     backCatalogue: Prisma.$BackCataloguePayload<ExtArgs>[]
+    distributions: Prisma.$DistributionPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     releaseId: string
@@ -2513,6 +2718,7 @@ export interface Prisma__ReleaseClient<T, Null = never, ExtArgs extends runtime.
   splitSheetAgreements<T extends Prisma.Release$splitSheetAgreementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Release$splitSheetAgreementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$SplitSheetAgreementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   tracks<T extends Prisma.Release$tracksArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Release$tracksArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TrackPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   backCatalogue<T extends Prisma.Release$backCatalogueArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Release$backCatalogueArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$BackCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  distributions<T extends Prisma.Release$distributionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Release$distributionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -3080,6 +3286,30 @@ export type Release$backCatalogueArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.BackCatalogueScalarFieldEnum | Prisma.BackCatalogueScalarFieldEnum[]
+}
+
+/**
+ * Release.distributions
+ */
+export type Release$distributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Distribution
+   */
+  select?: Prisma.DistributionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Distribution
+   */
+  omit?: Prisma.DistributionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DistributionInclude<ExtArgs> | null
+  where?: Prisma.DistributionWhereInput
+  orderBy?: Prisma.DistributionOrderByWithRelationInput | Prisma.DistributionOrderByWithRelationInput[]
+  cursor?: Prisma.DistributionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DistributionScalarFieldEnum | Prisma.DistributionScalarFieldEnum[]
 }
 
 /**
