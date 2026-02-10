@@ -211,7 +211,7 @@ export type UserGroupByOutputType = {
   id: string
   name: string
   email: string
-  password: string
+  password: string | null
   phone: string | null
   role: $Enums.UserRole
   status: $Enums.UserStatus
@@ -250,7 +250,7 @@ export type UserWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
@@ -281,13 +281,20 @@ export type UserWhereInput = {
   claims?: Prisma.ClaimListRelationFilter
   paymentMethods?: Prisma.PaymentMethodListRelationFilter
   privacySettings?: Prisma.XOR<Prisma.PrivacySettingsNullableScalarRelationFilter, Prisma.PrivacySettingsWhereInput> | null
+  distributorClients?: Prisma.DistributorClientListRelationFilter
+  distributorCatalogues?: Prisma.ClientBackCatalogueListRelationFilter
+  distributorDistributions?: Prisma.DistributionListRelationFilter
+  clientDistributions?: Prisma.DistributionListRelationFilter
+  distributionNotes?: Prisma.DistributionNoteListRelationFilter
+  clientDistributor?: Prisma.DistributorClientListRelationFilter
+  clientCatalogues?: Prisma.ClientBackCatalogueListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -318,6 +325,13 @@ export type UserOrderByWithRelationInput = {
   claims?: Prisma.ClaimOrderByRelationAggregateInput
   paymentMethods?: Prisma.PaymentMethodOrderByRelationAggregateInput
   privacySettings?: Prisma.PrivacySettingsOrderByWithRelationInput
+  distributorClients?: Prisma.DistributorClientOrderByRelationAggregateInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueOrderByRelationAggregateInput
+  distributorDistributions?: Prisma.DistributionOrderByRelationAggregateInput
+  clientDistributions?: Prisma.DistributionOrderByRelationAggregateInput
+  distributionNotes?: Prisma.DistributionNoteOrderByRelationAggregateInput
+  clientDistributor?: Prisma.DistributorClientOrderByRelationAggregateInput
+  clientCatalogues?: Prisma.ClientBackCatalogueOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -328,7 +342,7 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   name?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
   isVerified?: Prisma.BoolFilter<"User"> | boolean
@@ -358,13 +372,20 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   claims?: Prisma.ClaimListRelationFilter
   paymentMethods?: Prisma.PaymentMethodListRelationFilter
   privacySettings?: Prisma.XOR<Prisma.PrivacySettingsNullableScalarRelationFilter, Prisma.PrivacySettingsWhereInput> | null
+  distributorClients?: Prisma.DistributorClientListRelationFilter
+  distributorCatalogues?: Prisma.ClientBackCatalogueListRelationFilter
+  distributorDistributions?: Prisma.DistributionListRelationFilter
+  clientDistributions?: Prisma.DistributionListRelationFilter
+  distributionNotes?: Prisma.DistributionNoteListRelationFilter
+  clientDistributor?: Prisma.DistributorClientListRelationFilter
+  clientCatalogues?: Prisma.ClientBackCatalogueListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
   email?: Prisma.SortOrder
-  password?: Prisma.SortOrder
+  password?: Prisma.SortOrderInput | Prisma.SortOrder
   phone?: Prisma.SortOrderInput | Prisma.SortOrder
   role?: Prisma.SortOrder
   status?: Prisma.SortOrder
@@ -388,7 +409,7 @@ export type UserScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"User"> | string
   name?: Prisma.StringWithAggregatesFilter<"User"> | string
   email?: Prisma.StringWithAggregatesFilter<"User"> | string
-  password?: Prisma.StringWithAggregatesFilter<"User"> | string
+  password?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   phone?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleWithAggregatesFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusWithAggregatesFilter<"User"> | $Enums.UserStatus
@@ -406,7 +427,7 @@ export type UserCreateInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -436,13 +457,20 @@ export type UserCreateInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -472,13 +500,20 @@ export type UserUncheckedCreateInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -508,13 +543,20 @@ export type UserUpdateInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -544,13 +586,20 @@ export type UserUncheckedUpdateInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -568,7 +617,7 @@ export type UserUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -585,7 +634,7 @@ export type UserUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -836,6 +885,104 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
+export type UserCreateNestedOneWithoutClientDistributionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutDistributorDistributionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutClientDistributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributionsInput
+  upsert?: Prisma.UserUpsertWithoutClientDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientDistributionsInput, Prisma.UserUpdateWithoutClientDistributionsInput>, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+}
+
+export type UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorDistributionsInput
+  upsert?: Prisma.UserUpsertWithoutDistributorDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributorDistributionsInput, Prisma.UserUpdateWithoutDistributorDistributionsInput>, Prisma.UserUncheckedUpdateWithoutDistributorDistributionsInput>
+}
+
+export type UserCreateNestedOneWithoutDistributionNotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributionNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDistributionNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributionNotesInput
+  upsert?: Prisma.UserUpsertWithoutDistributionNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributionNotesInput, Prisma.UserUpdateWithoutDistributionNotesInput>, Prisma.UserUncheckedUpdateWithoutDistributionNotesInput>
+}
+
+export type UserCreateNestedOneWithoutDistributorClientsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorClientsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutClientDistributorInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributorInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDistributorClientsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorClientsInput
+  upsert?: Prisma.UserUpsertWithoutDistributorClientsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributorClientsInput, Prisma.UserUpdateWithoutDistributorClientsInput>, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
+}
+
+export type UserUpdateOneRequiredWithoutClientDistributorNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributorInput
+  upsert?: Prisma.UserUpsertWithoutClientDistributorInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientDistributorInput, Prisma.UserUpdateWithoutClientDistributorInput>, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
+}
+
+export type UserCreateNestedOneWithoutDistributorCataloguesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorCataloguesInput, Prisma.UserUncheckedCreateWithoutDistributorCataloguesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorCataloguesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutClientCataloguesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientCataloguesInput, Prisma.UserUncheckedCreateWithoutClientCataloguesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientCataloguesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDistributorCataloguesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorCataloguesInput, Prisma.UserUncheckedCreateWithoutDistributorCataloguesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorCataloguesInput
+  upsert?: Prisma.UserUpsertWithoutDistributorCataloguesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributorCataloguesInput, Prisma.UserUpdateWithoutDistributorCataloguesInput>, Prisma.UserUncheckedUpdateWithoutDistributorCataloguesInput>
+}
+
+export type UserUpdateOneRequiredWithoutClientCataloguesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientCataloguesInput, Prisma.UserUncheckedCreateWithoutClientCataloguesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientCataloguesInput
+  upsert?: Prisma.UserUpsertWithoutClientCataloguesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientCataloguesInput, Prisma.UserUpdateWithoutClientCataloguesInput>, Prisma.UserUncheckedUpdateWithoutClientCataloguesInput>
+}
+
 export type UserCreateNestedManyWithoutProfilePictureInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutProfilePictureInput, Prisma.UserUncheckedCreateWithoutProfilePictureInput> | Prisma.UserCreateWithoutProfilePictureInput[] | Prisma.UserUncheckedCreateWithoutProfilePictureInput[]
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutProfilePictureInput | Prisma.UserCreateOrConnectWithoutProfilePictureInput[]
@@ -974,7 +1121,7 @@ export type UserCreateWithoutPaymentMethodsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1003,13 +1150,20 @@ export type UserCreateWithoutPaymentMethodsInput = {
   geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1038,6 +1192,13 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentMethodsInput = {
@@ -1060,7 +1221,7 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1089,13 +1250,20 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1124,13 +1292,20 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPrivacySettingsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1159,13 +1334,20 @@ export type UserCreateWithoutPrivacySettingsInput = {
   geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPrivacySettingsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1194,6 +1376,13 @@ export type UserUncheckedCreateWithoutPrivacySettingsInput = {
   geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPrivacySettingsInput = {
@@ -1216,7 +1405,7 @@ export type UserUpdateWithoutPrivacySettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1245,13 +1434,20 @@ export type UserUpdateWithoutPrivacySettingsInput = {
   geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPrivacySettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1280,13 +1476,20 @@ export type UserUncheckedUpdateWithoutPrivacySettingsInput = {
   geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStatementsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1315,13 +1518,20 @@ export type UserCreateWithoutStatementsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStatementsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1350,6 +1560,13 @@ export type UserUncheckedCreateWithoutStatementsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStatementsInput = {
@@ -1372,7 +1589,7 @@ export type UserUpdateWithoutStatementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1401,13 +1618,20 @@ export type UserUpdateWithoutStatementsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatementsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1436,13 +1660,20 @@ export type UserUncheckedUpdateWithoutStatementsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1471,13 +1702,20 @@ export type UserCreateWithoutTransactionsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1506,6 +1744,13 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -1528,7 +1773,7 @@ export type UserUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1557,13 +1802,20 @@ export type UserUpdateWithoutTransactionsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1592,13 +1844,20 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDealStatusesInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1627,13 +1886,20 @@ export type UserCreateWithoutDealStatusesInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDealStatusesInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1662,6 +1928,13 @@ export type UserUncheckedCreateWithoutDealStatusesInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDealStatusesInput = {
@@ -1684,7 +1957,7 @@ export type UserUpdateWithoutDealStatusesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1713,13 +1986,20 @@ export type UserUpdateWithoutDealStatusesInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDealStatusesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1748,13 +2028,20 @@ export type UserUncheckedUpdateWithoutDealStatusesInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentRequestsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1783,13 +2070,20 @@ export type UserCreateWithoutPaymentRequestsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentRequestsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1818,6 +2112,13 @@ export type UserUncheckedCreateWithoutPaymentRequestsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentRequestsInput = {
@@ -1840,7 +2141,7 @@ export type UserUpdateWithoutPaymentRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1869,13 +2170,20 @@ export type UserUpdateWithoutPaymentRequestsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -1904,13 +2212,20 @@ export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlatformAnalyticsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1939,13 +2254,20 @@ export type UserCreateWithoutPlatformAnalyticsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAnalyticsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -1974,6 +2296,13 @@ export type UserUncheckedCreateWithoutPlatformAnalyticsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAnalyticsInput = {
@@ -1996,7 +2325,7 @@ export type UserUpdateWithoutPlatformAnalyticsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2025,13 +2354,20 @@ export type UserUpdateWithoutPlatformAnalyticsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAnalyticsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2060,13 +2396,20 @@ export type UserUncheckedUpdateWithoutPlatformAnalyticsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssetsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2095,13 +2438,20 @@ export type UserCreateWithoutAssetsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssetsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2130,6 +2480,13 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssetsInput = {
@@ -2152,7 +2509,7 @@ export type UserUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2181,13 +2538,20 @@ export type UserUpdateWithoutAssetsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssetsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2216,13 +2580,20 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGeoTrendsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2251,13 +2622,20 @@ export type UserCreateWithoutGeoTrendsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGeoTrendsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2286,6 +2664,13 @@ export type UserUncheckedCreateWithoutGeoTrendsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGeoTrendsInput = {
@@ -2308,7 +2693,7 @@ export type UserUpdateWithoutGeoTrendsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2337,13 +2722,20 @@ export type UserUpdateWithoutGeoTrendsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGeoTrendsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2372,13 +2764,20 @@ export type UserUncheckedUpdateWithoutGeoTrendsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClaimsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2407,13 +2806,20 @@ export type UserCreateWithoutClaimsInput = {
   geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClaimsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2442,6 +2848,13 @@ export type UserUncheckedCreateWithoutClaimsInput = {
   geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClaimsInput = {
@@ -2464,7 +2877,7 @@ export type UserUpdateWithoutClaimsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2493,13 +2906,20 @@ export type UserUpdateWithoutClaimsInput = {
   geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClaimsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2528,13 +2948,20 @@ export type UserUncheckedUpdateWithoutClaimsInput = {
   geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOtpsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2563,13 +2990,20 @@ export type UserCreateWithoutOtpsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOtpsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2598,6 +3032,13 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOtpsInput = {
@@ -2620,7 +3061,7 @@ export type UserUpdateWithoutOtpsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2649,13 +3090,20 @@ export type UserUpdateWithoutOtpsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2684,13 +3132,20 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2719,13 +3174,20 @@ export type UserCreateWithoutRefreshTokensInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2754,6 +3216,13 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -2776,7 +3245,7 @@ export type UserUpdateWithoutRefreshTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2805,13 +3274,20 @@ export type UserUpdateWithoutRefreshTokensInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -2840,13 +3316,1308 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutClientDistributionsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClientDistributionsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClientDistributionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+}
+
+export type UserCreateWithoutDistributorDistributionsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDistributorDistributionsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDistributorDistributionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
+}
+
+export type UserUpsertWithoutClientDistributionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributionsInput, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClientDistributionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributionsInput, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+}
+
+export type UserUpdateWithoutClientDistributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClientDistributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutDistributorDistributionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDistributorDistributionsInput, Prisma.UserUncheckedUpdateWithoutDistributorDistributionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDistributorDistributionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDistributorDistributionsInput, Prisma.UserUncheckedUpdateWithoutDistributorDistributionsInput>
+}
+
+export type UserUpdateWithoutDistributorDistributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDistributorDistributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDistributionNotesInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDistributionNotesInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDistributionNotesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
+}
+
+export type UserUpsertWithoutDistributionNotesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDistributionNotesInput, Prisma.UserUncheckedUpdateWithoutDistributionNotesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDistributionNotesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDistributionNotesInput, Prisma.UserUncheckedUpdateWithoutDistributionNotesInput>
+}
+
+export type UserUpdateWithoutDistributionNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDistributionNotesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDistributorClientsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDistributorClientsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDistributorClientsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
+}
+
+export type UserCreateWithoutClientDistributorInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClientDistributorInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClientDistributorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
+}
+
+export type UserUpsertWithoutDistributorClientsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDistributorClientsInput, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDistributorClientsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDistributorClientsInput, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
+}
+
+export type UserUpdateWithoutDistributorClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDistributorClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutClientDistributorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributorInput, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClientDistributorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributorInput, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
+}
+
+export type UserUpdateWithoutClientDistributorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClientDistributorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDistributorCataloguesInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDistributorCataloguesInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDistributorCataloguesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorCataloguesInput, Prisma.UserUncheckedCreateWithoutDistributorCataloguesInput>
+}
+
+export type UserCreateWithoutClientCataloguesInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClientCataloguesInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClientCataloguesInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientCataloguesInput, Prisma.UserUncheckedCreateWithoutClientCataloguesInput>
+}
+
+export type UserUpsertWithoutDistributorCataloguesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDistributorCataloguesInput, Prisma.UserUncheckedUpdateWithoutDistributorCataloguesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorCataloguesInput, Prisma.UserUncheckedCreateWithoutDistributorCataloguesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDistributorCataloguesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDistributorCataloguesInput, Prisma.UserUncheckedUpdateWithoutDistributorCataloguesInput>
+}
+
+export type UserUpdateWithoutDistributorCataloguesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDistributorCataloguesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutClientCataloguesInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClientCataloguesInput, Prisma.UserUncheckedUpdateWithoutClientCataloguesInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientCataloguesInput, Prisma.UserUncheckedCreateWithoutClientCataloguesInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClientCataloguesInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClientCataloguesInput, Prisma.UserUncheckedUpdateWithoutClientCataloguesInput>
+}
+
+export type UserUpdateWithoutClientCataloguesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClientCataloguesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfilePictureInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2875,13 +4646,20 @@ export type UserCreateWithoutProfilePictureInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfilePictureInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2910,6 +4688,13 @@ export type UserUncheckedCreateWithoutProfilePictureInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfilePictureInput = {
@@ -2945,7 +4730,7 @@ export type UserScalarWhereInput = {
   id?: Prisma.StringFilter<"User"> | string
   name?: Prisma.StringFilter<"User"> | string
   email?: Prisma.StringFilter<"User"> | string
-  password?: Prisma.StringFilter<"User"> | string
+  password?: Prisma.StringNullableFilter<"User"> | string | null
   phone?: Prisma.StringNullableFilter<"User"> | string | null
   role?: Prisma.EnumUserRoleFilter<"User"> | $Enums.UserRole
   status?: Prisma.EnumUserStatusFilter<"User"> | $Enums.UserStatus
@@ -2963,7 +4748,7 @@ export type UserCreateWithoutLoginDevicesInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -2992,13 +4777,20 @@ export type UserCreateWithoutLoginDevicesInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoginDevicesInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3027,6 +4819,13 @@ export type UserUncheckedCreateWithoutLoginDevicesInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLoginDevicesInput = {
@@ -3049,7 +4848,7 @@ export type UserUpdateWithoutLoginDevicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3078,13 +4877,20 @@ export type UserUpdateWithoutLoginDevicesInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoginDevicesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3113,13 +4919,20 @@ export type UserUncheckedUpdateWithoutLoginDevicesInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3148,13 +4961,20 @@ export type UserCreateWithoutNotificationsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3183,6 +5003,13 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -3205,7 +5032,7 @@ export type UserUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3234,13 +5061,20 @@ export type UserUpdateWithoutNotificationsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3269,13 +5103,20 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationSettingsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3304,13 +5145,20 @@ export type UserCreateWithoutNotificationSettingsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3339,6 +5187,13 @@ export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationSettingsInput = {
@@ -3361,7 +5216,7 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3390,13 +5245,20 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3425,13 +5287,20 @@ export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReleasesInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3460,13 +5329,20 @@ export type UserCreateWithoutReleasesInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReleasesInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3495,6 +5371,13 @@ export type UserUncheckedCreateWithoutReleasesInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReleasesInput = {
@@ -3517,7 +5400,7 @@ export type UserUpdateWithoutReleasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3546,13 +5429,20 @@ export type UserUpdateWithoutReleasesInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReleasesInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3581,13 +5471,20 @@ export type UserUncheckedUpdateWithoutReleasesInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutArtistsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3616,13 +5513,20 @@ export type UserCreateWithoutArtistsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutArtistsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3651,6 +5555,13 @@ export type UserUncheckedCreateWithoutArtistsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutArtistsInput = {
@@ -3673,7 +5584,7 @@ export type UserUpdateWithoutArtistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3702,13 +5613,20 @@ export type UserUpdateWithoutArtistsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArtistsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3737,13 +5655,20 @@ export type UserUncheckedUpdateWithoutArtistsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClientSettingsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3772,13 +5697,20 @@ export type UserCreateWithoutClientSettingsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientSettingsInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3807,6 +5739,13 @@ export type UserUncheckedCreateWithoutClientSettingsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientSettingsInput = {
@@ -3829,7 +5768,7 @@ export type UserUpdateWithoutClientSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3858,13 +5797,20 @@ export type UserUpdateWithoutClientSettingsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientSettingsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3893,13 +5839,20 @@ export type UserUncheckedUpdateWithoutClientSettingsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyProfilePictureInput = {
   id?: string
   name?: string
   email: string
-  password: string
+  password?: string | null
   phone?: string | null
   role?: $Enums.UserRole
   status?: $Enums.UserStatus
@@ -3916,7 +5869,7 @@ export type UserUpdateWithoutProfilePictureInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3945,13 +5898,20 @@ export type UserUpdateWithoutProfilePictureInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfilePictureInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -3980,13 +5940,20 @@ export type UserUncheckedUpdateWithoutProfilePictureInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutProfilePictureInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
   email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
   status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
@@ -4022,6 +5989,13 @@ export type UserCountOutputType = {
   geoTrends: number
   claims: number
   paymentMethods: number
+  distributorClients: number
+  distributorCatalogues: number
+  distributorDistributions: number
+  clientDistributions: number
+  distributionNotes: number
+  clientDistributor: number
+  clientCatalogues: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4042,6 +6016,13 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   geoTrends?: boolean | UserCountOutputTypeCountGeoTrendsArgs
   claims?: boolean | UserCountOutputTypeCountClaimsArgs
   paymentMethods?: boolean | UserCountOutputTypeCountPaymentMethodsArgs
+  distributorClients?: boolean | UserCountOutputTypeCountDistributorClientsArgs
+  distributorCatalogues?: boolean | UserCountOutputTypeCountDistributorCataloguesArgs
+  distributorDistributions?: boolean | UserCountOutputTypeCountDistributorDistributionsArgs
+  clientDistributions?: boolean | UserCountOutputTypeCountClientDistributionsArgs
+  distributionNotes?: boolean | UserCountOutputTypeCountDistributionNotesArgs
+  clientDistributor?: boolean | UserCountOutputTypeCountClientDistributorArgs
+  clientCatalogues?: boolean | UserCountOutputTypeCountClientCataloguesArgs
 }
 
 /**
@@ -4173,6 +6154,55 @@ export type UserCountOutputTypeCountPaymentMethodsArgs<ExtArgs extends runtime.T
   where?: Prisma.PaymentMethodWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDistributorClientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DistributorClientWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDistributorCataloguesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientBackCatalogueWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDistributorDistributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DistributionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountClientDistributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DistributionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountDistributionNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DistributionNoteWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountClientDistributorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.DistributorClientWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountClientCataloguesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.ClientBackCatalogueWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -4209,6 +6239,13 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   claims?: boolean | Prisma.User$claimsArgs<ExtArgs>
   paymentMethods?: boolean | Prisma.User$paymentMethodsArgs<ExtArgs>
   privacySettings?: boolean | Prisma.User$privacySettingsArgs<ExtArgs>
+  distributorClients?: boolean | Prisma.User$distributorClientsArgs<ExtArgs>
+  distributorCatalogues?: boolean | Prisma.User$distributorCataloguesArgs<ExtArgs>
+  distributorDistributions?: boolean | Prisma.User$distributorDistributionsArgs<ExtArgs>
+  clientDistributions?: boolean | Prisma.User$clientDistributionsArgs<ExtArgs>
+  distributionNotes?: boolean | Prisma.User$distributionNotesArgs<ExtArgs>
+  clientDistributor?: boolean | Prisma.User$clientDistributorArgs<ExtArgs>
+  clientCatalogues?: boolean | Prisma.User$clientCataloguesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -4289,6 +6326,13 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   claims?: boolean | Prisma.User$claimsArgs<ExtArgs>
   paymentMethods?: boolean | Prisma.User$paymentMethodsArgs<ExtArgs>
   privacySettings?: boolean | Prisma.User$privacySettingsArgs<ExtArgs>
+  distributorClients?: boolean | Prisma.User$distributorClientsArgs<ExtArgs>
+  distributorCatalogues?: boolean | Prisma.User$distributorCataloguesArgs<ExtArgs>
+  distributorDistributions?: boolean | Prisma.User$distributorDistributionsArgs<ExtArgs>
+  clientDistributions?: boolean | Prisma.User$clientDistributionsArgs<ExtArgs>
+  distributionNotes?: boolean | Prisma.User$distributionNotesArgs<ExtArgs>
+  clientDistributor?: boolean | Prisma.User$clientDistributorArgs<ExtArgs>
+  clientCatalogues?: boolean | Prisma.User$clientCataloguesArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -4320,12 +6364,19 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     claims: Prisma.$ClaimPayload<ExtArgs>[]
     paymentMethods: Prisma.$PaymentMethodPayload<ExtArgs>[]
     privacySettings: Prisma.$PrivacySettingsPayload<ExtArgs> | null
+    distributorClients: Prisma.$DistributorClientPayload<ExtArgs>[]
+    distributorCatalogues: Prisma.$ClientBackCataloguePayload<ExtArgs>[]
+    distributorDistributions: Prisma.$DistributionPayload<ExtArgs>[]
+    clientDistributions: Prisma.$DistributionPayload<ExtArgs>[]
+    distributionNotes: Prisma.$DistributionNotePayload<ExtArgs>[]
+    clientDistributor: Prisma.$DistributorClientPayload<ExtArgs>[]
+    clientCatalogues: Prisma.$ClientBackCataloguePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
     email: string
-    password: string
+    password: string | null
     phone: string | null
     role: $Enums.UserRole
     status: $Enums.UserStatus
@@ -4750,6 +6801,13 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   claims<T extends Prisma.User$claimsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$claimsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClaimPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   paymentMethods<T extends Prisma.User$paymentMethodsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$paymentMethodsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PaymentMethodPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   privacySettings<T extends Prisma.User$privacySettingsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$privacySettingsArgs<ExtArgs>>): Prisma.Prisma__PrivacySettingsClient<runtime.Types.Result.GetResult<Prisma.$PrivacySettingsPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  distributorClients<T extends Prisma.User$distributorClientsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$distributorClientsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributorClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  distributorCatalogues<T extends Prisma.User$distributorCataloguesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$distributorCataloguesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientBackCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  distributorDistributions<T extends Prisma.User$distributorDistributionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$distributorDistributionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientDistributions<T extends Prisma.User$clientDistributionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientDistributionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  distributionNotes<T extends Prisma.User$distributionNotesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$distributionNotesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientDistributor<T extends Prisma.User$clientDistributorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientDistributorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributorClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  clientCatalogues<T extends Prisma.User$clientCataloguesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientCataloguesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientBackCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -5633,6 +7691,174 @@ export type User$privacySettingsArgs<ExtArgs extends runtime.Types.Extensions.In
    */
   include?: Prisma.PrivacySettingsInclude<ExtArgs> | null
   where?: Prisma.PrivacySettingsWhereInput
+}
+
+/**
+ * User.distributorClients
+ */
+export type User$distributorClientsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DistributorClient
+   */
+  select?: Prisma.DistributorClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DistributorClient
+   */
+  omit?: Prisma.DistributorClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DistributorClientInclude<ExtArgs> | null
+  where?: Prisma.DistributorClientWhereInput
+  orderBy?: Prisma.DistributorClientOrderByWithRelationInput | Prisma.DistributorClientOrderByWithRelationInput[]
+  cursor?: Prisma.DistributorClientWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DistributorClientScalarFieldEnum | Prisma.DistributorClientScalarFieldEnum[]
+}
+
+/**
+ * User.distributorCatalogues
+ */
+export type User$distributorCataloguesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientBackCatalogue
+   */
+  select?: Prisma.ClientBackCatalogueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientBackCatalogue
+   */
+  omit?: Prisma.ClientBackCatalogueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientBackCatalogueInclude<ExtArgs> | null
+  where?: Prisma.ClientBackCatalogueWhereInput
+  orderBy?: Prisma.ClientBackCatalogueOrderByWithRelationInput | Prisma.ClientBackCatalogueOrderByWithRelationInput[]
+  cursor?: Prisma.ClientBackCatalogueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientBackCatalogueScalarFieldEnum | Prisma.ClientBackCatalogueScalarFieldEnum[]
+}
+
+/**
+ * User.distributorDistributions
+ */
+export type User$distributorDistributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Distribution
+   */
+  select?: Prisma.DistributionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Distribution
+   */
+  omit?: Prisma.DistributionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DistributionInclude<ExtArgs> | null
+  where?: Prisma.DistributionWhereInput
+  orderBy?: Prisma.DistributionOrderByWithRelationInput | Prisma.DistributionOrderByWithRelationInput[]
+  cursor?: Prisma.DistributionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DistributionScalarFieldEnum | Prisma.DistributionScalarFieldEnum[]
+}
+
+/**
+ * User.clientDistributions
+ */
+export type User$clientDistributionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Distribution
+   */
+  select?: Prisma.DistributionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Distribution
+   */
+  omit?: Prisma.DistributionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DistributionInclude<ExtArgs> | null
+  where?: Prisma.DistributionWhereInput
+  orderBy?: Prisma.DistributionOrderByWithRelationInput | Prisma.DistributionOrderByWithRelationInput[]
+  cursor?: Prisma.DistributionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DistributionScalarFieldEnum | Prisma.DistributionScalarFieldEnum[]
+}
+
+/**
+ * User.distributionNotes
+ */
+export type User$distributionNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DistributionNote
+   */
+  select?: Prisma.DistributionNoteSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DistributionNote
+   */
+  omit?: Prisma.DistributionNoteOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DistributionNoteInclude<ExtArgs> | null
+  where?: Prisma.DistributionNoteWhereInput
+  orderBy?: Prisma.DistributionNoteOrderByWithRelationInput | Prisma.DistributionNoteOrderByWithRelationInput[]
+  cursor?: Prisma.DistributionNoteWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DistributionNoteScalarFieldEnum | Prisma.DistributionNoteScalarFieldEnum[]
+}
+
+/**
+ * User.clientDistributor
+ */
+export type User$clientDistributorArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the DistributorClient
+   */
+  select?: Prisma.DistributorClientSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the DistributorClient
+   */
+  omit?: Prisma.DistributorClientOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.DistributorClientInclude<ExtArgs> | null
+  where?: Prisma.DistributorClientWhereInput
+  orderBy?: Prisma.DistributorClientOrderByWithRelationInput | Prisma.DistributorClientOrderByWithRelationInput[]
+  cursor?: Prisma.DistributorClientWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.DistributorClientScalarFieldEnum | Prisma.DistributorClientScalarFieldEnum[]
+}
+
+/**
+ * User.clientCatalogues
+ */
+export type User$clientCataloguesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the ClientBackCatalogue
+   */
+  select?: Prisma.ClientBackCatalogueSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the ClientBackCatalogue
+   */
+  omit?: Prisma.ClientBackCatalogueOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.ClientBackCatalogueInclude<ExtArgs> | null
+  where?: Prisma.ClientBackCatalogueWhereInput
+  orderBy?: Prisma.ClientBackCatalogueOrderByWithRelationInput | Prisma.ClientBackCatalogueOrderByWithRelationInput[]
+  cursor?: Prisma.ClientBackCatalogueWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.ClientBackCatalogueScalarFieldEnum | Prisma.ClientBackCatalogueScalarFieldEnum[]
 }
 
 /**

@@ -389,6 +389,40 @@ export type EnumOtpTypeWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>
 }
 
+export type EnumDistributionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DistributionStatus | Prisma.EnumDistributionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistributionStatusFilter<$PrismaModel> | $Enums.DistributionStatus
+}
+
+export type EnumDistributionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DistributionStatus | Prisma.EnumDistributionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistributionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DistributionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDistributionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDistributionStatusFilter<$PrismaModel>
+}
+
+export type EnumClientRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClientRole | Prisma.EnumClientRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClientRoleFilter<$PrismaModel> | $Enums.ClientRole
+}
+
+export type EnumClientRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClientRole | Prisma.EnumClientRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClientRoleWithAggregatesFilter<$PrismaModel> | $Enums.ClientRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClientRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClientRoleFilter<$PrismaModel>
+}
+
 export type EnumFileTypeFilter<$PrismaModel = never> = {
   equals?: $Enums.FileType | Prisma.EnumFileTypeFieldRefInput<$PrismaModel>
   in?: $Enums.FileType[] | Prisma.ListEnumFileTypeFieldRefInput<$PrismaModel>
@@ -917,6 +951,40 @@ export type NestedEnumOtpTypeWithAggregatesFilter<$PrismaModel = never> = {
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>
   _max?: Prisma.NestedEnumOtpTypeFilter<$PrismaModel>
+}
+
+export type NestedEnumDistributionStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.DistributionStatus | Prisma.EnumDistributionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistributionStatusFilter<$PrismaModel> | $Enums.DistributionStatus
+}
+
+export type NestedEnumDistributionStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.DistributionStatus | Prisma.EnumDistributionStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.DistributionStatus[] | Prisma.ListEnumDistributionStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumDistributionStatusWithAggregatesFilter<$PrismaModel> | $Enums.DistributionStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumDistributionStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumDistributionStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumClientRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClientRole | Prisma.EnumClientRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClientRoleFilter<$PrismaModel> | $Enums.ClientRole
+}
+
+export type NestedEnumClientRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.ClientRole | Prisma.EnumClientRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.ClientRole[] | Prisma.ListEnumClientRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumClientRoleWithAggregatesFilter<$PrismaModel> | $Enums.ClientRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumClientRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumClientRoleFilter<$PrismaModel>
 }
 
 export type NestedEnumFileTypeFilter<$PrismaModel = never> = {

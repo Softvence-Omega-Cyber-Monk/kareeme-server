@@ -66,6 +66,11 @@ export const ModelName = {
   Claim: 'Claim',
   UserOtp: 'UserOtp',
   RefreshToken: 'RefreshToken',
+  Distribution: 'Distribution',
+  PlatformDistribution: 'PlatformDistribution',
+  DistributionNote: 'DistributionNote',
+  DistributorClient: 'DistributorClient',
+  ClientBackCatalogue: 'ClientBackCatalogue',
   FileInstance: 'FileInstance',
   VideoMergeJob: 'VideoMergeJob',
   LoginDevice: 'LoginDevice',
@@ -368,6 +373,92 @@ export const RefreshTokenScalarFieldEnum = {
 } as const
 
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
+
+
+export const DistributionScalarFieldEnum = {
+  distributionId: 'distributionId',
+  releaseId: 'releaseId',
+  userId: 'userId',
+  distributorId: 'distributorId',
+  status: 'status',
+  submittedAt: 'submittedAt',
+  approvedAt: 'approvedAt',
+  distributedAt: 'distributedAt',
+  declinedAt: 'declinedAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DistributionScalarFieldEnum = (typeof DistributionScalarFieldEnum)[keyof typeof DistributionScalarFieldEnum]
+
+
+export const PlatformDistributionScalarFieldEnum = {
+  platformDistId: 'platformDistId',
+  distributionId: 'distributionId',
+  platform: 'platform',
+  status: 'status',
+  platformReleaseId: 'platformReleaseId',
+  platformUrl: 'platformUrl',
+  streams: 'streams',
+  sentAt: 'sentAt',
+  liveAt: 'liveAt',
+  failedAt: 'failedAt',
+  errorMessage: 'errorMessage',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformDistributionScalarFieldEnum = (typeof PlatformDistributionScalarFieldEnum)[keyof typeof PlatformDistributionScalarFieldEnum]
+
+
+export const DistributionNoteScalarFieldEnum = {
+  noteId: 'noteId',
+  distributionId: 'distributionId',
+  userId: 'userId',
+  content: 'content',
+  isInternal: 'isInternal',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DistributionNoteScalarFieldEnum = (typeof DistributionNoteScalarFieldEnum)[keyof typeof DistributionNoteScalarFieldEnum]
+
+
+export const DistributorClientScalarFieldEnum = {
+  clientId: 'clientId',
+  distributorId: 'distributorId',
+  userId: 'userId',
+  role: 'role',
+  phoneNumber: 'phoneNumber',
+  totalReleases: 'totalReleases',
+  isActive: 'isActive',
+  oneTimePassword: 'oneTimePassword',
+  otpExpiresAt: 'otpExpiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DistributorClientScalarFieldEnum = (typeof DistributorClientScalarFieldEnum)[keyof typeof DistributorClientScalarFieldEnum]
+
+
+export const ClientBackCatalogueScalarFieldEnum = {
+  catalogueId: 'catalogueId',
+  distributorId: 'distributorId',
+  userId: 'userId',
+  artistName: 'artistName',
+  genre: 'genre',
+  totalReleases: 'totalReleases',
+  releaseTypes: 'releaseTypes',
+  currentDistributor: 'currentDistributor',
+  label: 'label',
+  totalTracks: 'totalTracks',
+  dateRangeStart: 'dateRangeStart',
+  dateRangeEnd: 'dateRangeEnd',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientBackCatalogueScalarFieldEnum = (typeof ClientBackCatalogueScalarFieldEnum)[keyof typeof ClientBackCatalogueScalarFieldEnum]
 
 
 export const FileInstanceScalarFieldEnum = {

@@ -113,6 +113,31 @@ export type UserOtp = Prisma.UserOtpModel
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
+ * Model Distribution
+ * 
+ */
+export type Distribution = Prisma.DistributionModel
+/**
+ * Model PlatformDistribution
+ * 
+ */
+export type PlatformDistribution = Prisma.PlatformDistributionModel
+/**
+ * Model DistributionNote
+ * 
+ */
+export type DistributionNote = Prisma.DistributionNoteModel
+/**
+ * Model DistributorClient
+ * 
+ */
+export type DistributorClient = Prisma.DistributorClientModel
+/**
+ * Model ClientBackCatalogue
+ * 
+ */
+export type ClientBackCatalogue = Prisma.ClientBackCatalogueModel
+/**
  * Model FileInstance
  * 
  */

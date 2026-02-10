@@ -122,6 +122,27 @@ export const DistributionPlatform = {
 export type DistributionPlatform = (typeof DistributionPlatform)[keyof typeof DistributionPlatform]
 
 
+export const DistributionStatus = {
+  Pending: 'Pending',
+  InProgress: 'InProgress',
+  Distributed: 'Distributed',
+  Failed: 'Failed',
+  Declined: 'Declined'
+} as const
+
+export type DistributionStatus = (typeof DistributionStatus)[keyof typeof DistributionStatus]
+
+
+export const ClientRole = {
+  Artist: 'Artist',
+  Label: 'Label',
+  Manager: 'Manager',
+  Producer: 'Producer'
+} as const
+
+export type ClientRole = (typeof ClientRole)[keyof typeof ClientRole]
+
+
 export const FileType = {
   image: 'image',
   docs: 'docs',
