@@ -28,6 +28,36 @@ export type PaymentMethod = Prisma.PaymentMethodModel
  */
 export type PrivacySettings = Prisma.PrivacySettingsModel
 /**
+ * Model AccountantSettings
+ * 
+ */
+export type AccountantSettings = Prisma.AccountantSettingsModel
+/**
+ * Model PlatformEarning
+ * 
+ */
+export type PlatformEarning = Prisma.PlatformEarningModel
+/**
+ * Model PendingPayment
+ * 
+ */
+export type PendingPayment = Prisma.PendingPaymentModel
+/**
+ * Model PaymentHistory
+ * 
+ */
+export type PaymentHistory = Prisma.PaymentHistoryModel
+/**
+ * Model ClientFinancial
+ * 
+ */
+export type ClientFinancial = Prisma.ClientFinancialModel
+/**
+ * Model MonthlyStatement
+ * 
+ */
+export type MonthlyStatement = Prisma.MonthlyStatementModel
+/**
  * Model Statement
  * 
  */

@@ -1,0 +1,124 @@
+// ========== Accountant Dashboard Models ==========
+
+model AccountantSettings {
+  settingsId String @id @default(uuid()) @map("settings_id")
+  userId     String @unique @map("user_id")
+
+  fullName     String? @db.VarChar
+  email        String? @db.VarChar
+  phoneNumber  String? @map("phone_number") @db.VarChar
+  profilePhoto String? @map("profile_photo") @db.VarChar
+
+  defaultCurrency String @default("USD") @map("default_currency") @db.VarChar
+  paymentGateway  String @default("Stripe") @map("payment_gateway") @db.VarChar
+
+  twoFactorEnabled Boolean @default(false) @map("two_factor_enabled")
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("accountant_settings")
+}
+
+model PlatformEarning {
+  earningId String @id @default(uuid()) @map("earning_id")
+  userId    String @map("user_id")
+
+  platform      String  @db.VarChar
+  grossEarnings Decimal @default(0) @map("gross_earnings") @db.Decimal(15, 2)
+  commission    Decimal @default(0) @db.Decimal(15, 2)
+  netEarnings   Decimal @default(0) @map("net_earnings") @db.Decimal(15, 2)
+
+  month Int
+  year  Int
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, platform, month, year])
+  @@index([userId, year, month])
+  @@map("platform_earnings")
+}
+
+model PendingPayment {
+  paymentId String @id @default(uuid()) @map("payment_id")
+  clientId  String @map("client_id")
+
+  clientName String    @map("client_name") @db.VarChar
+  amount     Decimal   @db.Decimal(15, 2)
+  status     String    @default("Pending") @db.VarChar
+  dueDate    DateTime? @map("due_date")
+
+  client User @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([clientId, status])
+  @@map("pending_payments")
+}
+
+model PaymentHistory {
+  historyId String @id @default(uuid()) @map("history_id")
+  clientId  String @map("client_id")
+
+  clientName  String            @map("client_name") @db.VarChar
+  amount      Decimal           @db.Decimal(15, 2)
+  method      PaymentMethodType @default(PAYPAL)
+  paymentDate DateTime          @map("payment_date")
+
+  client User @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([clientId, paymentDate])
+  @@map("payment_history")
+}
+
+model ClientFinancial {
+  clientFinId String @id @default(uuid()) @map("client_fin_id")
+  clientId    String @map("client_id")
+
+  clientName      String    @map("client_name") @db.VarChar
+  clientEmail     String    @map("client_email") @db.VarChar
+  totalEarning    Decimal   @default(0) @map("total_earning") @db.Decimal(15, 2)
+  pendingPayment  Decimal   @default(0) @map("pending_payment") @db.Decimal(15, 2)
+  lastPaymentDate DateTime? @map("last_payment_date")
+
+  client User @relation(fields: [clientId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([clientId])
+  @@map("client_financials")
+}
+
+model MonthlyStatement {
+  statementId String @id @default(uuid()) @map("statement_id")
+  userId      String @map("user_id")
+
+  title    String          @db.VarChar
+  subtitle String?         @db.VarChar
+  month    Int
+  year     Int
+  amount   Decimal         @db.Decimal(15, 2)
+  status   StatementStatus @default(PaymentNotRequired)
+
+  fileUrl String? @map("file_url") @db.VarChar
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([userId, month, year])
+  @@index([userId, year])
+  @@map("monthly_statements")
+}
+
+// Add to User model:

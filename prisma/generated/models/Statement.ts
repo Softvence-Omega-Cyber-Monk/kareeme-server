@@ -687,30 +687,6 @@ export type StatementOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type IntFieldUpdateOperationsInput = {
-  set?: number
-  increment?: number
-  decrement?: number
-  multiply?: number
-  divide?: number
-}
-
-export type NullableDateTimeFieldUpdateOperationsInput = {
-  set?: Date | string | null
-}
-
-export type DecimalFieldUpdateOperationsInput = {
-  set?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
-  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
-}
-
-export type EnumStatementStatusFieldUpdateOperationsInput = {
-  set?: $Enums.StatementStatus
-}
-
 export type StatementCreateNestedOneWithoutTransactionsInput = {
   create?: Prisma.XOR<Prisma.StatementCreateWithoutTransactionsInput, Prisma.StatementUncheckedCreateWithoutTransactionsInput>
   connectOrCreate?: Prisma.StatementCreateOrConnectWithoutTransactionsInput

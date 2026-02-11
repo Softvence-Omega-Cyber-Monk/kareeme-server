@@ -10,6 +10,12 @@
  */
 export type * from './models/PaymentMethod'
 export type * from './models/PrivacySettings'
+export type * from './models/AccountantSettings'
+export type * from './models/PlatformEarning'
+export type * from './models/PendingPayment'
+export type * from './models/PaymentHistory'
+export type * from './models/ClientFinancial'
+export type * from './models/MonthlyStatement'
 export type * from './models/Statement'
 export type * from './models/Transaction'
 export type * from './models/DealStatus'
