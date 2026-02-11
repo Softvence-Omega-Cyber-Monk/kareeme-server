@@ -393,6 +393,9 @@ export const ModelName = {
   StatementTerritory: 'StatementTerritory',
   StatementPlatform: 'StatementPlatform',
   PaymentRequest: 'PaymentRequest',
+  TeamMember: 'TeamMember',
+  DashboardStats: 'DashboardStats',
+  RecentActivity: 'RecentActivity',
   PlatformAnalytics: 'PlatformAnalytics',
   Asset: 'Asset',
   GeoTrend: 'GeoTrend',
@@ -439,7 +442,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "paymentMethod" | "privacySettings" | "statement" | "transaction" | "dealStatus" | "statementRelease" | "statementTerritory" | "statementPlatform" | "paymentRequest" | "platformAnalytics" | "asset" | "geoTrend" | "claim" | "userOtp" | "refreshToken" | "distribution" | "platformDistribution" | "distributionNote" | "distributorClient" | "clientBackCatalogue" | "fileInstance" | "videoMergeJob" | "loginDevice" | "notification" | "userNotification" | "notificationSettings" | "release" | "artist" | "releaseArtist" | "label" | "releaseTerritory" | "splitSheetAgreement" | "contributor" | "track" | "trackArtist" | "publisher" | "backCatalogue" | "globalSettings" | "clientSettings" | "user"
+    modelProps: "paymentMethod" | "privacySettings" | "statement" | "transaction" | "dealStatus" | "statementRelease" | "statementTerritory" | "statementPlatform" | "paymentRequest" | "teamMember" | "dashboardStats" | "recentActivity" | "platformAnalytics" | "asset" | "geoTrend" | "claim" | "userOtp" | "refreshToken" | "distribution" | "platformDistribution" | "distributionNote" | "distributorClient" | "clientBackCatalogue" | "fileInstance" | "videoMergeJob" | "loginDevice" | "notification" | "userNotification" | "notificationSettings" | "release" | "artist" | "releaseArtist" | "label" | "releaseTerritory" | "splitSheetAgreement" | "contributor" | "track" | "trackArtist" | "publisher" | "backCatalogue" | "globalSettings" | "clientSettings" | "user"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1106,6 +1109,228 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         count: {
           args: Prisma.PaymentRequestCountArgs<ExtArgs>
           result: runtime.Types.Utils.Optional<Prisma.PaymentRequestCountAggregateOutputType> | number
+        }
+      }
+    }
+    TeamMember: {
+      payload: Prisma.$TeamMemberPayload<ExtArgs>
+      fields: Prisma.TeamMemberFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.TeamMemberFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.TeamMemberFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        findFirst: {
+          args: Prisma.TeamMemberFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.TeamMemberFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        findMany: {
+          args: Prisma.TeamMemberFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        create: {
+          args: Prisma.TeamMemberCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        createMany: {
+          args: Prisma.TeamMemberCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.TeamMemberCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        delete: {
+          args: Prisma.TeamMemberDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        update: {
+          args: Prisma.TeamMemberUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        deleteMany: {
+          args: Prisma.TeamMemberDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.TeamMemberUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.TeamMemberUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>[]
+        }
+        upsert: {
+          args: Prisma.TeamMemberUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TeamMemberPayload>
+        }
+        aggregate: {
+          args: Prisma.TeamMemberAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTeamMember>
+        }
+        groupBy: {
+          args: Prisma.TeamMemberGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamMemberGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.TeamMemberCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TeamMemberCountAggregateOutputType> | number
+        }
+      }
+    }
+    DashboardStats: {
+      payload: Prisma.$DashboardStatsPayload<ExtArgs>
+      fields: Prisma.DashboardStatsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.DashboardStatsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.DashboardStatsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>
+        }
+        findFirst: {
+          args: Prisma.DashboardStatsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.DashboardStatsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>
+        }
+        findMany: {
+          args: Prisma.DashboardStatsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>[]
+        }
+        create: {
+          args: Prisma.DashboardStatsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>
+        }
+        createMany: {
+          args: Prisma.DashboardStatsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.DashboardStatsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>[]
+        }
+        delete: {
+          args: Prisma.DashboardStatsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>
+        }
+        update: {
+          args: Prisma.DashboardStatsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>
+        }
+        deleteMany: {
+          args: Prisma.DashboardStatsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.DashboardStatsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.DashboardStatsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>[]
+        }
+        upsert: {
+          args: Prisma.DashboardStatsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$DashboardStatsPayload>
+        }
+        aggregate: {
+          args: Prisma.DashboardStatsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateDashboardStats>
+        }
+        groupBy: {
+          args: Prisma.DashboardStatsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardStatsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.DashboardStatsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.DashboardStatsCountAggregateOutputType> | number
+        }
+      }
+    }
+    RecentActivity: {
+      payload: Prisma.$RecentActivityPayload<ExtArgs>
+      fields: Prisma.RecentActivityFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.RecentActivityFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.RecentActivityFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>
+        }
+        findFirst: {
+          args: Prisma.RecentActivityFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.RecentActivityFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>
+        }
+        findMany: {
+          args: Prisma.RecentActivityFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>[]
+        }
+        create: {
+          args: Prisma.RecentActivityCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>
+        }
+        createMany: {
+          args: Prisma.RecentActivityCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.RecentActivityCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>[]
+        }
+        delete: {
+          args: Prisma.RecentActivityDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>
+        }
+        update: {
+          args: Prisma.RecentActivityUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>
+        }
+        deleteMany: {
+          args: Prisma.RecentActivityDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.RecentActivityUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.RecentActivityUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>[]
+        }
+        upsert: {
+          args: Prisma.RecentActivityUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$RecentActivityPayload>
+        }
+        aggregate: {
+          args: Prisma.RecentActivityAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateRecentActivity>
+        }
+        groupBy: {
+          args: Prisma.RecentActivityGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecentActivityGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.RecentActivityCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.RecentActivityCountAggregateOutputType> | number
         }
       }
     }
@@ -3599,6 +3824,53 @@ export const PaymentRequestScalarFieldEnum = {
 export type PaymentRequestScalarFieldEnum = (typeof PaymentRequestScalarFieldEnum)[keyof typeof PaymentRequestScalarFieldEnum]
 
 
+export const TeamMemberScalarFieldEnum = {
+  memberId: 'memberId',
+  userId: 'userId',
+  name: 'name',
+  email: 'email',
+  role: 'role',
+  status: 'status',
+  joinDate: 'joinDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const DashboardStatsScalarFieldEnum = {
+  statId: 'statId',
+  totalClients: 'totalClients',
+  totalReleases: 'totalReleases',
+  activeSubmissions: 'activeSubmissions',
+  totalRevenue: 'totalRevenue',
+  clientsGrowth: 'clientsGrowth',
+  releasesGrowth: 'releasesGrowth',
+  submissionsGrowth: 'submissionsGrowth',
+  revenueGrowth: 'revenueGrowth',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DashboardStatsScalarFieldEnum = (typeof DashboardStatsScalarFieldEnum)[keyof typeof DashboardStatsScalarFieldEnum]
+
+
+export const RecentActivityScalarFieldEnum = {
+  activityId: 'activityId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  userId: 'userId',
+  releaseId: 'releaseId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type RecentActivityScalarFieldEnum = (typeof RecentActivityScalarFieldEnum)[keyof typeof RecentActivityScalarFieldEnum]
+
+
 export const PlatformAnalyticsScalarFieldEnum = {
   analyticsId: 'analyticsId',
   userId: 'userId',
@@ -4320,6 +4592,34 @@ export type ListEnumPaymentStatusFieldRefInput<$PrismaModel> = FieldRefInputType
 
 
 /**
+ * Reference to a field of type 'TeamMemberRole'
+ */
+export type EnumTeamMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamMemberRole'>
+    
+
+
+/**
+ * Reference to a field of type 'TeamMemberRole[]'
+ */
+export type ListEnumTeamMemberRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamMemberRole[]'>
+    
+
+
+/**
+ * Reference to a field of type 'TeamMemberStatus'
+ */
+export type EnumTeamMemberStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamMemberStatus'>
+    
+
+
+/**
+ * Reference to a field of type 'TeamMemberStatus[]'
+ */
+export type ListEnumTeamMemberStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'TeamMemberStatus[]'>
+    
+
+
+/**
  * Reference to a field of type 'Platform'
  */
 export type EnumPlatformFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Platform'>
@@ -4562,6 +4862,9 @@ export type GlobalOmitConfig = {
   statementTerritory?: Prisma.StatementTerritoryOmit
   statementPlatform?: Prisma.StatementPlatformOmit
   paymentRequest?: Prisma.PaymentRequestOmit
+  teamMember?: Prisma.TeamMemberOmit
+  dashboardStats?: Prisma.DashboardStatsOmit
+  recentActivity?: Prisma.RecentActivityOmit
   platformAnalytics?: Prisma.PlatformAnalyticsOmit
   asset?: Prisma.AssetOmit
   geoTrend?: Prisma.GeoTrendOmit

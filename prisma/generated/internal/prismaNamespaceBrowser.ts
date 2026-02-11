@@ -60,6 +60,9 @@ export const ModelName = {
   StatementTerritory: 'StatementTerritory',
   StatementPlatform: 'StatementPlatform',
   PaymentRequest: 'PaymentRequest',
+  TeamMember: 'TeamMember',
+  DashboardStats: 'DashboardStats',
+  RecentActivity: 'RecentActivity',
   PlatformAnalytics: 'PlatformAnalytics',
   Asset: 'Asset',
   GeoTrend: 'GeoTrend',
@@ -264,6 +267,53 @@ export const PaymentRequestScalarFieldEnum = {
 } as const
 
 export type PaymentRequestScalarFieldEnum = (typeof PaymentRequestScalarFieldEnum)[keyof typeof PaymentRequestScalarFieldEnum]
+
+
+export const TeamMemberScalarFieldEnum = {
+  memberId: 'memberId',
+  userId: 'userId',
+  name: 'name',
+  email: 'email',
+  role: 'role',
+  status: 'status',
+  joinDate: 'joinDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type TeamMemberScalarFieldEnum = (typeof TeamMemberScalarFieldEnum)[keyof typeof TeamMemberScalarFieldEnum]
+
+
+export const DashboardStatsScalarFieldEnum = {
+  statId: 'statId',
+  totalClients: 'totalClients',
+  totalReleases: 'totalReleases',
+  activeSubmissions: 'activeSubmissions',
+  totalRevenue: 'totalRevenue',
+  clientsGrowth: 'clientsGrowth',
+  releasesGrowth: 'releasesGrowth',
+  submissionsGrowth: 'submissionsGrowth',
+  revenueGrowth: 'revenueGrowth',
+  date: 'date',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DashboardStatsScalarFieldEnum = (typeof DashboardStatsScalarFieldEnum)[keyof typeof DashboardStatsScalarFieldEnum]
+
+
+export const RecentActivityScalarFieldEnum = {
+  activityId: 'activityId',
+  type: 'type',
+  title: 'title',
+  description: 'description',
+  userId: 'userId',
+  releaseId: 'releaseId',
+  metadata: 'metadata',
+  createdAt: 'createdAt'
+} as const
+
+export type RecentActivityScalarFieldEnum = (typeof RecentActivityScalarFieldEnum)[keyof typeof RecentActivityScalarFieldEnum]
 
 
 export const PlatformAnalyticsScalarFieldEnum = {
