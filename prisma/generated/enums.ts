@@ -61,6 +61,25 @@ export const TransactionType = {
 export type TransactionType = (typeof TransactionType)[keyof typeof TransactionType]
 
 
+export const TeamMemberRole = {
+  Admin: 'Admin',
+  Distributor: 'Distributor',
+  Accountant: 'Accountant',
+  Manager: 'Manager'
+} as const
+
+export type TeamMemberRole = (typeof TeamMemberRole)[keyof typeof TeamMemberRole]
+
+
+export const TeamMemberStatus = {
+  Active: 'Active',
+  Inactive: 'Inactive',
+  Suspended: 'Suspended'
+} as const
+
+export type TeamMemberStatus = (typeof TeamMemberStatus)[keyof typeof TeamMemberStatus]
+
+
 export const Platform = {
   YouTube: 'YouTube',
   Spotify: 'Spotify',

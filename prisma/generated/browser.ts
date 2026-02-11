@@ -63,6 +63,21 @@ export type StatementPlatform = Prisma.StatementPlatformModel
  */
 export type PaymentRequest = Prisma.PaymentRequestModel
 /**
+ * Model TeamMember
+ * 
+ */
+export type TeamMember = Prisma.TeamMemberModel
+/**
+ * Model DashboardStats
+ * 
+ */
+export type DashboardStats = Prisma.DashboardStatsModel
+/**
+ * Model RecentActivity
+ * 
+ */
+export type RecentActivity = Prisma.RecentActivityModel
+/**
  * Model PlatformAnalytics
  * 
  */

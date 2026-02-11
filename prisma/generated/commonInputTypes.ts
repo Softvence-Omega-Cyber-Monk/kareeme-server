@@ -338,6 +338,40 @@ export type EnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = {
   _max?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
 }
 
+export type EnumTeamMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel> | $Enums.TeamMemberRole
+}
+
+export type EnumTeamMemberStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberStatus | Prisma.EnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberStatusFilter<$PrismaModel> | $Enums.TeamMemberStatus
+}
+
+export type EnumTeamMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.TeamMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+}
+
+export type EnumTeamMemberStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberStatus | Prisma.EnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberStatusWithAggregatesFilter<$PrismaModel> | $Enums.TeamMemberStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamMemberStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamMemberStatusFilter<$PrismaModel>
+}
+
 export type EnumPlatformFilter<$PrismaModel = never> = {
   equals?: $Enums.Platform | Prisma.EnumPlatformFieldRefInput<$PrismaModel>
   in?: $Enums.Platform[] | Prisma.ListEnumPlatformFieldRefInput<$PrismaModel>
@@ -900,6 +934,40 @@ export type NestedEnumPaymentStatusWithAggregatesFilter<$PrismaModel = never> = 
   _count?: Prisma.NestedIntFilter<$PrismaModel>
   _min?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
   _max?: Prisma.NestedEnumPaymentStatusFilter<$PrismaModel>
+}
+
+export type NestedEnumTeamMemberRoleFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel> | $Enums.TeamMemberRole
+}
+
+export type NestedEnumTeamMemberStatusFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberStatus | Prisma.EnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberStatusFilter<$PrismaModel> | $Enums.TeamMemberStatus
+}
+
+export type NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberRole | Prisma.EnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberRole[] | Prisma.ListEnumTeamMemberRoleFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberRoleWithAggregatesFilter<$PrismaModel> | $Enums.TeamMemberRole
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamMemberRoleFilter<$PrismaModel>
+}
+
+export type NestedEnumTeamMemberStatusWithAggregatesFilter<$PrismaModel = never> = {
+  equals?: $Enums.TeamMemberStatus | Prisma.EnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  in?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  notIn?: $Enums.TeamMemberStatus[] | Prisma.ListEnumTeamMemberStatusFieldRefInput<$PrismaModel>
+  not?: Prisma.NestedEnumTeamMemberStatusWithAggregatesFilter<$PrismaModel> | $Enums.TeamMemberStatus
+  _count?: Prisma.NestedIntFilter<$PrismaModel>
+  _min?: Prisma.NestedEnumTeamMemberStatusFilter<$PrismaModel>
+  _max?: Prisma.NestedEnumTeamMemberStatusFilter<$PrismaModel>
 }
 
 export type NestedEnumPlatformFilter<$PrismaModel = never> = {

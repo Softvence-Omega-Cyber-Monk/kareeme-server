@@ -1,0 +1,88 @@
+// ========== Admin Dashboard Models ==========
+
+enum TeamMemberRole {
+  Admin
+  Distributor
+  Accountant
+  Manager
+}
+
+enum TeamMemberStatus {
+  Active
+  Inactive
+  Suspended
+}
+
+model TeamMember {
+  memberId String @id @default(uuid()) @map("member_id")
+  userId   String @map("user_id")
+
+  // Member Info
+  name   String           @db.VarChar
+  email  String           @db.VarChar
+  role   TeamMemberRole   @default(Distributor)
+  status TeamMemberStatus @default(Active)
+
+  // Dates
+  joinDate DateTime @default(now()) @map("join_date")
+
+  // Relations
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@index([role, status])
+  @@map("team_members")
+}
+
+model DashboardStats {
+  statId String @id @default(uuid()) @map("stat_id")
+
+  // Counts
+  totalClients      Int     @default(0) @map("total_clients")
+  totalReleases     Int     @default(0) @map("total_releases")
+  activeSubmissions Int     @default(0) @map("active_submissions")
+  totalRevenue      Decimal @default(0) @map("total_revenue") @db.Decimal(15, 2)
+
+  // Growth percentages
+  clientsGrowth     Decimal @default(0) @map("clients_growth") @db.Decimal(5, 2)
+  releasesGrowth    Decimal @default(0) @map("releases_growth") @db.Decimal(5, 2)
+  submissionsGrowth Decimal @default(0) @map("submissions_growth") @db.Decimal(5, 2)
+  revenueGrowth     Decimal @default(0) @map("revenue_growth") @db.Decimal(5, 2)
+
+  // Date (daily stats)
+  date DateTime @default(now()) @db.Date
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@unique([date])
+  @@map("dashboard_stats")
+}
+
+model RecentActivity {
+  activityId String @id @default(uuid()) @map("activity_id")
+
+  // Activity Info
+  type        String  @db.VarChar // "submission", "payment", "approval", "client", "content"
+  title       String  @db.VarChar
+  description String? @db.Text
+
+  // Related entities
+  userId    String? @map("user_id")
+  releaseId String? @map("release_id")
+
+  // Metadata
+  metadata Json?
+
+  createdAt DateTime @default(now()) @map("created_at")
+
+  @@index([type, createdAt])
+  @@map("recent_activities")
+}
+
+// ========== Add these relations to existing User model ==========
+// teamMember         TeamMember?
+
+// ========== No changes needed to Release model - already has all fields ==========
