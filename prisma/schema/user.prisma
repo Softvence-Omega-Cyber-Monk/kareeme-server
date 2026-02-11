@@ -55,6 +55,12 @@ model User {
   clientDistributions      Distribution[]        @relation("ClientDistributions")
   distributionNotes        DistributionNote[]
   teamMember               TeamMember[]
+  accountantSettings       AccountantSettings?
+  platformEarnings         PlatformEarning[]
+  pendingPayments          PendingPayment[]
+  paymentHistory           PaymentHistory[]
+  clientFinancials         ClientFinancial[]
+  monthlyStatements        MonthlyStatement[]
 
   clientDistributor DistributorClient[]   @relation("ClientDistributor")
   clientCatalogues  ClientBackCatalogue[] @relation("ClientCatalogues")

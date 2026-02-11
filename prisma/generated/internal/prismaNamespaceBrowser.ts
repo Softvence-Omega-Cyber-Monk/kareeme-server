@@ -53,6 +53,12 @@ export const AnyNull = runtime.AnyNull
 export const ModelName = {
   PaymentMethod: 'PaymentMethod',
   PrivacySettings: 'PrivacySettings',
+  AccountantSettings: 'AccountantSettings',
+  PlatformEarning: 'PlatformEarning',
+  PendingPayment: 'PendingPayment',
+  PaymentHistory: 'PaymentHistory',
+  ClientFinancial: 'ClientFinancial',
+  MonthlyStatement: 'MonthlyStatement',
   Statement: 'Statement',
   Transaction: 'Transaction',
   DealStatus: 'DealStatus',
@@ -143,6 +149,98 @@ export const PrivacySettingsScalarFieldEnum = {
 } as const
 
 export type PrivacySettingsScalarFieldEnum = (typeof PrivacySettingsScalarFieldEnum)[keyof typeof PrivacySettingsScalarFieldEnum]
+
+
+export const AccountantSettingsScalarFieldEnum = {
+  settingsId: 'settingsId',
+  userId: 'userId',
+  fullName: 'fullName',
+  email: 'email',
+  phoneNumber: 'phoneNumber',
+  profilePhoto: 'profilePhoto',
+  defaultCurrency: 'defaultCurrency',
+  paymentGateway: 'paymentGateway',
+  twoFactorEnabled: 'twoFactorEnabled',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AccountantSettingsScalarFieldEnum = (typeof AccountantSettingsScalarFieldEnum)[keyof typeof AccountantSettingsScalarFieldEnum]
+
+
+export const PlatformEarningScalarFieldEnum = {
+  earningId: 'earningId',
+  userId: 'userId',
+  platform: 'platform',
+  grossEarnings: 'grossEarnings',
+  commission: 'commission',
+  netEarnings: 'netEarnings',
+  month: 'month',
+  year: 'year',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PlatformEarningScalarFieldEnum = (typeof PlatformEarningScalarFieldEnum)[keyof typeof PlatformEarningScalarFieldEnum]
+
+
+export const PendingPaymentScalarFieldEnum = {
+  paymentId: 'paymentId',
+  clientId: 'clientId',
+  clientName: 'clientName',
+  amount: 'amount',
+  status: 'status',
+  dueDate: 'dueDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type PendingPaymentScalarFieldEnum = (typeof PendingPaymentScalarFieldEnum)[keyof typeof PendingPaymentScalarFieldEnum]
+
+
+export const PaymentHistoryScalarFieldEnum = {
+  historyId: 'historyId',
+  clientId: 'clientId',
+  clientName: 'clientName',
+  amount: 'amount',
+  method: 'method',
+  paymentDate: 'paymentDate',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentHistoryScalarFieldEnum = (typeof PaymentHistoryScalarFieldEnum)[keyof typeof PaymentHistoryScalarFieldEnum]
+
+
+export const ClientFinancialScalarFieldEnum = {
+  clientFinId: 'clientFinId',
+  clientId: 'clientId',
+  clientName: 'clientName',
+  clientEmail: 'clientEmail',
+  totalEarning: 'totalEarning',
+  pendingPayment: 'pendingPayment',
+  lastPaymentDate: 'lastPaymentDate',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ClientFinancialScalarFieldEnum = (typeof ClientFinancialScalarFieldEnum)[keyof typeof ClientFinancialScalarFieldEnum]
+
+
+export const MonthlyStatementScalarFieldEnum = {
+  statementId: 'statementId',
+  userId: 'userId',
+  title: 'title',
+  subtitle: 'subtitle',
+  month: 'month',
+  year: 'year',
+  amount: 'amount',
+  status: 'status',
+  fileUrl: 'fileUrl',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type MonthlyStatementScalarFieldEnum = (typeof MonthlyStatementScalarFieldEnum)[keyof typeof MonthlyStatementScalarFieldEnum]
 
 
 export const StatementScalarFieldEnum = {
