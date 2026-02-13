@@ -26,7 +26,7 @@ import {
   DistributionStatus,
   UpdateDistributionDto,
 } from '../dto/distribution.dto';
-import { DistributionService } from '../services/distribution.service';
+import { DistributionService } from '../services';
 
 @ApiBearerAuth()
 @ValidateAuth()
