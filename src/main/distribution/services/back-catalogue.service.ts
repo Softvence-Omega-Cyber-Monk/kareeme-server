@@ -1,19 +1,12 @@
-import { PaginationDto } from '@/common/dto/pagination.dto';
 import {
-  successPaginatedResponse,
-  successResponse,
-  TPaginatedResponse,
-  TResponse,
+    successPaginatedResponse,
+    successResponse,
+    TPaginatedResponse,
+    TResponse,
 } from '@/common/utils/response.util';
-import { AppError } from '@/core/error/handle-error.app';
 import { HandleError } from '@/core/error/handle-error.decorator';
 import { PrismaService } from '@/lib/prisma/prisma.service';
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { Prisma } from '@prisma';
-import {
-  BackCatalogueResponseDto,
-  CreateBackCatalogueDto,
-} from '../dto/back-catalogue.dto';
+import { Injectable, Logger } from '@nestjs/common';
 
 @Injectable()
 export class BackCatalogueService {
@@ -24,32 +17,24 @@ export class BackCatalogueService {
   @HandleError('Failed to create back catalogue', 'BackCatalogue')
   async createBackCatalogue(
     distributorId: string,
-    dto: CreateBackCatalogueDto,
-  ): Promise<TResponse<BackCatalogueResponseDto>> {
-    const catalogue = await this.prisma.clientBackCatalogue.create({
+    dto: any,
+  ): Promise<TResponse<any>> {
+    // BackCatalogue model requires releaseId, not distributorId
+    // We'll create it linked to a release
+    const backCatalogue = await this.prisma.backCatalogue.create({
       data: {
-        distributorId,
-        userId: dto.userId,
-        artistName: dto.artistName,
-        genre: dto.genre,
-        totalReleases: dto.totalReleases,
-        releaseTypes: dto.releaseTypes,
-        currentDistributor: dto.currentDistributor,
-        label: dto.label,
-        totalTracks: dto.totalTracks,
-        dateRangeStart: dto.dateRangeStart
-          ? new Date(dto.dateRangeStart)
-          : undefined,
-        dateRangeEnd: dto.dateRangeEnd ? new Date(dto.dateRangeEnd) : undefined,
+        releaseId: dto.releaseId, // Must provide releaseId
+        labelName: dto.label,
+        distributor: distributorId,
+        releaseArtist: dto.artistName,
+        releaseType: dto.releaseTypes,
+        catalogueNumber: dto.catalogueNumber || 'AUTO-' + Date.now(),
+        upc: dto.upc,
       },
     });
 
-    this.logger.log(
-      `Back catalogue created: ${catalogue.catalogueId} for ${dto.artistName}`,
-    );
-
     return successResponse(
-      catalogue as any,
+      backCatalogue,
       'Back catalogue created successfully',
     );
   }
@@ -57,54 +42,57 @@ export class BackCatalogueService {
   @HandleError('Failed to get back catalogues', 'BackCatalogue')
   async getBackCatalogues(
     distributorId: string,
-    pg: PaginationDto,
-  ): Promise<TPaginatedResponse<BackCatalogueResponseDto>> {
-    const page = pg.page && +pg.page > 0 ? +pg.page : 1;
-    const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 20;
+    pg: any,
+  ): Promise<TPaginatedResponse<any>> {
+    const page = pg?.page && +pg.page > 0 ? +pg.page : 1;
+    const limit = pg?.limit && +pg.limit > 0 ? +pg.limit : 20;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.ClientBackCatalogueWhereInput = {
-      distributorId,
-    };
-
-    const [catalogues, total] = await this.prisma.$transaction([
-      this.prisma.clientBackCatalogue.findMany({
-        where,
+    const [items, total] = await this.prisma.$transaction([
+      this.prisma.backCatalogue.findMany({
+        where: { distributor: distributorId },
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
         include: {
-          user: true,
+          release: {
+            include: {
+              tracks: true,
+            },
+          },
         },
       }),
-      this.prisma.clientBackCatalogue.count({ where }),
+      this.prisma.backCatalogue.count({ where: { distributor: distributorId } }),
     ]);
 
     return successPaginatedResponse(
-      catalogues as any,
+      items,
       { page, limit, total },
       'Back catalogues fetched successfully',
     );
   }
 
-  @HandleError('Failed to get back catalogue details', 'BackCatalogue')
+  @HandleError('Failed to get back catalogue', 'BackCatalogue')
   async getBackCatalogueById(
     distributorId: string,
     catalogueId: string,
-  ): Promise<TResponse<BackCatalogueResponseDto>> {
-    const catalogue = await this.prisma.clientBackCatalogue.findUnique({
-      where: { catalogueId, distributorId },
+  ): Promise<TResponse<any>> {
+    const backCatalogue = await this.prisma.backCatalogue.findFirst({
+      where: { catalogueId, distributor: distributorId },
       include: {
-        user: true,
+        release: {
+          include: {
+            tracks: true,
+            releaseArtists: {
+              include: { artist: true },
+            },
+          },
+        },
       },
     });
 
-    if (!catalogue) {
-      throw new AppError(HttpStatus.NOT_FOUND, 'Back catalogue not found');
-    }
-
     return successResponse(
-      catalogue as any,
+      backCatalogue,
       'Back catalogue fetched successfully',
     );
   }

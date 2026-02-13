@@ -12,7 +12,7 @@ import {
   BackCatalogueResponseDto,
   CreateBackCatalogueDto,
 } from '../dto/back-catalogue.dto';
-import { BackCatalogueService } from '../services/back-catalogue.service';
+import { BackCatalogueService } from '../services';
 
 @ApiBearerAuth()
 @ValidateAuth()

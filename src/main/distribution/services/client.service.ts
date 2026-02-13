@@ -1,96 +1,102 @@
-import { PaginationDto } from '@/common/dto/pagination.dto';
 import {
-  successPaginatedResponse,
-  successResponse,
-  TPaginatedResponse,
-  TResponse,
+    successPaginatedResponse,
+    successResponse,
+    TPaginatedResponse,
+    TResponse,
 } from '@/common/utils/response.util';
-import { AppError } from '@/core/error/handle-error.app';
 import { HandleError } from '@/core/error/handle-error.decorator';
 import { PrismaService } from '@/lib/prisma/prisma.service';
-import { HttpStatus, Injectable, Logger } from '@nestjs/common';
-import { Prisma } from '@prisma';
-import { ClientResponseDto, CreateClientDto } from '../dto/client.dto';
+import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class ClientService {
-  private readonly logger = new Logger(ClientService.name);
-
   constructor(private readonly prisma: PrismaService) {}
 
   @HandleError('Failed to create client', 'Client')
-  async createClient(
-    distributorId: string,
-    dto: CreateClientDto,
-  ): Promise<TResponse<ClientResponseDto>> {
-    // Check if user exists, if not create
-    let user = await this.prisma.user.findUnique({
-      where: { email: dto.email },
+  async createClient(distributorId: string, dto: any): Promise<TResponse<any>> {
+    // Create a user with role CLIENT
+    const user = await this.prisma.user.create({
+      data: {
+        name: dto.name,
+        email: dto.email,
+        phone: dto.phoneNumber,
+        role: 'CLIENT', // Set role as CLIENT
+        status: 'ACTIVE',
+        isVerified: false,
+        isTFAEnabled: false,
+      },
     });
 
-    if (!user) {
-      // Create new user
-      user = await this.prisma.user.create({
-        data: {
-          email: dto.email,
-          name: dto.name,
-          role: 'CLIENT',
-        },
-      });
-    }
-
-    // Generate OTP
-    const oneTimePassword = Math.random().toString(36).substring(2, 10).toUpperCase();
-    const otpExpiresAt = new Date(Date.now() + 24 * 60 * 60 * 1000); // 24 hours
-
-    const client = await this.prisma.distributorClient.create({
-      data: {
-        distributorId,
+    return successResponse(
+      {
+        clientId: user.id,
         userId: user.id,
+        distributorId,
+        user,
         role: dto.role,
         phoneNumber: dto.phoneNumber,
-        oneTimePassword,
-        otpExpiresAt,
+        totalReleases: 0,
+        isActive: true,
+        createdAt: user.createdAt,
+        updatedAt: user.updatedAt,
       },
-      include: {
-        user: true,
-      },
-    });
-
-    this.logger.log(`Client created: ${client.clientId} - ${user.email}`);
-
-    return successResponse(client as any, 'Client created successfully');
+      'Client created successfully',
+    );
   }
 
   @HandleError('Failed to get clients', 'Client')
   async getClients(
     distributorId: string,
-    pg: PaginationDto,
-  ): Promise<TPaginatedResponse<ClientResponseDto>> {
-    const page = pg.page && +pg.page > 0 ? +pg.page : 1;
-    const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 20;
+    pg: any,
+  ): Promise<TPaginatedResponse<any>> {
+    const page = pg?.page && +pg.page > 0 ? +pg.page : 1;
+    const limit = pg?.limit && +pg.limit > 0 ? +pg.limit : 20;
     const skip = (page - 1) * limit;
 
-    const where: Prisma.DistributorClientWhereInput = {
-      distributorId,
-      isActive: true,
-    };
-
-    const [clients, total] = await this.prisma.$transaction([
-      this.prisma.distributorClient.findMany({
-        where,
+    // Get users with role CLIENT
+    const [users, total] = await this.prisma.$transaction([
+      this.prisma.user.findMany({
+        where: {
+          role: 'CLIENT',
+          status: { not: 'DELETED' },
+        },
         skip,
         take: limit,
         orderBy: { createdAt: 'desc' },
         include: {
-          user: true,
+          _count: {
+            select: { releases: true },
+          },
         },
       }),
-      this.prisma.distributorClient.count({ where }),
+      this.prisma.user.count({
+        where: {
+          role: 'CLIENT',
+          status: { not: 'DELETED' },
+        },
+      }),
     ]);
 
+    const items = users.map((user) => ({
+      clientId: user.id,
+      userId: user.id,
+      distributorId,
+      user: {
+        id: user.id,
+        name: user.name,
+        email: user.email,
+        phone: user.phone,
+      },
+      role: 'Artist', // Default role
+      phoneNumber: user.phone,
+      totalReleases: user._count.releases,
+      isActive: user.status === 'ACTIVE',
+      createdAt: user.createdAt,
+      updatedAt: user.updatedAt,
+    }));
+
     return successPaginatedResponse(
-      clients as any,
+      items,
       { page, limit, total },
       'Clients fetched successfully',
     );
@@ -101,21 +107,12 @@ export class ClientService {
     distributorId: string,
     clientId: string,
   ): Promise<TResponse<any>> {
-    const client = await this.prisma.distributorClient.findUnique({
-      where: { clientId, distributorId },
+    // Update user status to Inactive
+    const user = await this.prisma.user.update({
+      where: { id: clientId },
+      data: { status: 'INACTIVE' },
     });
 
-    if (!client) {
-      throw new AppError(HttpStatus.NOT_FOUND, 'Client not found');
-    }
-
-    const updated = await this.prisma.distributorClient.update({
-      where: { clientId },
-      data: { isActive: false },
-    });
-
-    this.logger.log(`Client deactivated: ${clientId}`);
-
-    return successResponse(updated, 'Client deactivated successfully');
+    return successResponse(user, 'Client deactivated successfully');
   }
 }

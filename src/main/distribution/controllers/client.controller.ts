@@ -12,7 +12,7 @@ import {
   ClientResponseDto,
   CreateClientDto,
 } from '../dto/client.dto';
-import { ClientService } from '../services/client.service';
+import { ClientService } from '../services';
 
 @ApiBearerAuth()
 @ValidateAuth()
