@@ -1,12 +1,10 @@
-import { PaginationDto } from '@/common/dto/pagination.dto';
 import { GetUser, ValidateAuth } from '@/core/jwt/jwt.decorator';
-import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
+import { Body, Controller, Post } from '@nestjs/common';
 import {
   ApiBearerAuth,
   ApiOperation,
-  ApiParam,
   ApiResponse,
-  ApiTags,
+  ApiTags
 } from '@nestjs/swagger';
 import {
   BackCatalogueResponseDto,
@@ -34,33 +32,33 @@ export class BackCatalogueController {
     return this.backCatalogueService.createBackCatalogue(distributorId, dto);
   }
 
-  @Get()
-  @ApiOperation({
-    summary: 'Get back catalogues',
-    description: 'Get paginated list of client back catalogues',
-  })
-  @ApiResponse({ status: 200, type: [BackCatalogueResponseDto] })
-  async getBackCatalogues(
-    @GetUser('sub') distributorId: string,
-    @Query() pg: PaginationDto,
-  ) {
-    return this.backCatalogueService.getBackCatalogues(distributorId, pg);
-  }
+  // @Get()
+  // @ApiOperation({
+  //   summary: 'Get back catalogues',
+  //   description: 'Get paginated list of client back catalogues',
+  // })
+  // @ApiResponse({ status: 200, type: [BackCatalogueResponseDto] })
+  // async getBackCatalogues(
+  //   @GetUser('sub') distributorId: string,
+  //   @Query() pg: PaginationDto,
+  // ) {
+  //   return this.backCatalogueService.getBackCatalogues(distributorId, pg);
+  // }
 
-  @Get(':catalogueId')
-  @ApiOperation({
-    summary: 'Get back catalogue details',
-    description: 'Get single back catalogue with details',
-  })
-  @ApiParam({ name: 'catalogueId' })
-  @ApiResponse({ status: 200, type: BackCatalogueResponseDto })
-  async getBackCatalogueById(
-    @GetUser('sub') distributorId: string,
-    @Param('catalogueId') catalogueId: string,
-  ) {
-    return this.backCatalogueService.getBackCatalogueById(
-      distributorId,
-      catalogueId,
-    );
-  }
+  // @Get(':catalogueId')
+  // @ApiOperation({
+  //   summary: 'Get back catalogue details',
+  //   description: 'Get single back catalogue with details',
+  // })
+  // @ApiParam({ name: 'catalogueId' })
+  // @ApiResponse({ status: 200, type: BackCatalogueResponseDto })
+  // async getBackCatalogueById(
+  //   @GetUser('sub') distributorId: string,
+  //   @Param('catalogueId') catalogueId: string,
+  // ) {
+  //   return this.backCatalogueService.getBackCatalogueById(
+  //     distributorId,
+  //     catalogueId,
+  //   );
+  // }
 }

@@ -122,6 +122,19 @@ export class SplitSheetService {
     );
   }
 
+  @HandleError('Failed to get all split sheets', 'SplitSheet')
+async getAllSplitSheets(): Promise<TResponse<SplitSheetResponseDto[]>> {
+  const splitSheets = await this.prisma.splitSheetAgreement.findMany({
+    orderBy: { createdAt: 'desc' },
+  });
+
+  return successResponse(
+    splitSheets as any,
+    'All split sheets fetched successfully',
+  );
+}
+
+
   @HandleError('Failed to get release split sheets', 'SplitSheet')
   async getSplitSheetsByRelease(
     userId: string,

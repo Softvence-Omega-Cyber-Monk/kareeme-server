@@ -47,6 +47,20 @@ export class SplitSheetController {
     return this.splitSheetService.createSplitSheet(userId, dto);
   }
 
+  @Get()
+  @ApiOperation({
+    summary: 'Get all split sheets',
+    description: 'Retrieve all split sheet agreements in the system',
+  })
+  @ApiResponse({
+    status: 200,
+    description: 'All split sheets fetched successfully',
+    type: [SplitSheetResponseDto],
+  })
+  async getAllSplitSheets() {
+    return this.splitSheetService.getAllSplitSheets();
+  }
+
   @Get(':splitId')
   @ApiOperation({
     summary: 'Get a split sheet agreement',
