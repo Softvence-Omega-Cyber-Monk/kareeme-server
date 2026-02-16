@@ -350,6 +350,150 @@ export class TrackService {
     );
   }
 
+  @HandleError('Failed to get all tracks for admin/distributor', 'Track')
+  async getAllTracksForAdmin(
+    releaseId?: string,
+  ): Promise<TResponse<TrackResponseDto[]>> {
+    const where = releaseId ? { releaseId } : {};
+    const tracks = await this.prisma.track.findMany({
+      where,
+      include: {
+        release: true,
+        trackArtists: {
+          include: {
+            artist: true,
+          },
+        },
+      },
+      orderBy: { trackNumber: 'asc' },
+    });
+
+    return successResponse(
+      tracks as any,
+      'Tracks fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to get track for admin/distributor', 'Track')
+  async getTrackByIdForAdmin(
+    trackId: string,
+  ): Promise<TResponse<TrackResponseDto>> {
+    const track = await this.prisma.track.findUnique({
+      where: { trackId },
+      include: {
+        release: true,
+        trackArtists: {
+          include: {
+            artist: true,
+          },
+        },
+      },
+    });
+
+    if (!track) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Track not found');
+    }
+
+    return successResponse(
+      track as any,
+      'Track fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to get release tracks for admin/distributor', 'Track')
+  async getTracksByReleaseForAdmin(
+    releaseId: string,
+  ): Promise<TResponse<TrackResponseDto[]>> {
+    const tracks = await this.prisma.track.findMany({
+      where: { releaseId },
+      include: {
+        trackArtists: {
+          include: {
+            artist: true,
+          },
+        },
+      },
+      orderBy: { trackNumber: 'asc' },
+    });
+
+    return successResponse(
+      tracks as any,
+      'Tracks fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to update track for admin/distributor', 'Track')
+  async updateTrackForAdmin(
+    trackId: string,
+    dto: UpdateTrackDto,
+  ): Promise<TResponse<TrackResponseDto>> {
+    const existingTrack = await this.prisma.track.findUnique({
+      where: { trackId },
+    });
+
+    if (!existingTrack) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Track not found');
+    }
+
+    const { trackArtists, ...trackData } = dto;
+
+    const track = await this.prisma.track.update({
+      where: { trackId },
+      data: {
+        ...trackData,
+        ...(dto.originalReleaseDate && {
+          originalReleaseDate: new Date(dto.originalReleaseDate),
+        }),
+      },
+      include: {
+        trackArtists: {
+          include: {
+            artist: true,
+          },
+        },
+      },
+    });
+
+    if (trackArtists) {
+      await this.prisma.trackArtist.deleteMany({
+        where: { trackId },
+      });
+
+      await this.prisma.trackArtist.createMany({
+        data: trackArtists.map((artist) => ({
+          trackId,
+          artistId: artist.artistId,
+          clientName: artist.clientName,
+          nameOnTrack: artist.nameOnTrack,
+          artistType: artist.artistType,
+          songwriterRole: artist.songwriterRole,
+          realName: artist.realName,
+          masterSplit: artist.masterSplit,
+          spotifyId: artist.spotifyId,
+          appleId: artist.appleId,
+        })),
+      });
+    }
+
+    this.logger.log(`Track updated by admin: ${trackId}`);
+
+    const updatedTrack = await this.prisma.track.findUnique({
+      where: { trackId },
+      include: {
+        trackArtists: {
+          include: {
+            artist: true,
+          },
+        },
+      },
+    });
+
+    return successResponse(
+      updatedTrack as any,
+      'Track updated successfully',
+    );
+  }
+
   @HandleError('Failed to delete track', 'Track')
   async deleteTrack(
     userId: string,

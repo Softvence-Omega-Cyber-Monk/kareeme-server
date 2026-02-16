@@ -205,6 +205,91 @@ export class BackCatalogueService {
     );
   }
 
+  @HandleError('Failed to get all back catalogue entries for admin/distributor', 'BackCatalogue')
+  async getAllBackCataloguesForAdmin(
+    pg: PaginationDto,
+  ): Promise<TPaginatedResponse<BackCatalogueResponseDto>> {
+    const page = pg.page && +pg.page > 0 ? +pg.page : 1;
+    const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 10;
+    const skip = (page - 1) * limit;
+
+    const [backCatalogues, total] = await this.prisma.$transaction([
+      this.prisma.backCatalogue.findMany({
+        skip,
+        take: limit,
+        include: {
+          release: {
+            select: {
+              releaseId: true,
+              releaseTitle: true,
+              userId: true,
+            },
+          },
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.backCatalogue.count(),
+    ]);
+
+    return successPaginatedResponse(
+      backCatalogues as any,
+      { page, limit, total },
+      'Back catalogue entries fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to get back catalogue entry for admin/distributor', 'BackCatalogue')
+  async getBackCatalogueByIdForAdmin(
+    catalogueId: string,
+  ): Promise<TResponse<BackCatalogueResponseDto>> {
+    const backCatalogue = await this.prisma.backCatalogue.findUnique({
+      where: { catalogueId },
+      include: {
+        release: true,
+      },
+    });
+
+    if (!backCatalogue) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Back catalogue entry not found');
+    }
+
+    return successResponse(
+      backCatalogue as any,
+      'Back catalogue entry fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to update back catalogue entry for admin/distributor', 'BackCatalogue')
+  async updateBackCatalogueForAdmin(
+    catalogueId: string,
+    dto: UpdateBackCatalogueDto,
+  ): Promise<TResponse<BackCatalogueResponseDto>> {
+    const existingBackCatalogue = await this.prisma.backCatalogue.findUnique({
+      where: { catalogueId },
+    });
+
+    if (!existingBackCatalogue) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Back catalogue entry not found');
+    }
+
+    const backCatalogue = await this.prisma.backCatalogue.update({
+      where: { catalogueId },
+      data: {
+        ...dto,
+        ...(dto.releaseDate && {
+          releaseDate: new Date(dto.releaseDate),
+        }),
+      },
+    });
+
+    this.logger.log(`Back catalogue updated by admin: ${catalogueId}`);
+
+    return successResponse(
+      backCatalogue as any,
+      'Back catalogue entry updated successfully',
+    );
+  }
+
   @HandleError('Failed to delete back catalogue entry', 'BackCatalogue')
   async deleteBackCatalogue(
     userId: string,

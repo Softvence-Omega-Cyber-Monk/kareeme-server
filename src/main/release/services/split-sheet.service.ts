@@ -1,9 +1,12 @@
 import {
+  successPaginatedResponse,
   successResponse,
+  TPaginatedResponse,
   TResponse,
 } from '@/common/utils/response.util';
 import { AppError } from '@/core/error/handle-error.app';
 import { HandleError } from '@/core/error/handle-error.decorator';
+import { PaginationDto } from '@/common/dto/pagination.dto';
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import { HttpStatus, Injectable, Logger } from '@nestjs/common';
 import {
@@ -247,6 +250,140 @@ async getAllSplitSheets(): Promise<TResponse<SplitSheetResponseDto[]>> {
 
     return successResponse(
       splitSheet as any,
+      'Split sheet updated successfully',
+    );
+  }
+
+  @HandleError('Failed to get all split sheets for admin/distributor', 'SplitSheet')
+  async getAllSplitSheetsForAdmin(
+    pg: PaginationDto,
+  ): Promise<TPaginatedResponse<SplitSheetResponseDto>> {
+    const page = pg.page && +pg.page > 0 ? +pg.page : 1;
+    const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 10;
+    const skip = (page - 1) * limit;
+
+    const [splitSheets, total] = await this.prisma.$transaction([
+      this.prisma.splitSheetAgreement.findMany({
+        skip,
+        take: limit,
+        include: {
+          contributors: true,
+          recordLabel: true,
+          release: { select: { releaseId: true, releaseTitle: true } },
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.splitSheetAgreement.count(),
+    ]);
+
+    return successPaginatedResponse(
+      splitSheets as any,
+      { page, limit, total },
+      'Split sheets fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to get split sheet for admin/distributor', 'SplitSheet')
+  async getSplitSheetByIdForAdmin(
+    splitId: string,
+  ): Promise<TResponse<SplitSheetResponseDto>> {
+    const splitSheet = await this.prisma.splitSheetAgreement.findUnique({
+      where: { splitId },
+      include: {
+        release: true,
+        contributors: true,
+        recordLabel: true,
+      },
+    });
+
+    if (!splitSheet) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Split sheet not found');
+    }
+
+    return successResponse(
+      splitSheet as any,
+      'Split sheet fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to update split sheet for admin/distributor', 'SplitSheet')
+  async updateSplitSheetForAdmin(
+    splitId: string,
+    dto: UpdateSplitSheetDto,
+  ): Promise<TResponse<SplitSheetResponseDto>> {
+    const existingSplitSheet = await this.prisma.splitSheetAgreement.findUnique(
+      {
+        where: { splitId },
+      },
+    );
+
+    if (!existingSplitSheet) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Split sheet not found');
+    }
+
+    if (dto.contributors) {
+      const totalSplit = dto.contributors.reduce(
+        (sum, contributor) => sum + Number(contributor.percentageSplit),
+        0,
+      );
+
+      if (Math.abs(totalSplit - 100) > 0.01) {
+        throw new AppError(
+          HttpStatus.BAD_REQUEST,
+          `Contributor splits must total 100%. Current total: ${totalSplit}%`,
+        );
+      }
+    }
+
+    const { contributors, ...splitSheetData } = dto;
+
+    const splitSheet = await this.prisma.splitSheetAgreement.update({
+      where: { splitId },
+      data: {
+        ...splitSheetData,
+        ...(dto.releaseDate && {
+          releaseDate: new Date(dto.releaseDate),
+        }),
+      },
+      include: {
+        contributors: true,
+        recordLabel: true,
+      },
+    });
+
+    if (contributors) {
+      await this.prisma.contributor.deleteMany({
+        where: { splitId },
+      });
+
+      await this.prisma.contributor.createMany({
+        data: contributors.map((contributor) => ({
+          splitId,
+          fullName: contributor.fullName,
+          contribution: contributor.contribution,
+          email: contributor.email,
+          phone: contributor.phone,
+          address: contributor.address,
+          publisher: contributor.publisher,
+          affiliation: contributor.affiliation,
+          ipiCaeNumber: contributor.ipiCaeNumber,
+          percentageSplit: contributor.percentageSplit,
+        })),
+      });
+    }
+
+    this.logger.log(`Split sheet updated by admin: ${splitId}`);
+
+    const updatedSplitSheet = await this.prisma.splitSheetAgreement.findUnique({
+      where: { splitId },
+      include: {
+        contributors: true,
+        recordLabel: true,
+      },
+    });
+
+    return successResponse(
+      updatedSplitSheet as any,
       'Split sheet updated successfully',
     );
   }

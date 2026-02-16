@@ -378,6 +378,211 @@ export class ReleaseService {
     );
   }
 
+  @HandleError('Failed to get all releases for admin/distributor', 'Release')
+  async getAllReleasesForAdmin(
+    pg: PaginationDto,
+  ): Promise<TPaginatedResponse<ReleaseListItemDto>> {
+    const page = pg.page && +pg.page > 0 ? +pg.page : 1;
+    const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 10;
+    const skip = (page - 1) * limit;
+
+    const [releases, total] = await this.prisma.$transaction([
+      this.prisma.release.findMany({
+        skip,
+        take: limit,
+        include: {
+          releaseArtists: {
+            include: {
+              artist: true,
+            },
+          },
+          backCatalogue: true,
+        },
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.release.count(),
+    ]);
+
+    const listItems: ReleaseListItemDto[] = releases.map((release) => ({
+      releaseId: release.releaseId,
+      releaseTitle: release.releaseTitle ?? undefined,
+      typeOfRelease: release.typeOfRelease ?? undefined,
+      releaseDate: release.releaseDate
+        ? release.releaseDate.toISOString().split('T')[0]
+        : undefined,
+      status: release.status ?? undefined,
+      upc: release.backCatalogue?.[0]?.upc ?? undefined,
+      artistName: release.releaseArtists?.[0]?.artist?.name ?? undefined,
+      createdAt: release.createdAt,
+    }));
+
+    return successPaginatedResponse(
+      listItems,
+      { page, limit, total },
+      'Releases fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to get release for admin/distributor', 'Release')
+  async getReleaseByIdForAdmin(
+    releaseId: string,
+  ): Promise<TResponse<ReleaseResponseDto>> {
+    const release = await this.prisma.release.findUnique({
+      where: { releaseId },
+      include: {
+        releaseArtists: {
+          include: {
+            artist: true,
+          },
+        },
+        releaseTerritories: true,
+        tracks: {
+          include: {
+            trackArtists: {
+              include: {
+                artist: true,
+              },
+            },
+          },
+          orderBy: { trackNumber: 'asc' },
+        },
+        splitSheetAgreements: {
+          include: {
+            contributors: true,
+            recordLabel: true,
+          },
+        },
+        backCatalogue: true,
+      },
+    });
+
+    if (!release) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Release not found');
+    }
+
+    return successResponse(
+      release as any,
+      'Release fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to update release for admin/distributor', 'Release')
+  async updateReleaseForAdmin(
+    releaseId: string,
+    dto: UpdateReleaseDto,
+  ): Promise<TResponse<ReleaseResponseDto>> {
+    const existingRelease = await this.prisma.release.findUnique({
+      where: { releaseId },
+    });
+
+    if (!existingRelease) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Release not found');
+    }
+
+    const userId = existingRelease.userId;
+    const { artists, territories, ...releaseData } = dto;
+
+    const release = await this.prisma.release.update({
+      where: { releaseId },
+      data: {
+        ...(dto.releaseDate && { releaseDate: new Date(dto.releaseDate) }),
+        ...(dto.preOrderDate && { preOrderDate: new Date(dto.preOrderDate) }),
+        ...releaseData,
+      },
+      include: {
+        releaseArtists: {
+          include: {
+            artist: true,
+          },
+        },
+        releaseTerritories: true,
+        tracks: true,
+      },
+    });
+
+    if (artists) {
+      await this.prisma.releaseArtist.deleteMany({
+        where: { releaseId },
+      });
+
+      for (const artistData of artists) {
+        let artistId: string;
+
+        if (artistData.artistId) {
+          const existingArtist = await this.prisma.artist.findUnique({
+            where: { artistId: artistData.artistId, userId },
+          });
+
+          if (!existingArtist) {
+            throw new AppError(
+              HttpStatus.NOT_FOUND,
+              `Artist with ID ${artistData.artistId} not found`,
+            );
+          }
+
+          artistId = artistData.artistId;
+        } else if (artistData.name) {
+          const artist = await this.artistService.findOrCreateArtist(userId, {
+            name: artistData.name,
+            email: artistData.email,
+            phone: artistData.phone,
+            stageName: artistData.stageName,
+            spotifyId: artistData.spotifyId,
+            appleId: artistData.appleId,
+          });
+
+          artistId = artist.artistId;
+        } else {
+          throw new AppError(
+            HttpStatus.BAD_REQUEST,
+            'Each artist must have either artistId or name',
+          );
+        }
+
+        await this.prisma.releaseArtist.create({
+          data: {
+            releaseId,
+            artistId,
+            role: artistData.role,
+          },
+        });
+      }
+    }
+
+    if (territories) {
+      await this.prisma.releaseTerritory.deleteMany({
+        where: { releaseId },
+      });
+
+      await this.prisma.releaseTerritory.createMany({
+        data: territories.map((territory) => ({
+          releaseId,
+          territory: territory.territory,
+        })),
+      });
+    }
+
+    const updatedRelease = await this.prisma.release.findUnique({
+      where: { releaseId },
+      include: {
+        releaseArtists: {
+          include: {
+            artist: true,
+          },
+        },
+        releaseTerritories: true,
+        tracks: true,
+      },
+    });
+
+    this.logger.log(`Release updated by admin: ${releaseId}`);
+
+    return successResponse(
+      updatedRelease as any,
+      'Release updated successfully',
+    );
+  }
+
   @HandleError('Failed to update release status', 'Release')
   async updateReleaseStatus(
     userId: string,
