@@ -191,6 +191,91 @@ export class ArtistService {
     );
   }
 
+  @HandleError('Failed to get all artists for admin/distributor', 'Artist')
+  async getAllArtistsForAdmin(
+    pg: PaginationDto,
+  ): Promise<TPaginatedResponse<ArtistResponseDto>> {
+    const page = pg.page && +pg.page > 0 ? +pg.page : 1;
+    const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 10;
+    const skip = (page - 1) * limit;
+
+    const [artists, total] = await this.prisma.$transaction([
+      this.prisma.artist.findMany({
+        skip,
+        take: limit,
+        orderBy: { createdAt: 'desc' },
+      }),
+      this.prisma.artist.count(),
+    ]);
+
+    return successPaginatedResponse(
+      artists as any,
+      { page, limit, total },
+      'Artists fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to get artist for admin/distributor', 'Artist')
+  async getArtistByIdForAdmin(
+    artistId: string,
+  ): Promise<TResponse<ArtistResponseDto>> {
+    const artist = await this.prisma.artist.findUnique({
+      where: { artistId },
+    });
+
+    if (!artist) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Artist not found');
+    }
+
+    return successResponse(
+      artist as any,
+      'Artist fetched successfully',
+    );
+  }
+
+  @HandleError('Failed to update artist for admin/distributor', 'Artist')
+  async updateArtistForAdmin(
+    artistId: string,
+    dto: UpdateArtistDto,
+  ): Promise<TResponse<ArtistResponseDto>> {
+    const existingArtist = await this.prisma.artist.findUnique({
+      where: { artistId },
+    });
+
+    if (!existingArtist) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'Artist not found');
+    }
+
+    if (dto.name && dto.name !== existingArtist.name) {
+      const conflictingArtist = await this.prisma.artist.findFirst({
+        where: {
+          userId: existingArtist.userId,
+          name: dto.name,
+          artistId: { not: artistId },
+        },
+      });
+
+      if (conflictingArtist) {
+        throw new AppError(
+          HttpStatus.CONFLICT,
+          `Artist with name "${dto.name}" already exists`,
+        );
+      }
+    }
+
+    const artist = await this.prisma.artist.update({
+      where: { artistId },
+      data: dto,
+    });
+
+    this.logger.log(`Artist updated by admin: ${artistId}`);
+
+    return successResponse(
+      artist as any,
+      'Artist updated successfully',
+    );
+  }
+
   @HandleError('Failed to delete artist', 'Artist')
   async deleteArtist(
     userId: string,
