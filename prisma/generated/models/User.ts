@@ -295,6 +295,8 @@ export type UserWhereInput = {
   monthlyStatements?: Prisma.MonthlyStatementListRelationFilter
   clientDistributor?: Prisma.DistributorClientListRelationFilter
   clientCatalogues?: Prisma.ClientBackCatalogueListRelationFilter
+  cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
+  orders?: Prisma.OrderListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -346,6 +348,8 @@ export type UserOrderByWithRelationInput = {
   monthlyStatements?: Prisma.MonthlyStatementOrderByRelationAggregateInput
   clientDistributor?: Prisma.DistributorClientOrderByRelationAggregateInput
   clientCatalogues?: Prisma.ClientBackCatalogueOrderByRelationAggregateInput
+  cart?: Prisma.CartOrderByWithRelationInput
+  orders?: Prisma.OrderOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
@@ -400,6 +404,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   monthlyStatements?: Prisma.MonthlyStatementListRelationFilter
   clientDistributor?: Prisma.DistributorClientListRelationFilter
   clientCatalogues?: Prisma.ClientBackCatalogueListRelationFilter
+  cart?: Prisma.XOR<Prisma.CartNullableScalarRelationFilter, Prisma.CartWhereInput> | null
+  orders?: Prisma.OrderListRelationFilter
 }, "id" | "email" | "phone">
 
 export type UserOrderByWithAggregationInput = {
@@ -479,10 +485,10 @@ export type UserCreateInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -490,8 +496,10 @@ export type UserCreateInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -529,10 +537,10 @@ export type UserUncheckedCreateInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -540,8 +548,10 @@ export type UserUncheckedCreateInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserUpdateInput = {
@@ -579,10 +589,10 @@ export type UserUpdateInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -590,8 +600,10 @@ export type UserUpdateInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -629,10 +641,10 @@ export type UserUncheckedUpdateInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -640,8 +652,10 @@ export type UserUncheckedUpdateInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -1032,46 +1046,32 @@ export type UserUpdateOneRequiredWithoutRefreshTokensNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutRefreshTokensInput, Prisma.UserUpdateWithoutRefreshTokensInput>, Prisma.UserUncheckedUpdateWithoutRefreshTokensInput>
 }
 
-export type UserCreateNestedOneWithoutClientDistributionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributionsInput
+export type UserCreateNestedOneWithoutCartInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCartInput, Prisma.UserUncheckedCreateWithoutCartInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCartInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserCreateNestedOneWithoutDistributorDistributionsInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorDistributionsInput
+export type UserUpdateOneRequiredWithoutCartNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutCartInput, Prisma.UserUncheckedCreateWithoutCartInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutCartInput
+  upsert?: Prisma.UserUpsertWithoutCartInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutCartInput, Prisma.UserUpdateWithoutCartInput>, Prisma.UserUncheckedUpdateWithoutCartInput>
+}
+
+export type UserCreateNestedOneWithoutOrdersInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutClientDistributionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributionsInput
-  upsert?: Prisma.UserUpsertWithoutClientDistributionsInput
+export type UserUpdateOneRequiredWithoutOrdersNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOrdersInput
+  upsert?: Prisma.UserUpsertWithoutOrdersInput
   connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientDistributionsInput, Prisma.UserUpdateWithoutClientDistributionsInput>, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
-}
-
-export type UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorDistributionsInput
-  upsert?: Prisma.UserUpsertWithoutDistributorDistributionsInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributorDistributionsInput, Prisma.UserUpdateWithoutDistributorDistributionsInput>, Prisma.UserUncheckedUpdateWithoutDistributorDistributionsInput>
-}
-
-export type UserCreateNestedOneWithoutDistributionNotesInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributionNotesInput
-  connect?: Prisma.UserWhereUniqueInput
-}
-
-export type UserUpdateOneRequiredWithoutDistributionNotesNestedInput = {
-  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributionNotesInput
-  upsert?: Prisma.UserUpsertWithoutDistributionNotesInput
-  connect?: Prisma.UserWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributionNotesInput, Prisma.UserUpdateWithoutDistributionNotesInput>, Prisma.UserUncheckedUpdateWithoutDistributionNotesInput>
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutOrdersInput, Prisma.UserUpdateWithoutOrdersInput>, Prisma.UserUncheckedUpdateWithoutOrdersInput>
 }
 
 export type UserCreateNestedOneWithoutDistributorClientsInput = {
@@ -1100,6 +1100,48 @@ export type UserUpdateOneRequiredWithoutClientDistributorNestedInput = {
   upsert?: Prisma.UserUpsertWithoutClientDistributorInput
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientDistributorInput, Prisma.UserUpdateWithoutClientDistributorInput>, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
+}
+
+export type UserCreateNestedOneWithoutDistributorDistributionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutClientDistributionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributorDistributionsInput
+  upsert?: Prisma.UserUpsertWithoutDistributorDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributorDistributionsInput, Prisma.UserUpdateWithoutDistributorDistributionsInput>, Prisma.UserUncheckedUpdateWithoutDistributorDistributionsInput>
+}
+
+export type UserUpdateOneRequiredWithoutClientDistributionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutClientDistributionsInput
+  upsert?: Prisma.UserUpsertWithoutClientDistributionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutClientDistributionsInput, Prisma.UserUpdateWithoutClientDistributionsInput>, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+}
+
+export type UserCreateNestedOneWithoutDistributionNotesInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributionNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutDistributionNotesNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutDistributionNotesInput, Prisma.UserUncheckedCreateWithoutDistributionNotesInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutDistributionNotesInput
+  upsert?: Prisma.UserUpsertWithoutDistributionNotesInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutDistributionNotesInput, Prisma.UserUpdateWithoutDistributionNotesInput>, Prisma.UserUncheckedUpdateWithoutDistributionNotesInput>
 }
 
 export type UserCreateNestedOneWithoutDistributorCataloguesInput = {
@@ -1298,10 +1340,10 @@ export type UserCreateWithoutPaymentMethodsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -1309,8 +1351,10 @@ export type UserCreateWithoutPaymentMethodsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentMethodsInput = {
@@ -1347,10 +1391,10 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -1358,8 +1402,10 @@ export type UserUncheckedCreateWithoutPaymentMethodsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentMethodsInput = {
@@ -1412,10 +1458,10 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -1423,8 +1469,10 @@ export type UserUpdateWithoutPaymentMethodsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
@@ -1461,10 +1509,10 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -1472,8 +1520,10 @@ export type UserUncheckedUpdateWithoutPaymentMethodsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPrivacySettingsInput = {
@@ -1510,10 +1560,10 @@ export type UserCreateWithoutPrivacySettingsInput = {
   claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -1521,8 +1571,10 @@ export type UserCreateWithoutPrivacySettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPrivacySettingsInput = {
@@ -1559,10 +1611,10 @@ export type UserUncheckedCreateWithoutPrivacySettingsInput = {
   claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -1570,8 +1622,10 @@ export type UserUncheckedCreateWithoutPrivacySettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPrivacySettingsInput = {
@@ -1624,10 +1678,10 @@ export type UserUpdateWithoutPrivacySettingsInput = {
   claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -1635,8 +1689,10 @@ export type UserUpdateWithoutPrivacySettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPrivacySettingsInput = {
@@ -1673,10 +1729,10 @@ export type UserUncheckedUpdateWithoutPrivacySettingsInput = {
   claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -1684,8 +1740,10 @@ export type UserUncheckedUpdateWithoutPrivacySettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAccountantSettingsInput = {
@@ -1723,18 +1781,20 @@ export type UserCreateWithoutAccountantSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAccountantSettingsInput = {
@@ -1772,18 +1832,20 @@ export type UserUncheckedCreateWithoutAccountantSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAccountantSettingsInput = {
@@ -1837,18 +1899,20 @@ export type UserUpdateWithoutAccountantSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountantSettingsInput = {
@@ -1886,18 +1950,20 @@ export type UserUncheckedUpdateWithoutAccountantSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlatformEarningsInput = {
@@ -1935,18 +2001,20 @@ export type UserCreateWithoutPlatformEarningsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformEarningsInput = {
@@ -1984,18 +2052,20 @@ export type UserUncheckedCreateWithoutPlatformEarningsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformEarningsInput = {
@@ -2049,18 +2119,20 @@ export type UserUpdateWithoutPlatformEarningsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformEarningsInput = {
@@ -2098,18 +2170,20 @@ export type UserUncheckedUpdateWithoutPlatformEarningsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPendingPaymentsInput = {
@@ -2147,18 +2221,20 @@ export type UserCreateWithoutPendingPaymentsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPendingPaymentsInput = {
@@ -2196,18 +2272,20 @@ export type UserUncheckedCreateWithoutPendingPaymentsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPendingPaymentsInput = {
@@ -2261,18 +2339,20 @@ export type UserUpdateWithoutPendingPaymentsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPendingPaymentsInput = {
@@ -2310,18 +2390,20 @@ export type UserUncheckedUpdateWithoutPendingPaymentsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentHistoryInput = {
@@ -2359,18 +2441,20 @@ export type UserCreateWithoutPaymentHistoryInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentHistoryInput = {
@@ -2408,18 +2492,20 @@ export type UserUncheckedCreateWithoutPaymentHistoryInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentHistoryInput = {
@@ -2473,18 +2559,20 @@ export type UserUpdateWithoutPaymentHistoryInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentHistoryInput = {
@@ -2522,18 +2610,20 @@ export type UserUncheckedUpdateWithoutPaymentHistoryInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClientFinancialsInput = {
@@ -2571,18 +2661,20 @@ export type UserCreateWithoutClientFinancialsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientFinancialsInput = {
@@ -2620,18 +2712,20 @@ export type UserUncheckedCreateWithoutClientFinancialsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientFinancialsInput = {
@@ -2685,18 +2779,20 @@ export type UserUpdateWithoutClientFinancialsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientFinancialsInput = {
@@ -2734,18 +2830,20 @@ export type UserUncheckedUpdateWithoutClientFinancialsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutMonthlyStatementsInput = {
@@ -2783,18 +2881,20 @@ export type UserCreateWithoutMonthlyStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutMonthlyStatementsInput = {
@@ -2832,18 +2932,20 @@ export type UserUncheckedCreateWithoutMonthlyStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutMonthlyStatementsInput = {
@@ -2897,18 +2999,20 @@ export type UserUpdateWithoutMonthlyStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutMonthlyStatementsInput = {
@@ -2946,18 +3050,20 @@ export type UserUncheckedUpdateWithoutMonthlyStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutStatementsInput = {
@@ -2994,10 +3100,10 @@ export type UserCreateWithoutStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -3005,8 +3111,10 @@ export type UserCreateWithoutStatementsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutStatementsInput = {
@@ -3043,10 +3151,10 @@ export type UserUncheckedCreateWithoutStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -3054,8 +3162,10 @@ export type UserUncheckedCreateWithoutStatementsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutStatementsInput = {
@@ -3108,10 +3218,10 @@ export type UserUpdateWithoutStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -3119,8 +3229,10 @@ export type UserUpdateWithoutStatementsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutStatementsInput = {
@@ -3157,10 +3269,10 @@ export type UserUncheckedUpdateWithoutStatementsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -3168,8 +3280,10 @@ export type UserUncheckedUpdateWithoutStatementsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTransactionsInput = {
@@ -3206,10 +3320,10 @@ export type UserCreateWithoutTransactionsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -3217,8 +3331,10 @@ export type UserCreateWithoutTransactionsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -3255,10 +3371,10 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -3266,8 +3382,10 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
@@ -3320,10 +3438,10 @@ export type UserUpdateWithoutTransactionsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -3331,8 +3449,10 @@ export type UserUpdateWithoutTransactionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -3369,10 +3489,10 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -3380,8 +3500,10 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDealStatusesInput = {
@@ -3418,10 +3540,10 @@ export type UserCreateWithoutDealStatusesInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -3429,8 +3551,10 @@ export type UserCreateWithoutDealStatusesInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDealStatusesInput = {
@@ -3467,10 +3591,10 @@ export type UserUncheckedCreateWithoutDealStatusesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -3478,8 +3602,10 @@ export type UserUncheckedCreateWithoutDealStatusesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDealStatusesInput = {
@@ -3532,10 +3658,10 @@ export type UserUpdateWithoutDealStatusesInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -3543,8 +3669,10 @@ export type UserUpdateWithoutDealStatusesInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDealStatusesInput = {
@@ -3581,10 +3709,10 @@ export type UserUncheckedUpdateWithoutDealStatusesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -3592,8 +3720,10 @@ export type UserUncheckedUpdateWithoutDealStatusesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPaymentRequestsInput = {
@@ -3630,10 +3760,10 @@ export type UserCreateWithoutPaymentRequestsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -3641,8 +3771,10 @@ export type UserCreateWithoutPaymentRequestsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPaymentRequestsInput = {
@@ -3679,10 +3811,10 @@ export type UserUncheckedCreateWithoutPaymentRequestsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -3690,8 +3822,10 @@ export type UserUncheckedCreateWithoutPaymentRequestsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPaymentRequestsInput = {
@@ -3744,10 +3878,10 @@ export type UserUpdateWithoutPaymentRequestsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -3755,8 +3889,10 @@ export type UserUpdateWithoutPaymentRequestsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
@@ -3793,10 +3929,10 @@ export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -3804,8 +3940,10 @@ export type UserUncheckedUpdateWithoutPaymentRequestsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutTeamMemberInput = {
@@ -3843,18 +3981,20 @@ export type UserCreateWithoutTeamMemberInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutTeamMemberInput = {
@@ -3892,18 +4032,20 @@ export type UserUncheckedCreateWithoutTeamMemberInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
   pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutTeamMemberInput = {
@@ -3957,18 +4099,20 @@ export type UserUpdateWithoutTeamMemberInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTeamMemberInput = {
@@ -4006,18 +4150,20 @@ export type UserUncheckedUpdateWithoutTeamMemberInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
   pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutPlatformAnalyticsInput = {
@@ -4054,10 +4200,10 @@ export type UserCreateWithoutPlatformAnalyticsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -4065,8 +4211,10 @@ export type UserCreateWithoutPlatformAnalyticsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutPlatformAnalyticsInput = {
@@ -4103,10 +4251,10 @@ export type UserUncheckedCreateWithoutPlatformAnalyticsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -4114,8 +4262,10 @@ export type UserUncheckedCreateWithoutPlatformAnalyticsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutPlatformAnalyticsInput = {
@@ -4168,10 +4318,10 @@ export type UserUpdateWithoutPlatformAnalyticsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -4179,8 +4329,10 @@ export type UserUpdateWithoutPlatformAnalyticsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutPlatformAnalyticsInput = {
@@ -4217,10 +4369,10 @@ export type UserUncheckedUpdateWithoutPlatformAnalyticsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -4228,8 +4380,10 @@ export type UserUncheckedUpdateWithoutPlatformAnalyticsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutAssetsInput = {
@@ -4266,10 +4420,10 @@ export type UserCreateWithoutAssetsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -4277,8 +4431,10 @@ export type UserCreateWithoutAssetsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutAssetsInput = {
@@ -4315,10 +4471,10 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -4326,8 +4482,10 @@ export type UserUncheckedCreateWithoutAssetsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutAssetsInput = {
@@ -4380,10 +4538,10 @@ export type UserUpdateWithoutAssetsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -4391,8 +4549,10 @@ export type UserUpdateWithoutAssetsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAssetsInput = {
@@ -4429,10 +4589,10 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -4440,8 +4600,10 @@ export type UserUncheckedUpdateWithoutAssetsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutGeoTrendsInput = {
@@ -4478,10 +4640,10 @@ export type UserCreateWithoutGeoTrendsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -4489,8 +4651,10 @@ export type UserCreateWithoutGeoTrendsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutGeoTrendsInput = {
@@ -4527,10 +4691,10 @@ export type UserUncheckedCreateWithoutGeoTrendsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -4538,8 +4702,10 @@ export type UserUncheckedCreateWithoutGeoTrendsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutGeoTrendsInput = {
@@ -4592,10 +4758,10 @@ export type UserUpdateWithoutGeoTrendsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -4603,8 +4769,10 @@ export type UserUpdateWithoutGeoTrendsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutGeoTrendsInput = {
@@ -4641,10 +4809,10 @@ export type UserUncheckedUpdateWithoutGeoTrendsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -4652,8 +4820,10 @@ export type UserUncheckedUpdateWithoutGeoTrendsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClaimsInput = {
@@ -4690,10 +4860,10 @@ export type UserCreateWithoutClaimsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -4701,8 +4871,10 @@ export type UserCreateWithoutClaimsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClaimsInput = {
@@ -4739,10 +4911,10 @@ export type UserUncheckedCreateWithoutClaimsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -4750,8 +4922,10 @@ export type UserUncheckedCreateWithoutClaimsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClaimsInput = {
@@ -4804,10 +4978,10 @@ export type UserUpdateWithoutClaimsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -4815,8 +4989,10 @@ export type UserUpdateWithoutClaimsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClaimsInput = {
@@ -4853,10 +5029,10 @@ export type UserUncheckedUpdateWithoutClaimsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -4864,8 +5040,10 @@ export type UserUncheckedUpdateWithoutClaimsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutOtpsInput = {
@@ -4902,10 +5080,10 @@ export type UserCreateWithoutOtpsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -4913,8 +5091,10 @@ export type UserCreateWithoutOtpsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutOtpsInput = {
@@ -4951,10 +5131,10 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -4962,8 +5142,10 @@ export type UserUncheckedCreateWithoutOtpsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutOtpsInput = {
@@ -5016,10 +5198,10 @@ export type UserUpdateWithoutOtpsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -5027,8 +5209,10 @@ export type UserUpdateWithoutOtpsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutOtpsInput = {
@@ -5065,10 +5249,10 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -5076,8 +5260,10 @@ export type UserUncheckedUpdateWithoutOtpsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutRefreshTokensInput = {
@@ -5114,10 +5300,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -5125,8 +5311,10 @@ export type UserCreateWithoutRefreshTokensInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutRefreshTokensInput = {
@@ -5163,10 +5351,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -5174,8 +5362,10 @@ export type UserUncheckedCreateWithoutRefreshTokensInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutRefreshTokensInput = {
@@ -5228,10 +5418,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -5239,8 +5429,10 @@ export type UserUpdateWithoutRefreshTokensInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutRefreshTokensInput = {
@@ -5277,10 +5469,10 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -5288,11 +5480,13 @@ export type UserUncheckedUpdateWithoutRefreshTokensInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
-export type UserCreateWithoutClientDistributionsInput = {
+export type UserCreateWithoutCartInput = {
   id?: string
   name?: string
   email: string
@@ -5327,9 +5521,10 @@ export type UserCreateWithoutClientDistributionsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -5337,11 +5532,12 @@ export type UserCreateWithoutClientDistributionsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
-export type UserUncheckedCreateWithoutClientDistributionsInput = {
+export type UserUncheckedCreateWithoutCartInput = {
   id?: string
   name?: string
   email: string
@@ -5376,9 +5572,10 @@ export type UserUncheckedCreateWithoutClientDistributionsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -5386,13 +5583,787 @@ export type UserUncheckedCreateWithoutClientDistributionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
-export type UserCreateOrConnectWithoutClientDistributionsInput = {
+export type UserCreateOrConnectWithoutCartInput = {
   where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCartInput, Prisma.UserUncheckedCreateWithoutCartInput>
+}
+
+export type UserUpsertWithoutCartInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutCartInput, Prisma.UserUncheckedUpdateWithoutCartInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutCartInput, Prisma.UserUncheckedCreateWithoutCartInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutCartInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutCartInput, Prisma.UserUncheckedUpdateWithoutCartInput>
+}
+
+export type UserUpdateWithoutCartInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutCartInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserCreateWithoutOrdersInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutOrdersInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutOrdersInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+}
+
+export type UserUpsertWithoutOrdersInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutOrdersInput, Prisma.UserUncheckedCreateWithoutOrdersInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutOrdersInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutOrdersInput, Prisma.UserUncheckedUpdateWithoutOrdersInput>
+}
+
+export type UserUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutOrdersInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+}
+
+export type UserCreateWithoutDistributorClientsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutDistributorClientsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutDistributorClientsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
+}
+
+export type UserCreateWithoutClientDistributorInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClientDistributorInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClientDistributorInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
+}
+
+export type UserUpsertWithoutDistributorClientsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutDistributorClientsInput, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutDistributorClientsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutDistributorClientsInput, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
+}
+
+export type UserUpdateWithoutDistributorClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutDistributorClientsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutClientDistributorInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributorInput, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClientDistributorInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributorInput, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
+}
+
+export type UserUpdateWithoutClientDistributorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClientDistributorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDistributorDistributionsInput = {
@@ -5430,9 +6401,9 @@ export type UserCreateWithoutDistributorDistributionsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -5440,8 +6411,10 @@ export type UserCreateWithoutDistributorDistributionsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDistributorDistributionsInput = {
@@ -5479,9 +6452,9 @@ export type UserUncheckedCreateWithoutDistributorDistributionsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -5489,8 +6462,10 @@ export type UserUncheckedCreateWithoutDistributorDistributionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDistributorDistributionsInput = {
@@ -5498,113 +6473,111 @@ export type UserCreateOrConnectWithoutDistributorDistributionsInput = {
   create: Prisma.XOR<Prisma.UserCreateWithoutDistributorDistributionsInput, Prisma.UserUncheckedCreateWithoutDistributorDistributionsInput>
 }
 
-export type UserUpsertWithoutClientDistributionsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributionsInput, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+export type UserCreateWithoutClientDistributionsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
+  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
+}
+
+export type UserUncheckedCreateWithoutClientDistributionsInput = {
+  id?: string
+  name?: string
+  email: string
+  password?: string | null
+  phone?: string | null
+  role?: $Enums.UserRole
+  status?: $Enums.UserStatus
+  isVerified?: boolean
+  isTFAEnabled?: boolean
+  lastLoginAt?: Date | string | null
+  lastActiveAt?: Date | string | null
+  profilePictureUrl?: string | null
+  profilePictureId?: string | null
+  createdAt?: Date | string
+  updatedAt?: Date | string
+  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
+  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
+  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
+  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
+  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
+  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
+  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
+  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
+  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
+  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
+  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
+  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
+  teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
+}
+
+export type UserCreateOrConnectWithoutClientDistributionsInput = {
+  where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutClientDistributionsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributionsInput, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
-}
-
-export type UserUpdateWithoutClientDistributionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
-  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
-  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
-  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
-  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
-  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
-  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
-  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
-  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
-  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
-  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
-  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
-  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
-  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
-  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
-  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
-  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
-  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
-  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutClientDistributionsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
-  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
-  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
-  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
-  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
-  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
-  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
-  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
-  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
-  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
-  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
-  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
-  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
-  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
-  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
-  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
-  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutDistributorDistributionsInput = {
@@ -5653,9 +6626,9 @@ export type UserUpdateWithoutDistributorDistributionsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -5663,8 +6636,10 @@ export type UserUpdateWithoutDistributorDistributionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDistributorDistributionsInput = {
@@ -5702,9 +6677,9 @@ export type UserUncheckedUpdateWithoutDistributorDistributionsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -5712,8 +6687,123 @@ export type UserUncheckedUpdateWithoutDistributorDistributionsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
+}
+
+export type UserUpsertWithoutClientDistributionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributionsInput, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributionsInput, Prisma.UserUncheckedCreateWithoutClientDistributionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutClientDistributionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributionsInput, Prisma.UserUncheckedUpdateWithoutClientDistributionsInput>
+}
+
+export type UserUpdateWithoutClientDistributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
+  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
+}
+
+export type UserUncheckedUpdateWithoutClientDistributionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.StringFieldUpdateOperationsInput | string
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
+  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
+  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
+  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
+  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
+  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
+  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
+  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
+  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
+  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
+  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
+  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
+  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
+  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
+  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
+  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
+  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
+  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
+  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
+  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
+  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
+  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
+  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
+  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
+  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
+  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
+  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
+  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDistributionNotesInput = {
@@ -5751,9 +6841,9 @@ export type UserCreateWithoutDistributionNotesInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -5761,8 +6851,10 @@ export type UserCreateWithoutDistributionNotesInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDistributionNotesInput = {
@@ -5800,9 +6892,9 @@ export type UserUncheckedCreateWithoutDistributionNotesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -5810,8 +6902,10 @@ export type UserUncheckedCreateWithoutDistributionNotesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDistributionNotesInput = {
@@ -5865,9 +6959,9 @@ export type UserUpdateWithoutDistributionNotesInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -5875,8 +6969,10 @@ export type UserUpdateWithoutDistributionNotesInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDistributionNotesInput = {
@@ -5914,9 +7010,9 @@ export type UserUncheckedUpdateWithoutDistributionNotesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -5924,432 +7020,10 @@ export type UserUncheckedUpdateWithoutDistributionNotesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserCreateWithoutDistributorClientsInput = {
-  id?: string
-  name?: string
-  email: string
-  password?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  status?: $Enums.UserStatus
-  isVerified?: boolean
-  isTFAEnabled?: boolean
-  lastLoginAt?: Date | string | null
-  lastActiveAt?: Date | string | null
-  profilePictureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
-  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
-  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
-  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
-  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
-  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
-  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
-  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
-  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
-  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
-  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
-  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
-  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
-  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
-  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
-  teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
-  accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
-  platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
-  pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
-  paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
-  clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
-  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutDistributorClientsInput = {
-  id?: string
-  name?: string
-  email: string
-  password?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  status?: $Enums.UserStatus
-  isVerified?: boolean
-  isTFAEnabled?: boolean
-  lastLoginAt?: Date | string | null
-  lastActiveAt?: Date | string | null
-  profilePictureUrl?: string | null
-  profilePictureId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
-  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
-  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
-  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
-  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
-  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
-  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
-  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
-  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
-  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
-  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
-  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
-  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
-  teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
-  accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
-  platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
-  pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
-  paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
-  clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
-  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutDistributorClientsInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
-}
-
-export type UserCreateWithoutClientDistributorInput = {
-  id?: string
-  name?: string
-  email: string
-  password?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  status?: $Enums.UserStatus
-  isVerified?: boolean
-  isTFAEnabled?: boolean
-  lastLoginAt?: Date | string | null
-  lastActiveAt?: Date | string | null
-  profilePictureUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  profilePicture?: Prisma.FileInstanceCreateNestedOneWithoutUsersInput
-  notifications?: Prisma.UserNotificationCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsCreateNestedManyWithoutUserInput
-  otps?: Prisma.UserOtpCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenCreateNestedManyWithoutUserInput
-  clientSettings?: Prisma.ClientSettingsCreateNestedManyWithoutUserInput
-  loginDevices?: Prisma.LoginDeviceCreateNestedManyWithoutUserInput
-  releases?: Prisma.ReleaseCreateNestedManyWithoutUserInput
-  artists?: Prisma.ArtistCreateNestedManyWithoutUserInput
-  statements?: Prisma.StatementCreateNestedManyWithoutUserInput
-  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
-  dealStatuses?: Prisma.DealStatusCreateNestedManyWithoutUserInput
-  paymentRequests?: Prisma.PaymentRequestCreateNestedManyWithoutUserInput
-  platformAnalytics?: Prisma.PlatformAnalyticsCreateNestedManyWithoutUserInput
-  assets?: Prisma.AssetCreateNestedManyWithoutUserInput
-  geoTrends?: Prisma.GeoTrendCreateNestedManyWithoutUserInput
-  claims?: Prisma.ClaimCreateNestedManyWithoutUserInput
-  paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
-  privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
-  distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
-  distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
-  teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
-  accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
-  platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
-  pendingPayments?: Prisma.PendingPaymentCreateNestedManyWithoutClientInput
-  paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
-  clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
-  monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
-}
-
-export type UserUncheckedCreateWithoutClientDistributorInput = {
-  id?: string
-  name?: string
-  email: string
-  password?: string | null
-  phone?: string | null
-  role?: $Enums.UserRole
-  status?: $Enums.UserStatus
-  isVerified?: boolean
-  isTFAEnabled?: boolean
-  lastLoginAt?: Date | string | null
-  lastActiveAt?: Date | string | null
-  profilePictureUrl?: string | null
-  profilePictureId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  notifications?: Prisma.UserNotificationUncheckedCreateNestedManyWithoutUserInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedCreateNestedManyWithoutUserInput
-  otps?: Prisma.UserOtpUncheckedCreateNestedManyWithoutUserInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedCreateNestedManyWithoutUserInput
-  clientSettings?: Prisma.ClientSettingsUncheckedCreateNestedManyWithoutUserInput
-  loginDevices?: Prisma.LoginDeviceUncheckedCreateNestedManyWithoutUserInput
-  releases?: Prisma.ReleaseUncheckedCreateNestedManyWithoutUserInput
-  artists?: Prisma.ArtistUncheckedCreateNestedManyWithoutUserInput
-  statements?: Prisma.StatementUncheckedCreateNestedManyWithoutUserInput
-  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
-  dealStatuses?: Prisma.DealStatusUncheckedCreateNestedManyWithoutUserInput
-  paymentRequests?: Prisma.PaymentRequestUncheckedCreateNestedManyWithoutUserInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedCreateNestedManyWithoutUserInput
-  assets?: Prisma.AssetUncheckedCreateNestedManyWithoutUserInput
-  geoTrends?: Prisma.GeoTrendUncheckedCreateNestedManyWithoutUserInput
-  claims?: Prisma.ClaimUncheckedCreateNestedManyWithoutUserInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
-  privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
-  distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
-  distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
-  teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
-  accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
-  platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
-  pendingPayments?: Prisma.PendingPaymentUncheckedCreateNestedManyWithoutClientInput
-  paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
-  clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
-  monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
-}
-
-export type UserCreateOrConnectWithoutClientDistributorInput = {
-  where: Prisma.UserWhereUniqueInput
-  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
-}
-
-export type UserUpsertWithoutDistributorClientsInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutDistributorClientsInput, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutDistributorClientsInput, Prisma.UserUncheckedCreateWithoutDistributorClientsInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutDistributorClientsInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutDistributorClientsInput, Prisma.UserUncheckedUpdateWithoutDistributorClientsInput>
-}
-
-export type UserUpdateWithoutDistributorClientsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
-  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
-  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
-  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
-  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
-  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
-  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
-  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
-  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
-  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
-  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
-  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
-  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
-  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
-  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
-  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
-  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
-  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutDistributorClientsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
-  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
-  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
-  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
-  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
-  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
-  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
-  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
-  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
-  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
-  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
-  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
-  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
-  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
-  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
-  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
-}
-
-export type UserUpsertWithoutClientDistributorInput = {
-  update: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributorInput, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
-  create: Prisma.XOR<Prisma.UserCreateWithoutClientDistributorInput, Prisma.UserUncheckedCreateWithoutClientDistributorInput>
-  where?: Prisma.UserWhereInput
-}
-
-export type UserUpdateToOneWithWhereWithoutClientDistributorInput = {
-  where?: Prisma.UserWhereInput
-  data: Prisma.XOR<Prisma.UserUpdateWithoutClientDistributorInput, Prisma.UserUncheckedUpdateWithoutClientDistributorInput>
-}
-
-export type UserUpdateWithoutClientDistributorInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  profilePicture?: Prisma.FileInstanceUpdateOneWithoutUsersNestedInput
-  notifications?: Prisma.UserNotificationUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUpdateManyWithoutUserNestedInput
-  otps?: Prisma.UserOtpUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUpdateManyWithoutUserNestedInput
-  clientSettings?: Prisma.ClientSettingsUpdateManyWithoutUserNestedInput
-  loginDevices?: Prisma.LoginDeviceUpdateManyWithoutUserNestedInput
-  releases?: Prisma.ReleaseUpdateManyWithoutUserNestedInput
-  artists?: Prisma.ArtistUpdateManyWithoutUserNestedInput
-  statements?: Prisma.StatementUpdateManyWithoutUserNestedInput
-  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
-  dealStatuses?: Prisma.DealStatusUpdateManyWithoutUserNestedInput
-  paymentRequests?: Prisma.PaymentRequestUpdateManyWithoutUserNestedInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUpdateManyWithoutUserNestedInput
-  assets?: Prisma.AssetUpdateManyWithoutUserNestedInput
-  geoTrends?: Prisma.GeoTrendUpdateManyWithoutUserNestedInput
-  claims?: Prisma.ClaimUpdateManyWithoutUserNestedInput
-  paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
-  privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
-  distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
-  distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
-  teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
-  accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
-  platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
-  pendingPayments?: Prisma.PendingPaymentUpdateManyWithoutClientNestedInput
-  paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
-  clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
-  monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
-}
-
-export type UserUncheckedUpdateWithoutClientDistributorInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  email?: Prisma.StringFieldUpdateOperationsInput | string
-  password?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  role?: Prisma.EnumUserRoleFieldUpdateOperationsInput | $Enums.UserRole
-  status?: Prisma.EnumUserStatusFieldUpdateOperationsInput | $Enums.UserStatus
-  isVerified?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isTFAEnabled?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  lastLoginAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  lastActiveAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  profilePictureUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  profilePictureId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  notifications?: Prisma.UserNotificationUncheckedUpdateManyWithoutUserNestedInput
-  notificationSettings?: Prisma.NotificationSettingsUncheckedUpdateManyWithoutUserNestedInput
-  otps?: Prisma.UserOtpUncheckedUpdateManyWithoutUserNestedInput
-  refreshTokens?: Prisma.RefreshTokenUncheckedUpdateManyWithoutUserNestedInput
-  clientSettings?: Prisma.ClientSettingsUncheckedUpdateManyWithoutUserNestedInput
-  loginDevices?: Prisma.LoginDeviceUncheckedUpdateManyWithoutUserNestedInput
-  releases?: Prisma.ReleaseUncheckedUpdateManyWithoutUserNestedInput
-  artists?: Prisma.ArtistUncheckedUpdateManyWithoutUserNestedInput
-  statements?: Prisma.StatementUncheckedUpdateManyWithoutUserNestedInput
-  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
-  dealStatuses?: Prisma.DealStatusUncheckedUpdateManyWithoutUserNestedInput
-  paymentRequests?: Prisma.PaymentRequestUncheckedUpdateManyWithoutUserNestedInput
-  platformAnalytics?: Prisma.PlatformAnalyticsUncheckedUpdateManyWithoutUserNestedInput
-  assets?: Prisma.AssetUncheckedUpdateManyWithoutUserNestedInput
-  geoTrends?: Prisma.GeoTrendUncheckedUpdateManyWithoutUserNestedInput
-  claims?: Prisma.ClaimUncheckedUpdateManyWithoutUserNestedInput
-  paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
-  privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
-  distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
-  teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
-  accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
-  platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
-  pendingPayments?: Prisma.PendingPaymentUncheckedUpdateManyWithoutClientNestedInput
-  paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
-  clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
-  monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutDistributorCataloguesInput = {
@@ -6388,8 +7062,8 @@ export type UserCreateWithoutDistributorCataloguesInput = {
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -6397,8 +7071,10 @@ export type UserCreateWithoutDistributorCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutDistributorCataloguesInput = {
@@ -6437,8 +7113,8 @@ export type UserUncheckedCreateWithoutDistributorCataloguesInput = {
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -6446,8 +7122,10 @@ export type UserUncheckedCreateWithoutDistributorCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutDistributorCataloguesInput = {
@@ -6490,10 +7168,10 @@ export type UserCreateWithoutClientCataloguesInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -6501,7 +7179,9 @@ export type UserCreateWithoutClientCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientCataloguesInput = {
@@ -6539,10 +7219,10 @@ export type UserUncheckedCreateWithoutClientCataloguesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -6550,7 +7230,9 @@ export type UserUncheckedCreateWithoutClientCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientCataloguesInput = {
@@ -6605,8 +7287,8 @@ export type UserUpdateWithoutDistributorCataloguesInput = {
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -6614,8 +7296,10 @@ export type UserUpdateWithoutDistributorCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutDistributorCataloguesInput = {
@@ -6654,8 +7338,8 @@ export type UserUncheckedUpdateWithoutDistributorCataloguesInput = {
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -6663,8 +7347,10 @@ export type UserUncheckedUpdateWithoutDistributorCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUpsertWithoutClientCataloguesInput = {
@@ -6713,10 +7399,10 @@ export type UserUpdateWithoutClientCataloguesInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -6724,7 +7410,9 @@ export type UserUpdateWithoutClientCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientCataloguesInput = {
@@ -6762,10 +7450,10 @@ export type UserUncheckedUpdateWithoutClientCataloguesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -6773,7 +7461,9 @@ export type UserUncheckedUpdateWithoutClientCataloguesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutProfilePictureInput = {
@@ -6810,10 +7500,10 @@ export type UserCreateWithoutProfilePictureInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -6821,8 +7511,10 @@ export type UserCreateWithoutProfilePictureInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutProfilePictureInput = {
@@ -6859,10 +7551,10 @@ export type UserUncheckedCreateWithoutProfilePictureInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -6870,8 +7562,10 @@ export type UserUncheckedCreateWithoutProfilePictureInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutProfilePictureInput = {
@@ -6955,10 +7649,10 @@ export type UserCreateWithoutLoginDevicesInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -6966,8 +7660,10 @@ export type UserCreateWithoutLoginDevicesInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutLoginDevicesInput = {
@@ -7004,10 +7700,10 @@ export type UserUncheckedCreateWithoutLoginDevicesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -7015,8 +7711,10 @@ export type UserUncheckedCreateWithoutLoginDevicesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutLoginDevicesInput = {
@@ -7069,10 +7767,10 @@ export type UserUpdateWithoutLoginDevicesInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -7080,8 +7778,10 @@ export type UserUpdateWithoutLoginDevicesInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutLoginDevicesInput = {
@@ -7118,10 +7818,10 @@ export type UserUncheckedUpdateWithoutLoginDevicesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -7129,8 +7829,10 @@ export type UserUncheckedUpdateWithoutLoginDevicesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationsInput = {
@@ -7167,10 +7869,10 @@ export type UserCreateWithoutNotificationsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -7178,8 +7880,10 @@ export type UserCreateWithoutNotificationsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationsInput = {
@@ -7216,10 +7920,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -7227,8 +7931,10 @@ export type UserUncheckedCreateWithoutNotificationsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationsInput = {
@@ -7281,10 +7987,10 @@ export type UserUpdateWithoutNotificationsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -7292,8 +7998,10 @@ export type UserUpdateWithoutNotificationsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationsInput = {
@@ -7330,10 +8038,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -7341,8 +8049,10 @@ export type UserUncheckedUpdateWithoutNotificationsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutNotificationSettingsInput = {
@@ -7379,10 +8089,10 @@ export type UserCreateWithoutNotificationSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -7390,8 +8100,10 @@ export type UserCreateWithoutNotificationSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutNotificationSettingsInput = {
@@ -7428,10 +8140,10 @@ export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -7439,8 +8151,10 @@ export type UserUncheckedCreateWithoutNotificationSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutNotificationSettingsInput = {
@@ -7493,10 +8207,10 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -7504,8 +8218,10 @@ export type UserUpdateWithoutNotificationSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
@@ -7542,10 +8258,10 @@ export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -7553,8 +8269,10 @@ export type UserUncheckedUpdateWithoutNotificationSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutReleasesInput = {
@@ -7591,10 +8309,10 @@ export type UserCreateWithoutReleasesInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -7602,8 +8320,10 @@ export type UserCreateWithoutReleasesInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutReleasesInput = {
@@ -7640,10 +8360,10 @@ export type UserUncheckedCreateWithoutReleasesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -7651,8 +8371,10 @@ export type UserUncheckedCreateWithoutReleasesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutReleasesInput = {
@@ -7705,10 +8427,10 @@ export type UserUpdateWithoutReleasesInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -7716,8 +8438,10 @@ export type UserUpdateWithoutReleasesInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutReleasesInput = {
@@ -7754,10 +8478,10 @@ export type UserUncheckedUpdateWithoutReleasesInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -7765,8 +8489,10 @@ export type UserUncheckedUpdateWithoutReleasesInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutArtistsInput = {
@@ -7803,10 +8529,10 @@ export type UserCreateWithoutArtistsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -7814,8 +8540,10 @@ export type UserCreateWithoutArtistsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutArtistsInput = {
@@ -7852,10 +8580,10 @@ export type UserUncheckedCreateWithoutArtistsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -7863,8 +8591,10 @@ export type UserUncheckedCreateWithoutArtistsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutArtistsInput = {
@@ -7917,10 +8647,10 @@ export type UserUpdateWithoutArtistsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -7928,8 +8658,10 @@ export type UserUpdateWithoutArtistsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutArtistsInput = {
@@ -7966,10 +8698,10 @@ export type UserUncheckedUpdateWithoutArtistsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -7977,8 +8709,10 @@ export type UserUncheckedUpdateWithoutArtistsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateWithoutClientSettingsInput = {
@@ -8015,10 +8749,10 @@ export type UserCreateWithoutClientSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningCreateNestedManyWithoutUserInput
@@ -8026,8 +8760,10 @@ export type UserCreateWithoutClientSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderCreateNestedManyWithoutUserInput
 }
 
 export type UserUncheckedCreateWithoutClientSettingsInput = {
@@ -8064,10 +8800,10 @@ export type UserUncheckedCreateWithoutClientSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedCreateNestedManyWithoutUserInput
   privacySettings?: Prisma.PrivacySettingsUncheckedCreateNestedOneWithoutUserInput
   distributorClients?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutDistributorInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput
   distributorDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutDistributorInput
-  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutUserInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutUserInput
+  clientDistributions?: Prisma.DistributionUncheckedCreateNestedManyWithoutClientInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput
   teamMember?: Prisma.TeamMemberUncheckedCreateNestedManyWithoutUserInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedCreateNestedOneWithoutUserInput
   platformEarnings?: Prisma.PlatformEarningUncheckedCreateNestedManyWithoutUserInput
@@ -8075,8 +8811,10 @@ export type UserUncheckedCreateWithoutClientSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedCreateNestedManyWithoutClientInput
   clientFinancials?: Prisma.ClientFinancialUncheckedCreateNestedManyWithoutClientInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedCreateNestedManyWithoutUserInput
-  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutUserInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput
+  clientDistributor?: Prisma.DistributorClientUncheckedCreateNestedManyWithoutClientInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput
+  cart?: Prisma.CartUncheckedCreateNestedOneWithoutUserInput
+  orders?: Prisma.OrderUncheckedCreateNestedManyWithoutUserInput
 }
 
 export type UserCreateOrConnectWithoutClientSettingsInput = {
@@ -8129,10 +8867,10 @@ export type UserUpdateWithoutClientSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -8140,8 +8878,10 @@ export type UserUpdateWithoutClientSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutClientSettingsInput = {
@@ -8178,10 +8918,10 @@ export type UserUncheckedUpdateWithoutClientSettingsInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -8189,8 +8929,10 @@ export type UserUncheckedUpdateWithoutClientSettingsInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserCreateManyProfilePictureInput = {
@@ -8244,10 +8986,10 @@ export type UserUpdateWithoutProfilePictureInput = {
   paymentMethods?: Prisma.PaymentMethodUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUpdateManyWithoutUserNestedInput
@@ -8255,8 +8997,10 @@ export type UserUpdateWithoutProfilePictureInput = {
   paymentHistory?: Prisma.PaymentHistoryUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateWithoutProfilePictureInput = {
@@ -8293,10 +9037,10 @@ export type UserUncheckedUpdateWithoutProfilePictureInput = {
   paymentMethods?: Prisma.PaymentMethodUncheckedUpdateManyWithoutUserNestedInput
   privacySettings?: Prisma.PrivacySettingsUncheckedUpdateOneWithoutUserNestedInput
   distributorClients?: Prisma.DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput
-  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput
+  distributorCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput
   distributorDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutDistributorNestedInput
-  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutUserNestedInput
-  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributions?: Prisma.DistributionUncheckedUpdateManyWithoutClientNestedInput
+  distributionNotes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput
   teamMember?: Prisma.TeamMemberUncheckedUpdateManyWithoutUserNestedInput
   accountantSettings?: Prisma.AccountantSettingsUncheckedUpdateOneWithoutUserNestedInput
   platformEarnings?: Prisma.PlatformEarningUncheckedUpdateManyWithoutUserNestedInput
@@ -8304,8 +9048,10 @@ export type UserUncheckedUpdateWithoutProfilePictureInput = {
   paymentHistory?: Prisma.PaymentHistoryUncheckedUpdateManyWithoutClientNestedInput
   clientFinancials?: Prisma.ClientFinancialUncheckedUpdateManyWithoutClientNestedInput
   monthlyStatements?: Prisma.MonthlyStatementUncheckedUpdateManyWithoutUserNestedInput
-  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutUserNestedInput
-  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput
+  clientDistributor?: Prisma.DistributorClientUncheckedUpdateManyWithoutClientNestedInput
+  clientCatalogues?: Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput
+  cart?: Prisma.CartUncheckedUpdateOneWithoutUserNestedInput
+  orders?: Prisma.OrderUncheckedUpdateManyWithoutUserNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutProfilePictureInput = {
@@ -8361,6 +9107,7 @@ export type UserCountOutputType = {
   monthlyStatements: number
   clientDistributor: number
   clientCatalogues: number
+  orders: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8394,6 +9141,7 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   monthlyStatements?: boolean | UserCountOutputTypeCountMonthlyStatementsArgs
   clientDistributor?: boolean | UserCountOutputTypeCountClientDistributorArgs
   clientCatalogues?: boolean | UserCountOutputTypeCountClientCataloguesArgs
+  orders?: boolean | UserCountOutputTypeCountOrdersArgs
 }
 
 /**
@@ -8616,6 +9364,13 @@ export type UserCountOutputTypeCountClientCataloguesArgs<ExtArgs extends runtime
   where?: Prisma.ClientBackCatalogueWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountOrdersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.OrderWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -8666,6 +9421,8 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   monthlyStatements?: boolean | Prisma.User$monthlyStatementsArgs<ExtArgs>
   clientDistributor?: boolean | Prisma.User$clientDistributorArgs<ExtArgs>
   clientCatalogues?: boolean | Prisma.User$clientCataloguesArgs<ExtArgs>
+  cart?: boolean | Prisma.User$cartArgs<ExtArgs>
+  orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -8760,6 +9517,8 @@ export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   monthlyStatements?: boolean | Prisma.User$monthlyStatementsArgs<ExtArgs>
   clientDistributor?: boolean | Prisma.User$clientDistributorArgs<ExtArgs>
   clientCatalogues?: boolean | Prisma.User$clientCataloguesArgs<ExtArgs>
+  cart?: boolean | Prisma.User$cartArgs<ExtArgs>
+  orders?: boolean | Prisma.User$ordersArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -8805,6 +9564,8 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     monthlyStatements: Prisma.$MonthlyStatementPayload<ExtArgs>[]
     clientDistributor: Prisma.$DistributorClientPayload<ExtArgs>[]
     clientCatalogues: Prisma.$ClientBackCataloguePayload<ExtArgs>[]
+    cart: Prisma.$CartPayload<ExtArgs> | null
+    orders: Prisma.$OrderPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -9249,6 +10010,8 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   monthlyStatements<T extends Prisma.User$monthlyStatementsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$monthlyStatementsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$MonthlyStatementPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clientDistributor<T extends Prisma.User$clientDistributorArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientDistributorArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributorClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   clientCatalogues<T extends Prisma.User$clientCataloguesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$clientCataloguesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientBackCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  cart<T extends Prisma.User$cartArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$cartArgs<ExtArgs>>): Prisma.Prisma__CartClient<runtime.Types.Result.GetResult<Prisma.$CartPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
+  orders<T extends Prisma.User$ordersArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$ordersArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$OrderPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -10463,6 +11226,49 @@ export type User$clientCataloguesArgs<ExtArgs extends runtime.Types.Extensions.I
   take?: number
   skip?: number
   distinct?: Prisma.ClientBackCatalogueScalarFieldEnum | Prisma.ClientBackCatalogueScalarFieldEnum[]
+}
+
+/**
+ * User.cart
+ */
+export type User$cartArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Cart
+   */
+  select?: Prisma.CartSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Cart
+   */
+  omit?: Prisma.CartOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.CartInclude<ExtArgs> | null
+  where?: Prisma.CartWhereInput
+}
+
+/**
+ * User.orders
+ */
+export type User$ordersArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Order
+   */
+  select?: Prisma.OrderSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Order
+   */
+  omit?: Prisma.OrderOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.OrderInclude<ExtArgs> | null
+  where?: Prisma.OrderWhereInput
+  orderBy?: Prisma.OrderOrderByWithRelationInput | Prisma.OrderOrderByWithRelationInput[]
+  cursor?: Prisma.OrderWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.OrderScalarFieldEnum | Prisma.OrderScalarFieldEnum[]
 }
 
 /**

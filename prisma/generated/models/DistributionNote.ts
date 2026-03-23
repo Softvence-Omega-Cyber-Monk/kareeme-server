@@ -25,7 +25,7 @@ export type AggregateDistributionNote = {
 }
 
 export type DistributionNoteMinAggregateOutputType = {
-  noteId: string | null
+  id: string | null
   distributionId: string | null
   userId: string | null
   content: string | null
@@ -35,7 +35,7 @@ export type DistributionNoteMinAggregateOutputType = {
 }
 
 export type DistributionNoteMaxAggregateOutputType = {
-  noteId: string | null
+  id: string | null
   distributionId: string | null
   userId: string | null
   content: string | null
@@ -45,7 +45,7 @@ export type DistributionNoteMaxAggregateOutputType = {
 }
 
 export type DistributionNoteCountAggregateOutputType = {
-  noteId: number
+  id: number
   distributionId: number
   userId: number
   content: number
@@ -57,7 +57,7 @@ export type DistributionNoteCountAggregateOutputType = {
 
 
 export type DistributionNoteMinAggregateInputType = {
-  noteId?: true
+  id?: true
   distributionId?: true
   userId?: true
   content?: true
@@ -67,7 +67,7 @@ export type DistributionNoteMinAggregateInputType = {
 }
 
 export type DistributionNoteMaxAggregateInputType = {
-  noteId?: true
+  id?: true
   distributionId?: true
   userId?: true
   content?: true
@@ -77,7 +77,7 @@ export type DistributionNoteMaxAggregateInputType = {
 }
 
 export type DistributionNoteCountAggregateInputType = {
-  noteId?: true
+  id?: true
   distributionId?: true
   userId?: true
   content?: true
@@ -160,7 +160,7 @@ export type DistributionNoteGroupByArgs<ExtArgs extends runtime.Types.Extensions
 }
 
 export type DistributionNoteGroupByOutputType = {
-  noteId: string
+  id: string
   distributionId: string
   userId: string
   content: string
@@ -191,7 +191,7 @@ export type DistributionNoteWhereInput = {
   AND?: Prisma.DistributionNoteWhereInput | Prisma.DistributionNoteWhereInput[]
   OR?: Prisma.DistributionNoteWhereInput[]
   NOT?: Prisma.DistributionNoteWhereInput | Prisma.DistributionNoteWhereInput[]
-  noteId?: Prisma.StringFilter<"DistributionNote"> | string
+  id?: Prisma.StringFilter<"DistributionNote"> | string
   distributionId?: Prisma.StringFilter<"DistributionNote"> | string
   userId?: Prisma.StringFilter<"DistributionNote"> | string
   content?: Prisma.StringFilter<"DistributionNote"> | string
@@ -199,11 +199,11 @@ export type DistributionNoteWhereInput = {
   createdAt?: Prisma.DateTimeFilter<"DistributionNote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributionNote"> | Date | string
   distribution?: Prisma.XOR<Prisma.DistributionScalarRelationFilter, Prisma.DistributionWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type DistributionNoteOrderByWithRelationInput = {
-  noteId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -211,11 +211,11 @@ export type DistributionNoteOrderByWithRelationInput = {
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   distribution?: Prisma.DistributionOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  author?: Prisma.UserOrderByWithRelationInput
 }
 
 export type DistributionNoteWhereUniqueInput = Prisma.AtLeast<{
-  noteId?: string
+  id?: string
   AND?: Prisma.DistributionNoteWhereInput | Prisma.DistributionNoteWhereInput[]
   OR?: Prisma.DistributionNoteWhereInput[]
   NOT?: Prisma.DistributionNoteWhereInput | Prisma.DistributionNoteWhereInput[]
@@ -226,11 +226,11 @@ export type DistributionNoteWhereUniqueInput = Prisma.AtLeast<{
   createdAt?: Prisma.DateTimeFilter<"DistributionNote"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributionNote"> | Date | string
   distribution?: Prisma.XOR<Prisma.DistributionScalarRelationFilter, Prisma.DistributionWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "noteId">
+  author?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id">
 
 export type DistributionNoteOrderByWithAggregationInput = {
-  noteId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -246,7 +246,7 @@ export type DistributionNoteScalarWhereWithAggregatesInput = {
   AND?: Prisma.DistributionNoteScalarWhereWithAggregatesInput | Prisma.DistributionNoteScalarWhereWithAggregatesInput[]
   OR?: Prisma.DistributionNoteScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DistributionNoteScalarWhereWithAggregatesInput | Prisma.DistributionNoteScalarWhereWithAggregatesInput[]
-  noteId?: Prisma.StringWithAggregatesFilter<"DistributionNote"> | string
+  id?: Prisma.StringWithAggregatesFilter<"DistributionNote"> | string
   distributionId?: Prisma.StringWithAggregatesFilter<"DistributionNote"> | string
   userId?: Prisma.StringWithAggregatesFilter<"DistributionNote"> | string
   content?: Prisma.StringWithAggregatesFilter<"DistributionNote"> | string
@@ -256,17 +256,17 @@ export type DistributionNoteScalarWhereWithAggregatesInput = {
 }
 
 export type DistributionNoteCreateInput = {
-  noteId?: string
+  id?: string
   content: string
   isInternal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
   distribution: Prisma.DistributionCreateNestedOneWithoutNotesInput
-  user: Prisma.UserCreateNestedOneWithoutDistributionNotesInput
+  author: Prisma.UserCreateNestedOneWithoutDistributionNotesInput
 }
 
 export type DistributionNoteUncheckedCreateInput = {
-  noteId?: string
+  id?: string
   distributionId: string
   userId: string
   content: string
@@ -276,17 +276,17 @@ export type DistributionNoteUncheckedCreateInput = {
 }
 
 export type DistributionNoteUpdateInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   distribution?: Prisma.DistributionUpdateOneRequiredWithoutNotesNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutDistributionNotesNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutDistributionNotesNestedInput
 }
 
 export type DistributionNoteUncheckedUpdateInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -296,7 +296,7 @@ export type DistributionNoteUncheckedUpdateInput = {
 }
 
 export type DistributionNoteCreateManyInput = {
-  noteId?: string
+  id?: string
   distributionId: string
   userId: string
   content: string
@@ -306,7 +306,7 @@ export type DistributionNoteCreateManyInput = {
 }
 
 export type DistributionNoteUpdateManyMutationInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -314,7 +314,7 @@ export type DistributionNoteUpdateManyMutationInput = {
 }
 
 export type DistributionNoteUncheckedUpdateManyInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
@@ -334,7 +334,7 @@ export type DistributionNoteOrderByRelationAggregateInput = {
 }
 
 export type DistributionNoteCountOrderByAggregateInput = {
-  noteId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -344,7 +344,7 @@ export type DistributionNoteCountOrderByAggregateInput = {
 }
 
 export type DistributionNoteMaxOrderByAggregateInput = {
-  noteId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -354,7 +354,7 @@ export type DistributionNoteMaxOrderByAggregateInput = {
 }
 
 export type DistributionNoteMinOrderByAggregateInput = {
-  noteId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributionId?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   content?: Prisma.SortOrder
@@ -405,59 +405,59 @@ export type DistributionNoteUncheckedUpdateManyWithoutDistributionNestedInput = 
   deleteMany?: Prisma.DistributionNoteScalarWhereInput | Prisma.DistributionNoteScalarWhereInput[]
 }
 
-export type DistributionNoteCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutUserInput, Prisma.DistributionNoteUncheckedCreateWithoutUserInput> | Prisma.DistributionNoteCreateWithoutUserInput[] | Prisma.DistributionNoteUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutUserInput | Prisma.DistributionNoteCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.DistributionNoteCreateManyUserInputEnvelope
+export type DistributionNoteCreateNestedManyWithoutAuthorInput = {
+  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutAuthorInput, Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput> | Prisma.DistributionNoteCreateWithoutAuthorInput[] | Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput | Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput[]
+  createMany?: Prisma.DistributionNoteCreateManyAuthorInputEnvelope
   connect?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
 }
 
-export type DistributionNoteUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutUserInput, Prisma.DistributionNoteUncheckedCreateWithoutUserInput> | Prisma.DistributionNoteCreateWithoutUserInput[] | Prisma.DistributionNoteUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutUserInput | Prisma.DistributionNoteCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.DistributionNoteCreateManyUserInputEnvelope
+export type DistributionNoteUncheckedCreateNestedManyWithoutAuthorInput = {
+  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutAuthorInput, Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput> | Prisma.DistributionNoteCreateWithoutAuthorInput[] | Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput | Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput[]
+  createMany?: Prisma.DistributionNoteCreateManyAuthorInputEnvelope
   connect?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
 }
 
-export type DistributionNoteUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutUserInput, Prisma.DistributionNoteUncheckedCreateWithoutUserInput> | Prisma.DistributionNoteCreateWithoutUserInput[] | Prisma.DistributionNoteUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutUserInput | Prisma.DistributionNoteCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.DistributionNoteUpsertWithWhereUniqueWithoutUserInput | Prisma.DistributionNoteUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.DistributionNoteCreateManyUserInputEnvelope
+export type DistributionNoteUpdateManyWithoutAuthorNestedInput = {
+  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutAuthorInput, Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput> | Prisma.DistributionNoteCreateWithoutAuthorInput[] | Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput | Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput[]
+  upsert?: Prisma.DistributionNoteUpsertWithWhereUniqueWithoutAuthorInput | Prisma.DistributionNoteUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: Prisma.DistributionNoteCreateManyAuthorInputEnvelope
   set?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
   disconnect?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
   delete?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
   connect?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
-  update?: Prisma.DistributionNoteUpdateWithWhereUniqueWithoutUserInput | Prisma.DistributionNoteUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.DistributionNoteUpdateManyWithWhereWithoutUserInput | Prisma.DistributionNoteUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.DistributionNoteUpdateWithWhereUniqueWithoutAuthorInput | Prisma.DistributionNoteUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: Prisma.DistributionNoteUpdateManyWithWhereWithoutAuthorInput | Prisma.DistributionNoteUpdateManyWithWhereWithoutAuthorInput[]
   deleteMany?: Prisma.DistributionNoteScalarWhereInput | Prisma.DistributionNoteScalarWhereInput[]
 }
 
-export type DistributionNoteUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutUserInput, Prisma.DistributionNoteUncheckedCreateWithoutUserInput> | Prisma.DistributionNoteCreateWithoutUserInput[] | Prisma.DistributionNoteUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutUserInput | Prisma.DistributionNoteCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.DistributionNoteUpsertWithWhereUniqueWithoutUserInput | Prisma.DistributionNoteUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.DistributionNoteCreateManyUserInputEnvelope
+export type DistributionNoteUncheckedUpdateManyWithoutAuthorNestedInput = {
+  create?: Prisma.XOR<Prisma.DistributionNoteCreateWithoutAuthorInput, Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput> | Prisma.DistributionNoteCreateWithoutAuthorInput[] | Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput[]
+  connectOrCreate?: Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput | Prisma.DistributionNoteCreateOrConnectWithoutAuthorInput[]
+  upsert?: Prisma.DistributionNoteUpsertWithWhereUniqueWithoutAuthorInput | Prisma.DistributionNoteUpsertWithWhereUniqueWithoutAuthorInput[]
+  createMany?: Prisma.DistributionNoteCreateManyAuthorInputEnvelope
   set?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
   disconnect?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
   delete?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
   connect?: Prisma.DistributionNoteWhereUniqueInput | Prisma.DistributionNoteWhereUniqueInput[]
-  update?: Prisma.DistributionNoteUpdateWithWhereUniqueWithoutUserInput | Prisma.DistributionNoteUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.DistributionNoteUpdateManyWithWhereWithoutUserInput | Prisma.DistributionNoteUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.DistributionNoteUpdateWithWhereUniqueWithoutAuthorInput | Prisma.DistributionNoteUpdateWithWhereUniqueWithoutAuthorInput[]
+  updateMany?: Prisma.DistributionNoteUpdateManyWithWhereWithoutAuthorInput | Prisma.DistributionNoteUpdateManyWithWhereWithoutAuthorInput[]
   deleteMany?: Prisma.DistributionNoteScalarWhereInput | Prisma.DistributionNoteScalarWhereInput[]
 }
 
 export type DistributionNoteCreateWithoutDistributionInput = {
-  noteId?: string
+  id?: string
   content: string
   isInternal?: boolean
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutDistributionNotesInput
+  author: Prisma.UserCreateNestedOneWithoutDistributionNotesInput
 }
 
 export type DistributionNoteUncheckedCreateWithoutDistributionInput = {
-  noteId?: string
+  id?: string
   userId: string
   content: string
   isInternal?: boolean
@@ -495,7 +495,7 @@ export type DistributionNoteScalarWhereInput = {
   AND?: Prisma.DistributionNoteScalarWhereInput | Prisma.DistributionNoteScalarWhereInput[]
   OR?: Prisma.DistributionNoteScalarWhereInput[]
   NOT?: Prisma.DistributionNoteScalarWhereInput | Prisma.DistributionNoteScalarWhereInput[]
-  noteId?: Prisma.StringFilter<"DistributionNote"> | string
+  id?: Prisma.StringFilter<"DistributionNote"> | string
   distributionId?: Prisma.StringFilter<"DistributionNote"> | string
   userId?: Prisma.StringFilter<"DistributionNote"> | string
   content?: Prisma.StringFilter<"DistributionNote"> | string
@@ -504,8 +504,8 @@ export type DistributionNoteScalarWhereInput = {
   updatedAt?: Prisma.DateTimeFilter<"DistributionNote"> | Date | string
 }
 
-export type DistributionNoteCreateWithoutUserInput = {
-  noteId?: string
+export type DistributionNoteCreateWithoutAuthorInput = {
+  id?: string
   content: string
   isInternal?: boolean
   createdAt?: Date | string
@@ -513,8 +513,8 @@ export type DistributionNoteCreateWithoutUserInput = {
   distribution: Prisma.DistributionCreateNestedOneWithoutNotesInput
 }
 
-export type DistributionNoteUncheckedCreateWithoutUserInput = {
-  noteId?: string
+export type DistributionNoteUncheckedCreateWithoutAuthorInput = {
+  id?: string
   distributionId: string
   content: string
   isInternal?: boolean
@@ -522,34 +522,34 @@ export type DistributionNoteUncheckedCreateWithoutUserInput = {
   updatedAt?: Date | string
 }
 
-export type DistributionNoteCreateOrConnectWithoutUserInput = {
+export type DistributionNoteCreateOrConnectWithoutAuthorInput = {
   where: Prisma.DistributionNoteWhereUniqueInput
-  create: Prisma.XOR<Prisma.DistributionNoteCreateWithoutUserInput, Prisma.DistributionNoteUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.DistributionNoteCreateWithoutAuthorInput, Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput>
 }
 
-export type DistributionNoteCreateManyUserInputEnvelope = {
-  data: Prisma.DistributionNoteCreateManyUserInput | Prisma.DistributionNoteCreateManyUserInput[]
+export type DistributionNoteCreateManyAuthorInputEnvelope = {
+  data: Prisma.DistributionNoteCreateManyAuthorInput | Prisma.DistributionNoteCreateManyAuthorInput[]
   skipDuplicates?: boolean
 }
 
-export type DistributionNoteUpsertWithWhereUniqueWithoutUserInput = {
+export type DistributionNoteUpsertWithWhereUniqueWithoutAuthorInput = {
   where: Prisma.DistributionNoteWhereUniqueInput
-  update: Prisma.XOR<Prisma.DistributionNoteUpdateWithoutUserInput, Prisma.DistributionNoteUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.DistributionNoteCreateWithoutUserInput, Prisma.DistributionNoteUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.DistributionNoteUpdateWithoutAuthorInput, Prisma.DistributionNoteUncheckedUpdateWithoutAuthorInput>
+  create: Prisma.XOR<Prisma.DistributionNoteCreateWithoutAuthorInput, Prisma.DistributionNoteUncheckedCreateWithoutAuthorInput>
 }
 
-export type DistributionNoteUpdateWithWhereUniqueWithoutUserInput = {
+export type DistributionNoteUpdateWithWhereUniqueWithoutAuthorInput = {
   where: Prisma.DistributionNoteWhereUniqueInput
-  data: Prisma.XOR<Prisma.DistributionNoteUpdateWithoutUserInput, Prisma.DistributionNoteUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.DistributionNoteUpdateWithoutAuthorInput, Prisma.DistributionNoteUncheckedUpdateWithoutAuthorInput>
 }
 
-export type DistributionNoteUpdateManyWithWhereWithoutUserInput = {
+export type DistributionNoteUpdateManyWithWhereWithoutAuthorInput = {
   where: Prisma.DistributionNoteScalarWhereInput
-  data: Prisma.XOR<Prisma.DistributionNoteUpdateManyMutationInput, Prisma.DistributionNoteUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.DistributionNoteUpdateManyMutationInput, Prisma.DistributionNoteUncheckedUpdateManyWithoutAuthorInput>
 }
 
 export type DistributionNoteCreateManyDistributionInput = {
-  noteId?: string
+  id?: string
   userId: string
   content: string
   isInternal?: boolean
@@ -558,16 +558,16 @@ export type DistributionNoteCreateManyDistributionInput = {
 }
 
 export type DistributionNoteUpdateWithoutDistributionInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutDistributionNotesNestedInput
+  author?: Prisma.UserUpdateOneRequiredWithoutDistributionNotesNestedInput
 }
 
 export type DistributionNoteUncheckedUpdateWithoutDistributionInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -576,7 +576,7 @@ export type DistributionNoteUncheckedUpdateWithoutDistributionInput = {
 }
 
 export type DistributionNoteUncheckedUpdateManyWithoutDistributionInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -584,8 +584,8 @@ export type DistributionNoteUncheckedUpdateManyWithoutDistributionInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DistributionNoteCreateManyUserInput = {
-  noteId?: string
+export type DistributionNoteCreateManyAuthorInput = {
+  id?: string
   distributionId: string
   content: string
   isInternal?: boolean
@@ -593,8 +593,8 @@ export type DistributionNoteCreateManyUserInput = {
   updatedAt?: Date | string
 }
 
-export type DistributionNoteUpdateWithoutUserInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+export type DistributionNoteUpdateWithoutAuthorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -602,8 +602,8 @@ export type DistributionNoteUpdateWithoutUserInput = {
   distribution?: Prisma.DistributionUpdateOneRequiredWithoutNotesNestedInput
 }
 
-export type DistributionNoteUncheckedUpdateWithoutUserInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+export type DistributionNoteUncheckedUpdateWithoutAuthorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -611,8 +611,8 @@ export type DistributionNoteUncheckedUpdateWithoutUserInput = {
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DistributionNoteUncheckedUpdateManyWithoutUserInput = {
-  noteId?: Prisma.StringFieldUpdateOperationsInput | string
+export type DistributionNoteUncheckedUpdateManyWithoutAuthorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   content?: Prisma.StringFieldUpdateOperationsInput | string
   isInternal?: Prisma.BoolFieldUpdateOperationsInput | boolean
@@ -623,7 +623,7 @@ export type DistributionNoteUncheckedUpdateManyWithoutUserInput = {
 
 
 export type DistributionNoteSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  noteId?: boolean
+  id?: boolean
   distributionId?: boolean
   userId?: boolean
   content?: boolean
@@ -631,11 +631,11 @@ export type DistributionNoteSelect<ExtArgs extends runtime.Types.Extensions.Inte
   createdAt?: boolean
   updatedAt?: boolean
   distribution?: boolean | Prisma.DistributionDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributionNote"]>
 
 export type DistributionNoteSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  noteId?: boolean
+  id?: boolean
   distributionId?: boolean
   userId?: boolean
   content?: boolean
@@ -643,11 +643,11 @@ export type DistributionNoteSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   distribution?: boolean | Prisma.DistributionDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributionNote"]>
 
 export type DistributionNoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  noteId?: boolean
+  id?: boolean
   distributionId?: boolean
   userId?: boolean
   content?: boolean
@@ -655,11 +655,11 @@ export type DistributionNoteSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   createdAt?: boolean
   updatedAt?: boolean
   distribution?: boolean | Prisma.DistributionDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributionNote"]>
 
 export type DistributionNoteSelectScalar = {
-  noteId?: boolean
+  id?: boolean
   distributionId?: boolean
   userId?: boolean
   content?: boolean
@@ -668,28 +668,28 @@ export type DistributionNoteSelectScalar = {
   updatedAt?: boolean
 }
 
-export type DistributionNoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"noteId" | "distributionId" | "userId" | "content" | "isInternal" | "createdAt" | "updatedAt", ExtArgs["result"]["distributionNote"]>
+export type DistributionNoteOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "distributionId" | "userId" | "content" | "isInternal" | "createdAt" | "updatedAt", ExtArgs["result"]["distributionNote"]>
 export type DistributionNoteInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   distribution?: boolean | Prisma.DistributionDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DistributionNoteIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   distribution?: boolean | Prisma.DistributionDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DistributionNoteIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   distribution?: boolean | Prisma.DistributionDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  author?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $DistributionNotePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DistributionNote"
   objects: {
     distribution: Prisma.$DistributionPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
+    author: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    noteId: string
+    id: string
     distributionId: string
     userId: string
     content: string
@@ -779,8 +779,8 @@ export interface DistributionNoteDelegate<ExtArgs extends runtime.Types.Extensio
    * // Get first 10 DistributionNotes
    * const distributionNotes = await prisma.distributionNote.findMany({ take: 10 })
    * 
-   * // Only select the `noteId`
-   * const distributionNoteWithNoteIdOnly = await prisma.distributionNote.findMany({ select: { noteId: true } })
+   * // Only select the `id`
+   * const distributionNoteWithIdOnly = await prisma.distributionNote.findMany({ select: { id: true } })
    * 
    */
   findMany<T extends DistributionNoteFindManyArgs>(args?: Prisma.SelectSubset<T, DistributionNoteFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -824,9 +824,9 @@ export interface DistributionNoteDelegate<ExtArgs extends runtime.Types.Extensio
    *   ]
    * })
    * 
-   * // Create many DistributionNotes and only return the `noteId`
-   * const distributionNoteWithNoteIdOnly = await prisma.distributionNote.createManyAndReturn({
-   *   select: { noteId: true },
+   * // Create many DistributionNotes and only return the `id`
+   * const distributionNoteWithIdOnly = await prisma.distributionNote.createManyAndReturn({
+   *   select: { id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -915,9 +915,9 @@ export interface DistributionNoteDelegate<ExtArgs extends runtime.Types.Extensio
    *   ]
    * })
    * 
-   * // Update zero or more DistributionNotes and only return the `noteId`
-   * const distributionNoteWithNoteIdOnly = await prisma.distributionNote.updateManyAndReturn({
-   *   select: { noteId: true },
+   * // Update zero or more DistributionNotes and only return the `id`
+   * const distributionNoteWithIdOnly = await prisma.distributionNote.updateManyAndReturn({
+   *   select: { id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1091,7 +1091,7 @@ readonly fields: DistributionNoteFieldRefs;
 export interface Prisma__DistributionNoteClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   distribution<T extends Prisma.DistributionDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.DistributionDefaultArgs<ExtArgs>>): Prisma.Prisma__DistributionClient<runtime.Types.Result.GetResult<Prisma.$DistributionPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  author<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1121,7 +1121,7 @@ export interface Prisma__DistributionNoteClient<T, Null = never, ExtArgs extends
  * Fields of the DistributionNote model
  */
 export interface DistributionNoteFieldRefs {
-  readonly noteId: Prisma.FieldRef<"DistributionNote", 'String'>
+  readonly id: Prisma.FieldRef<"DistributionNote", 'String'>
   readonly distributionId: Prisma.FieldRef<"DistributionNote", 'String'>
   readonly userId: Prisma.FieldRef<"DistributionNote", 'String'>
   readonly content: Prisma.FieldRef<"DistributionNote", 'String'>

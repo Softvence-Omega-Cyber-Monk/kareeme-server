@@ -64,6 +64,8 @@ model User {
 
   clientDistributor DistributorClient[]   @relation("ClientDistributor")
   clientCatalogues  ClientBackCatalogue[] @relation("ClientCatalogues")
+  cart              Cart?
+  orders            Order[]
 
   @@map("users")
 }

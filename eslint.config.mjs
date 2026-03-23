@@ -33,6 +33,7 @@ export default defineConfig([
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-namespace': 'warn',
       'no-undef': 'off',
+      'eslint-disable prettier/prettier': 'warn',
     },
   },
   eslintPluginPrettierRecommended,

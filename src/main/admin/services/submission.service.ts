@@ -29,7 +29,7 @@ export class AdminSubmissionService {
     const limit = pg.limit && +pg.limit > 0 ? +pg.limit : 20;
     const skip = (page - 1) * limit;
 
-    let where: Prisma.ReleaseWhereInput = {};
+    const where: Prisma.ReleaseWhereInput = {};
 
     // Filter by status (approval status)
     if (status === 'In Review' || status === 'PendingReview') {
@@ -215,10 +215,20 @@ export class AdminSubmissionService {
         },
       });
     } else {
+      // distribution = await this.prisma.distribution.create({
+      //   data: {
+      //     distributorId: release.userId,
+      //     userId: release.userId,
+      //     releaseId: release.releaseId,
+      //     status: 'Pending',
+      //     approvedAt: new Date(),
+      //   },
+      // });
+      // changes by arif
       distribution = await this.prisma.distribution.create({
         data: {
           distributorId: release.userId,
-          userId: release.userId,
+          clientId: release.userId,
           releaseId: release.releaseId,
           status: 'Pending',
           approvedAt: new Date(),
@@ -271,10 +281,20 @@ export class AdminSubmissionService {
         },
       });
     } else {
+      // distribution = await this.prisma.distribution.create({
+      //   data: {
+      //     distributorId: release.userId,
+      //     userId: release.userId,
+      //     releaseId: release.releaseId,
+      //     status: 'Declined',
+      //     declinedAt: new Date(),
+      //   },
+      // });
+      // change by arif
       distribution = await this.prisma.distribution.create({
         data: {
           distributorId: release.userId,
-          userId: release.userId,
+          clientId: release.userId,
           releaseId: release.releaseId,
           status: 'Declined',
           declinedAt: new Date(),
