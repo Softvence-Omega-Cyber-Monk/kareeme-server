@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Commerce API Test</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-100 text-gray-900 min-h-screen">
+    <div class="max-w-7xl mx-auto p-4 md:p-6 space-y-6">
+      <header class="bg-white rounded-xl shadow p-4">
+        <h1 class="text-2xl font-bold">Commerce API Test Page</h1>
+        <p class="text-sm text-gray-600 mt-1">
+          Simple Tailwind page to test Product, Cart, Order, and Stripe payment APIs.
+        </p>
+      </header>
+
+      <section class="bg-white rounded-xl shadow p-4 space-y-4">
+        <h2 class="text-lg font-semibold">Configuration</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-sm font-medium mb-1">Base URL</label>
+            <input id="baseUrl" class="w-full border rounded-lg p-2" value="http://localhost:3000" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">User ID</label>
+            <input id="userId" class="w-full border rounded-lg p-2" placeholder="Paste user id" />
+          </div>
+          <div>
+            <label class="block text-sm font-medium mb-1">Order ID (for status)</label>
+            <input id="statusOrderId" class="w-full border rounded-lg p-2" placeholder="Paste order id" />
+          </div>
+        </div>
+        <div class="text-xs text-gray-500">
+          Webhook is not called from this page, because Stripe sends webhook requests from the server side.
+          This page covers the frontend-facing APIs, especially payment intent creation and payment status checking.
+        </div>
+      </section>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <section class="bg-white rounded-xl shadow p-4 space-y-4">
+          <h2 class="text-lg font-semibold">Product APIs</h2>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Create Product</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input id="productName" class="border rounded-lg p-2" placeholder="Product name" />
+              <input id="productPrice" type="number" class="border rounded-lg p-2" placeholder="Price" />
+              <input id="productStock" type="number" class="border rounded-lg p-2" placeholder="Stock" />
+              <input id="productImageUrl" class="border rounded-lg p-2" placeholder="Image URL" />
+              <input id="productIsActive" class="border rounded-lg p-2" placeholder="true / false" value="true" />
+              <input id="productDescription" class="border rounded-lg p-2 md:col-span-2" placeholder="Description" />
+            </div>
+            <button onclick="createProduct()" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Create Product</button>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Get Products</h3>
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-3">
+              <input id="productsPage" type="number" class="border rounded-lg p-2" placeholder="Page" value="1" />
+              <input id="productsLimit" type="number" class="border rounded-lg p-2" placeholder="Limit" value="10" />
+              <input id="productsSearch" class="border rounded-lg p-2" placeholder="Search" />
+              <input id="productsIsActive" class="border rounded-lg p-2" placeholder="isActive" />
+            </div>
+            <button onclick="getProducts()" class="px-4 py-2 bg-slate-700 text-white rounded-lg">Get Products</button>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Get / Update / Delete Product</h3>
+            <input id="singleProductId" class="w-full border rounded-lg p-2" placeholder="Product ID" />
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input id="updateProductName" class="border rounded-lg p-2" placeholder="Updated name" />
+              <input id="updateProductPrice" type="number" class="border rounded-lg p-2" placeholder="Updated price" />
+              <input id="updateProductStock" type="number" class="border rounded-lg p-2" placeholder="Updated stock" />
+              <input id="updateProductImageUrl" class="border rounded-lg p-2" placeholder="Updated imageUrl" />
+              <input id="updateProductIsActive" class="border rounded-lg p-2" placeholder="Updated true / false" />
+              <input id="updateProductDescription" class="border rounded-lg p-2 md:col-span-2" placeholder="Updated description" />
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="getProductById()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Get One</button>
+              <button onclick="updateProduct()" class="px-4 py-2 bg-amber-600 text-white rounded-lg">Update</button>
+              <button onclick="deleteProduct()" class="px-4 py-2 bg-red-600 text-white rounded-lg">Delete</button>
+            </div>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow p-4 space-y-4">
+          <h2 class="text-lg font-semibold">Cart APIs</h2>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Add to Cart</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input id="cartProductId" class="border rounded-lg p-2" placeholder="Product ID" />
+              <input id="cartQuantity" type="number" class="border rounded-lg p-2" placeholder="Quantity" value="1" />
+            </div>
+            <button onclick="addToCart()" class="px-4 py-2 bg-blue-600 text-white rounded-lg">Add To Cart</button>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Get Cart</h3>
+            <button onclick="getCart()" class="px-4 py-2 bg-slate-700 text-white rounded-lg">Get Cart By User</button>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Update Cart Item / Remove Cart Item</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
+              <input id="cartItemId" class="border rounded-lg p-2" placeholder="Cart Item ID" />
+              <input id="cartItemQuantity" type="number" class="border rounded-lg p-2" placeholder="New Quantity" value="1" />
+            </div>
+            <div class="flex flex-wrap gap-2">
+              <button onclick="updateCartItem()" class="px-4 py-2 bg-amber-600 text-white rounded-lg">Update Cart Item</button>
+              <button onclick="removeCartItem()" class="px-4 py-2 bg-red-600 text-white rounded-lg">Remove Cart Item</button>
+            </div>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Clear Cart</h3>
+            <button onclick="clearCart()" class="px-4 py-2 bg-red-700 text-white rounded-lg">Clear Cart</button>
+          </div>
+        </section>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <section class="bg-white rounded-xl shadow p-4 space-y-4">
+          <h2 class="text-lg font-semibold">Payment APIs</h2>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Create Stripe Payment Intent</h3>
+            <button onclick="createPaymentIntent()" class="px-4 py-2 bg-emerald-600 text-white rounded-lg">Create Payment Intent</button>
+            <div class="text-xs text-gray-500">
+              This calls your backend <code>POST /commerce/payment/create-intent</code>.
+              It creates order + payment row and returns Stripe client secret.
+            </div>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Get Payment Status by Order ID</h3>
+            <button onclick="getPaymentStatus()" class="px-4 py-2 bg-slate-700 text-white rounded-lg">Get Payment Status</button>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Stripe Frontend Confirm Placeholder</h3>
+            <p class="text-sm text-gray-600">
+              After creating payment intent, use the returned <code>clientSecret</code> with Stripe.js on your real checkout page.
+              This simple file does not include full Stripe Elements UI, but it stores and shows the returned client secret for the next step.
+            </p>
+          </div>
+        </section>
+
+        <section class="bg-white rounded-xl shadow p-4 space-y-4">
+          <h2 class="text-lg font-semibold">Order APIs</h2>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Get Orders By User</h3>
+            <button onclick="getOrdersByUser()" class="px-4 py-2 bg-slate-700 text-white rounded-lg">Get Orders</button>
+          </div>
+
+          <div class="border rounded-xl p-4 space-y-3">
+            <h3 class="font-medium">Get Order Details</h3>
+            <input id="orderDetailsId" class="w-full border rounded-lg p-2" placeholder="Order ID" />
+            <button onclick="getOrderDetails()" class="px-4 py-2 bg-indigo-600 text-white rounded-lg">Get Order Details</button>
+          </div>
+        </section>
+      </div>
+
+      <section class="bg-white rounded-xl shadow p-4 space-y-3">
+        <div class="flex items-center justify-between gap-3 flex-wrap">
+          <h2 class="text-lg font-semibold">Response</h2>
+          <button onclick="clearResponse()" class="px-3 py-2 bg-gray-700 text-white rounded-lg text-sm">Clear</button>
+        </div>
+        <pre id="responseBox" class="bg-gray-900 text-green-300 p-4 rounded-xl overflow-auto text-sm min-h-[260px]"></pre>
+      </section>
+    </div>
+
+    <script>
+      let latestClientSecret = null;
+      let latestOrderId = null;
+      let latestPaymentIntentId = null;
+
+      function value(id) {
+        return document.getElementById(id).value.trim();
+      }
+
+      function setResponse(data) {
+        document.getElementById('responseBox').textContent =
+          typeof data === 'string' ? data : JSON.stringify(data, null, 2);
+      }
+
+      function clearResponse() {
+        setResponse('');
+      }
+
+      function getBaseUrl() {
+        return value('baseUrl').replace(/\/$/, '');
+      }
+
+      function getUserId() {
+        const userId = value('userId');
+        if (!userId) {
+          throw new Error('User ID is required');
+        }
+        return userId;
+      }
+
+      function parseOptionalBoolean(raw) {
+        if (raw === '') return undefined;
+        if (raw.toLowerCase() === 'true') return true;
+        if (raw.toLowerCase() === 'false') return false;
+        return raw;
+      }
+
+      async function apiRequest(path, method = 'GET', body) {
+        const options = {
+          method,
+          headers: {},
+        };
+
+        if (body !== undefined) {
+          options.headers['Content-Type'] = 'application/json';
+          options.body = JSON.stringify(body);
+        }
+
+        const res = await fetch(`${getBaseUrl()}${path}`, options);
+        const text = await res.text();
+        let data;
+
+        try {
+          data = text ? JSON.parse(text) : {};
+        } catch {
+          data = text;
+        }
+
+        if (!res.ok) {
+          throw new Error(JSON.stringify({ status: res.status, data }, null, 2));
+        }
+
+        setResponse(data);
+        return data;
+      }
+
+      async function createProduct() {
+        try {
+          const payload = {
+            name: value('productName'),
+            description: value('productDescription') || undefined,
+            price: Number(value('productPrice')),
+            imageUrl: value('productImageUrl') || undefined,
+            stock: Number(value('productStock') || 0),
+            isActive: parseOptionalBoolean(value('productIsActive')),
+          };
+          await apiRequest('/commerce/products', 'POST', payload);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function getProducts() {
+        try {
+          const params = new URLSearchParams();
+          if (value('productsPage')) params.append('page', value('productsPage'));
+          if (value('productsLimit')) params.append('limit', value('productsLimit'));
+          if (value('productsSearch')) params.append('search', value('productsSearch'));
+          if (value('productsIsActive')) params.append('isActive', value('productsIsActive'));
+          await apiRequest(`/commerce/products?${params.toString()}`);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function getProductById() {
+        try {
+          await apiRequest(`/commerce/products/${value('singleProductId')}`);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function updateProduct() {
+        try {
+          const payload = {
+            name: value('updateProductName') || undefined,
+            description: value('updateProductDescription') || undefined,
+            price: value('updateProductPrice') ? Number(value('updateProductPrice')) : undefined,
+            imageUrl: value('updateProductImageUrl') || undefined,
+            stock: value('updateProductStock') ? Number(value('updateProductStock')) : undefined,
+            isActive: value('updateProductIsActive') ? parseOptionalBoolean(value('updateProductIsActive')) : undefined,
+          };
+          Object.keys(payload).forEach((key) => payload[key] === undefined && delete payload[key]);
+          await apiRequest(`/commerce/products/${value('singleProductId')}`, 'PATCH', payload);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function deleteProduct() {
+        try {
+          await apiRequest(`/commerce/products/${value('singleProductId')}`, 'DELETE');
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function addToCart() {
+        try {
+          await apiRequest('/commerce/cart', 'POST', {
+            userId: getUserId(),
+            productId: value('cartProductId'),
+            quantity: Number(value('cartQuantity') || 1),
+          });
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function getCart() {
+        try {
+          await apiRequest(`/commerce/cart/${getUserId()}`);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function updateCartItem() {
+        try {
+          await apiRequest(`/commerce/cart/item/${value('cartItemId')}`, 'PATCH', {
+            quantity: Number(value('cartItemQuantity') || 1),
+          });
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function removeCartItem() {
+        try {
+          await apiRequest(`/commerce/cart/item/${value('cartItemId')}`, 'DELETE');
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function clearCart() {
+        try {
+          await apiRequest(`/commerce/cart/${getUserId()}/clear`, 'DELETE');
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function createPaymentIntent() {
+        try {
+          const data = await apiRequest('/commerce/payment/create-intent', 'POST', {
+            userId: getUserId(),
+          });
+
+          latestClientSecret = data.clientSecret || null;
+          latestOrderId = data.orderId || null;
+          latestPaymentIntentId = data.paymentIntentId || null;
+
+          if (latestOrderId) {
+            document.getElementById('statusOrderId').value = latestOrderId;
+            document.getElementById('orderDetailsId').value = latestOrderId;
+          }
+
+          const enriched = {
+            ...data,
+            note: 'Use clientSecret on your real frontend Stripe page with Stripe.js / Elements.',
+          };
+          setResponse(enriched);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function getPaymentStatus() {
+        try {
+          const orderId = value('statusOrderId') || latestOrderId;
+          if (!orderId) throw new Error('Order ID is required');
+          await apiRequest(`/commerce/payment/${orderId}`);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function getOrdersByUser() {
+        try {
+          await apiRequest(`/commerce/orders/${getUserId()}`);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+
+      async function getOrderDetails() {
+        try {
+          const orderId = value('orderDetailsId') || latestOrderId;
+          if (!orderId) throw new Error('Order ID is required');
+          await apiRequest(`/commerce/orders/details/${orderId}`);
+        } catch (error) {
+          setResponse(error.message);
+        }
+      }
+    </script>
+  </body>
+</html>
