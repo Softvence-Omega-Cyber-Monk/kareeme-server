@@ -1,9 +1,9 @@
+import { PrismaService } from '@/lib/prisma/prisma.service';
 import {
   BadRequestException,
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { PrismaService } from '@/lib/prisma/prisma.service';
 import { CreatePaymentIntentDto } from '../dto/create-payment-intent.dto';
 import { StripeService } from './stripe.service';
 
@@ -44,17 +44,53 @@ export class PaymentService {
       }
     }
 
-    const totalAmount = cart.items.reduce((sum, item) => {
+    const subtotalAmount = cart.items.reduce((sum, item) => {
       return sum + item.product.price * item.quantity;
     }, 0);
 
-    // Stripe amount uses the smallest currency unit, e.g. cents for USD
+    let discountAmount = 0;
+    let appliedCouponCode: string | null = null;
+
+    if (dto.couponCode) {
+      const coupon = await this.prisma.coupon.findUnique({
+        where: { code: dto.couponCode.trim().toUpperCase() },
+      });
+
+      if (!coupon) {
+        throw new BadRequestException('Coupon not found');
+      }
+
+      if (!coupon.isActive) {
+        throw new BadRequestException('Coupon is inactive');
+      }
+
+      if (coupon.expiresAt && coupon.expiresAt < new Date()) {
+        throw new BadRequestException('Coupon expired');
+      }
+
+      if (coupon.type === 'PERCENT') {
+        discountAmount = (subtotalAmount * coupon.value) / 100;
+      } else {
+        discountAmount = coupon.value;
+      }
+
+      if (discountAmount > subtotalAmount) {
+        discountAmount = subtotalAmount;
+      }
+
+      appliedCouponCode = coupon.code;
+    }
+
+    const totalAmount = subtotalAmount - discountAmount;
     const amountInSmallestUnit = Math.round(totalAmount * 100);
 
     const order = await this.prisma.order.create({
       data: {
         userId: dto.userId,
         status: 'PENDING',
+        subtotalAmount,
+        discountAmount,
+        couponCode: appliedCouponCode,
         totalAmount,
         items: {
           create: cart.items.map((item) => ({
@@ -69,17 +105,20 @@ export class PaymentService {
       },
     });
 
-    const paymentIntent = await this.stripeService.client.paymentIntents.create({
-      amount: amountInSmallestUnit,
-      currency: process.env.STRIPE_CURRENCY || 'usd',
-      automatic_payment_methods: {
-        enabled: true,
+    const paymentIntent = await this.stripeService.client.paymentIntents.create(
+      {
+        amount: amountInSmallestUnit,
+        currency: process.env.STRIPE_CURRENCY || 'usd',
+        automatic_payment_methods: {
+          enabled: true,
+        },
+        metadata: {
+          orderId: order.id,
+          userId: dto.userId,
+          couponCode: appliedCouponCode ?? '',
+        },
       },
-      metadata: {
-        orderId: order.id,
-        userId: dto.userId,
-      },
-    });
+    );
 
     const payment = await this.prisma.payment.create({
       data: {
@@ -96,7 +135,10 @@ export class PaymentService {
       paymentId: payment.id,
       clientSecret: paymentIntent.client_secret,
       paymentIntentId: paymentIntent.id,
-      amount: totalAmount,
+      subtotalAmount,
+      discountAmount,
+      totalAmount,
+      couponCode: appliedCouponCode,
       currency: process.env.STRIPE_CURRENCY || 'usd',
     };
   }
