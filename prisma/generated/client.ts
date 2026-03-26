@@ -158,25 +158,55 @@ export type UserOtp = Prisma.UserOtpModel
  */
 export type RefreshToken = Prisma.RefreshTokenModel
 /**
- * Model Distribution
+ * Model Product
  * 
  */
-export type Distribution = Prisma.DistributionModel
+export type Product = Prisma.ProductModel
 /**
- * Model PlatformDistribution
+ * Model Cart
  * 
  */
-export type PlatformDistribution = Prisma.PlatformDistributionModel
+export type Cart = Prisma.CartModel
 /**
- * Model DistributionNote
+ * Model CartItem
  * 
  */
-export type DistributionNote = Prisma.DistributionNoteModel
+export type CartItem = Prisma.CartItemModel
+/**
+ * Model Order
+ * 
+ */
+export type Order = Prisma.OrderModel
+/**
+ * Model OrderItem
+ * 
+ */
+export type OrderItem = Prisma.OrderItemModel
+/**
+ * Model Payment
+ * 
+ */
+export type Payment = Prisma.PaymentModel
+/**
+ * Model Coupon
+ * 
+ */
+export type Coupon = Prisma.CouponModel
 /**
  * Model DistributorClient
  * 
  */
 export type DistributorClient = Prisma.DistributorClientModel
+/**
+ * Model Distribution
+ * 
+ */
+export type Distribution = Prisma.DistributionModel
+/**
+ * Model DistributionNote
+ * 
+ */
+export type DistributionNote = Prisma.DistributionNoteModel
 /**
  * Model ClientBackCatalogue
  * 

@@ -20,20 +20,35 @@ export type DistributionModel = runtime.Types.Result.DefaultSelection<Prisma.$Di
 
 export type AggregateDistribution = {
   _count: DistributionCountAggregateOutputType | null
+  _avg: DistributionAvgAggregateOutputType | null
+  _sum: DistributionSumAggregateOutputType | null
   _min: DistributionMinAggregateOutputType | null
   _max: DistributionMaxAggregateOutputType | null
+}
+
+export type DistributionAvgAggregateOutputType = {
+  revenueSplitPercent: runtime.Decimal | null
+}
+
+export type DistributionSumAggregateOutputType = {
+  revenueSplitPercent: runtime.Decimal | null
 }
 
 export type DistributionMinAggregateOutputType = {
   distributionId: string | null
   releaseId: string | null
-  userId: string | null
   distributorId: string | null
+  clientId: string | null
   status: $Enums.DistributionStatus | null
   submittedAt: Date | null
   approvedAt: Date | null
-  distributedAt: Date | null
   declinedAt: Date | null
+  declineReason: string | null
+  targetPlatforms: string | null
+  targetTerritories: string | null
+  scheduledReleaseDate: Date | null
+  liveDate: Date | null
+  revenueSplitPercent: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -41,13 +56,18 @@ export type DistributionMinAggregateOutputType = {
 export type DistributionMaxAggregateOutputType = {
   distributionId: string | null
   releaseId: string | null
-  userId: string | null
   distributorId: string | null
+  clientId: string | null
   status: $Enums.DistributionStatus | null
   submittedAt: Date | null
   approvedAt: Date | null
-  distributedAt: Date | null
   declinedAt: Date | null
+  declineReason: string | null
+  targetPlatforms: string | null
+  targetTerritories: string | null
+  scheduledReleaseDate: Date | null
+  liveDate: Date | null
+  revenueSplitPercent: runtime.Decimal | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -55,29 +75,47 @@ export type DistributionMaxAggregateOutputType = {
 export type DistributionCountAggregateOutputType = {
   distributionId: number
   releaseId: number
-  userId: number
   distributorId: number
+  clientId: number
   status: number
   submittedAt: number
   approvedAt: number
-  distributedAt: number
   declinedAt: number
+  declineReason: number
+  targetPlatforms: number
+  targetTerritories: number
+  scheduledReleaseDate: number
+  liveDate: number
+  revenueSplitPercent: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
+export type DistributionAvgAggregateInputType = {
+  revenueSplitPercent?: true
+}
+
+export type DistributionSumAggregateInputType = {
+  revenueSplitPercent?: true
+}
+
 export type DistributionMinAggregateInputType = {
   distributionId?: true
   releaseId?: true
-  userId?: true
   distributorId?: true
+  clientId?: true
   status?: true
   submittedAt?: true
   approvedAt?: true
-  distributedAt?: true
   declinedAt?: true
+  declineReason?: true
+  targetPlatforms?: true
+  targetTerritories?: true
+  scheduledReleaseDate?: true
+  liveDate?: true
+  revenueSplitPercent?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -85,13 +123,18 @@ export type DistributionMinAggregateInputType = {
 export type DistributionMaxAggregateInputType = {
   distributionId?: true
   releaseId?: true
-  userId?: true
   distributorId?: true
+  clientId?: true
   status?: true
   submittedAt?: true
   approvedAt?: true
-  distributedAt?: true
   declinedAt?: true
+  declineReason?: true
+  targetPlatforms?: true
+  targetTerritories?: true
+  scheduledReleaseDate?: true
+  liveDate?: true
+  revenueSplitPercent?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -99,13 +142,18 @@ export type DistributionMaxAggregateInputType = {
 export type DistributionCountAggregateInputType = {
   distributionId?: true
   releaseId?: true
-  userId?: true
   distributorId?: true
+  clientId?: true
   status?: true
   submittedAt?: true
   approvedAt?: true
-  distributedAt?: true
   declinedAt?: true
+  declineReason?: true
+  targetPlatforms?: true
+  targetTerritories?: true
+  scheduledReleaseDate?: true
+  liveDate?: true
+  revenueSplitPercent?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -149,6 +197,18 @@ export type DistributionAggregateArgs<ExtArgs extends runtime.Types.Extensions.I
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
+   * Select which fields to average
+  **/
+  _avg?: DistributionAvgAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
+   * Select which fields to sum
+  **/
+  _sum?: DistributionSumAggregateInputType
+  /**
+   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
+   * 
    * Select which fields to find the minimum value
   **/
   _min?: DistributionMinAggregateInputType
@@ -179,6 +239,8 @@ export type DistributionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
   take?: number
   skip?: number
   _count?: DistributionCountAggregateInputType | true
+  _avg?: DistributionAvgAggregateInputType
+  _sum?: DistributionSumAggregateInputType
   _min?: DistributionMinAggregateInputType
   _max?: DistributionMaxAggregateInputType
 }
@@ -186,16 +248,23 @@ export type DistributionGroupByArgs<ExtArgs extends runtime.Types.Extensions.Int
 export type DistributionGroupByOutputType = {
   distributionId: string
   releaseId: string
-  userId: string
   distributorId: string
+  clientId: string
   status: $Enums.DistributionStatus
-  submittedAt: Date
+  submittedAt: Date | null
   approvedAt: Date | null
-  distributedAt: Date | null
   declinedAt: Date | null
+  declineReason: string | null
+  targetPlatforms: string | null
+  targetTerritories: string | null
+  scheduledReleaseDate: Date | null
+  liveDate: Date | null
+  revenueSplitPercent: runtime.Decimal | null
   createdAt: Date
   updatedAt: Date
   _count: DistributionCountAggregateOutputType | null
+  _avg: DistributionAvgAggregateOutputType | null
+  _sum: DistributionSumAggregateOutputType | null
   _min: DistributionMinAggregateOutputType | null
   _max: DistributionMaxAggregateOutputType | null
 }
@@ -221,39 +290,47 @@ export type DistributionWhereInput = {
   NOT?: Prisma.DistributionWhereInput | Prisma.DistributionWhereInput[]
   distributionId?: Prisma.StringFilter<"Distribution"> | string
   releaseId?: Prisma.StringFilter<"Distribution"> | string
-  userId?: Prisma.StringFilter<"Distribution"> | string
   distributorId?: Prisma.StringFilter<"Distribution"> | string
+  clientId?: Prisma.StringFilter<"Distribution"> | string
   status?: Prisma.EnumDistributionStatusFilter<"Distribution"> | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
+  submittedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
-  distributedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
   declinedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  declineReason?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  targetPlatforms?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  targetTerritories?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  scheduledReleaseDate?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  liveDate?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  revenueSplitPercent?: Prisma.DecimalNullableFilter<"Distribution"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
-  platformStatuses?: Prisma.PlatformDistributionListRelationFilter
-  notes?: Prisma.DistributionNoteListRelationFilter
   release?: Prisma.XOR<Prisma.ReleaseScalarRelationFilter, Prisma.ReleaseWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   distributor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  notes?: Prisma.DistributionNoteListRelationFilter
 }
 
 export type DistributionOrderByWithRelationInput = {
   distributionId?: Prisma.SortOrder
   releaseId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  submittedAt?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  distributedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   declinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  declineReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetPlatforms?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetTerritories?: Prisma.SortOrderInput | Prisma.SortOrder
+  scheduledReleaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  liveDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  revenueSplitPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  platformStatuses?: Prisma.PlatformDistributionOrderByRelationAggregateInput
-  notes?: Prisma.DistributionNoteOrderByRelationAggregateInput
   release?: Prisma.ReleaseOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
   distributor?: Prisma.UserOrderByWithRelationInput
+  client?: Prisma.UserOrderByWithRelationInput
+  notes?: Prisma.DistributionNoteOrderByRelationAggregateInput
 }
 
 export type DistributionWhereUniqueInput = Prisma.AtLeast<{
@@ -262,37 +339,48 @@ export type DistributionWhereUniqueInput = Prisma.AtLeast<{
   OR?: Prisma.DistributionWhereInput[]
   NOT?: Prisma.DistributionWhereInput | Prisma.DistributionWhereInput[]
   releaseId?: Prisma.StringFilter<"Distribution"> | string
-  userId?: Prisma.StringFilter<"Distribution"> | string
   distributorId?: Prisma.StringFilter<"Distribution"> | string
+  clientId?: Prisma.StringFilter<"Distribution"> | string
   status?: Prisma.EnumDistributionStatusFilter<"Distribution"> | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
+  submittedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
-  distributedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
   declinedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  declineReason?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  targetPlatforms?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  targetTerritories?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  scheduledReleaseDate?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  liveDate?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  revenueSplitPercent?: Prisma.DecimalNullableFilter<"Distribution"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
-  platformStatuses?: Prisma.PlatformDistributionListRelationFilter
-  notes?: Prisma.DistributionNoteListRelationFilter
   release?: Prisma.XOR<Prisma.ReleaseScalarRelationFilter, Prisma.ReleaseWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
   distributor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  notes?: Prisma.DistributionNoteListRelationFilter
 }, "distributionId">
 
 export type DistributionOrderByWithAggregationInput = {
   distributionId?: Prisma.SortOrder
   releaseId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   status?: Prisma.SortOrder
-  submittedAt?: Prisma.SortOrder
+  submittedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   approvedAt?: Prisma.SortOrderInput | Prisma.SortOrder
-  distributedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   declinedAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  declineReason?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetPlatforms?: Prisma.SortOrderInput | Prisma.SortOrder
+  targetTerritories?: Prisma.SortOrderInput | Prisma.SortOrder
+  scheduledReleaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  liveDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  revenueSplitPercent?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DistributionCountOrderByAggregateInput
+  _avg?: Prisma.DistributionAvgOrderByAggregateInput
   _max?: Prisma.DistributionMaxOrderByAggregateInput
   _min?: Prisma.DistributionMinOrderByAggregateInput
+  _sum?: Prisma.DistributionSumOrderByAggregateInput
 }
 
 export type DistributionScalarWhereWithAggregatesInput = {
@@ -301,13 +389,18 @@ export type DistributionScalarWhereWithAggregatesInput = {
   NOT?: Prisma.DistributionScalarWhereWithAggregatesInput | Prisma.DistributionScalarWhereWithAggregatesInput[]
   distributionId?: Prisma.StringWithAggregatesFilter<"Distribution"> | string
   releaseId?: Prisma.StringWithAggregatesFilter<"Distribution"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"Distribution"> | string
   distributorId?: Prisma.StringWithAggregatesFilter<"Distribution"> | string
+  clientId?: Prisma.StringWithAggregatesFilter<"Distribution"> | string
   status?: Prisma.EnumDistributionStatusWithAggregatesFilter<"Distribution"> | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeWithAggregatesFilter<"Distribution"> | Date | string
+  submittedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Distribution"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Distribution"> | Date | string | null
-  distributedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Distribution"> | Date | string | null
   declinedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Distribution"> | Date | string | null
+  declineReason?: Prisma.StringNullableWithAggregatesFilter<"Distribution"> | string | null
+  targetPlatforms?: Prisma.StringNullableWithAggregatesFilter<"Distribution"> | string | null
+  targetTerritories?: Prisma.StringNullableWithAggregatesFilter<"Distribution"> | string | null
+  scheduledReleaseDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Distribution"> | Date | string | null
+  liveDate?: Prisma.DateTimeNullableWithAggregatesFilter<"Distribution"> | Date | string | null
+  revenueSplitPercent?: Prisma.DecimalNullableWithAggregatesFilter<"Distribution"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Distribution"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Distribution"> | Date | string
 }
@@ -315,77 +408,98 @@ export type DistributionScalarWhereWithAggregatesInput = {
 export type DistributionCreateInput = {
   distributionId?: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionCreateNestedManyWithoutDistributionInput
-  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
   release: Prisma.ReleaseCreateNestedOneWithoutDistributionsInput
-  user: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
   distributor: Prisma.UserCreateNestedOneWithoutDistributorDistributionsInput
+  client: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
+  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
 }
 
 export type DistributionUncheckedCreateInput = {
   distributionId?: string
   releaseId: string
-  userId: string
   distributorId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedCreateNestedManyWithoutDistributionInput
   notes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutDistributionInput
 }
 
 export type DistributionUpdateInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUpdateManyWithoutDistributionNestedInput
-  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
   release?: Prisma.ReleaseUpdateOneRequiredWithoutDistributionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
   distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput
+  client?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
+  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionUncheckedUpdateInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedUpdateManyWithoutDistributionNestedInput
   notes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionCreateManyInput = {
   distributionId?: string
   releaseId: string
-  userId: string
   distributorId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -393,10 +507,15 @@ export type DistributionCreateManyInput = {
 export type DistributionUpdateManyMutationInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -404,13 +523,18 @@ export type DistributionUpdateManyMutationInput = {
 export type DistributionUncheckedUpdateManyInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -418,27 +542,41 @@ export type DistributionUncheckedUpdateManyInput = {
 export type DistributionCountOrderByAggregateInput = {
   distributionId?: Prisma.SortOrder
   releaseId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
-  distributedAt?: Prisma.SortOrder
   declinedAt?: Prisma.SortOrder
+  declineReason?: Prisma.SortOrder
+  targetPlatforms?: Prisma.SortOrder
+  targetTerritories?: Prisma.SortOrder
+  scheduledReleaseDate?: Prisma.SortOrder
+  liveDate?: Prisma.SortOrder
+  revenueSplitPercent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type DistributionAvgOrderByAggregateInput = {
+  revenueSplitPercent?: Prisma.SortOrder
 }
 
 export type DistributionMaxOrderByAggregateInput = {
   distributionId?: Prisma.SortOrder
   releaseId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
-  distributedAt?: Prisma.SortOrder
   declinedAt?: Prisma.SortOrder
+  declineReason?: Prisma.SortOrder
+  targetPlatforms?: Prisma.SortOrder
+  targetTerritories?: Prisma.SortOrder
+  scheduledReleaseDate?: Prisma.SortOrder
+  liveDate?: Prisma.SortOrder
+  revenueSplitPercent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -446,15 +584,24 @@ export type DistributionMaxOrderByAggregateInput = {
 export type DistributionMinOrderByAggregateInput = {
   distributionId?: Prisma.SortOrder
   releaseId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
   status?: Prisma.SortOrder
   submittedAt?: Prisma.SortOrder
   approvedAt?: Prisma.SortOrder
-  distributedAt?: Prisma.SortOrder
   declinedAt?: Prisma.SortOrder
+  declineReason?: Prisma.SortOrder
+  targetPlatforms?: Prisma.SortOrder
+  targetTerritories?: Prisma.SortOrder
+  scheduledReleaseDate?: Prisma.SortOrder
+  liveDate?: Prisma.SortOrder
+  revenueSplitPercent?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
+}
+
+export type DistributionSumOrderByAggregateInput = {
+  revenueSplitPercent?: Prisma.SortOrder
 }
 
 export type DistributionScalarRelationFilter = {
@@ -476,18 +623,12 @@ export type EnumDistributionStatusFieldUpdateOperationsInput = {
   set?: $Enums.DistributionStatus
 }
 
-export type DistributionCreateNestedOneWithoutPlatformStatusesInput = {
-  create?: Prisma.XOR<Prisma.DistributionCreateWithoutPlatformStatusesInput, Prisma.DistributionUncheckedCreateWithoutPlatformStatusesInput>
-  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutPlatformStatusesInput
-  connect?: Prisma.DistributionWhereUniqueInput
-}
-
-export type DistributionUpdateOneRequiredWithoutPlatformStatusesNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionCreateWithoutPlatformStatusesInput, Prisma.DistributionUncheckedCreateWithoutPlatformStatusesInput>
-  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutPlatformStatusesInput
-  upsert?: Prisma.DistributionUpsertWithoutPlatformStatusesInput
-  connect?: Prisma.DistributionWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.DistributionUpdateToOneWithWhereWithoutPlatformStatusesInput, Prisma.DistributionUpdateWithoutPlatformStatusesInput>, Prisma.DistributionUncheckedUpdateWithoutPlatformStatusesInput>
+export type NullableDecimalFieldUpdateOperationsInput = {
+  set?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
+  increment?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  decrement?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  multiply?: runtime.Decimal | runtime.DecimalJsLike | number | string
+  divide?: runtime.Decimal | runtime.DecimalJsLike | number | string
 }
 
 export type DistributionCreateNestedOneWithoutNotesInput = {
@@ -553,10 +694,10 @@ export type DistributionCreateNestedManyWithoutDistributorInput = {
   connect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
 }
 
-export type DistributionCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.DistributionCreateWithoutUserInput, Prisma.DistributionUncheckedCreateWithoutUserInput> | Prisma.DistributionCreateWithoutUserInput[] | Prisma.DistributionUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutUserInput | Prisma.DistributionCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.DistributionCreateManyUserInputEnvelope
+export type DistributionCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.DistributionCreateWithoutClientInput, Prisma.DistributionUncheckedCreateWithoutClientInput> | Prisma.DistributionCreateWithoutClientInput[] | Prisma.DistributionUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutClientInput | Prisma.DistributionCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.DistributionCreateManyClientInputEnvelope
   connect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
 }
 
@@ -567,10 +708,10 @@ export type DistributionUncheckedCreateNestedManyWithoutDistributorInput = {
   connect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
 }
 
-export type DistributionUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.DistributionCreateWithoutUserInput, Prisma.DistributionUncheckedCreateWithoutUserInput> | Prisma.DistributionCreateWithoutUserInput[] | Prisma.DistributionUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutUserInput | Prisma.DistributionCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.DistributionCreateManyUserInputEnvelope
+export type DistributionUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.DistributionCreateWithoutClientInput, Prisma.DistributionUncheckedCreateWithoutClientInput> | Prisma.DistributionCreateWithoutClientInput[] | Prisma.DistributionUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutClientInput | Prisma.DistributionCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.DistributionCreateManyClientInputEnvelope
   connect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
 }
 
@@ -588,17 +729,17 @@ export type DistributionUpdateManyWithoutDistributorNestedInput = {
   deleteMany?: Prisma.DistributionScalarWhereInput | Prisma.DistributionScalarWhereInput[]
 }
 
-export type DistributionUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionCreateWithoutUserInput, Prisma.DistributionUncheckedCreateWithoutUserInput> | Prisma.DistributionCreateWithoutUserInput[] | Prisma.DistributionUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutUserInput | Prisma.DistributionCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.DistributionUpsertWithWhereUniqueWithoutUserInput | Prisma.DistributionUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.DistributionCreateManyUserInputEnvelope
+export type DistributionUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.DistributionCreateWithoutClientInput, Prisma.DistributionUncheckedCreateWithoutClientInput> | Prisma.DistributionCreateWithoutClientInput[] | Prisma.DistributionUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutClientInput | Prisma.DistributionCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.DistributionUpsertWithWhereUniqueWithoutClientInput | Prisma.DistributionUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.DistributionCreateManyClientInputEnvelope
   set?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
   disconnect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
   delete?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
   connect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
-  update?: Prisma.DistributionUpdateWithWhereUniqueWithoutUserInput | Prisma.DistributionUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.DistributionUpdateManyWithWhereWithoutUserInput | Prisma.DistributionUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.DistributionUpdateWithWhereUniqueWithoutClientInput | Prisma.DistributionUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.DistributionUpdateManyWithWhereWithoutClientInput | Prisma.DistributionUpdateManyWithWhereWithoutClientInput[]
   deleteMany?: Prisma.DistributionScalarWhereInput | Prisma.DistributionScalarWhereInput[]
 }
 
@@ -616,124 +757,56 @@ export type DistributionUncheckedUpdateManyWithoutDistributorNestedInput = {
   deleteMany?: Prisma.DistributionScalarWhereInput | Prisma.DistributionScalarWhereInput[]
 }
 
-export type DistributionUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributionCreateWithoutUserInput, Prisma.DistributionUncheckedCreateWithoutUserInput> | Prisma.DistributionCreateWithoutUserInput[] | Prisma.DistributionUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutUserInput | Prisma.DistributionCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.DistributionUpsertWithWhereUniqueWithoutUserInput | Prisma.DistributionUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.DistributionCreateManyUserInputEnvelope
+export type DistributionUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.DistributionCreateWithoutClientInput, Prisma.DistributionUncheckedCreateWithoutClientInput> | Prisma.DistributionCreateWithoutClientInput[] | Prisma.DistributionUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributionCreateOrConnectWithoutClientInput | Prisma.DistributionCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.DistributionUpsertWithWhereUniqueWithoutClientInput | Prisma.DistributionUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.DistributionCreateManyClientInputEnvelope
   set?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
   disconnect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
   delete?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
   connect?: Prisma.DistributionWhereUniqueInput | Prisma.DistributionWhereUniqueInput[]
-  update?: Prisma.DistributionUpdateWithWhereUniqueWithoutUserInput | Prisma.DistributionUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.DistributionUpdateManyWithWhereWithoutUserInput | Prisma.DistributionUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.DistributionUpdateWithWhereUniqueWithoutClientInput | Prisma.DistributionUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.DistributionUpdateManyWithWhereWithoutClientInput | Prisma.DistributionUpdateManyWithWhereWithoutClientInput[]
   deleteMany?: Prisma.DistributionScalarWhereInput | Prisma.DistributionScalarWhereInput[]
-}
-
-export type DistributionCreateWithoutPlatformStatusesInput = {
-  distributionId?: string
-  status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
-  approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
-  declinedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
-  release: Prisma.ReleaseCreateNestedOneWithoutDistributionsInput
-  user: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
-  distributor: Prisma.UserCreateNestedOneWithoutDistributorDistributionsInput
-}
-
-export type DistributionUncheckedCreateWithoutPlatformStatusesInput = {
-  distributionId?: string
-  releaseId: string
-  userId: string
-  distributorId: string
-  status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
-  approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
-  declinedAt?: Date | string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  notes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutDistributionInput
-}
-
-export type DistributionCreateOrConnectWithoutPlatformStatusesInput = {
-  where: Prisma.DistributionWhereUniqueInput
-  create: Prisma.XOR<Prisma.DistributionCreateWithoutPlatformStatusesInput, Prisma.DistributionUncheckedCreateWithoutPlatformStatusesInput>
-}
-
-export type DistributionUpsertWithoutPlatformStatusesInput = {
-  update: Prisma.XOR<Prisma.DistributionUpdateWithoutPlatformStatusesInput, Prisma.DistributionUncheckedUpdateWithoutPlatformStatusesInput>
-  create: Prisma.XOR<Prisma.DistributionCreateWithoutPlatformStatusesInput, Prisma.DistributionUncheckedCreateWithoutPlatformStatusesInput>
-  where?: Prisma.DistributionWhereInput
-}
-
-export type DistributionUpdateToOneWithWhereWithoutPlatformStatusesInput = {
-  where?: Prisma.DistributionWhereInput
-  data: Prisma.XOR<Prisma.DistributionUpdateWithoutPlatformStatusesInput, Prisma.DistributionUncheckedUpdateWithoutPlatformStatusesInput>
-}
-
-export type DistributionUpdateWithoutPlatformStatusesInput = {
-  distributionId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
-  release?: Prisma.ReleaseUpdateOneRequiredWithoutDistributionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
-  distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput
-}
-
-export type DistributionUncheckedUpdateWithoutPlatformStatusesInput = {
-  distributionId?: Prisma.StringFieldUpdateOperationsInput | string
-  releaseId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  notes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionCreateWithoutNotesInput = {
   distributionId?: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionCreateNestedManyWithoutDistributionInput
   release: Prisma.ReleaseCreateNestedOneWithoutDistributionsInput
-  user: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
   distributor: Prisma.UserCreateNestedOneWithoutDistributorDistributionsInput
+  client: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
 }
 
 export type DistributionUncheckedCreateWithoutNotesInput = {
   distributionId?: string
   releaseId: string
-  userId: string
   distributorId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedCreateNestedManyWithoutDistributionInput
 }
 
 export type DistributionCreateOrConnectWithoutNotesInput = {
@@ -755,60 +828,76 @@ export type DistributionUpdateToOneWithWhereWithoutNotesInput = {
 export type DistributionUpdateWithoutNotesInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUpdateManyWithoutDistributionNestedInput
   release?: Prisma.ReleaseUpdateOneRequiredWithoutDistributionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
   distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput
+  client?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
 }
 
 export type DistributionUncheckedUpdateWithoutNotesInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionCreateWithoutReleaseInput = {
   distributionId?: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionCreateNestedManyWithoutDistributionInput
-  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
-  user: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
   distributor: Prisma.UserCreateNestedOneWithoutDistributorDistributionsInput
+  client: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
+  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
 }
 
 export type DistributionUncheckedCreateWithoutReleaseInput = {
   distributionId?: string
-  userId: string
   distributorId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedCreateNestedManyWithoutDistributionInput
   notes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutDistributionInput
 }
 
@@ -844,13 +933,18 @@ export type DistributionScalarWhereInput = {
   NOT?: Prisma.DistributionScalarWhereInput | Prisma.DistributionScalarWhereInput[]
   distributionId?: Prisma.StringFilter<"Distribution"> | string
   releaseId?: Prisma.StringFilter<"Distribution"> | string
-  userId?: Prisma.StringFilter<"Distribution"> | string
   distributorId?: Prisma.StringFilter<"Distribution"> | string
+  clientId?: Prisma.StringFilter<"Distribution"> | string
   status?: Prisma.EnumDistributionStatusFilter<"Distribution"> | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
+  submittedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
   approvedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
-  distributedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
   declinedAt?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  declineReason?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  targetPlatforms?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  targetTerritories?: Prisma.StringNullableFilter<"Distribution"> | string | null
+  scheduledReleaseDate?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  liveDate?: Prisma.DateTimeNullableFilter<"Distribution"> | Date | string | null
+  revenueSplitPercent?: Prisma.DecimalNullableFilter<"Distribution"> | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Distribution"> | Date | string
 }
@@ -858,30 +952,38 @@ export type DistributionScalarWhereInput = {
 export type DistributionCreateWithoutDistributorInput = {
   distributionId?: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionCreateNestedManyWithoutDistributionInput
-  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
   release: Prisma.ReleaseCreateNestedOneWithoutDistributionsInput
-  user: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
+  client: Prisma.UserCreateNestedOneWithoutClientDistributionsInput
+  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
 }
 
 export type DistributionUncheckedCreateWithoutDistributorInput = {
   distributionId?: string
   releaseId: string
-  userId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedCreateNestedManyWithoutDistributionInput
   notes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutDistributionInput
 }
 
@@ -895,43 +997,51 @@ export type DistributionCreateManyDistributorInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type DistributionCreateWithoutUserInput = {
+export type DistributionCreateWithoutClientInput = {
   distributionId?: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionCreateNestedManyWithoutDistributionInput
-  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
   release: Prisma.ReleaseCreateNestedOneWithoutDistributionsInput
   distributor: Prisma.UserCreateNestedOneWithoutDistributorDistributionsInput
+  notes?: Prisma.DistributionNoteCreateNestedManyWithoutDistributionInput
 }
 
-export type DistributionUncheckedCreateWithoutUserInput = {
+export type DistributionUncheckedCreateWithoutClientInput = {
   distributionId?: string
   releaseId: string
   distributorId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedCreateNestedManyWithoutDistributionInput
   notes?: Prisma.DistributionNoteUncheckedCreateNestedManyWithoutDistributionInput
 }
 
-export type DistributionCreateOrConnectWithoutUserInput = {
+export type DistributionCreateOrConnectWithoutClientInput = {
   where: Prisma.DistributionWhereUniqueInput
-  create: Prisma.XOR<Prisma.DistributionCreateWithoutUserInput, Prisma.DistributionUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.DistributionCreateWithoutClientInput, Prisma.DistributionUncheckedCreateWithoutClientInput>
 }
 
-export type DistributionCreateManyUserInputEnvelope = {
-  data: Prisma.DistributionCreateManyUserInput | Prisma.DistributionCreateManyUserInput[]
+export type DistributionCreateManyClientInputEnvelope = {
+  data: Prisma.DistributionCreateManyClientInput | Prisma.DistributionCreateManyClientInput[]
   skipDuplicates?: boolean
 }
 
@@ -951,31 +1061,36 @@ export type DistributionUpdateManyWithWhereWithoutDistributorInput = {
   data: Prisma.XOR<Prisma.DistributionUpdateManyMutationInput, Prisma.DistributionUncheckedUpdateManyWithoutDistributorInput>
 }
 
-export type DistributionUpsertWithWhereUniqueWithoutUserInput = {
+export type DistributionUpsertWithWhereUniqueWithoutClientInput = {
   where: Prisma.DistributionWhereUniqueInput
-  update: Prisma.XOR<Prisma.DistributionUpdateWithoutUserInput, Prisma.DistributionUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.DistributionCreateWithoutUserInput, Prisma.DistributionUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.DistributionUpdateWithoutClientInput, Prisma.DistributionUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.DistributionCreateWithoutClientInput, Prisma.DistributionUncheckedCreateWithoutClientInput>
 }
 
-export type DistributionUpdateWithWhereUniqueWithoutUserInput = {
+export type DistributionUpdateWithWhereUniqueWithoutClientInput = {
   where: Prisma.DistributionWhereUniqueInput
-  data: Prisma.XOR<Prisma.DistributionUpdateWithoutUserInput, Prisma.DistributionUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.DistributionUpdateWithoutClientInput, Prisma.DistributionUncheckedUpdateWithoutClientInput>
 }
 
-export type DistributionUpdateManyWithWhereWithoutUserInput = {
+export type DistributionUpdateManyWithWhereWithoutClientInput = {
   where: Prisma.DistributionScalarWhereInput
-  data: Prisma.XOR<Prisma.DistributionUpdateManyMutationInput, Prisma.DistributionUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.DistributionUpdateManyMutationInput, Prisma.DistributionUncheckedUpdateManyWithoutClientInput>
 }
 
 export type DistributionCreateManyReleaseInput = {
   distributionId?: string
-  userId: string
   distributorId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -983,42 +1098,55 @@ export type DistributionCreateManyReleaseInput = {
 export type DistributionUpdateWithoutReleaseInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUpdateManyWithoutDistributionNestedInput
-  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
   distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput
+  client?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
+  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionUncheckedUpdateWithoutReleaseInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedUpdateManyWithoutDistributionNestedInput
   notes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionUncheckedUpdateManyWithoutReleaseInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1026,25 +1154,35 @@ export type DistributionUncheckedUpdateManyWithoutReleaseInput = {
 export type DistributionCreateManyDistributorInput = {
   distributionId?: string
   releaseId: string
-  userId: string
+  clientId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type DistributionCreateManyUserInput = {
+export type DistributionCreateManyClientInput = {
   distributionId?: string
   releaseId: string
   distributorId: string
   status?: $Enums.DistributionStatus
-  submittedAt?: Date | string
+  submittedAt?: Date | string | null
   approvedAt?: Date | string | null
-  distributedAt?: Date | string | null
   declinedAt?: Date | string | null
+  declineReason?: string | null
+  targetPlatforms?: string | null
+  targetTerritories?: string | null
+  scheduledReleaseDate?: Date | string | null
+  liveDate?: Date | string | null
+  revenueSplitPercent?: runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -1052,85 +1190,111 @@ export type DistributionCreateManyUserInput = {
 export type DistributionUpdateWithoutDistributorInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUpdateManyWithoutDistributionNestedInput
-  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
   release?: Prisma.ReleaseUpdateOneRequiredWithoutDistributionsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
+  client?: Prisma.UserUpdateOneRequiredWithoutClientDistributionsNestedInput
+  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionUncheckedUpdateWithoutDistributorInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedUpdateManyWithoutDistributionNestedInput
   notes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutDistributionNestedInput
 }
 
 export type DistributionUncheckedUpdateManyWithoutDistributorInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DistributionUpdateWithoutUserInput = {
+export type DistributionUpdateWithoutClientInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUpdateManyWithoutDistributionNestedInput
-  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
   release?: Prisma.ReleaseUpdateOneRequiredWithoutDistributionsNestedInput
   distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorDistributionsNestedInput
+  notes?: Prisma.DistributionNoteUpdateManyWithoutDistributionNestedInput
 }
 
-export type DistributionUncheckedUpdateWithoutUserInput = {
+export type DistributionUncheckedUpdateWithoutClientInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  platformStatuses?: Prisma.PlatformDistributionUncheckedUpdateManyWithoutDistributionNestedInput
   notes?: Prisma.DistributionNoteUncheckedUpdateManyWithoutDistributionNestedInput
 }
 
-export type DistributionUncheckedUpdateManyWithoutUserInput = {
+export type DistributionUncheckedUpdateManyWithoutClientInput = {
   distributionId?: Prisma.StringFieldUpdateOperationsInput | string
   releaseId?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumDistributionStatusFieldUpdateOperationsInput | $Enums.DistributionStatus
-  submittedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  submittedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   approvedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  distributedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   declinedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  declineReason?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetPlatforms?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  targetTerritories?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  scheduledReleaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  liveDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  revenueSplitPercent?: Prisma.NullableDecimalFieldUpdateOperationsInput | runtime.Decimal | runtime.DecimalJsLike | number | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -1141,12 +1305,10 @@ export type DistributionUncheckedUpdateManyWithoutUserInput = {
  */
 
 export type DistributionCountOutputType = {
-  platformStatuses: number
   notes: number
 }
 
 export type DistributionCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  platformStatuses?: boolean | DistributionCountOutputTypeCountPlatformStatusesArgs
   notes?: boolean | DistributionCountOutputTypeCountNotesArgs
 }
 
@@ -1163,13 +1325,6 @@ export type DistributionCountOutputTypeDefaultArgs<ExtArgs extends runtime.Types
 /**
  * DistributionCountOutputType without action
  */
-export type DistributionCountOutputTypeCountPlatformStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.PlatformDistributionWhereInput
-}
-
-/**
- * DistributionCountOutputType without action
- */
 export type DistributionCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   where?: Prisma.DistributionNoteWhereInput
 }
@@ -1178,110 +1333,132 @@ export type DistributionCountOutputTypeCountNotesArgs<ExtArgs extends runtime.Ty
 export type DistributionSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   distributionId?: boolean
   releaseId?: boolean
-  userId?: boolean
   distributorId?: boolean
+  clientId?: boolean
   status?: boolean
   submittedAt?: boolean
   approvedAt?: boolean
-  distributedAt?: boolean
   declinedAt?: boolean
+  declineReason?: boolean
+  targetPlatforms?: boolean
+  targetTerritories?: boolean
+  scheduledReleaseDate?: boolean
+  liveDate?: boolean
+  revenueSplitPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  platformStatuses?: boolean | Prisma.Distribution$platformStatusesArgs<ExtArgs>
-  notes?: boolean | Prisma.Distribution$notesArgs<ExtArgs>
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  notes?: boolean | Prisma.Distribution$notesArgs<ExtArgs>
   _count?: boolean | Prisma.DistributionCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distribution"]>
 
 export type DistributionSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   distributionId?: boolean
   releaseId?: boolean
-  userId?: boolean
   distributorId?: boolean
+  clientId?: boolean
   status?: boolean
   submittedAt?: boolean
   approvedAt?: boolean
-  distributedAt?: boolean
   declinedAt?: boolean
+  declineReason?: boolean
+  targetPlatforms?: boolean
+  targetTerritories?: boolean
+  scheduledReleaseDate?: boolean
+  liveDate?: boolean
+  revenueSplitPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distribution"]>
 
 export type DistributionSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   distributionId?: boolean
   releaseId?: boolean
-  userId?: boolean
   distributorId?: boolean
+  clientId?: boolean
   status?: boolean
   submittedAt?: boolean
   approvedAt?: boolean
-  distributedAt?: boolean
   declinedAt?: boolean
+  declineReason?: boolean
+  targetPlatforms?: boolean
+  targetTerritories?: boolean
+  scheduledReleaseDate?: boolean
+  liveDate?: boolean
+  revenueSplitPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distribution"]>
 
 export type DistributionSelectScalar = {
   distributionId?: boolean
   releaseId?: boolean
-  userId?: boolean
   distributorId?: boolean
+  clientId?: boolean
   status?: boolean
   submittedAt?: boolean
   approvedAt?: boolean
-  distributedAt?: boolean
   declinedAt?: boolean
+  declineReason?: boolean
+  targetPlatforms?: boolean
+  targetTerritories?: boolean
+  scheduledReleaseDate?: boolean
+  liveDate?: boolean
+  revenueSplitPercent?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DistributionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"distributionId" | "releaseId" | "userId" | "distributorId" | "status" | "submittedAt" | "approvedAt" | "distributedAt" | "declinedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["distribution"]>
+export type DistributionOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"distributionId" | "releaseId" | "distributorId" | "clientId" | "status" | "submittedAt" | "approvedAt" | "declinedAt" | "declineReason" | "targetPlatforms" | "targetTerritories" | "scheduledReleaseDate" | "liveDate" | "revenueSplitPercent" | "createdAt" | "updatedAt", ExtArgs["result"]["distribution"]>
 export type DistributionInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  platformStatuses?: boolean | Prisma.Distribution$platformStatusesArgs<ExtArgs>
-  notes?: boolean | Prisma.Distribution$notesArgs<ExtArgs>
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  notes?: boolean | Prisma.Distribution$notesArgs<ExtArgs>
   _count?: boolean | Prisma.DistributionCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type DistributionIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DistributionIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   release?: boolean | Prisma.ReleaseDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $DistributionPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Distribution"
   objects: {
-    platformStatuses: Prisma.$PlatformDistributionPayload<ExtArgs>[]
-    notes: Prisma.$DistributionNotePayload<ExtArgs>[]
     release: Prisma.$ReleasePayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
     distributor: Prisma.$UserPayload<ExtArgs>
+    client: Prisma.$UserPayload<ExtArgs>
+    notes: Prisma.$DistributionNotePayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     distributionId: string
     releaseId: string
-    userId: string
     distributorId: string
+    clientId: string
     status: $Enums.DistributionStatus
-    submittedAt: Date
+    submittedAt: Date | null
     approvedAt: Date | null
-    distributedAt: Date | null
     declinedAt: Date | null
+    declineReason: string | null
+    targetPlatforms: string | null
+    targetTerritories: string | null
+    scheduledReleaseDate: Date | null
+    liveDate: Date | null
+    revenueSplitPercent: runtime.Decimal | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["distribution"]>
@@ -1678,11 +1855,10 @@ readonly fields: DistributionFieldRefs;
  */
 export interface Prisma__DistributionClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  platformStatuses<T extends Prisma.Distribution$platformStatusesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Distribution$platformStatusesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$PlatformDistributionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  notes<T extends Prisma.Distribution$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Distribution$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   release<T extends Prisma.ReleaseDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.ReleaseDefaultArgs<ExtArgs>>): Prisma.Prisma__ReleaseClient<runtime.Types.Result.GetResult<Prisma.$ReleasePayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   distributor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  notes<T extends Prisma.Distribution$notesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Distribution$notesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributionNotePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1714,13 +1890,18 @@ export interface Prisma__DistributionClient<T, Null = never, ExtArgs extends run
 export interface DistributionFieldRefs {
   readonly distributionId: Prisma.FieldRef<"Distribution", 'String'>
   readonly releaseId: Prisma.FieldRef<"Distribution", 'String'>
-  readonly userId: Prisma.FieldRef<"Distribution", 'String'>
   readonly distributorId: Prisma.FieldRef<"Distribution", 'String'>
+  readonly clientId: Prisma.FieldRef<"Distribution", 'String'>
   readonly status: Prisma.FieldRef<"Distribution", 'DistributionStatus'>
   readonly submittedAt: Prisma.FieldRef<"Distribution", 'DateTime'>
   readonly approvedAt: Prisma.FieldRef<"Distribution", 'DateTime'>
-  readonly distributedAt: Prisma.FieldRef<"Distribution", 'DateTime'>
   readonly declinedAt: Prisma.FieldRef<"Distribution", 'DateTime'>
+  readonly declineReason: Prisma.FieldRef<"Distribution", 'String'>
+  readonly targetPlatforms: Prisma.FieldRef<"Distribution", 'String'>
+  readonly targetTerritories: Prisma.FieldRef<"Distribution", 'String'>
+  readonly scheduledReleaseDate: Prisma.FieldRef<"Distribution", 'DateTime'>
+  readonly liveDate: Prisma.FieldRef<"Distribution", 'DateTime'>
+  readonly revenueSplitPercent: Prisma.FieldRef<"Distribution", 'Decimal'>
   readonly createdAt: Prisma.FieldRef<"Distribution", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Distribution", 'DateTime'>
 }
@@ -2116,30 +2297,6 @@ export type DistributionDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.
    * Limit how many Distributions to delete.
    */
   limit?: number
-}
-
-/**
- * Distribution.platformStatuses
- */
-export type Distribution$platformStatusesArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the PlatformDistribution
-   */
-  select?: Prisma.PlatformDistributionSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the PlatformDistribution
-   */
-  omit?: Prisma.PlatformDistributionOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.PlatformDistributionInclude<ExtArgs> | null
-  where?: Prisma.PlatformDistributionWhereInput
-  orderBy?: Prisma.PlatformDistributionOrderByWithRelationInput | Prisma.PlatformDistributionOrderByWithRelationInput[]
-  cursor?: Prisma.PlatformDistributionWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.PlatformDistributionScalarFieldEnum | Prisma.PlatformDistributionScalarFieldEnum[]
 }
 
 /**

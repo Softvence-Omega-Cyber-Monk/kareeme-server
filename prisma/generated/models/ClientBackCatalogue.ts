@@ -20,132 +20,128 @@ export type ClientBackCatalogueModel = runtime.Types.Result.DefaultSelection<Pri
 
 export type AggregateClientBackCatalogue = {
   _count: ClientBackCatalogueCountAggregateOutputType | null
-  _avg: ClientBackCatalogueAvgAggregateOutputType | null
-  _sum: ClientBackCatalogueSumAggregateOutputType | null
   _min: ClientBackCatalogueMinAggregateOutputType | null
   _max: ClientBackCatalogueMaxAggregateOutputType | null
 }
 
-export type ClientBackCatalogueAvgAggregateOutputType = {
-  totalReleases: number | null
-  totalTracks: number | null
-}
-
-export type ClientBackCatalogueSumAggregateOutputType = {
-  totalReleases: number | null
-  totalTracks: number | null
-}
-
 export type ClientBackCatalogueMinAggregateOutputType = {
-  catalogueId: string | null
+  id: string | null
   distributorId: string | null
-  userId: string | null
-  artistName: string | null
-  genre: string | null
-  totalReleases: number | null
-  releaseTypes: string | null
-  currentDistributor: string | null
-  label: string | null
-  totalTracks: number | null
-  dateRangeStart: Date | null
-  dateRangeEnd: Date | null
+  clientId: string | null
+  labelName: string | null
+  distributor: string | null
+  upc: string | null
+  catalogueNumber: string | null
+  releaseArtist: string | null
+  releaseTitle: string | null
+  releaseType: string | null
+  releaseDate: Date | null
+  pLine: string | null
+  cLine: string | null
+  status: $Enums.ClientBackCatalogueStatus | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ClientBackCatalogueMaxAggregateOutputType = {
-  catalogueId: string | null
+  id: string | null
   distributorId: string | null
-  userId: string | null
-  artistName: string | null
-  genre: string | null
-  totalReleases: number | null
-  releaseTypes: string | null
-  currentDistributor: string | null
-  label: string | null
-  totalTracks: number | null
-  dateRangeStart: Date | null
-  dateRangeEnd: Date | null
+  clientId: string | null
+  labelName: string | null
+  distributor: string | null
+  upc: string | null
+  catalogueNumber: string | null
+  releaseArtist: string | null
+  releaseTitle: string | null
+  releaseType: string | null
+  releaseDate: Date | null
+  pLine: string | null
+  cLine: string | null
+  status: $Enums.ClientBackCatalogueStatus | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type ClientBackCatalogueCountAggregateOutputType = {
-  catalogueId: number
+  id: number
   distributorId: number
-  userId: number
-  artistName: number
-  genre: number
-  totalReleases: number
-  releaseTypes: number
-  currentDistributor: number
-  label: number
-  totalTracks: number
-  dateRangeStart: number
-  dateRangeEnd: number
+  clientId: number
+  labelName: number
+  distributor: number
+  upc: number
+  catalogueNumber: number
+  releaseArtist: number
+  releaseTitle: number
+  releaseType: number
+  releaseDate: number
+  pLine: number
+  cLine: number
+  status: number
+  notes: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type ClientBackCatalogueAvgAggregateInputType = {
-  totalReleases?: true
-  totalTracks?: true
-}
-
-export type ClientBackCatalogueSumAggregateInputType = {
-  totalReleases?: true
-  totalTracks?: true
-}
-
 export type ClientBackCatalogueMinAggregateInputType = {
-  catalogueId?: true
+  id?: true
   distributorId?: true
-  userId?: true
-  artistName?: true
-  genre?: true
-  totalReleases?: true
-  releaseTypes?: true
-  currentDistributor?: true
-  label?: true
-  totalTracks?: true
-  dateRangeStart?: true
-  dateRangeEnd?: true
+  clientId?: true
+  labelName?: true
+  distributor?: true
+  upc?: true
+  catalogueNumber?: true
+  releaseArtist?: true
+  releaseTitle?: true
+  releaseType?: true
+  releaseDate?: true
+  pLine?: true
+  cLine?: true
+  status?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type ClientBackCatalogueMaxAggregateInputType = {
-  catalogueId?: true
+  id?: true
   distributorId?: true
-  userId?: true
-  artistName?: true
-  genre?: true
-  totalReleases?: true
-  releaseTypes?: true
-  currentDistributor?: true
-  label?: true
-  totalTracks?: true
-  dateRangeStart?: true
-  dateRangeEnd?: true
+  clientId?: true
+  labelName?: true
+  distributor?: true
+  upc?: true
+  catalogueNumber?: true
+  releaseArtist?: true
+  releaseTitle?: true
+  releaseType?: true
+  releaseDate?: true
+  pLine?: true
+  cLine?: true
+  status?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type ClientBackCatalogueCountAggregateInputType = {
-  catalogueId?: true
+  id?: true
   distributorId?: true
-  userId?: true
-  artistName?: true
-  genre?: true
-  totalReleases?: true
-  releaseTypes?: true
-  currentDistributor?: true
-  label?: true
-  totalTracks?: true
-  dateRangeStart?: true
-  dateRangeEnd?: true
+  clientId?: true
+  labelName?: true
+  distributor?: true
+  upc?: true
+  catalogueNumber?: true
+  releaseArtist?: true
+  releaseTitle?: true
+  releaseType?: true
+  releaseDate?: true
+  pLine?: true
+  cLine?: true
+  status?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -189,18 +185,6 @@ export type ClientBackCatalogueAggregateArgs<ExtArgs extends runtime.Types.Exten
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: ClientBackCatalogueAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: ClientBackCatalogueSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: ClientBackCatalogueMinAggregateInputType
@@ -231,30 +215,29 @@ export type ClientBackCatalogueGroupByArgs<ExtArgs extends runtime.Types.Extensi
   take?: number
   skip?: number
   _count?: ClientBackCatalogueCountAggregateInputType | true
-  _avg?: ClientBackCatalogueAvgAggregateInputType
-  _sum?: ClientBackCatalogueSumAggregateInputType
   _min?: ClientBackCatalogueMinAggregateInputType
   _max?: ClientBackCatalogueMaxAggregateInputType
 }
 
 export type ClientBackCatalogueGroupByOutputType = {
-  catalogueId: string
+  id: string
   distributorId: string
-  userId: string
-  artistName: string
-  genre: string | null
-  totalReleases: number
-  releaseTypes: string | null
-  currentDistributor: string | null
-  label: string | null
-  totalTracks: number
-  dateRangeStart: Date | null
-  dateRangeEnd: Date | null
+  clientId: string
+  labelName: string | null
+  distributor: string | null
+  upc: string | null
+  catalogueNumber: string | null
+  releaseArtist: string | null
+  releaseTitle: string | null
+  releaseType: string | null
+  releaseDate: Date | null
+  pLine: string | null
+  cLine: string | null
+  status: $Enums.ClientBackCatalogueStatus
+  notes: string | null
   createdAt: Date
   updatedAt: Date
   _count: ClientBackCatalogueCountAggregateOutputType | null
-  _avg: ClientBackCatalogueAvgAggregateOutputType | null
-  _sum: ClientBackCatalogueSumAggregateOutputType | null
   _min: ClientBackCatalogueMinAggregateOutputType | null
   _max: ClientBackCatalogueMaxAggregateOutputType | null
 }
@@ -278,283 +261,316 @@ export type ClientBackCatalogueWhereInput = {
   AND?: Prisma.ClientBackCatalogueWhereInput | Prisma.ClientBackCatalogueWhereInput[]
   OR?: Prisma.ClientBackCatalogueWhereInput[]
   NOT?: Prisma.ClientBackCatalogueWhereInput | Prisma.ClientBackCatalogueWhereInput[]
-  catalogueId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
+  id?: Prisma.StringFilter<"ClientBackCatalogue"> | string
   distributorId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  userId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  artistName?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  genre?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  totalReleases?: Prisma.IntFilter<"ClientBackCatalogue"> | number
-  releaseTypes?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  currentDistributor?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  label?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  totalTracks?: Prisma.IntFilter<"ClientBackCatalogue"> | number
-  dateRangeStart?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
-  dateRangeEnd?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
+  clientId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
+  labelName?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  distributor?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  upc?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  catalogueNumber?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseArtist?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseTitle?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseType?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseDate?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
+  pLine?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  cLine?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFilter<"ClientBackCatalogue"> | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ClientBackCatalogue"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClientBackCatalogue"> | Date | string
-  distributor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  distributorUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  clientUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type ClientBackCatalogueOrderByWithRelationInput = {
-  catalogueId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  artistName?: Prisma.SortOrder
-  genre?: Prisma.SortOrderInput | Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  releaseTypes?: Prisma.SortOrderInput | Prisma.SortOrder
-  currentDistributor?: Prisma.SortOrderInput | Prisma.SortOrder
-  label?: Prisma.SortOrderInput | Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
-  dateRangeStart?: Prisma.SortOrderInput | Prisma.SortOrder
-  dateRangeEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  labelName?: Prisma.SortOrderInput | Prisma.SortOrder
+  distributor?: Prisma.SortOrderInput | Prisma.SortOrder
+  upc?: Prisma.SortOrderInput | Prisma.SortOrder
+  catalogueNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseArtist?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseType?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  pLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  cLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  distributor?: Prisma.UserOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  distributorUser?: Prisma.UserOrderByWithRelationInput
+  clientUser?: Prisma.UserOrderByWithRelationInput
 }
 
 export type ClientBackCatalogueWhereUniqueInput = Prisma.AtLeast<{
-  catalogueId?: string
+  id?: string
   AND?: Prisma.ClientBackCatalogueWhereInput | Prisma.ClientBackCatalogueWhereInput[]
   OR?: Prisma.ClientBackCatalogueWhereInput[]
   NOT?: Prisma.ClientBackCatalogueWhereInput | Prisma.ClientBackCatalogueWhereInput[]
   distributorId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  userId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  artistName?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  genre?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  totalReleases?: Prisma.IntFilter<"ClientBackCatalogue"> | number
-  releaseTypes?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  currentDistributor?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  label?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  totalTracks?: Prisma.IntFilter<"ClientBackCatalogue"> | number
-  dateRangeStart?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
-  dateRangeEnd?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
+  clientId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
+  labelName?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  distributor?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  upc?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  catalogueNumber?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseArtist?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseTitle?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseType?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseDate?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
+  pLine?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  cLine?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFilter<"ClientBackCatalogue"> | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ClientBackCatalogue"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClientBackCatalogue"> | Date | string
-  distributor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "catalogueId">
+  distributorUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  clientUser?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id">
 
 export type ClientBackCatalogueOrderByWithAggregationInput = {
-  catalogueId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  artistName?: Prisma.SortOrder
-  genre?: Prisma.SortOrderInput | Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  releaseTypes?: Prisma.SortOrderInput | Prisma.SortOrder
-  currentDistributor?: Prisma.SortOrderInput | Prisma.SortOrder
-  label?: Prisma.SortOrderInput | Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
-  dateRangeStart?: Prisma.SortOrderInput | Prisma.SortOrder
-  dateRangeEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  labelName?: Prisma.SortOrderInput | Prisma.SortOrder
+  distributor?: Prisma.SortOrderInput | Prisma.SortOrder
+  upc?: Prisma.SortOrderInput | Prisma.SortOrder
+  catalogueNumber?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseArtist?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseTitle?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseType?: Prisma.SortOrderInput | Prisma.SortOrder
+  releaseDate?: Prisma.SortOrderInput | Prisma.SortOrder
+  pLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  cLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  status?: Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ClientBackCatalogueCountOrderByAggregateInput
-  _avg?: Prisma.ClientBackCatalogueAvgOrderByAggregateInput
   _max?: Prisma.ClientBackCatalogueMaxOrderByAggregateInput
   _min?: Prisma.ClientBackCatalogueMinOrderByAggregateInput
-  _sum?: Prisma.ClientBackCatalogueSumOrderByAggregateInput
 }
 
 export type ClientBackCatalogueScalarWhereWithAggregatesInput = {
   AND?: Prisma.ClientBackCatalogueScalarWhereWithAggregatesInput | Prisma.ClientBackCatalogueScalarWhereWithAggregatesInput[]
   OR?: Prisma.ClientBackCatalogueScalarWhereWithAggregatesInput[]
   NOT?: Prisma.ClientBackCatalogueScalarWhereWithAggregatesInput | Prisma.ClientBackCatalogueScalarWhereWithAggregatesInput[]
-  catalogueId?: Prisma.StringWithAggregatesFilter<"ClientBackCatalogue"> | string
+  id?: Prisma.StringWithAggregatesFilter<"ClientBackCatalogue"> | string
   distributorId?: Prisma.StringWithAggregatesFilter<"ClientBackCatalogue"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"ClientBackCatalogue"> | string
-  artistName?: Prisma.StringWithAggregatesFilter<"ClientBackCatalogue"> | string
-  genre?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
-  totalReleases?: Prisma.IntWithAggregatesFilter<"ClientBackCatalogue"> | number
-  releaseTypes?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
-  currentDistributor?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
-  label?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
-  totalTracks?: Prisma.IntWithAggregatesFilter<"ClientBackCatalogue"> | number
-  dateRangeStart?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientBackCatalogue"> | Date | string | null
-  dateRangeEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientBackCatalogue"> | Date | string | null
+  clientId?: Prisma.StringWithAggregatesFilter<"ClientBackCatalogue"> | string
+  labelName?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  distributor?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  upc?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  catalogueNumber?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  releaseArtist?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  releaseTitle?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  releaseType?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  releaseDate?: Prisma.DateTimeNullableWithAggregatesFilter<"ClientBackCatalogue"> | Date | string | null
+  pLine?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  cLine?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusWithAggregatesFilter<"ClientBackCatalogue"> | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.StringNullableWithAggregatesFilter<"ClientBackCatalogue"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"ClientBackCatalogue"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"ClientBackCatalogue"> | Date | string
 }
 
 export type ClientBackCatalogueCreateInput = {
-  catalogueId?: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+  id?: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  distributor: Prisma.UserCreateNestedOneWithoutDistributorCataloguesInput
-  user: Prisma.UserCreateNestedOneWithoutClientCataloguesInput
+  distributorUser: Prisma.UserCreateNestedOneWithoutDistributorCataloguesInput
+  clientUser: Prisma.UserCreateNestedOneWithoutClientCataloguesInput
 }
 
 export type ClientBackCatalogueUncheckedCreateInput = {
-  catalogueId?: string
+  id?: string
   distributorId: string
-  userId: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+  clientId: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ClientBackCatalogueUpdateInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorCataloguesNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientCataloguesNestedInput
+  distributorUser?: Prisma.UserUpdateOneRequiredWithoutDistributorCataloguesNestedInput
+  clientUser?: Prisma.UserUpdateOneRequiredWithoutClientCataloguesNestedInput
 }
 
 export type ClientBackCatalogueUncheckedUpdateInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientBackCatalogueCreateManyInput = {
-  catalogueId?: string
+  id?: string
   distributorId: string
-  userId: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+  clientId: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type ClientBackCatalogueUpdateManyMutationInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientBackCatalogueUncheckedUpdateManyInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type ClientBackCatalogueCountOrderByAggregateInput = {
-  catalogueId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  artistName?: Prisma.SortOrder
-  genre?: Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  releaseTypes?: Prisma.SortOrder
-  currentDistributor?: Prisma.SortOrder
-  label?: Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
-  dateRangeStart?: Prisma.SortOrder
-  dateRangeEnd?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  labelName?: Prisma.SortOrder
+  distributor?: Prisma.SortOrder
+  upc?: Prisma.SortOrder
+  catalogueNumber?: Prisma.SortOrder
+  releaseArtist?: Prisma.SortOrder
+  releaseTitle?: Prisma.SortOrder
+  releaseType?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  pLine?: Prisma.SortOrder
+  cLine?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type ClientBackCatalogueAvgOrderByAggregateInput = {
-  totalReleases?: Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
-}
-
 export type ClientBackCatalogueMaxOrderByAggregateInput = {
-  catalogueId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  artistName?: Prisma.SortOrder
-  genre?: Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  releaseTypes?: Prisma.SortOrder
-  currentDistributor?: Prisma.SortOrder
-  label?: Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
-  dateRangeStart?: Prisma.SortOrder
-  dateRangeEnd?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  labelName?: Prisma.SortOrder
+  distributor?: Prisma.SortOrder
+  upc?: Prisma.SortOrder
+  catalogueNumber?: Prisma.SortOrder
+  releaseArtist?: Prisma.SortOrder
+  releaseTitle?: Prisma.SortOrder
+  releaseType?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  pLine?: Prisma.SortOrder
+  cLine?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type ClientBackCatalogueMinOrderByAggregateInput = {
-  catalogueId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  artistName?: Prisma.SortOrder
-  genre?: Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  releaseTypes?: Prisma.SortOrder
-  currentDistributor?: Prisma.SortOrder
-  label?: Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
-  dateRangeStart?: Prisma.SortOrder
-  dateRangeEnd?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  labelName?: Prisma.SortOrder
+  distributor?: Prisma.SortOrder
+  upc?: Prisma.SortOrder
+  catalogueNumber?: Prisma.SortOrder
+  releaseArtist?: Prisma.SortOrder
+  releaseTitle?: Prisma.SortOrder
+  releaseType?: Prisma.SortOrder
+  releaseDate?: Prisma.SortOrder
+  pLine?: Prisma.SortOrder
+  cLine?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type ClientBackCatalogueSumOrderByAggregateInput = {
-  totalReleases?: Prisma.SortOrder
-  totalTracks?: Prisma.SortOrder
 }
 
 export type ClientBackCatalogueListRelationFilter = {
@@ -567,350 +583,393 @@ export type ClientBackCatalogueOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type ClientBackCatalogueCreateNestedManyWithoutDistributorInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorInputEnvelope
+export type EnumClientBackCatalogueStatusFieldUpdateOperationsInput = {
+  set?: $Enums.ClientBackCatalogueStatus
+}
+
+export type ClientBackCatalogueCreateNestedManyWithoutDistributorUserInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorUserInputEnvelope
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
 }
 
-export type ClientBackCatalogueCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput> | Prisma.ClientBackCatalogueCreateWithoutUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyUserInputEnvelope
+export type ClientBackCatalogueCreateNestedManyWithoutClientUserInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput> | Prisma.ClientBackCatalogueCreateWithoutClientUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyClientUserInputEnvelope
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
 }
 
-export type ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorInputEnvelope
+export type ClientBackCatalogueUncheckedCreateNestedManyWithoutDistributorUserInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorUserInputEnvelope
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
 }
 
-export type ClientBackCatalogueUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput> | Prisma.ClientBackCatalogueCreateWithoutUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyUserInputEnvelope
+export type ClientBackCatalogueUncheckedCreateNestedManyWithoutClientUserInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput> | Prisma.ClientBackCatalogueCreateWithoutClientUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyClientUserInputEnvelope
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
 }
 
-export type ClientBackCatalogueUpdateManyWithoutDistributorNestedInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput[]
-  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorInputEnvelope
+export type ClientBackCatalogueUpdateManyWithoutDistributorUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput[]
+  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorUserInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorUserInputEnvelope
   set?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   disconnect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   delete?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
-  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorInput[]
-  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorInput[]
+  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorUserInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorUserInput[]
+  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorUserInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorUserInput[]
   deleteMany?: Prisma.ClientBackCatalogueScalarWhereInput | Prisma.ClientBackCatalogueScalarWhereInput[]
 }
 
-export type ClientBackCatalogueUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput> | Prisma.ClientBackCatalogueCreateWithoutUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutUserInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyUserInputEnvelope
+export type ClientBackCatalogueUpdateManyWithoutClientUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput> | Prisma.ClientBackCatalogueCreateWithoutClientUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput[]
+  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutClientUserInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutClientUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyClientUserInputEnvelope
   set?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   disconnect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   delete?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
-  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutUserInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutUserInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutClientUserInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutClientUserInput[]
+  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutClientUserInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutClientUserInput[]
   deleteMany?: Prisma.ClientBackCatalogueScalarWhereInput | Prisma.ClientBackCatalogueScalarWhereInput[]
 }
 
-export type ClientBackCatalogueUncheckedUpdateManyWithoutDistributorNestedInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorInput[]
-  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorInputEnvelope
+export type ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput> | Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput[]
+  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorUserInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyDistributorUserInputEnvelope
   set?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   disconnect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   delete?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
-  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorInput[]
-  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorInput[]
+  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorUserInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorUserInput[]
+  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorUserInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutDistributorUserInput[]
   deleteMany?: Prisma.ClientBackCatalogueScalarWhereInput | Prisma.ClientBackCatalogueScalarWhereInput[]
 }
 
-export type ClientBackCatalogueUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput> | Prisma.ClientBackCatalogueCreateWithoutUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutUserInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.ClientBackCatalogueCreateManyUserInputEnvelope
+export type ClientBackCatalogueUncheckedUpdateManyWithoutClientUserNestedInput = {
+  create?: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput> | Prisma.ClientBackCatalogueCreateWithoutClientUserInput[] | Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput[]
+  connectOrCreate?: Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput | Prisma.ClientBackCatalogueCreateOrConnectWithoutClientUserInput[]
+  upsert?: Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutClientUserInput | Prisma.ClientBackCatalogueUpsertWithWhereUniqueWithoutClientUserInput[]
+  createMany?: Prisma.ClientBackCatalogueCreateManyClientUserInputEnvelope
   set?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   disconnect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   delete?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
   connect?: Prisma.ClientBackCatalogueWhereUniqueInput | Prisma.ClientBackCatalogueWhereUniqueInput[]
-  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutUserInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutUserInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutClientUserInput | Prisma.ClientBackCatalogueUpdateWithWhereUniqueWithoutClientUserInput[]
+  updateMany?: Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutClientUserInput | Prisma.ClientBackCatalogueUpdateManyWithWhereWithoutClientUserInput[]
   deleteMany?: Prisma.ClientBackCatalogueScalarWhereInput | Prisma.ClientBackCatalogueScalarWhereInput[]
 }
 
-export type ClientBackCatalogueCreateWithoutDistributorInput = {
-  catalogueId?: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+export type ClientBackCatalogueCreateWithoutDistributorUserInput = {
+  id?: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutClientCataloguesInput
+  clientUser: Prisma.UserCreateNestedOneWithoutClientCataloguesInput
 }
 
-export type ClientBackCatalogueUncheckedCreateWithoutDistributorInput = {
-  catalogueId?: string
-  userId: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+export type ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput = {
+  id?: string
+  clientId: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ClientBackCatalogueCreateOrConnectWithoutDistributorInput = {
+export type ClientBackCatalogueCreateOrConnectWithoutDistributorUserInput = {
   where: Prisma.ClientBackCatalogueWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput>
+  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput>
 }
 
-export type ClientBackCatalogueCreateManyDistributorInputEnvelope = {
-  data: Prisma.ClientBackCatalogueCreateManyDistributorInput | Prisma.ClientBackCatalogueCreateManyDistributorInput[]
+export type ClientBackCatalogueCreateManyDistributorUserInputEnvelope = {
+  data: Prisma.ClientBackCatalogueCreateManyDistributorUserInput | Prisma.ClientBackCatalogueCreateManyDistributorUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ClientBackCatalogueCreateWithoutUserInput = {
-  catalogueId?: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+export type ClientBackCatalogueCreateWithoutClientUserInput = {
+  id?: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  distributor: Prisma.UserCreateNestedOneWithoutDistributorCataloguesInput
+  distributorUser: Prisma.UserCreateNestedOneWithoutDistributorCataloguesInput
 }
 
-export type ClientBackCatalogueUncheckedCreateWithoutUserInput = {
-  catalogueId?: string
+export type ClientBackCatalogueUncheckedCreateWithoutClientUserInput = {
+  id?: string
   distributorId: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ClientBackCatalogueCreateOrConnectWithoutUserInput = {
+export type ClientBackCatalogueCreateOrConnectWithoutClientUserInput = {
   where: Prisma.ClientBackCatalogueWhereUniqueInput
-  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput>
 }
 
-export type ClientBackCatalogueCreateManyUserInputEnvelope = {
-  data: Prisma.ClientBackCatalogueCreateManyUserInput | Prisma.ClientBackCatalogueCreateManyUserInput[]
+export type ClientBackCatalogueCreateManyClientUserInputEnvelope = {
+  data: Prisma.ClientBackCatalogueCreateManyClientUserInput | Prisma.ClientBackCatalogueCreateManyClientUserInput[]
   skipDuplicates?: boolean
 }
 
-export type ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorInput = {
+export type ClientBackCatalogueUpsertWithWhereUniqueWithoutDistributorUserInput = {
   where: Prisma.ClientBackCatalogueWhereUniqueInput
-  update: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutDistributorInput>
-  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorInput>
+  update: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutDistributorUserInput>
+  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutDistributorUserInput>
 }
 
-export type ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorInput = {
+export type ClientBackCatalogueUpdateWithWhereUniqueWithoutDistributorUserInput = {
   where: Prisma.ClientBackCatalogueWhereUniqueInput
-  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutDistributorInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutDistributorInput>
+  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutDistributorUserInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutDistributorUserInput>
 }
 
-export type ClientBackCatalogueUpdateManyWithWhereWithoutDistributorInput = {
+export type ClientBackCatalogueUpdateManyWithWhereWithoutDistributorUserInput = {
   where: Prisma.ClientBackCatalogueScalarWhereInput
-  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateManyMutationInput, Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorInput>
+  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateManyMutationInput, Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserInput>
 }
 
 export type ClientBackCatalogueScalarWhereInput = {
   AND?: Prisma.ClientBackCatalogueScalarWhereInput | Prisma.ClientBackCatalogueScalarWhereInput[]
   OR?: Prisma.ClientBackCatalogueScalarWhereInput[]
   NOT?: Prisma.ClientBackCatalogueScalarWhereInput | Prisma.ClientBackCatalogueScalarWhereInput[]
-  catalogueId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
+  id?: Prisma.StringFilter<"ClientBackCatalogue"> | string
   distributorId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  userId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  artistName?: Prisma.StringFilter<"ClientBackCatalogue"> | string
-  genre?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  totalReleases?: Prisma.IntFilter<"ClientBackCatalogue"> | number
-  releaseTypes?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  currentDistributor?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  label?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
-  totalTracks?: Prisma.IntFilter<"ClientBackCatalogue"> | number
-  dateRangeStart?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
-  dateRangeEnd?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
+  clientId?: Prisma.StringFilter<"ClientBackCatalogue"> | string
+  labelName?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  distributor?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  upc?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  catalogueNumber?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseArtist?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseTitle?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseType?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  releaseDate?: Prisma.DateTimeNullableFilter<"ClientBackCatalogue"> | Date | string | null
+  pLine?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  cLine?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFilter<"ClientBackCatalogue"> | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.StringNullableFilter<"ClientBackCatalogue"> | string | null
   createdAt?: Prisma.DateTimeFilter<"ClientBackCatalogue"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"ClientBackCatalogue"> | Date | string
 }
 
-export type ClientBackCatalogueUpsertWithWhereUniqueWithoutUserInput = {
+export type ClientBackCatalogueUpsertWithWhereUniqueWithoutClientUserInput = {
   where: Prisma.ClientBackCatalogueWhereUniqueInput
-  update: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutClientUserInput>
+  create: Prisma.XOR<Prisma.ClientBackCatalogueCreateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedCreateWithoutClientUserInput>
 }
 
-export type ClientBackCatalogueUpdateWithWhereUniqueWithoutUserInput = {
+export type ClientBackCatalogueUpdateWithWhereUniqueWithoutClientUserInput = {
   where: Prisma.ClientBackCatalogueWhereUniqueInput
-  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutUserInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateWithoutClientUserInput, Prisma.ClientBackCatalogueUncheckedUpdateWithoutClientUserInput>
 }
 
-export type ClientBackCatalogueUpdateManyWithWhereWithoutUserInput = {
+export type ClientBackCatalogueUpdateManyWithWhereWithoutClientUserInput = {
   where: Prisma.ClientBackCatalogueScalarWhereInput
-  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateManyMutationInput, Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.ClientBackCatalogueUpdateManyMutationInput, Prisma.ClientBackCatalogueUncheckedUpdateManyWithoutClientUserInput>
 }
 
-export type ClientBackCatalogueCreateManyDistributorInput = {
-  catalogueId?: string
-  userId: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+export type ClientBackCatalogueCreateManyDistributorUserInput = {
+  id?: string
+  clientId: string
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ClientBackCatalogueCreateManyUserInput = {
-  catalogueId?: string
+export type ClientBackCatalogueCreateManyClientUserInput = {
+  id?: string
   distributorId: string
-  artistName: string
-  genre?: string | null
-  totalReleases?: number
-  releaseTypes?: string | null
-  currentDistributor?: string | null
-  label?: string | null
-  totalTracks?: number
-  dateRangeStart?: Date | string | null
-  dateRangeEnd?: Date | string | null
+  labelName?: string | null
+  distributor?: string | null
+  upc?: string | null
+  catalogueNumber?: string | null
+  releaseArtist?: string | null
+  releaseTitle?: string | null
+  releaseType?: string | null
+  releaseDate?: Date | string | null
+  pLine?: string | null
+  cLine?: string | null
+  status?: $Enums.ClientBackCatalogueStatus
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type ClientBackCatalogueUpdateWithoutDistributorInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+export type ClientBackCatalogueUpdateWithoutDistributorUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutClientCataloguesNestedInput
+  clientUser?: Prisma.UserUpdateOneRequiredWithoutClientCataloguesNestedInput
 }
 
-export type ClientBackCatalogueUncheckedUpdateWithoutDistributorInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ClientBackCatalogueUncheckedUpdateManyWithoutDistributorInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+export type ClientBackCatalogueUncheckedUpdateWithoutDistributorUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ClientBackCatalogueUpdateWithoutUserInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+export type ClientBackCatalogueUncheckedUpdateManyWithoutDistributorUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorCataloguesNestedInput
 }
 
-export type ClientBackCatalogueUncheckedUpdateWithoutUserInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
+export type ClientBackCatalogueUpdateWithoutClientUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+  distributorUser?: Prisma.UserUpdateOneRequiredWithoutDistributorCataloguesNestedInput
+}
+
+export type ClientBackCatalogueUncheckedUpdateWithoutClientUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type ClientBackCatalogueUncheckedUpdateManyWithoutUserInput = {
-  catalogueId?: Prisma.StringFieldUpdateOperationsInput | string
+export type ClientBackCatalogueUncheckedUpdateManyWithoutClientUserInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  artistName?: Prisma.StringFieldUpdateOperationsInput | string
-  genre?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  releaseTypes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  currentDistributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  label?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalTracks?: Prisma.IntFieldUpdateOperationsInput | number
-  dateRangeStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
-  dateRangeEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  labelName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  distributor?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  upc?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  catalogueNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseArtist?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseTitle?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseType?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  releaseDate?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  pLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  cLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  status?: Prisma.EnumClientBackCatalogueStatusFieldUpdateOperationsInput | $Enums.ClientBackCatalogueStatus
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -918,112 +977,127 @@ export type ClientBackCatalogueUncheckedUpdateManyWithoutUserInput = {
 
 
 export type ClientBackCatalogueSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  catalogueId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  artistName?: boolean
-  genre?: boolean
-  totalReleases?: boolean
-  releaseTypes?: boolean
-  currentDistributor?: boolean
-  label?: boolean
-  totalTracks?: boolean
-  dateRangeStart?: boolean
-  dateRangeEnd?: boolean
+  clientId?: boolean
+  labelName?: boolean
+  distributor?: boolean
+  upc?: boolean
+  catalogueNumber?: boolean
+  releaseArtist?: boolean
+  releaseTitle?: boolean
+  releaseType?: boolean
+  releaseDate?: boolean
+  pLine?: boolean
+  cLine?: boolean
+  status?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  distributorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  clientUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientBackCatalogue"]>
 
 export type ClientBackCatalogueSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  catalogueId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  artistName?: boolean
-  genre?: boolean
-  totalReleases?: boolean
-  releaseTypes?: boolean
-  currentDistributor?: boolean
-  label?: boolean
-  totalTracks?: boolean
-  dateRangeStart?: boolean
-  dateRangeEnd?: boolean
+  clientId?: boolean
+  labelName?: boolean
+  distributor?: boolean
+  upc?: boolean
+  catalogueNumber?: boolean
+  releaseArtist?: boolean
+  releaseTitle?: boolean
+  releaseType?: boolean
+  releaseDate?: boolean
+  pLine?: boolean
+  cLine?: boolean
+  status?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  distributorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  clientUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientBackCatalogue"]>
 
 export type ClientBackCatalogueSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  catalogueId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  artistName?: boolean
-  genre?: boolean
-  totalReleases?: boolean
-  releaseTypes?: boolean
-  currentDistributor?: boolean
-  label?: boolean
-  totalTracks?: boolean
-  dateRangeStart?: boolean
-  dateRangeEnd?: boolean
+  clientId?: boolean
+  labelName?: boolean
+  distributor?: boolean
+  upc?: boolean
+  catalogueNumber?: boolean
+  releaseArtist?: boolean
+  releaseTitle?: boolean
+  releaseType?: boolean
+  releaseDate?: boolean
+  pLine?: boolean
+  cLine?: boolean
+  status?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  distributorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  clientUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["clientBackCatalogue"]>
 
 export type ClientBackCatalogueSelectScalar = {
-  catalogueId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  artistName?: boolean
-  genre?: boolean
-  totalReleases?: boolean
-  releaseTypes?: boolean
-  currentDistributor?: boolean
-  label?: boolean
-  totalTracks?: boolean
-  dateRangeStart?: boolean
-  dateRangeEnd?: boolean
+  clientId?: boolean
+  labelName?: boolean
+  distributor?: boolean
+  upc?: boolean
+  catalogueNumber?: boolean
+  releaseArtist?: boolean
+  releaseTitle?: boolean
+  releaseType?: boolean
+  releaseDate?: boolean
+  pLine?: boolean
+  cLine?: boolean
+  status?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ClientBackCatalogueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"catalogueId" | "distributorId" | "userId" | "artistName" | "genre" | "totalReleases" | "releaseTypes" | "currentDistributor" | "label" | "totalTracks" | "dateRangeStart" | "dateRangeEnd" | "createdAt" | "updatedAt", ExtArgs["result"]["clientBackCatalogue"]>
+export type ClientBackCatalogueOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "distributorId" | "clientId" | "labelName" | "distributor" | "upc" | "catalogueNumber" | "releaseArtist" | "releaseTitle" | "releaseType" | "releaseDate" | "pLine" | "cLine" | "status" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["clientBackCatalogue"]>
 export type ClientBackCatalogueInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  distributorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  clientUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ClientBackCatalogueIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  distributorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  clientUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type ClientBackCatalogueIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  distributorUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  clientUser?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $ClientBackCataloguePayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "ClientBackCatalogue"
   objects: {
-    distributor: Prisma.$UserPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
+    distributorUser: Prisma.$UserPayload<ExtArgs>
+    clientUser: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    catalogueId: string
+    id: string
     distributorId: string
-    userId: string
-    artistName: string
-    genre: string | null
-    totalReleases: number
-    releaseTypes: string | null
-    currentDistributor: string | null
-    label: string | null
-    totalTracks: number
-    dateRangeStart: Date | null
-    dateRangeEnd: Date | null
+    clientId: string
+    labelName: string | null
+    distributor: string | null
+    upc: string | null
+    catalogueNumber: string | null
+    releaseArtist: string | null
+    releaseTitle: string | null
+    releaseType: string | null
+    releaseDate: Date | null
+    pLine: string | null
+    cLine: string | null
+    status: $Enums.ClientBackCatalogueStatus
+    notes: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["clientBackCatalogue"]>
@@ -1109,8 +1183,8 @@ export interface ClientBackCatalogueDelegate<ExtArgs extends runtime.Types.Exten
    * // Get first 10 ClientBackCatalogues
    * const clientBackCatalogues = await prisma.clientBackCatalogue.findMany({ take: 10 })
    * 
-   * // Only select the `catalogueId`
-   * const clientBackCatalogueWithCatalogueIdOnly = await prisma.clientBackCatalogue.findMany({ select: { catalogueId: true } })
+   * // Only select the `id`
+   * const clientBackCatalogueWithIdOnly = await prisma.clientBackCatalogue.findMany({ select: { id: true } })
    * 
    */
   findMany<T extends ClientBackCatalogueFindManyArgs>(args?: Prisma.SelectSubset<T, ClientBackCatalogueFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ClientBackCataloguePayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1154,9 +1228,9 @@ export interface ClientBackCatalogueDelegate<ExtArgs extends runtime.Types.Exten
    *   ]
    * })
    * 
-   * // Create many ClientBackCatalogues and only return the `catalogueId`
-   * const clientBackCatalogueWithCatalogueIdOnly = await prisma.clientBackCatalogue.createManyAndReturn({
-   *   select: { catalogueId: true },
+   * // Create many ClientBackCatalogues and only return the `id`
+   * const clientBackCatalogueWithIdOnly = await prisma.clientBackCatalogue.createManyAndReturn({
+   *   select: { id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1245,9 +1319,9 @@ export interface ClientBackCatalogueDelegate<ExtArgs extends runtime.Types.Exten
    *   ]
    * })
    * 
-   * // Update zero or more ClientBackCatalogues and only return the `catalogueId`
-   * const clientBackCatalogueWithCatalogueIdOnly = await prisma.clientBackCatalogue.updateManyAndReturn({
-   *   select: { catalogueId: true },
+   * // Update zero or more ClientBackCatalogues and only return the `id`
+   * const clientBackCatalogueWithIdOnly = await prisma.clientBackCatalogue.updateManyAndReturn({
+   *   select: { id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1420,8 +1494,8 @@ readonly fields: ClientBackCatalogueFieldRefs;
  */
 export interface Prisma__ClientBackCatalogueClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  distributor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  distributorUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  clientUser<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1451,18 +1525,21 @@ export interface Prisma__ClientBackCatalogueClient<T, Null = never, ExtArgs exte
  * Fields of the ClientBackCatalogue model
  */
 export interface ClientBackCatalogueFieldRefs {
-  readonly catalogueId: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly id: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
   readonly distributorId: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly userId: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly artistName: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly genre: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly totalReleases: Prisma.FieldRef<"ClientBackCatalogue", 'Int'>
-  readonly releaseTypes: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly currentDistributor: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly label: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
-  readonly totalTracks: Prisma.FieldRef<"ClientBackCatalogue", 'Int'>
-  readonly dateRangeStart: Prisma.FieldRef<"ClientBackCatalogue", 'DateTime'>
-  readonly dateRangeEnd: Prisma.FieldRef<"ClientBackCatalogue", 'DateTime'>
+  readonly clientId: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly labelName: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly distributor: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly upc: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly catalogueNumber: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly releaseArtist: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly releaseTitle: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly releaseType: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly releaseDate: Prisma.FieldRef<"ClientBackCatalogue", 'DateTime'>
+  readonly pLine: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly cLine: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
+  readonly status: Prisma.FieldRef<"ClientBackCatalogue", 'ClientBackCatalogueStatus'>
+  readonly notes: Prisma.FieldRef<"ClientBackCatalogue", 'String'>
   readonly createdAt: Prisma.FieldRef<"ClientBackCatalogue", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"ClientBackCatalogue", 'DateTime'>
 }

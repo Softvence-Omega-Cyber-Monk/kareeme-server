@@ -1,0 +1,101 @@
+model Product {
+  id          String  @id @default(uuid())
+  name        String  @db.VarChar
+  description String? @db.VarChar
+  price       Float
+  imageUrl    String? @map("image_url") @db.VarChar
+  stock       Int     @default(0)
+  isActive    Boolean @default(true) @map("is_active")
+
+  cartItems  CartItem[]
+  orderItems OrderItem[]
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("products")
+}
+
+model Cart {
+  id     String     @id @default(uuid())
+  userId String     @unique
+  user   User       @relation(fields: [userId], references: [id])
+  items  CartItem[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model CartItem {
+  id        String  @id @default(uuid())
+  cartId    String
+  cart      Cart    @relation(fields: [cartId], references: [id], onDelete: Cascade)
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  quantity  Int
+
+  createdAt DateTime @default(now())
+}
+
+model Order {
+  id     String      @id @default(uuid())
+  userId String
+  user   User        @relation(fields: [userId], references: [id])
+  status OrderStatus @default(PENDING)
+
+  subtotalAmount Float   @default(0) @map("subtotal_amount")
+  discountAmount Float   @default(0) @map("discount_amount")
+  couponCode     String? @map("coupon_code")
+  totalAmount    Float
+
+  items   OrderItem[]
+  payment Payment?
+
+  createdAt DateTime @default(now())
+}
+
+model OrderItem {
+  id        String  @id @default(uuid())
+  orderId   String
+  order     Order   @relation(fields: [orderId], references: [id])
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  price     Float
+  quantity  Int
+}
+
+model Payment {
+  id                    String        @id @default(uuid())
+  orderId               String        @unique
+  order                 Order         @relation(fields: [orderId], references: [id])
+  stripePaymentIntentId String?
+  amount                Float
+  status                PaymentStatus @default(Pending)
+
+  createdAt DateTime @default(now())
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  CANCELLED
+}
+
+model Coupon {
+  id        String     @id @default(uuid())
+  code      String     @unique @db.VarChar(100)
+  type      CouponType
+  value     Float
+  isActive  Boolean    @default(true) @map("is_active")
+  expiresAt DateTime?  @map("expires_at")
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("coupons")
+}
+
+enum CouponType {
+  PERCENT
+  FIXED
+}

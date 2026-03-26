@@ -75,10 +75,16 @@ export const ModelName = {
   Claim: 'Claim',
   UserOtp: 'UserOtp',
   RefreshToken: 'RefreshToken',
-  Distribution: 'Distribution',
-  PlatformDistribution: 'PlatformDistribution',
-  DistributionNote: 'DistributionNote',
+  Product: 'Product',
+  Cart: 'Cart',
+  CartItem: 'CartItem',
+  Order: 'Order',
+  OrderItem: 'OrderItem',
+  Payment: 'Payment',
+  Coupon: 'Coupon',
   DistributorClient: 'DistributorClient',
+  Distribution: 'Distribution',
+  DistributionNote: 'DistributionNote',
   ClientBackCatalogue: 'ClientBackCatalogue',
   FileInstance: 'FileInstance',
   VideoMergeJob: 'VideoMergeJob',
@@ -523,16 +529,123 @@ export const RefreshTokenScalarFieldEnum = {
 export type RefreshTokenScalarFieldEnum = (typeof RefreshTokenScalarFieldEnum)[keyof typeof RefreshTokenScalarFieldEnum]
 
 
+export const ProductScalarFieldEnum = {
+  id: 'id',
+  name: 'name',
+  description: 'description',
+  price: 'price',
+  imageUrl: 'imageUrl',
+  stock: 'stock',
+  isActive: 'isActive',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ProductScalarFieldEnum = (typeof ProductScalarFieldEnum)[keyof typeof ProductScalarFieldEnum]
+
+
+export const CartScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CartScalarFieldEnum = (typeof CartScalarFieldEnum)[keyof typeof CartScalarFieldEnum]
+
+
+export const CartItemScalarFieldEnum = {
+  id: 'id',
+  cartId: 'cartId',
+  productId: 'productId',
+  quantity: 'quantity',
+  createdAt: 'createdAt'
+} as const
+
+export type CartItemScalarFieldEnum = (typeof CartItemScalarFieldEnum)[keyof typeof CartItemScalarFieldEnum]
+
+
+export const OrderScalarFieldEnum = {
+  id: 'id',
+  userId: 'userId',
+  status: 'status',
+  subtotalAmount: 'subtotalAmount',
+  discountAmount: 'discountAmount',
+  couponCode: 'couponCode',
+  totalAmount: 'totalAmount',
+  createdAt: 'createdAt'
+} as const
+
+export type OrderScalarFieldEnum = (typeof OrderScalarFieldEnum)[keyof typeof OrderScalarFieldEnum]
+
+
+export const OrderItemScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  productId: 'productId',
+  price: 'price',
+  quantity: 'quantity'
+} as const
+
+export type OrderItemScalarFieldEnum = (typeof OrderItemScalarFieldEnum)[keyof typeof OrderItemScalarFieldEnum]
+
+
+export const PaymentScalarFieldEnum = {
+  id: 'id',
+  orderId: 'orderId',
+  stripePaymentIntentId: 'stripePaymentIntentId',
+  amount: 'amount',
+  status: 'status',
+  createdAt: 'createdAt'
+} as const
+
+export type PaymentScalarFieldEnum = (typeof PaymentScalarFieldEnum)[keyof typeof PaymentScalarFieldEnum]
+
+
+export const CouponScalarFieldEnum = {
+  id: 'id',
+  code: 'code',
+  type: 'type',
+  value: 'value',
+  isActive: 'isActive',
+  expiresAt: 'expiresAt',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CouponScalarFieldEnum = (typeof CouponScalarFieldEnum)[keyof typeof CouponScalarFieldEnum]
+
+
+export const DistributorClientScalarFieldEnum = {
+  id: 'id',
+  distributorId: 'distributorId',
+  clientId: 'clientId',
+  status: 'status',
+  contractStart: 'contractStart',
+  contractEnd: 'contractEnd',
+  notes: 'notes',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type DistributorClientScalarFieldEnum = (typeof DistributorClientScalarFieldEnum)[keyof typeof DistributorClientScalarFieldEnum]
+
+
 export const DistributionScalarFieldEnum = {
   distributionId: 'distributionId',
   releaseId: 'releaseId',
-  userId: 'userId',
   distributorId: 'distributorId',
+  clientId: 'clientId',
   status: 'status',
   submittedAt: 'submittedAt',
   approvedAt: 'approvedAt',
-  distributedAt: 'distributedAt',
   declinedAt: 'declinedAt',
+  declineReason: 'declineReason',
+  targetPlatforms: 'targetPlatforms',
+  targetTerritories: 'targetTerritories',
+  scheduledReleaseDate: 'scheduledReleaseDate',
+  liveDate: 'liveDate',
+  revenueSplitPercent: 'revenueSplitPercent',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -540,27 +653,8 @@ export const DistributionScalarFieldEnum = {
 export type DistributionScalarFieldEnum = (typeof DistributionScalarFieldEnum)[keyof typeof DistributionScalarFieldEnum]
 
 
-export const PlatformDistributionScalarFieldEnum = {
-  platformDistId: 'platformDistId',
-  distributionId: 'distributionId',
-  platform: 'platform',
-  status: 'status',
-  platformReleaseId: 'platformReleaseId',
-  platformUrl: 'platformUrl',
-  streams: 'streams',
-  sentAt: 'sentAt',
-  liveAt: 'liveAt',
-  failedAt: 'failedAt',
-  errorMessage: 'errorMessage',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type PlatformDistributionScalarFieldEnum = (typeof PlatformDistributionScalarFieldEnum)[keyof typeof PlatformDistributionScalarFieldEnum]
-
-
 export const DistributionNoteScalarFieldEnum = {
-  noteId: 'noteId',
+  id: 'id',
   distributionId: 'distributionId',
   userId: 'userId',
   content: 'content',
@@ -572,36 +666,22 @@ export const DistributionNoteScalarFieldEnum = {
 export type DistributionNoteScalarFieldEnum = (typeof DistributionNoteScalarFieldEnum)[keyof typeof DistributionNoteScalarFieldEnum]
 
 
-export const DistributorClientScalarFieldEnum = {
-  clientId: 'clientId',
-  distributorId: 'distributorId',
-  userId: 'userId',
-  role: 'role',
-  phoneNumber: 'phoneNumber',
-  totalReleases: 'totalReleases',
-  isActive: 'isActive',
-  oneTimePassword: 'oneTimePassword',
-  otpExpiresAt: 'otpExpiresAt',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt'
-} as const
-
-export type DistributorClientScalarFieldEnum = (typeof DistributorClientScalarFieldEnum)[keyof typeof DistributorClientScalarFieldEnum]
-
-
 export const ClientBackCatalogueScalarFieldEnum = {
-  catalogueId: 'catalogueId',
+  id: 'id',
   distributorId: 'distributorId',
-  userId: 'userId',
-  artistName: 'artistName',
-  genre: 'genre',
-  totalReleases: 'totalReleases',
-  releaseTypes: 'releaseTypes',
-  currentDistributor: 'currentDistributor',
-  label: 'label',
-  totalTracks: 'totalTracks',
-  dateRangeStart: 'dateRangeStart',
-  dateRangeEnd: 'dateRangeEnd',
+  clientId: 'clientId',
+  labelName: 'labelName',
+  distributor: 'distributor',
+  upc: 'upc',
+  catalogueNumber: 'catalogueNumber',
+  releaseArtist: 'releaseArtist',
+  releaseTitle: 'releaseTitle',
+  releaseType: 'releaseType',
+  releaseDate: 'releaseDate',
+  pLine: 'pLine',
+  cLine: 'cLine',
+  status: 'status',
+  notes: 'notes',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

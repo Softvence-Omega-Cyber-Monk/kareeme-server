@@ -117,6 +117,23 @@ export const OtpType = {
 export type OtpType = (typeof OtpType)[keyof typeof OtpType]
 
 
+export const OrderStatus = {
+  PENDING: 'PENDING',
+  PAID: 'PAID',
+  CANCELLED: 'CANCELLED'
+} as const
+
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus]
+
+
+export const CouponType = {
+  PERCENT: 'PERCENT',
+  FIXED: 'FIXED'
+} as const
+
+export type CouponType = (typeof CouponType)[keyof typeof CouponType]
+
+
 export const ReleaseType = {
   Single: 'Single',
   Album: 'Album',
@@ -141,25 +158,35 @@ export const DistributionPlatform = {
 export type DistributionPlatform = (typeof DistributionPlatform)[keyof typeof DistributionPlatform]
 
 
+export const DistributorClientStatus = {
+  ACTIVE: 'ACTIVE',
+  INACTIVE: 'INACTIVE',
+  TERMINATED: 'TERMINATED'
+} as const
+
+export type DistributorClientStatus = (typeof DistributorClientStatus)[keyof typeof DistributorClientStatus]
+
+
 export const DistributionStatus = {
   Pending: 'Pending',
   InProgress: 'InProgress',
+  Approved: 'Approved',
   Distributed: 'Distributed',
-  Failed: 'Failed',
-  Declined: 'Declined'
+  Declined: 'Declined',
+  TakedownRequested: 'TakedownRequested',
+  TakenDown: 'TakenDown'
 } as const
 
 export type DistributionStatus = (typeof DistributionStatus)[keyof typeof DistributionStatus]
 
 
-export const ClientRole = {
-  Artist: 'Artist',
-  Label: 'Label',
-  Manager: 'Manager',
-  Producer: 'Producer'
+export const ClientBackCatalogueStatus = {
+  ACTIVE: 'ACTIVE',
+  ARCHIVED: 'ARCHIVED',
+  DISPUTED: 'DISPUTED'
 } as const
 
-export type ClientRole = (typeof ClientRole)[keyof typeof ClientRole]
+export type ClientBackCatalogueStatus = (typeof ClientBackCatalogueStatus)[keyof typeof ClientBackCatalogueStatus]
 
 
 export const FileType = {

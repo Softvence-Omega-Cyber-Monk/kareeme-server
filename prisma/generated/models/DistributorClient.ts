@@ -20,110 +20,80 @@ export type DistributorClientModel = runtime.Types.Result.DefaultSelection<Prism
 
 export type AggregateDistributorClient = {
   _count: DistributorClientCountAggregateOutputType | null
-  _avg: DistributorClientAvgAggregateOutputType | null
-  _sum: DistributorClientSumAggregateOutputType | null
   _min: DistributorClientMinAggregateOutputType | null
   _max: DistributorClientMaxAggregateOutputType | null
 }
 
-export type DistributorClientAvgAggregateOutputType = {
-  totalReleases: number | null
-}
-
-export type DistributorClientSumAggregateOutputType = {
-  totalReleases: number | null
-}
-
 export type DistributorClientMinAggregateOutputType = {
-  clientId: string | null
+  id: string | null
   distributorId: string | null
-  userId: string | null
-  role: $Enums.ClientRole | null
-  phoneNumber: string | null
-  totalReleases: number | null
-  isActive: boolean | null
-  oneTimePassword: string | null
-  otpExpiresAt: Date | null
+  clientId: string | null
+  status: $Enums.DistributorClientStatus | null
+  contractStart: Date | null
+  contractEnd: Date | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type DistributorClientMaxAggregateOutputType = {
-  clientId: string | null
+  id: string | null
   distributorId: string | null
-  userId: string | null
-  role: $Enums.ClientRole | null
-  phoneNumber: string | null
-  totalReleases: number | null
-  isActive: boolean | null
-  oneTimePassword: string | null
-  otpExpiresAt: Date | null
+  clientId: string | null
+  status: $Enums.DistributorClientStatus | null
+  contractStart: Date | null
+  contractEnd: Date | null
+  notes: string | null
   createdAt: Date | null
   updatedAt: Date | null
 }
 
 export type DistributorClientCountAggregateOutputType = {
-  clientId: number
+  id: number
   distributorId: number
-  userId: number
-  role: number
-  phoneNumber: number
-  totalReleases: number
-  isActive: number
-  oneTimePassword: number
-  otpExpiresAt: number
+  clientId: number
+  status: number
+  contractStart: number
+  contractEnd: number
+  notes: number
   createdAt: number
   updatedAt: number
   _all: number
 }
 
 
-export type DistributorClientAvgAggregateInputType = {
-  totalReleases?: true
-}
-
-export type DistributorClientSumAggregateInputType = {
-  totalReleases?: true
-}
-
 export type DistributorClientMinAggregateInputType = {
-  clientId?: true
+  id?: true
   distributorId?: true
-  userId?: true
-  role?: true
-  phoneNumber?: true
-  totalReleases?: true
-  isActive?: true
-  oneTimePassword?: true
-  otpExpiresAt?: true
+  clientId?: true
+  status?: true
+  contractStart?: true
+  contractEnd?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type DistributorClientMaxAggregateInputType = {
-  clientId?: true
+  id?: true
   distributorId?: true
-  userId?: true
-  role?: true
-  phoneNumber?: true
-  totalReleases?: true
-  isActive?: true
-  oneTimePassword?: true
-  otpExpiresAt?: true
+  clientId?: true
+  status?: true
+  contractStart?: true
+  contractEnd?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
 }
 
 export type DistributorClientCountAggregateInputType = {
-  clientId?: true
+  id?: true
   distributorId?: true
-  userId?: true
-  role?: true
-  phoneNumber?: true
-  totalReleases?: true
-  isActive?: true
-  oneTimePassword?: true
-  otpExpiresAt?: true
+  clientId?: true
+  status?: true
+  contractStart?: true
+  contractEnd?: true
+  notes?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -167,18 +137,6 @@ export type DistributorClientAggregateArgs<ExtArgs extends runtime.Types.Extensi
   /**
    * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
    * 
-   * Select which fields to average
-  **/
-  _avg?: DistributorClientAvgAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
-   * Select which fields to sum
-  **/
-  _sum?: DistributorClientSumAggregateInputType
-  /**
-   * {@link https://www.prisma.io/docs/concepts/components/prisma-client/aggregations Aggregation Docs}
-   * 
    * Select which fields to find the minimum value
   **/
   _min?: DistributorClientMinAggregateInputType
@@ -209,27 +167,21 @@ export type DistributorClientGroupByArgs<ExtArgs extends runtime.Types.Extension
   take?: number
   skip?: number
   _count?: DistributorClientCountAggregateInputType | true
-  _avg?: DistributorClientAvgAggregateInputType
-  _sum?: DistributorClientSumAggregateInputType
   _min?: DistributorClientMinAggregateInputType
   _max?: DistributorClientMaxAggregateInputType
 }
 
 export type DistributorClientGroupByOutputType = {
-  clientId: string
+  id: string
   distributorId: string
-  userId: string
-  role: $Enums.ClientRole
-  phoneNumber: string | null
-  totalReleases: number
-  isActive: boolean
-  oneTimePassword: string | null
-  otpExpiresAt: Date | null
+  clientId: string
+  status: $Enums.DistributorClientStatus
+  contractStart: Date | null
+  contractEnd: Date | null
+  notes: string | null
   createdAt: Date
   updatedAt: Date
   _count: DistributorClientCountAggregateOutputType | null
-  _avg: DistributorClientAvgAggregateOutputType | null
-  _sum: DistributorClientSumAggregateOutputType | null
   _min: DistributorClientMinAggregateOutputType | null
   _max: DistributorClientMaxAggregateOutputType | null
 }
@@ -253,242 +205,202 @@ export type DistributorClientWhereInput = {
   AND?: Prisma.DistributorClientWhereInput | Prisma.DistributorClientWhereInput[]
   OR?: Prisma.DistributorClientWhereInput[]
   NOT?: Prisma.DistributorClientWhereInput | Prisma.DistributorClientWhereInput[]
-  clientId?: Prisma.StringFilter<"DistributorClient"> | string
+  id?: Prisma.StringFilter<"DistributorClient"> | string
   distributorId?: Prisma.StringFilter<"DistributorClient"> | string
-  userId?: Prisma.StringFilter<"DistributorClient"> | string
-  role?: Prisma.EnumClientRoleFilter<"DistributorClient"> | $Enums.ClientRole
-  phoneNumber?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
-  totalReleases?: Prisma.IntFilter<"DistributorClient"> | number
-  isActive?: Prisma.BoolFilter<"DistributorClient"> | boolean
-  oneTimePassword?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
-  otpExpiresAt?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  clientId?: Prisma.StringFilter<"DistributorClient"> | string
+  status?: Prisma.EnumDistributorClientStatusFilter<"DistributorClient"> | $Enums.DistributorClientStatus
+  contractStart?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  contractEnd?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  notes?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
   createdAt?: Prisma.DateTimeFilter<"DistributorClient"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributorClient"> | Date | string
   distributor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+  client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
 }
 
 export type DistributorClientOrderByWithRelationInput = {
-  clientId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
-  oneTimePassword?: Prisma.SortOrderInput | Prisma.SortOrder
-  otpExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  contractStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  contractEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   distributor?: Prisma.UserOrderByWithRelationInput
-  user?: Prisma.UserOrderByWithRelationInput
+  client?: Prisma.UserOrderByWithRelationInput
 }
 
 export type DistributorClientWhereUniqueInput = Prisma.AtLeast<{
-  clientId?: string
-  distributorId_userId?: Prisma.DistributorClientDistributorIdUserIdCompoundUniqueInput
+  id?: string
+  distributorId_clientId?: Prisma.DistributorClientDistributorIdClientIdCompoundUniqueInput
   AND?: Prisma.DistributorClientWhereInput | Prisma.DistributorClientWhereInput[]
   OR?: Prisma.DistributorClientWhereInput[]
   NOT?: Prisma.DistributorClientWhereInput | Prisma.DistributorClientWhereInput[]
   distributorId?: Prisma.StringFilter<"DistributorClient"> | string
-  userId?: Prisma.StringFilter<"DistributorClient"> | string
-  role?: Prisma.EnumClientRoleFilter<"DistributorClient"> | $Enums.ClientRole
-  phoneNumber?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
-  totalReleases?: Prisma.IntFilter<"DistributorClient"> | number
-  isActive?: Prisma.BoolFilter<"DistributorClient"> | boolean
-  oneTimePassword?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
-  otpExpiresAt?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  clientId?: Prisma.StringFilter<"DistributorClient"> | string
+  status?: Prisma.EnumDistributorClientStatusFilter<"DistributorClient"> | $Enums.DistributorClientStatus
+  contractStart?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  contractEnd?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  notes?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
   createdAt?: Prisma.DateTimeFilter<"DistributorClient"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributorClient"> | Date | string
   distributor?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
-}, "clientId" | "distributorId_userId">
+  client?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>
+}, "id" | "distributorId_clientId">
 
 export type DistributorClientOrderByWithAggregationInput = {
-  clientId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrderInput | Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
-  oneTimePassword?: Prisma.SortOrderInput | Prisma.SortOrder
-  otpExpiresAt?: Prisma.SortOrderInput | Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  contractStart?: Prisma.SortOrderInput | Prisma.SortOrder
+  contractEnd?: Prisma.SortOrderInput | Prisma.SortOrder
+  notes?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.DistributorClientCountOrderByAggregateInput
-  _avg?: Prisma.DistributorClientAvgOrderByAggregateInput
   _max?: Prisma.DistributorClientMaxOrderByAggregateInput
   _min?: Prisma.DistributorClientMinOrderByAggregateInput
-  _sum?: Prisma.DistributorClientSumOrderByAggregateInput
 }
 
 export type DistributorClientScalarWhereWithAggregatesInput = {
   AND?: Prisma.DistributorClientScalarWhereWithAggregatesInput | Prisma.DistributorClientScalarWhereWithAggregatesInput[]
   OR?: Prisma.DistributorClientScalarWhereWithAggregatesInput[]
   NOT?: Prisma.DistributorClientScalarWhereWithAggregatesInput | Prisma.DistributorClientScalarWhereWithAggregatesInput[]
-  clientId?: Prisma.StringWithAggregatesFilter<"DistributorClient"> | string
+  id?: Prisma.StringWithAggregatesFilter<"DistributorClient"> | string
   distributorId?: Prisma.StringWithAggregatesFilter<"DistributorClient"> | string
-  userId?: Prisma.StringWithAggregatesFilter<"DistributorClient"> | string
-  role?: Prisma.EnumClientRoleWithAggregatesFilter<"DistributorClient"> | $Enums.ClientRole
-  phoneNumber?: Prisma.StringNullableWithAggregatesFilter<"DistributorClient"> | string | null
-  totalReleases?: Prisma.IntWithAggregatesFilter<"DistributorClient"> | number
-  isActive?: Prisma.BoolWithAggregatesFilter<"DistributorClient"> | boolean
-  oneTimePassword?: Prisma.StringNullableWithAggregatesFilter<"DistributorClient"> | string | null
-  otpExpiresAt?: Prisma.DateTimeNullableWithAggregatesFilter<"DistributorClient"> | Date | string | null
+  clientId?: Prisma.StringWithAggregatesFilter<"DistributorClient"> | string
+  status?: Prisma.EnumDistributorClientStatusWithAggregatesFilter<"DistributorClient"> | $Enums.DistributorClientStatus
+  contractStart?: Prisma.DateTimeNullableWithAggregatesFilter<"DistributorClient"> | Date | string | null
+  contractEnd?: Prisma.DateTimeNullableWithAggregatesFilter<"DistributorClient"> | Date | string | null
+  notes?: Prisma.StringNullableWithAggregatesFilter<"DistributorClient"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"DistributorClient"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"DistributorClient"> | Date | string
 }
 
 export type DistributorClientCreateInput = {
-  clientId?: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  id?: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   distributor: Prisma.UserCreateNestedOneWithoutDistributorClientsInput
-  user: Prisma.UserCreateNestedOneWithoutClientDistributorInput
+  client: Prisma.UserCreateNestedOneWithoutClientDistributorInput
 }
 
 export type DistributorClientUncheckedCreateInput = {
-  clientId?: string
+  id?: string
   distributorId: string
-  userId: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  clientId: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type DistributorClientUpdateInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorClientsNestedInput
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributorNestedInput
+  client?: Prisma.UserUpdateOneRequiredWithoutClientDistributorNestedInput
 }
 
 export type DistributorClientUncheckedUpdateInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DistributorClientCreateManyInput = {
-  clientId?: string
+  id?: string
   distributorId: string
-  userId: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  clientId: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type DistributorClientUpdateManyMutationInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DistributorClientUncheckedUpdateManyInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DistributorClientDistributorIdUserIdCompoundUniqueInput = {
+export type DistributorClientDistributorIdClientIdCompoundUniqueInput = {
   distributorId: string
-  userId: string
+  clientId: string
 }
 
 export type DistributorClientCountOrderByAggregateInput = {
-  clientId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
-  oneTimePassword?: Prisma.SortOrder
-  otpExpiresAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  contractStart?: Prisma.SortOrder
+  contractEnd?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
-export type DistributorClientAvgOrderByAggregateInput = {
-  totalReleases?: Prisma.SortOrder
-}
-
 export type DistributorClientMaxOrderByAggregateInput = {
-  clientId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
-  oneTimePassword?: Prisma.SortOrder
-  otpExpiresAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  contractStart?: Prisma.SortOrder
+  contractEnd?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
 
 export type DistributorClientMinOrderByAggregateInput = {
-  clientId?: Prisma.SortOrder
+  id?: Prisma.SortOrder
   distributorId?: Prisma.SortOrder
-  userId?: Prisma.SortOrder
-  role?: Prisma.SortOrder
-  phoneNumber?: Prisma.SortOrder
-  totalReleases?: Prisma.SortOrder
-  isActive?: Prisma.SortOrder
-  oneTimePassword?: Prisma.SortOrder
-  otpExpiresAt?: Prisma.SortOrder
+  clientId?: Prisma.SortOrder
+  status?: Prisma.SortOrder
+  contractStart?: Prisma.SortOrder
+  contractEnd?: Prisma.SortOrder
+  notes?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type DistributorClientSumOrderByAggregateInput = {
-  totalReleases?: Prisma.SortOrder
 }
 
 export type DistributorClientListRelationFilter = {
@@ -501,8 +413,8 @@ export type DistributorClientOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
 }
 
-export type EnumClientRoleFieldUpdateOperationsInput = {
-  set?: $Enums.ClientRole
+export type EnumDistributorClientStatusFieldUpdateOperationsInput = {
+  set?: $Enums.DistributorClientStatus
 }
 
 export type DistributorClientCreateNestedManyWithoutDistributorInput = {
@@ -512,10 +424,10 @@ export type DistributorClientCreateNestedManyWithoutDistributorInput = {
   connect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
 }
 
-export type DistributorClientCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutUserInput, Prisma.DistributorClientUncheckedCreateWithoutUserInput> | Prisma.DistributorClientCreateWithoutUserInput[] | Prisma.DistributorClientUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutUserInput | Prisma.DistributorClientCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.DistributorClientCreateManyUserInputEnvelope
+export type DistributorClientCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutClientInput, Prisma.DistributorClientUncheckedCreateWithoutClientInput> | Prisma.DistributorClientCreateWithoutClientInput[] | Prisma.DistributorClientUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutClientInput | Prisma.DistributorClientCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.DistributorClientCreateManyClientInputEnvelope
   connect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
 }
 
@@ -526,10 +438,10 @@ export type DistributorClientUncheckedCreateNestedManyWithoutDistributorInput = 
   connect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
 }
 
-export type DistributorClientUncheckedCreateNestedManyWithoutUserInput = {
-  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutUserInput, Prisma.DistributorClientUncheckedCreateWithoutUserInput> | Prisma.DistributorClientCreateWithoutUserInput[] | Prisma.DistributorClientUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutUserInput | Prisma.DistributorClientCreateOrConnectWithoutUserInput[]
-  createMany?: Prisma.DistributorClientCreateManyUserInputEnvelope
+export type DistributorClientUncheckedCreateNestedManyWithoutClientInput = {
+  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutClientInput, Prisma.DistributorClientUncheckedCreateWithoutClientInput> | Prisma.DistributorClientCreateWithoutClientInput[] | Prisma.DistributorClientUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutClientInput | Prisma.DistributorClientCreateOrConnectWithoutClientInput[]
+  createMany?: Prisma.DistributorClientCreateManyClientInputEnvelope
   connect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
 }
 
@@ -547,17 +459,17 @@ export type DistributorClientUpdateManyWithoutDistributorNestedInput = {
   deleteMany?: Prisma.DistributorClientScalarWhereInput | Prisma.DistributorClientScalarWhereInput[]
 }
 
-export type DistributorClientUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutUserInput, Prisma.DistributorClientUncheckedCreateWithoutUserInput> | Prisma.DistributorClientCreateWithoutUserInput[] | Prisma.DistributorClientUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutUserInput | Prisma.DistributorClientCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.DistributorClientUpsertWithWhereUniqueWithoutUserInput | Prisma.DistributorClientUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.DistributorClientCreateManyUserInputEnvelope
+export type DistributorClientUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutClientInput, Prisma.DistributorClientUncheckedCreateWithoutClientInput> | Prisma.DistributorClientCreateWithoutClientInput[] | Prisma.DistributorClientUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutClientInput | Prisma.DistributorClientCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.DistributorClientUpsertWithWhereUniqueWithoutClientInput | Prisma.DistributorClientUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.DistributorClientCreateManyClientInputEnvelope
   set?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
   disconnect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
   delete?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
   connect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
-  update?: Prisma.DistributorClientUpdateWithWhereUniqueWithoutUserInput | Prisma.DistributorClientUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.DistributorClientUpdateManyWithWhereWithoutUserInput | Prisma.DistributorClientUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.DistributorClientUpdateWithWhereUniqueWithoutClientInput | Prisma.DistributorClientUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.DistributorClientUpdateManyWithWhereWithoutClientInput | Prisma.DistributorClientUpdateManyWithWhereWithoutClientInput[]
   deleteMany?: Prisma.DistributorClientScalarWhereInput | Prisma.DistributorClientScalarWhereInput[]
 }
 
@@ -575,42 +487,38 @@ export type DistributorClientUncheckedUpdateManyWithoutDistributorNestedInput = 
   deleteMany?: Prisma.DistributorClientScalarWhereInput | Prisma.DistributorClientScalarWhereInput[]
 }
 
-export type DistributorClientUncheckedUpdateManyWithoutUserNestedInput = {
-  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutUserInput, Prisma.DistributorClientUncheckedCreateWithoutUserInput> | Prisma.DistributorClientCreateWithoutUserInput[] | Prisma.DistributorClientUncheckedCreateWithoutUserInput[]
-  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutUserInput | Prisma.DistributorClientCreateOrConnectWithoutUserInput[]
-  upsert?: Prisma.DistributorClientUpsertWithWhereUniqueWithoutUserInput | Prisma.DistributorClientUpsertWithWhereUniqueWithoutUserInput[]
-  createMany?: Prisma.DistributorClientCreateManyUserInputEnvelope
+export type DistributorClientUncheckedUpdateManyWithoutClientNestedInput = {
+  create?: Prisma.XOR<Prisma.DistributorClientCreateWithoutClientInput, Prisma.DistributorClientUncheckedCreateWithoutClientInput> | Prisma.DistributorClientCreateWithoutClientInput[] | Prisma.DistributorClientUncheckedCreateWithoutClientInput[]
+  connectOrCreate?: Prisma.DistributorClientCreateOrConnectWithoutClientInput | Prisma.DistributorClientCreateOrConnectWithoutClientInput[]
+  upsert?: Prisma.DistributorClientUpsertWithWhereUniqueWithoutClientInput | Prisma.DistributorClientUpsertWithWhereUniqueWithoutClientInput[]
+  createMany?: Prisma.DistributorClientCreateManyClientInputEnvelope
   set?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
   disconnect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
   delete?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
   connect?: Prisma.DistributorClientWhereUniqueInput | Prisma.DistributorClientWhereUniqueInput[]
-  update?: Prisma.DistributorClientUpdateWithWhereUniqueWithoutUserInput | Prisma.DistributorClientUpdateWithWhereUniqueWithoutUserInput[]
-  updateMany?: Prisma.DistributorClientUpdateManyWithWhereWithoutUserInput | Prisma.DistributorClientUpdateManyWithWhereWithoutUserInput[]
+  update?: Prisma.DistributorClientUpdateWithWhereUniqueWithoutClientInput | Prisma.DistributorClientUpdateWithWhereUniqueWithoutClientInput[]
+  updateMany?: Prisma.DistributorClientUpdateManyWithWhereWithoutClientInput | Prisma.DistributorClientUpdateManyWithWhereWithoutClientInput[]
   deleteMany?: Prisma.DistributorClientScalarWhereInput | Prisma.DistributorClientScalarWhereInput[]
 }
 
 export type DistributorClientCreateWithoutDistributorInput = {
-  clientId?: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  id?: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  user: Prisma.UserCreateNestedOneWithoutClientDistributorInput
+  client: Prisma.UserCreateNestedOneWithoutClientDistributorInput
 }
 
 export type DistributorClientUncheckedCreateWithoutDistributorInput = {
-  clientId?: string
-  userId: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  id?: string
+  clientId: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -625,39 +533,35 @@ export type DistributorClientCreateManyDistributorInputEnvelope = {
   skipDuplicates?: boolean
 }
 
-export type DistributorClientCreateWithoutUserInput = {
-  clientId?: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+export type DistributorClientCreateWithoutClientInput = {
+  id?: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   distributor: Prisma.UserCreateNestedOneWithoutDistributorClientsInput
 }
 
-export type DistributorClientUncheckedCreateWithoutUserInput = {
-  clientId?: string
+export type DistributorClientUncheckedCreateWithoutClientInput = {
+  id?: string
   distributorId: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type DistributorClientCreateOrConnectWithoutUserInput = {
+export type DistributorClientCreateOrConnectWithoutClientInput = {
   where: Prisma.DistributorClientWhereUniqueInput
-  create: Prisma.XOR<Prisma.DistributorClientCreateWithoutUserInput, Prisma.DistributorClientUncheckedCreateWithoutUserInput>
+  create: Prisma.XOR<Prisma.DistributorClientCreateWithoutClientInput, Prisma.DistributorClientUncheckedCreateWithoutClientInput>
 }
 
-export type DistributorClientCreateManyUserInputEnvelope = {
-  data: Prisma.DistributorClientCreateManyUserInput | Prisma.DistributorClientCreateManyUserInput[]
+export type DistributorClientCreateManyClientInputEnvelope = {
+  data: Prisma.DistributorClientCreateManyClientInput | Prisma.DistributorClientCreateManyClientInput[]
   skipDuplicates?: boolean
 }
 
@@ -681,135 +585,117 @@ export type DistributorClientScalarWhereInput = {
   AND?: Prisma.DistributorClientScalarWhereInput | Prisma.DistributorClientScalarWhereInput[]
   OR?: Prisma.DistributorClientScalarWhereInput[]
   NOT?: Prisma.DistributorClientScalarWhereInput | Prisma.DistributorClientScalarWhereInput[]
-  clientId?: Prisma.StringFilter<"DistributorClient"> | string
+  id?: Prisma.StringFilter<"DistributorClient"> | string
   distributorId?: Prisma.StringFilter<"DistributorClient"> | string
-  userId?: Prisma.StringFilter<"DistributorClient"> | string
-  role?: Prisma.EnumClientRoleFilter<"DistributorClient"> | $Enums.ClientRole
-  phoneNumber?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
-  totalReleases?: Prisma.IntFilter<"DistributorClient"> | number
-  isActive?: Prisma.BoolFilter<"DistributorClient"> | boolean
-  oneTimePassword?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
-  otpExpiresAt?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  clientId?: Prisma.StringFilter<"DistributorClient"> | string
+  status?: Prisma.EnumDistributorClientStatusFilter<"DistributorClient"> | $Enums.DistributorClientStatus
+  contractStart?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  contractEnd?: Prisma.DateTimeNullableFilter<"DistributorClient"> | Date | string | null
+  notes?: Prisma.StringNullableFilter<"DistributorClient"> | string | null
   createdAt?: Prisma.DateTimeFilter<"DistributorClient"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"DistributorClient"> | Date | string
 }
 
-export type DistributorClientUpsertWithWhereUniqueWithoutUserInput = {
+export type DistributorClientUpsertWithWhereUniqueWithoutClientInput = {
   where: Prisma.DistributorClientWhereUniqueInput
-  update: Prisma.XOR<Prisma.DistributorClientUpdateWithoutUserInput, Prisma.DistributorClientUncheckedUpdateWithoutUserInput>
-  create: Prisma.XOR<Prisma.DistributorClientCreateWithoutUserInput, Prisma.DistributorClientUncheckedCreateWithoutUserInput>
+  update: Prisma.XOR<Prisma.DistributorClientUpdateWithoutClientInput, Prisma.DistributorClientUncheckedUpdateWithoutClientInput>
+  create: Prisma.XOR<Prisma.DistributorClientCreateWithoutClientInput, Prisma.DistributorClientUncheckedCreateWithoutClientInput>
 }
 
-export type DistributorClientUpdateWithWhereUniqueWithoutUserInput = {
+export type DistributorClientUpdateWithWhereUniqueWithoutClientInput = {
   where: Prisma.DistributorClientWhereUniqueInput
-  data: Prisma.XOR<Prisma.DistributorClientUpdateWithoutUserInput, Prisma.DistributorClientUncheckedUpdateWithoutUserInput>
+  data: Prisma.XOR<Prisma.DistributorClientUpdateWithoutClientInput, Prisma.DistributorClientUncheckedUpdateWithoutClientInput>
 }
 
-export type DistributorClientUpdateManyWithWhereWithoutUserInput = {
+export type DistributorClientUpdateManyWithWhereWithoutClientInput = {
   where: Prisma.DistributorClientScalarWhereInput
-  data: Prisma.XOR<Prisma.DistributorClientUpdateManyMutationInput, Prisma.DistributorClientUncheckedUpdateManyWithoutUserInput>
+  data: Prisma.XOR<Prisma.DistributorClientUpdateManyMutationInput, Prisma.DistributorClientUncheckedUpdateManyWithoutClientInput>
 }
 
 export type DistributorClientCreateManyDistributorInput = {
-  clientId?: string
-  userId: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  id?: string
+  clientId: string
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
-export type DistributorClientCreateManyUserInput = {
-  clientId?: string
+export type DistributorClientCreateManyClientInput = {
+  id?: string
   distributorId: string
-  role?: $Enums.ClientRole
-  phoneNumber?: string | null
-  totalReleases?: number
-  isActive?: boolean
-  oneTimePassword?: string | null
-  otpExpiresAt?: Date | string | null
+  status?: $Enums.DistributorClientStatus
+  contractStart?: Date | string | null
+  contractEnd?: Date | string | null
+  notes?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
 
 export type DistributorClientUpdateWithoutDistributorInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  user?: Prisma.UserUpdateOneRequiredWithoutClientDistributorNestedInput
+  client?: Prisma.UserUpdateOneRequiredWithoutClientDistributorNestedInput
 }
 
 export type DistributorClientUncheckedUpdateWithoutDistributorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
 export type DistributorClientUncheckedUpdateManyWithoutDistributorInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  userId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DistributorClientUpdateWithoutUserInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+export type DistributorClientUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   distributor?: Prisma.UserUpdateOneRequiredWithoutDistributorClientsNestedInput
 }
 
-export type DistributorClientUncheckedUpdateWithoutUserInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+export type DistributorClientUncheckedUpdateWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
 
-export type DistributorClientUncheckedUpdateManyWithoutUserInput = {
-  clientId?: Prisma.StringFieldUpdateOperationsInput | string
+export type DistributorClientUncheckedUpdateManyWithoutClientInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
   distributorId?: Prisma.StringFieldUpdateOperationsInput | string
-  role?: Prisma.EnumClientRoleFieldUpdateOperationsInput | $Enums.ClientRole
-  phoneNumber?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  totalReleases?: Prisma.IntFieldUpdateOperationsInput | number
-  isActive?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  oneTimePassword?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  otpExpiresAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  status?: Prisma.EnumDistributorClientStatusFieldUpdateOperationsInput | $Enums.DistributorClientStatus
+  contractStart?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  contractEnd?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  notes?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -817,97 +703,87 @@ export type DistributorClientUncheckedUpdateManyWithoutUserInput = {
 
 
 export type DistributorClientSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  clientId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  role?: boolean
-  phoneNumber?: boolean
-  totalReleases?: boolean
-  isActive?: boolean
-  oneTimePassword?: boolean
-  otpExpiresAt?: boolean
+  clientId?: boolean
+  status?: boolean
+  contractStart?: boolean
+  contractEnd?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributorClient"]>
 
 export type DistributorClientSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  clientId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  role?: boolean
-  phoneNumber?: boolean
-  totalReleases?: boolean
-  isActive?: boolean
-  oneTimePassword?: boolean
-  otpExpiresAt?: boolean
+  clientId?: boolean
+  status?: boolean
+  contractStart?: boolean
+  contractEnd?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributorClient"]>
 
 export type DistributorClientSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
-  clientId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  role?: boolean
-  phoneNumber?: boolean
-  totalReleases?: boolean
-  isActive?: boolean
-  oneTimePassword?: boolean
-  otpExpiresAt?: boolean
+  clientId?: boolean
+  status?: boolean
+  contractStart?: boolean
+  contractEnd?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["distributorClient"]>
 
 export type DistributorClientSelectScalar = {
-  clientId?: boolean
+  id?: boolean
   distributorId?: boolean
-  userId?: boolean
-  role?: boolean
-  phoneNumber?: boolean
-  totalReleases?: boolean
-  isActive?: boolean
-  oneTimePassword?: boolean
-  otpExpiresAt?: boolean
+  clientId?: boolean
+  status?: boolean
+  contractStart?: boolean
+  contractEnd?: boolean
+  notes?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type DistributorClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"clientId" | "distributorId" | "userId" | "role" | "phoneNumber" | "totalReleases" | "isActive" | "oneTimePassword" | "otpExpiresAt" | "createdAt" | "updatedAt", ExtArgs["result"]["distributorClient"]>
+export type DistributorClientOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "distributorId" | "clientId" | "status" | "contractStart" | "contractEnd" | "notes" | "createdAt" | "updatedAt", ExtArgs["result"]["distributorClient"]>
 export type DistributorClientInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DistributorClientIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 export type DistributorClientIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   distributor?: boolean | Prisma.UserDefaultArgs<ExtArgs>
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
+  client?: boolean | Prisma.UserDefaultArgs<ExtArgs>
 }
 
 export type $DistributorClientPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "DistributorClient"
   objects: {
     distributor: Prisma.$UserPayload<ExtArgs>
-    user: Prisma.$UserPayload<ExtArgs>
+    client: Prisma.$UserPayload<ExtArgs>
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
-    clientId: string
+    id: string
     distributorId: string
-    userId: string
-    role: $Enums.ClientRole
-    phoneNumber: string | null
-    totalReleases: number
-    isActive: boolean
-    oneTimePassword: string | null
-    otpExpiresAt: Date | null
+    clientId: string
+    status: $Enums.DistributorClientStatus
+    contractStart: Date | null
+    contractEnd: Date | null
+    notes: string | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["distributorClient"]>
@@ -993,8 +869,8 @@ export interface DistributorClientDelegate<ExtArgs extends runtime.Types.Extensi
    * // Get first 10 DistributorClients
    * const distributorClients = await prisma.distributorClient.findMany({ take: 10 })
    * 
-   * // Only select the `clientId`
-   * const distributorClientWithClientIdOnly = await prisma.distributorClient.findMany({ select: { clientId: true } })
+   * // Only select the `id`
+   * const distributorClientWithIdOnly = await prisma.distributorClient.findMany({ select: { id: true } })
    * 
    */
   findMany<T extends DistributorClientFindManyArgs>(args?: Prisma.SelectSubset<T, DistributorClientFindManyArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$DistributorClientPayload<ExtArgs>, T, "findMany", GlobalOmitOptions>>
@@ -1038,9 +914,9 @@ export interface DistributorClientDelegate<ExtArgs extends runtime.Types.Extensi
    *   ]
    * })
    * 
-   * // Create many DistributorClients and only return the `clientId`
-   * const distributorClientWithClientIdOnly = await prisma.distributorClient.createManyAndReturn({
-   *   select: { clientId: true },
+   * // Create many DistributorClients and only return the `id`
+   * const distributorClientWithIdOnly = await prisma.distributorClient.createManyAndReturn({
+   *   select: { id: true },
    *   data: [
    *     // ... provide data here
    *   ]
@@ -1129,9 +1005,9 @@ export interface DistributorClientDelegate<ExtArgs extends runtime.Types.Extensi
    *   ]
    * })
    * 
-   * // Update zero or more DistributorClients and only return the `clientId`
-   * const distributorClientWithClientIdOnly = await prisma.distributorClient.updateManyAndReturn({
-   *   select: { clientId: true },
+   * // Update zero or more DistributorClients and only return the `id`
+   * const distributorClientWithIdOnly = await prisma.distributorClient.updateManyAndReturn({
+   *   select: { id: true },
    *   where: {
    *     // ... provide filter here
    *   },
@@ -1305,7 +1181,7 @@ readonly fields: DistributorClientFieldRefs;
 export interface Prisma__DistributorClientClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
   distributor<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
+  client<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>): Prisma.Prisma__UserClient<runtime.Types.Result.GetResult<Prisma.$UserPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | Null, Null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1335,15 +1211,13 @@ export interface Prisma__DistributorClientClient<T, Null = never, ExtArgs extend
  * Fields of the DistributorClient model
  */
 export interface DistributorClientFieldRefs {
-  readonly clientId: Prisma.FieldRef<"DistributorClient", 'String'>
+  readonly id: Prisma.FieldRef<"DistributorClient", 'String'>
   readonly distributorId: Prisma.FieldRef<"DistributorClient", 'String'>
-  readonly userId: Prisma.FieldRef<"DistributorClient", 'String'>
-  readonly role: Prisma.FieldRef<"DistributorClient", 'ClientRole'>
-  readonly phoneNumber: Prisma.FieldRef<"DistributorClient", 'String'>
-  readonly totalReleases: Prisma.FieldRef<"DistributorClient", 'Int'>
-  readonly isActive: Prisma.FieldRef<"DistributorClient", 'Boolean'>
-  readonly oneTimePassword: Prisma.FieldRef<"DistributorClient", 'String'>
-  readonly otpExpiresAt: Prisma.FieldRef<"DistributorClient", 'DateTime'>
+  readonly clientId: Prisma.FieldRef<"DistributorClient", 'String'>
+  readonly status: Prisma.FieldRef<"DistributorClient", 'DistributorClientStatus'>
+  readonly contractStart: Prisma.FieldRef<"DistributorClient", 'DateTime'>
+  readonly contractEnd: Prisma.FieldRef<"DistributorClient", 'DateTime'>
+  readonly notes: Prisma.FieldRef<"DistributorClient", 'String'>
   readonly createdAt: Prisma.FieldRef<"DistributorClient", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"DistributorClient", 'DateTime'>
 }

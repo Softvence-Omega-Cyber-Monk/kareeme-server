@@ -7,8 +7,19 @@ import { AuthModule } from './auth/auth.module';
 import { DistributionModule } from './distribution';
 import { ReleaseModule } from './release';
 import { UploadModule } from './upload/upload.module';
+import { CommerceModule } from './commerce/commerce.module';
 
 @Module({
-  imports: [AuthModule, UploadModule, ReleaseModule, AccountingModule, AnalyticsModule, DistributionModule, AdminModule, AccountantModule],
+  imports: [
+    AuthModule,
+    UploadModule,
+    ReleaseModule,
+    AccountingModule,
+    AnalyticsModule,
+    DistributionModule,
+    AdminModule,
+    AccountantModule,
+    CommerceModule
+  ],
 })
 export class MainModule {}
