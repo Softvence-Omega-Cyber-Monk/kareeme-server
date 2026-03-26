@@ -72,3 +72,6 @@ tmp
 *.log.json
 report.*.json
 coverage.json
+
+*pem
+server.pem
