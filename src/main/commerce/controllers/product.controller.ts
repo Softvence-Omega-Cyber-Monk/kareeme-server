@@ -13,6 +13,7 @@ import { CreateProductDto } from '../dto/create-product.dto';
 import { QueryProductDto } from '../dto/query-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
 import { ProductService } from '../services/product.service';
+import { ValidateSuperAdmin } from '@/core/jwt/jwt.decorator';
 
 @ApiTags('Commerce - Products')
 @Controller('commerce/products')
@@ -20,6 +21,7 @@ export class ProductController {
   constructor(private readonly productService: ProductService) {}
 
   @ApiBearerAuth()
+  @ValidateSuperAdmin()
   @Post()
   @ApiOperation({
     summary: 'Create product',
@@ -48,6 +50,7 @@ export class ProductController {
   }
 
   @ApiBearerAuth()
+  @ValidateSuperAdmin()
   @Patch(':id')
   @ApiOperation({
     summary: 'Update product',
@@ -58,6 +61,7 @@ export class ProductController {
   }
 
   @ApiBearerAuth()
+  @ValidateSuperAdmin()
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete product',

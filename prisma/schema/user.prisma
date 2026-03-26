@@ -49,11 +49,11 @@ model User {
   claims                   Claim[]
   paymentMethods           PaymentMethod[]
   privacySettings          PrivacySettings?
-  distributorClients       DistributorClient[]   @relation("DistributorClients")
-  distributorCatalogues    ClientBackCatalogue[] @relation("DistributorCatalogues")
-  distributorDistributions Distribution[]        @relation("DistributorDistributions")
-  clientDistributions      Distribution[]        @relation("ClientDistributions")
-  distributionNotes        DistributionNote[]
+  // distributorClients       DistributorClient[]   @relation("DistributorClients")
+  // distributorCatalogues    ClientBackCatalogue[] @relation("DistributorCatalogues")
+  // distributorDistributions Distribution[]        @relation("DistributorDistributions")
+  // clientDistributions      Distribution[]        @relation("ClientDistributions")
+  // distributionNotes        DistributionNote[]
   teamMember               TeamMember[]
   accountantSettings       AccountantSettings?
   platformEarnings         PlatformEarning[]
@@ -62,8 +62,8 @@ model User {
   clientFinancials         ClientFinancial[]
   monthlyStatements        MonthlyStatement[]
 
-  clientDistributor DistributorClient[]   @relation("ClientDistributor")
-  clientCatalogues  ClientBackCatalogue[] @relation("ClientCatalogues")
+  // clientDistributor DistributorClient[]   @relation("ClientDistributor")
+  // clientCatalogues  ClientBackCatalogue[] @relation("ClientCatalogues")
   cart              Cart?
   orders            Order[]
 

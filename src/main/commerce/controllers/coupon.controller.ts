@@ -1,3 +1,4 @@
+import { ValidateAuth, ValidateSuperAdmin } from '@/core/jwt/jwt.decorator';
 import {
   BadRequestException,
   Body,
@@ -9,7 +10,7 @@ import {
   Post,
   Query,
 } from '@nestjs/common';
-import { ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
+import { ApiBearerAuth, ApiBody, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { CreateCouponDto } from '../dto/create-coupon.dto';
 import { QueryCouponDto } from '../dto/query-coupon.dto';
 import { UpdateCouponDto } from '../dto/update-coupon.dto';
@@ -21,6 +22,8 @@ import { CouponService } from '../services/coupon.service';
 export class CouponController {
   constructor(private readonly couponService: CouponService) {}
 
+  @ApiBearerAuth()
+  @ValidateSuperAdmin()
   @Post()
   @ApiOperation({
     summary: 'Create a new coupon',
@@ -55,6 +58,8 @@ export class CouponController {
     return this.couponService.findOne(id);
   }
 
+  @ApiBearerAuth()
+  @ValidateSuperAdmin()
   @Patch(':id')
   @ApiOperation({
     summary: 'Update coupon by ID',
@@ -64,6 +69,8 @@ export class CouponController {
     return this.couponService.update(id, dto);
   }
 
+  @ApiBearerAuth()
+  @ValidateSuperAdmin()
   @Delete(':id')
   @ApiOperation({
     summary: 'Delete coupon by ID',
@@ -73,6 +80,8 @@ export class CouponController {
     return this.couponService.remove(id);
   }
 
+  @ApiBearerAuth()
+  @ValidateAuth()
   @Post('validate')
   @ApiOperation({
     summary: 'Validate coupon',
