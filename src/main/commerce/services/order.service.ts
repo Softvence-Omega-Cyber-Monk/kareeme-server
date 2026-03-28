@@ -5,6 +5,23 @@ import { Injectable, NotFoundException } from '@nestjs/common';
 export class OrderService {
   constructor(private readonly prisma: PrismaService) {}
 
+  async getAllOrders() {
+    return this.prisma.order.findMany({
+      include: {
+        user: true,
+        items: {
+          include: {
+            product: true,
+          },
+        },
+        payment: true,
+      },
+      orderBy: {
+        createdAt: 'desc',
+      },
+    });
+  }
+
   async getOrdersByUser(userId: string) {
     return this.prisma.order.findMany({
       where: { userId },

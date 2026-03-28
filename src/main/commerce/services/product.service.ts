@@ -1,9 +1,9 @@
+import { CloudinaryService } from '@/common/cloudinary/cloudinary.service';
+import { PrismaService } from '@/lib/prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { QueryProductDto } from '../dto/query-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
-import { PrismaService } from '@/lib/prisma/prisma.service';
-import { CloudinaryService } from '@/common/cloudinary/cloudinary.service';
 
 @Injectable()
 export class ProductService {
@@ -12,10 +12,7 @@ export class ProductService {
     private readonly cloudinaryService: CloudinaryService,
   ) {}
 
-  async create(
-    createProductDto: CreateProductDto,
-    file?: Express.Multer.File,
-  ) {
+  async create(createProductDto: CreateProductDto, file?: Express.Multer.File) {
     let imageUrl: string | undefined;
 
     if (file) {
@@ -31,6 +28,7 @@ export class ProductService {
         imageUrl,
         stock: createProductDto.stock ?? 0,
         isActive: createProductDto.isActive ?? true,
+        features: createProductDto.features,
       },
     });
   }

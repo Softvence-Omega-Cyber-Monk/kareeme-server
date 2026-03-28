@@ -44,6 +44,12 @@ model Order {
   user   User        @relation(fields: [userId], references: [id])
   status OrderStatus @default(PENDING)
 
+  fullName    String? @map("full_name")
+  phone       String?
+  addressLine String? @map("address_line")
+  city        String?
+  postalCode  String? @map("postal_code")
+
   subtotalAmount Float   @default(0) @map("subtotal_amount")
   discountAmount Float   @default(0) @map("discount_amount")
   couponCode     String? @map("coupon_code")

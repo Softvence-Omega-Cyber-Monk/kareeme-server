@@ -88,6 +88,11 @@ export class PaymentService {
       data: {
         userId: dto.userId,
         status: 'PENDING',
+        fullName: dto.fullName,
+        phone: dto.phone,
+        addressLine: dto.addressLine,
+        city: dto.city,
+        postalCode: dto.postalCode,
         subtotalAmount,
         discountAmount,
         couponCode: appliedCouponCode,

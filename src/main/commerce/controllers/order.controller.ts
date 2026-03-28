@@ -8,6 +8,11 @@ import { OrderService } from '../services/order.service';
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
+  @Get()
+  getAllOrders() {
+    return this.orderService.getAllOrders();
+  }
+
   @ApiBearerAuth()
   @ValidateAuth()
   @Get(':userId')

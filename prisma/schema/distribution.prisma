@@ -14,130 +14,127 @@
 // Links a DISTRIBUTOR user to a CLIENT user
 // ========== Distribution Module ==========
 
-// model DistributorClient {
-//   id            String                  @id @default(uuid())
-//   distributorId String                  @map("distributor_id")
-//   clientId      String                  @map("client_id")
-//   status        DistributorClientStatus @default(ACTIVE)
-//   contractStart DateTime?               @map("contract_start") @db.Date
-//   contractEnd   DateTime?               @map("contract_end") @db.Date
-//   notes         String?                 @db.VarChar
+model DistributorClient {
+  id            String                  @id @default(uuid())
+  distributorId String                  @map("distributor_id")
+  clientId      String                  @map("client_id")
+  status        DistributorClientStatus @default(ACTIVE)
+  contractStart DateTime?               @map("contract_start") @db.Date
+  contractEnd   DateTime?               @map("contract_end") @db.Date
+  notes         String?                 @db.VarChar
 
-//   distributor User @relation("DistributorClients", fields: [distributorId], references: [id], onDelete: Cascade)
-//   client      User @relation("ClientDistributor", fields: [clientId], references: [id], onDelete: Cascade)
+  distributor User @relation("DistributorClients", fields: [distributorId], references: [id], onDelete: Cascade)
+  client      User @relation("ClientDistributor", fields: [clientId], references: [id], onDelete: Cascade)
 
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-//   @@unique([distributorId, clientId])
-//   @@index([distributorId])
-//   @@index([clientId])
-//   @@map("distributor_clients")
-// }
+  @@unique([distributorId, clientId])
+  @@index([distributorId])
+  @@index([clientId])
+  @@map("distributor_clients")
+}
 
-// enum DistributorClientStatus {
-//   ACTIVE
-//   INACTIVE
-//   TERMINATED
-// }
+enum DistributorClientStatus {
+  ACTIVE
+  INACTIVE
+  TERMINATED
+}
 
+model Distribution {
+  distributionId String @id @default(uuid()) @map("distribution_id")
+  releaseId      String @map("release_id")
+  distributorId  String @map("distributor_id")
+  clientId       String @map("client_id")
 
-// model Distribution {
-//   distributionId String @id @default(uuid()) @map("distribution_id")
-//   releaseId      String @map("release_id")
-//   distributorId  String @map("distributor_id")
-//   clientId       String @map("client_id")
+  status        DistributionStatus @default(Pending)
+  submittedAt   DateTime?          @map("submitted_at")
+  approvedAt    DateTime?          @map("approved_at")
+  declinedAt    DateTime?          @map("declined_at")
+  declineReason String?            @map("decline_reason") @db.VarChar
 
-//   status        DistributionStatus @default(Pending)
-//   submittedAt   DateTime?          @map("submitted_at")
-//   approvedAt    DateTime?          @map("approved_at")
-//   declinedAt    DateTime?          @map("declined_at")
-//   declineReason String?            @map("decline_reason") @db.VarChar
+  targetPlatforms   String? @map("target_platforms") @db.VarChar
+  targetTerritories String? @map("target_territories") @db.VarChar
 
-//   targetPlatforms   String? @map("target_platforms") @db.VarChar
-//   targetTerritories String? @map("target_territories") @db.VarChar
+  scheduledReleaseDate DateTime? @map("scheduled_release_date") @db.Date
+  liveDate             DateTime? @map("live_date") @db.Date
 
-//   scheduledReleaseDate DateTime? @map("scheduled_release_date") @db.Date
-//   liveDate             DateTime? @map("live_date") @db.Date
+  revenueSplitPercent Decimal? @map("revenue_split_percent") @db.Decimal(5, 2)
 
-//   revenueSplitPercent Decimal? @map("revenue_split_percent") @db.Decimal(5, 2)
+  release     Release            @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
+  distributor User               @relation("DistributorDistributions", fields: [distributorId], references: [id], onDelete: Cascade)
+  client      User               @relation("ClientDistributions", fields: [clientId], references: [id], onDelete: Cascade)
+  notes       DistributionNote[]
 
-//   release     Release            @relation(fields: [releaseId], references: [releaseId], onDelete: Cascade)
-//   distributor User               @relation("DistributorDistributions", fields: [distributorId], references: [id], onDelete: Cascade)
-//   client      User               @relation("ClientDistributions", fields: [clientId], references: [id], onDelete: Cascade)
-//   notes       DistributionNote[]
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
+  @@index([releaseId])
+  @@index([distributorId])
+  @@index([clientId])
+  @@index([status])
+  @@map("distributions")
+}
 
-//   @@index([releaseId])
-//   @@index([distributorId])
-//   @@index([clientId])
-//   @@index([status])
-//   @@map("distributions")
-// }
+enum DistributionStatus {
+  Pending
+  InProgress
+  Approved
+  Distributed
+  Declined
+  TakedownRequested
+  TakenDown
+}
 
-// enum DistributionStatus {
-//   Pending
-//   InProgress
-//   Approved
-//   Distributed
-//   Declined
-//   TakedownRequested
-//   TakenDown
-// }
+model DistributionNote {
+  id             String  @id @default(uuid())
+  distributionId String  @map("distribution_id")
+  userId         String  @map("user_id")
+  content        String  @db.VarChar
+  isInternal     Boolean @default(true) @map("is_internal")
 
+  distribution Distribution @relation(fields: [distributionId], references: [distributionId], onDelete: Cascade)
+  author       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-// model DistributionNote {
-//   id             String  @id @default(uuid())
-//   distributionId String  @map("distribution_id")
-//   userId         String  @map("user_id")
-//   content        String  @db.VarChar
-//   isInternal     Boolean @default(true) @map("is_internal")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-//   distribution Distribution @relation(fields: [distributionId], references: [distributionId], onDelete: Cascade)
-//   author       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  @@index([distributionId])
+  @@index([userId])
+  @@map("distribution_notes")
+}
 
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
+model ClientBackCatalogue {
+  id            String @id @default(uuid())
+  distributorId String @map("distributor_id")
+  clientId      String @map("client_id")
 
-//   @@index([distributionId])
-//   @@index([userId])
-//   @@map("distribution_notes")
-// }
+  labelName       String?                   @map("label_name") @db.VarChar
+  distributor     String?                   @map("distributor_name") @db.VarChar
+  upc             String?                   @db.VarChar
+  catalogueNumber String?                   @map("catalogue_number") @db.VarChar
+  releaseArtist   String?                   @map("release_artist") @db.VarChar
+  releaseTitle    String?                   @map("release_title") @db.VarChar
+  releaseType     String?                   @map("release_type") @db.VarChar
+  releaseDate     DateTime?                 @map("release_date") @db.Date
+  pLine           String?                   @map("p_line") @db.VarChar
+  cLine           String?                   @map("c_line") @db.VarChar
+  status          ClientBackCatalogueStatus @default(ACTIVE)
+  notes           String?                   @db.VarChar
 
+  distributorUser User @relation("DistributorCatalogues", fields: [distributorId], references: [id], onDelete: Cascade)
+  clientUser      User @relation("ClientCatalogues", fields: [clientId], references: [id], onDelete: Cascade)
 
-// model ClientBackCatalogue {
-//   id            String @id @default(uuid())
-//   distributorId String @map("distributor_id")
-//   clientId      String @map("client_id")
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
 
-//   labelName       String?                   @map("label_name") @db.VarChar
-//   distributor     String?                   @map("distributor_name") @db.VarChar
-//   upc             String?                   @db.VarChar
-//   catalogueNumber String?                   @map("catalogue_number") @db.VarChar
-//   releaseArtist   String?                   @map("release_artist") @db.VarChar
-//   releaseTitle    String?                   @map("release_title") @db.VarChar
-//   releaseType     String?                   @map("release_type") @db.VarChar
-//   releaseDate     DateTime?                 @map("release_date") @db.Date
-//   pLine           String?                   @map("p_line") @db.VarChar
-//   cLine           String?                   @map("c_line") @db.VarChar
-//   status          ClientBackCatalogueStatus @default(ACTIVE)
-//   notes           String?                   @db.VarChar
+  @@index([distributorId])
+  @@index([clientId])
+  @@map("client_back_catalogues")
+}
 
-//   distributorUser User @relation("DistributorCatalogues", fields: [distributorId], references: [id], onDelete: Cascade)
-//   clientUser      User @relation("ClientCatalogues", fields: [clientId], references: [id], onDelete: Cascade)
-
-//   createdAt DateTime @default(now()) @map("created_at")
-//   updatedAt DateTime @updatedAt @map("updated_at")
-
-//   @@index([distributorId])
-//   @@index([clientId])
-//   @@map("client_back_catalogues")
-// }
-
-// enum ClientBackCatalogueStatus {
-//   ACTIVE
-//   ARCHIVED
-//   DISPUTED
-// }
+enum ClientBackCatalogueStatus {
+  ACTIVE
+  ARCHIVED
+  DISPUTED
+}

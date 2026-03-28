@@ -42,6 +42,11 @@ export type OrderMinAggregateOutputType = {
   id: string | null
   userId: string | null
   status: $Enums.OrderStatus | null
+  fullName: string | null
+  phone: string | null
+  addressLine: string | null
+  city: string | null
+  postalCode: string | null
   subtotalAmount: number | null
   discountAmount: number | null
   couponCode: string | null
@@ -53,6 +58,11 @@ export type OrderMaxAggregateOutputType = {
   id: string | null
   userId: string | null
   status: $Enums.OrderStatus | null
+  fullName: string | null
+  phone: string | null
+  addressLine: string | null
+  city: string | null
+  postalCode: string | null
   subtotalAmount: number | null
   discountAmount: number | null
   couponCode: string | null
@@ -64,6 +74,11 @@ export type OrderCountAggregateOutputType = {
   id: number
   userId: number
   status: number
+  fullName: number
+  phone: number
+  addressLine: number
+  city: number
+  postalCode: number
   subtotalAmount: number
   discountAmount: number
   couponCode: number
@@ -89,6 +104,11 @@ export type OrderMinAggregateInputType = {
   id?: true
   userId?: true
   status?: true
+  fullName?: true
+  phone?: true
+  addressLine?: true
+  city?: true
+  postalCode?: true
   subtotalAmount?: true
   discountAmount?: true
   couponCode?: true
@@ -100,6 +120,11 @@ export type OrderMaxAggregateInputType = {
   id?: true
   userId?: true
   status?: true
+  fullName?: true
+  phone?: true
+  addressLine?: true
+  city?: true
+  postalCode?: true
   subtotalAmount?: true
   discountAmount?: true
   couponCode?: true
@@ -111,6 +136,11 @@ export type OrderCountAggregateInputType = {
   id?: true
   userId?: true
   status?: true
+  fullName?: true
+  phone?: true
+  addressLine?: true
+  city?: true
+  postalCode?: true
   subtotalAmount?: true
   discountAmount?: true
   couponCode?: true
@@ -209,6 +239,11 @@ export type OrderGroupByOutputType = {
   id: string
   userId: string
   status: $Enums.OrderStatus
+  fullName: string | null
+  phone: string | null
+  addressLine: string | null
+  city: string | null
+  postalCode: string | null
   subtotalAmount: number
   discountAmount: number
   couponCode: string | null
@@ -243,6 +278,11 @@ export type OrderWhereInput = {
   id?: Prisma.StringFilter<"Order"> | string
   userId?: Prisma.StringFilter<"Order"> | string
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+  fullName?: Prisma.StringNullableFilter<"Order"> | string | null
+  phone?: Prisma.StringNullableFilter<"Order"> | string | null
+  addressLine?: Prisma.StringNullableFilter<"Order"> | string | null
+  city?: Prisma.StringNullableFilter<"Order"> | string | null
+  postalCode?: Prisma.StringNullableFilter<"Order"> | string | null
   subtotalAmount?: Prisma.FloatFilter<"Order"> | number
   discountAmount?: Prisma.FloatFilter<"Order"> | number
   couponCode?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -257,6 +297,11 @@ export type OrderOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fullName?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   couponCode?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -274,6 +319,11 @@ export type OrderWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.OrderWhereInput | Prisma.OrderWhereInput[]
   userId?: Prisma.StringFilter<"Order"> | string
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+  fullName?: Prisma.StringNullableFilter<"Order"> | string | null
+  phone?: Prisma.StringNullableFilter<"Order"> | string | null
+  addressLine?: Prisma.StringNullableFilter<"Order"> | string | null
+  city?: Prisma.StringNullableFilter<"Order"> | string | null
+  postalCode?: Prisma.StringNullableFilter<"Order"> | string | null
   subtotalAmount?: Prisma.FloatFilter<"Order"> | number
   discountAmount?: Prisma.FloatFilter<"Order"> | number
   couponCode?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -288,6 +338,11 @@ export type OrderOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fullName?: Prisma.SortOrderInput | Prisma.SortOrder
+  phone?: Prisma.SortOrderInput | Prisma.SortOrder
+  addressLine?: Prisma.SortOrderInput | Prisma.SortOrder
+  city?: Prisma.SortOrderInput | Prisma.SortOrder
+  postalCode?: Prisma.SortOrderInput | Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   couponCode?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -307,6 +362,11 @@ export type OrderScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"Order"> | string
   userId?: Prisma.StringWithAggregatesFilter<"Order"> | string
   status?: Prisma.EnumOrderStatusWithAggregatesFilter<"Order"> | $Enums.OrderStatus
+  fullName?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  phone?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  addressLine?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  city?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
+  postalCode?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
   subtotalAmount?: Prisma.FloatWithAggregatesFilter<"Order"> | number
   discountAmount?: Prisma.FloatWithAggregatesFilter<"Order"> | number
   couponCode?: Prisma.StringNullableWithAggregatesFilter<"Order"> | string | null
@@ -317,6 +377,11 @@ export type OrderScalarWhereWithAggregatesInput = {
 export type OrderCreateInput = {
   id?: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -331,6 +396,11 @@ export type OrderUncheckedCreateInput = {
   id?: string
   userId: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -343,6 +413,11 @@ export type OrderUncheckedCreateInput = {
 export type OrderUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -357,6 +432,11 @@ export type OrderUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -370,6 +450,11 @@ export type OrderCreateManyInput = {
   id?: string
   userId: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -380,6 +465,11 @@ export type OrderCreateManyInput = {
 export type OrderUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -391,6 +481,11 @@ export type OrderUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -402,6 +497,11 @@ export type OrderCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  postalCode?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   couponCode?: Prisma.SortOrder
@@ -419,6 +519,11 @@ export type OrderMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  postalCode?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   couponCode?: Prisma.SortOrder
@@ -430,6 +535,11 @@ export type OrderMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   userId?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  fullName?: Prisma.SortOrder
+  phone?: Prisma.SortOrder
+  addressLine?: Prisma.SortOrder
+  city?: Prisma.SortOrder
+  postalCode?: Prisma.SortOrder
   subtotalAmount?: Prisma.SortOrder
   discountAmount?: Prisma.SortOrder
   couponCode?: Prisma.SortOrder
@@ -535,6 +645,11 @@ export type OrderUncheckedUpdateManyWithoutUserNestedInput = {
 export type OrderCreateWithoutItemsInput = {
   id?: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -548,6 +663,11 @@ export type OrderUncheckedCreateWithoutItemsInput = {
   id?: string
   userId: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -575,6 +695,11 @@ export type OrderUpdateToOneWithWhereWithoutItemsInput = {
 export type OrderUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -588,6 +713,11 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -599,6 +729,11 @@ export type OrderUncheckedUpdateWithoutItemsInput = {
 export type OrderCreateWithoutPaymentInput = {
   id?: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -612,6 +747,11 @@ export type OrderUncheckedCreateWithoutPaymentInput = {
   id?: string
   userId: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -639,6 +779,11 @@ export type OrderUpdateToOneWithWhereWithoutPaymentInput = {
 export type OrderUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -652,6 +797,11 @@ export type OrderUncheckedUpdateWithoutPaymentInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   userId?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -663,6 +813,11 @@ export type OrderUncheckedUpdateWithoutPaymentInput = {
 export type OrderCreateWithoutUserInput = {
   id?: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -675,6 +830,11 @@ export type OrderCreateWithoutUserInput = {
 export type OrderUncheckedCreateWithoutUserInput = {
   id?: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -717,6 +877,11 @@ export type OrderScalarWhereInput = {
   id?: Prisma.StringFilter<"Order"> | string
   userId?: Prisma.StringFilter<"Order"> | string
   status?: Prisma.EnumOrderStatusFilter<"Order"> | $Enums.OrderStatus
+  fullName?: Prisma.StringNullableFilter<"Order"> | string | null
+  phone?: Prisma.StringNullableFilter<"Order"> | string | null
+  addressLine?: Prisma.StringNullableFilter<"Order"> | string | null
+  city?: Prisma.StringNullableFilter<"Order"> | string | null
+  postalCode?: Prisma.StringNullableFilter<"Order"> | string | null
   subtotalAmount?: Prisma.FloatFilter<"Order"> | number
   discountAmount?: Prisma.FloatFilter<"Order"> | number
   couponCode?: Prisma.StringNullableFilter<"Order"> | string | null
@@ -727,6 +892,11 @@ export type OrderScalarWhereInput = {
 export type OrderCreateManyUserInput = {
   id?: string
   status?: $Enums.OrderStatus
+  fullName?: string | null
+  phone?: string | null
+  addressLine?: string | null
+  city?: string | null
+  postalCode?: string | null
   subtotalAmount?: number
   discountAmount?: number
   couponCode?: string | null
@@ -737,6 +907,11 @@ export type OrderCreateManyUserInput = {
 export type OrderUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -749,6 +924,11 @@ export type OrderUpdateWithoutUserInput = {
 export type OrderUncheckedUpdateWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -761,6 +941,11 @@ export type OrderUncheckedUpdateWithoutUserInput = {
 export type OrderUncheckedUpdateManyWithoutUserInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   status?: Prisma.EnumOrderStatusFieldUpdateOperationsInput | $Enums.OrderStatus
+  fullName?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  phone?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  addressLine?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  city?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  postalCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   subtotalAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   discountAmount?: Prisma.FloatFieldUpdateOperationsInput | number
   couponCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -803,6 +988,11 @@ export type OrderSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = 
   id?: boolean
   userId?: boolean
   status?: boolean
+  fullName?: boolean
+  phone?: boolean
+  addressLine?: boolean
+  city?: boolean
+  postalCode?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
   couponCode?: boolean
@@ -818,6 +1008,11 @@ export type OrderSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   userId?: boolean
   status?: boolean
+  fullName?: boolean
+  phone?: boolean
+  addressLine?: boolean
+  city?: boolean
+  postalCode?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
   couponCode?: boolean
@@ -830,6 +1025,11 @@ export type OrderSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensi
   id?: boolean
   userId?: boolean
   status?: boolean
+  fullName?: boolean
+  phone?: boolean
+  addressLine?: boolean
+  city?: boolean
+  postalCode?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
   couponCode?: boolean
@@ -842,6 +1042,11 @@ export type OrderSelectScalar = {
   id?: boolean
   userId?: boolean
   status?: boolean
+  fullName?: boolean
+  phone?: boolean
+  addressLine?: boolean
+  city?: boolean
+  postalCode?: boolean
   subtotalAmount?: boolean
   discountAmount?: boolean
   couponCode?: boolean
@@ -849,7 +1054,7 @@ export type OrderSelectScalar = {
   createdAt?: boolean
 }
 
-export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "status" | "subtotalAmount" | "discountAmount" | "couponCode" | "totalAmount" | "createdAt", ExtArgs["result"]["order"]>
+export type OrderOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "userId" | "status" | "fullName" | "phone" | "addressLine" | "city" | "postalCode" | "subtotalAmount" | "discountAmount" | "couponCode" | "totalAmount" | "createdAt", ExtArgs["result"]["order"]>
 export type OrderInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   user?: boolean | Prisma.UserDefaultArgs<ExtArgs>
   items?: boolean | Prisma.Order$itemsArgs<ExtArgs>
@@ -874,6 +1079,11 @@ export type $OrderPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs 
     id: string
     userId: string
     status: $Enums.OrderStatus
+    fullName: string | null
+    phone: string | null
+    addressLine: string | null
+    city: string | null
+    postalCode: string | null
     subtotalAmount: number
     discountAmount: number
     couponCode: string | null
@@ -1308,6 +1518,11 @@ export interface OrderFieldRefs {
   readonly id: Prisma.FieldRef<"Order", 'String'>
   readonly userId: Prisma.FieldRef<"Order", 'String'>
   readonly status: Prisma.FieldRef<"Order", 'OrderStatus'>
+  readonly fullName: Prisma.FieldRef<"Order", 'String'>
+  readonly phone: Prisma.FieldRef<"Order", 'String'>
+  readonly addressLine: Prisma.FieldRef<"Order", 'String'>
+  readonly city: Prisma.FieldRef<"Order", 'String'>
+  readonly postalCode: Prisma.FieldRef<"Order", 'String'>
   readonly subtotalAmount: Prisma.FieldRef<"Order", 'Float'>
   readonly discountAmount: Prisma.FieldRef<"Order", 'Float'>
   readonly couponCode: Prisma.FieldRef<"Order", 'String'>
