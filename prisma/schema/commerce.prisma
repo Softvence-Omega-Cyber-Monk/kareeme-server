@@ -84,7 +84,9 @@ model Payment {
 
 enum OrderStatus {
   PENDING
-  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
   CANCELLED
 }
 

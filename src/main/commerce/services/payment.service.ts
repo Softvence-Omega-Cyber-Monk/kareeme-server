@@ -129,7 +129,7 @@ export class PaymentService {
       data: {
         orderId: order.id,
         amount: totalAmount,
-        status: 'Submitted',
+        status: 'Pending',
         stripePaymentIntentId: paymentIntent.id,
       },
     });
@@ -199,7 +199,7 @@ export class PaymentService {
     if (!payment) return;
 
     // idempotency: already paid, ignore duplicate webhook deliveries
-    if (payment.status === 'Paid' && payment.order.status === 'PAID') {
+    if (payment.status === 'Paid') {
       return;
     }
 
@@ -211,7 +211,7 @@ export class PaymentService {
 
       await tx.order.update({
         where: { id: payment.orderId },
-        data: { status: 'PAID' },
+        data: { status: 'PROCESSING' },
       });
 
       for (const item of payment.order.items) {
