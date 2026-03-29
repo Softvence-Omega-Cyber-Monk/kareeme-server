@@ -45,8 +45,7 @@ export class PaymentController {
     return this.paymentService.getPaymentStatus(orderId);
   }
 
-  @ApiBearerAuth()
-  @ValidateAuth()
+  
   @Post('webhook')
   @ApiOperation({
     summary: 'Handle Stripe webhook',

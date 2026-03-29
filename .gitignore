@@ -69,3 +69,9 @@ tmp
 *.log.json
 report.*.json
 coverage.json
+
+*pem
+server.pem
+config.bat
+temp_auto_push.bat
+temp_interactive_push.bat

@@ -119,7 +119,9 @@ export type OtpType = (typeof OtpType)[keyof typeof OtpType]
 
 export const OrderStatus = {
   PENDING: 'PENDING',
-  PAID: 'PAID',
+  PROCESSING: 'PROCESSING',
+  SHIPPED: 'SHIPPED',
+  DELIVERED: 'DELIVERED',
   CANCELLED: 'CANCELLED'
 } as const
 

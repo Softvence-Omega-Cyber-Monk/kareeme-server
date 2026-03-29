@@ -537,6 +537,7 @@ export const ProductScalarFieldEnum = {
   imageUrl: 'imageUrl',
   stock: 'stock',
   isActive: 'isActive',
+  features: 'features',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const
@@ -569,6 +570,11 @@ export const OrderScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   status: 'status',
+  fullName: 'fullName',
+  phone: 'phone',
+  addressLine: 'addressLine',
+  city: 'city',
+  postalCode: 'postalCode',
   subtotalAmount: 'subtotalAmount',
   discountAmount: 'discountAmount',
   couponCode: 'couponCode',

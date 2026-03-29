@@ -1,32 +1,50 @@
-import { ValidateAuth } from '@/core/jwt/jwt.decorator';
-import { Controller, Get, Param } from '@nestjs/common';
-import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  Patch,
+  Query,
+} from '@nestjs/common';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiTags,
+} from '@nestjs/swagger';
 import { OrderService } from '../services/order.service';
+import { GetOrdersQueryDto } from '../dto/get-order-query.dto';
+import { UpdateOrderStatusDto } from '../dto/update-order-status.dto';
 
-@ApiTags('Commerce - Orders')
-@Controller('commerce/orders')
+@ApiTags('Orders')
+@ApiBearerAuth()
+@Controller('orders')
 export class OrderController {
   constructor(private readonly orderService: OrderService) {}
 
-  @ApiBearerAuth()
-  @ValidateAuth()
-  @Get(':userId')
-  @ApiOperation({
-    summary: 'Get user orders',
-    description: 'Retrieve all orders for a specific user',
-  })
-  getOrders(@Param('userId') userId: string) {
+  @Get('admin')
+  @ApiOperation({ summary: 'Get all orders for admin' })
+  getAllOrders(@Query() query: GetOrdersQueryDto) {
+    return this.orderService.getAllOrders(query);
+  }
+
+  @Get('my-orders/:userId')
+  @ApiOperation({ summary: 'Get all orders of a user' })
+  getOrdersByUser(@Param('userId') userId: string) {
     return this.orderService.getOrdersByUser(userId);
   }
 
-  @ApiBearerAuth()
-  @ValidateAuth()
-  @Get('details/:orderId')
-  @ApiOperation({
-    summary: 'Get order details',
-    description: 'Retrieve detailed information of a specific order',
-  })
-  getOrder(@Param('orderId') orderId: string) {
-    return this.orderService.getOrderById(orderId);
+  @Get(':id')
+  @ApiOperation({ summary: 'Get order by id' })
+  getOrderById(@Param('id') id: string) {
+    return this.orderService.getOrderById(id);
+  }
+
+  @Patch(':id/status')
+  @ApiOperation({ summary: 'Update order status' })
+  updateOrderStatus(
+    @Param('id') id: string,
+    @Body() dto: UpdateOrderStatusDto,
+  ) {
+    return this.orderService.updateOrderStatus(id, dto);
   }
 }

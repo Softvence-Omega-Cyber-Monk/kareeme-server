@@ -1,22 +1,34 @@
+import { CloudinaryService } from '@/common/cloudinary/cloudinary.service';
+import { PrismaService } from '@/lib/prisma/prisma.service';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { QueryProductDto } from '../dto/query-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
-import { PrismaService } from '@/lib/prisma/prisma.service';
 
 @Injectable()
 export class ProductService {
-  constructor(private readonly prisma: PrismaService) {}
+  constructor(
+    private readonly prisma: PrismaService,
+    private readonly cloudinaryService: CloudinaryService,
+  ) {}
 
-  async create(createProductDto: CreateProductDto) {
+  async create(createProductDto: CreateProductDto, file?: Express.Multer.File) {
+    let imageUrl: string | undefined;
+
+    if (file) {
+      const uploaded = await this.cloudinaryService.uploadImage(file);
+      imageUrl = uploaded.secure_url;
+    }
+
     return this.prisma.product.create({
       data: {
         name: createProductDto.name,
         description: createProductDto.description,
         price: createProductDto.price,
-        imageUrl: createProductDto.imageUrl,
+        imageUrl,
         stock: createProductDto.stock ?? 0,
         isActive: createProductDto.isActive ?? true,
+        features: createProductDto.features,
       },
     });
   }
@@ -83,12 +95,26 @@ export class ProductService {
     return product;
   }
 
-  async update(id: string, updateProductDto: UpdateProductDto) {
+  async update(
+    id: string,
+    updateProductDto: UpdateProductDto,
+    file?: Express.Multer.File,
+  ) {
     await this.findOne(id);
+
+    let imageUrl: string | undefined;
+
+    if (file) {
+      const uploaded = await this.cloudinaryService.uploadImage(file);
+      imageUrl = uploaded.secure_url;
+    }
 
     return this.prisma.product.update({
       where: { id },
-      data: updateProductDto,
+      data: {
+        ...updateProductDto,
+        ...(imageUrl ? { imageUrl } : {}),
+      },
     });
   }
 

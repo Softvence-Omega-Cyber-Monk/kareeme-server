@@ -1,3 +1,4 @@
+import { CloudinaryModule } from '@/common/cloudinary/cloudinary.module';
 import { PrismaService } from '@/lib/prisma/prisma.service';
 import { Module } from '@nestjs/common';
 import { CartController } from './controllers/cart.controller';
@@ -13,6 +14,7 @@ import { ProductService } from './services/product.service';
 import { StripeService } from './services/stripe.service';
 
 @Module({
+  imports: [CloudinaryModule],
   controllers: [
     ProductController,
     CartController,
