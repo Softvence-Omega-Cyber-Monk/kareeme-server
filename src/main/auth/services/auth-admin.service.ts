@@ -15,6 +15,7 @@ import { Prisma, UserStatus } from '@prisma';
 import { randomBytes } from 'crypto';
 import { AdminRoleDto } from '../dto/admin-role.dto';
 import { InviteAdminDto } from '../dto/invite-admin.dto';
+import { AdminResetPasswordDto } from '../dto/password.dto';
 
 @Injectable()
 export class AuthAdminService {
@@ -165,6 +166,46 @@ export class AuthAdminService {
       sanitizedUser,
       `User role updated to ${dto.role} successfully`,
     );
+  }
+
+  @HandleError('Failed to reset user password')
+  async resetPassword(userId: string, dto: AdminResetPasswordDto) {
+    const user = await this.prisma.user.findUnique({
+      where: { id: userId },
+      select: { id: true, role: true },
+    });
+
+    if (!user) {
+      throw new AppError(HttpStatus.NOT_FOUND, 'User not found');
+    }
+
+    const allowedRoles = [
+      UserEnum.ADMIN,
+      UserEnum.DISTRIBUTOR,
+      UserEnum.ACCOUNTANT,
+      UserEnum.CLIENT,
+    ];
+
+    if (!allowedRoles.includes(user.role as UserEnum)) {
+      throw new AppError(
+        HttpStatus.FORBIDDEN,
+        'Password reset is only allowed for admin, distributor, accountant, and client users',
+      );
+    }
+
+    const hashedPassword = await this.authUtils.hash(dto.newPassword);
+
+    await this.prisma.$transaction([
+      this.prisma.user.update({
+        where: { id: userId },
+        data: { password: hashedPassword },
+      }),
+      this.prisma.refreshToken.deleteMany({
+        where: { userId },
+      }),
+    ]);
+
+    return successResponse(null, 'User password reset successfully');
   }
 
   @HandleError('Failed to delete admin user')
