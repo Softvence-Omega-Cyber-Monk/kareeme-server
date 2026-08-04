@@ -1,6 +1,10 @@
-import { CloudinaryService } from '@/common/cloudinary/cloudinary.service';
+import { S3Service } from '@/lib/file/services/s3.service';
 import { PrismaService } from '@/lib/prisma/prisma.service';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateProductDto } from '../dto/create-product.dto';
 import { QueryProductDto } from '../dto/query-product.dto';
 import { UpdateProductDto } from '../dto/update-product.dto';
@@ -9,26 +13,29 @@ import { UpdateProductDto } from '../dto/update-product.dto';
 export class ProductService {
   constructor(
     private readonly prisma: PrismaService,
-    private readonly cloudinaryService: CloudinaryService,
+    private readonly s3Service: S3Service,
   ) {}
 
   async create(createProductDto: CreateProductDto, file?: Express.Multer.File) {
     let imageUrl: string | undefined;
 
     if (file) {
-      const uploaded = await this.cloudinaryService.uploadImage(file);
-      imageUrl = uploaded.secure_url;
+      const uploaded = await this.s3Service.uploadFile(file);
+      imageUrl = uploaded.url;
     }
 
     return this.prisma.product.create({
       data: {
         name: createProductDto.name,
         description: createProductDto.description,
-        price: createProductDto.price,
+        price: this.parseNumber(createProductDto.price, 'price'),
         imageUrl,
-        stock: createProductDto.stock ?? 0,
-        isActive: createProductDto.isActive ?? true,
-        features: createProductDto.features,
+        stock:
+          createProductDto.stock === undefined
+            ? 0
+            : this.parseNumber(createProductDto.stock, 'stock'),
+        isActive: this.parseBoolean(createProductDto.isActive, true),
+        features: this.parseFeatures(createProductDto.features),
       },
     });
   }
@@ -105,14 +112,14 @@ export class ProductService {
     let imageUrl: string | undefined;
 
     if (file) {
-      const uploaded = await this.cloudinaryService.uploadImage(file);
-      imageUrl = uploaded.secure_url;
+      const uploaded = await this.s3Service.uploadFile(file);
+      imageUrl = uploaded.url;
     }
 
     return this.prisma.product.update({
       where: { id },
       data: {
-        ...updateProductDto,
+        ...this.normalizeUpdateData(updateProductDto),
         ...(imageUrl ? { imageUrl } : {}),
       },
     });
@@ -124,5 +131,59 @@ export class ProductService {
     return this.prisma.product.delete({
       where: { id },
     });
+  }
+
+  private normalizeUpdateData(dto: UpdateProductDto) {
+    return {
+      ...(dto.name !== undefined ? { name: dto.name } : {}),
+      ...(dto.description !== undefined
+        ? { description: dto.description }
+        : {}),
+      ...(dto.price !== undefined
+        ? { price: this.parseNumber(dto.price, 'price') }
+        : {}),
+      ...(dto.stock !== undefined
+        ? { stock: this.parseNumber(dto.stock, 'stock') }
+        : {}),
+      ...(dto.isActive !== undefined
+        ? { isActive: this.parseBoolean(dto.isActive, true) }
+        : {}),
+      ...(dto.features !== undefined
+        ? { features: this.parseFeatures(dto.features) }
+        : {}),
+    };
+  }
+
+  private parseNumber(value: unknown, field: string): number {
+    const parsed = Number(value);
+
+    if (!Number.isFinite(parsed)) {
+      throw new BadRequestException(`${field} must be a valid number`);
+    }
+
+    return parsed;
+  }
+
+  private parseBoolean(value: unknown, fallback: boolean): boolean {
+    if (value === undefined || value === null || value === '') return fallback;
+    if (typeof value === 'boolean') return value;
+    if (typeof value === 'string') return value === 'true';
+    return Boolean(value);
+  }
+
+  private parseFeatures(value: unknown): string[] {
+    if (!value) return [];
+    if (Array.isArray(value)) return value.map(String);
+    if (typeof value !== 'string') return [];
+
+    try {
+      const parsed = JSON.parse(value);
+      return Array.isArray(parsed) ? parsed.map(String) : [];
+    } catch {
+      return value
+        .split(',')
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
   }
 }
