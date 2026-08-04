@@ -13,6 +13,7 @@ import {
 import { ApiBearerAuth, ApiOperation, ApiTags } from '@nestjs/swagger';
 import { AdminRoleDto } from '../dto/admin-role.dto';
 import { InviteAdminDto } from '../dto/invite-admin.dto';
+import { AdminResetPasswordDto } from '../dto/password.dto';
 import { AuthAdminService } from '../services/auth-admin.service';
 
 @ApiTags('Auth Admin')
@@ -48,6 +49,16 @@ export class AuthAdminController {
   @ValidateSuperAdmin()
   async changeRole(@Param('id') id: string, @Query() dto: AdminRoleDto) {
     return this.authAdminService.changeRole(id, dto);
+  }
+
+  @ApiOperation({ summary: 'Reset user password' })
+  @Patch(':id/password')
+  @ValidateSuperAdmin()
+  async resetPassword(
+    @Param('id') id: string,
+    @Body() dto: AdminResetPasswordDto,
+  ) {
+    return this.authAdminService.resetPassword(id, dto);
   }
 
   @ApiOperation({ summary: 'Delete admin user' })
