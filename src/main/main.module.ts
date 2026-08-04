@@ -8,7 +8,6 @@ import { DistributionModule } from './distribution';
 import { ReleaseModule } from './release';
 import { UploadModule } from './upload/upload.module';
 import { CommerceModule } from './commerce/commerce.module';
-import { CloudinaryModule } from '@/common/cloudinary/cloudinary.module';
 
 @Module({
   imports: [
@@ -21,7 +20,6 @@ import { CloudinaryModule } from '@/common/cloudinary/cloudinary.module';
     AdminModule,
     AccountantModule,
     CommerceModule,
-    CloudinaryModule,
   ],
 })
 export class MainModule {}
