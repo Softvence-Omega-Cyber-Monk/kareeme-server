@@ -36,7 +36,6 @@ lerna-debug.log*
 !.vscode/extensions.json
 
 # dotenv environment variable files
-.env
 .env.development.local
 .env.test.local
 .env.production.local
@@ -73,3 +72,7 @@ coverage.json
 
 *pem
 server.pem
+branch_structure.json
+temp_auto_push.bat
+temp_interactive_push.bat
+config.bat
